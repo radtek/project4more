@@ -116,7 +116,8 @@ BOOL CPubGoodsDlg::OnInitDialog()
 	m_msgedit.LimitText(100);
     // TODO:  在此添加额外的初始化
     // 初始化货物名称
-	combName.AddString("请选择");
+	combName.AddString("请选择");	
+	//--------------------------
 	combName.AddString("机械设备");
 	combName.AddString("电子产品");
 	combName.AddString("日用百货");
@@ -136,9 +137,16 @@ BOOL CPubGoodsDlg::OnInitDialog()
 
 	// 货物类型
 	combType.AddString("请选择");
+	//combType.AddString("重货");
+	//combType.AddString("泡货");
+	//combType.AddString("重泡");
+	//--------------------------
+	combType.AddString("整车");
+	combType.AddString("零担");
 	combType.AddString("重货");
 	combType.AddString("泡货");
-	combType.AddString("重泡");
+	combType.AddString("漂货");
+	combType.AddString("普货");
 	combType.SetCurSel(0);
 
 	// 价格单位
@@ -326,10 +334,12 @@ void CPubGoodsDlg::OnBnClickedPubGoodsPreviewBtn()
 		return;
 	}
 
+	/*
+	//2011-12-28 取消重量非空限制
 	if (weight == "" && cubage == "") {
 		MessageBox("重量不能为空", "发布货源");
 		return;
-	}
+	}*/
 
 	if (carNum == "") {
 		//MessageBox("需车数量不能为空", "发布货源");
@@ -629,7 +639,7 @@ void CPubGoodsDlg::OnBnClickedOk()
 		//MessageBox("请选择货物类型", "发布货源");
 		//ifOK = false;
 		//return;
-		type = "NULL";
+		type = "普货";
 	}
 
 	if (clen == "请选择")
@@ -662,11 +672,11 @@ void CPubGoodsDlg::OnBnClickedOk()
         return;
     }
 
-	if (weight == "" && cubage == "") {
-		MessageBox("重量不能为空", "发布货源");
-        ifOK = false;
-        return;
-    }
+	/*if (weight == "" && cubage == "") {
+		//MessageBox("重量不能为空", "发布货源");
+        //ifOK = false;
+        //return;
+    }*/
 
     if (carNum == "") {
 		carNum = "NULL";
