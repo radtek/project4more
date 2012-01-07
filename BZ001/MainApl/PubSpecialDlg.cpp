@@ -283,6 +283,7 @@ void CPubSpecialDlg::OnBnClickedOk()
 {
     // TODO: 在此添加控件通知处理程序代码
     UpdateData();
+	//MessageBox (information);
     bool ifOK = true;
     // 判断必填字段
     if (enProvince == "" || enCity == "" || enCounty == "") {
