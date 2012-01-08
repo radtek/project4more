@@ -1,0 +1,3712 @@
+body {
+    margin: 0px;
+}
+
+div {
+    background-repeat: no-repeat;
+}
+
+.raw_image {
+    width: 100%;
+    height: 100%;
+}
+
+.preload {
+    display: none;
+}
+div.main_container {
+}
+
+.form_sketch {
+    border-color: transparent;
+    background-color: transparent;
+}
+
+.u0_original {
+    background-image: url('../发布形式一_files/u0_original.png');
+}
+
+.u0_container {
+    position:absolute;
+    left:60px;
+    top:110px;
+    width:650px;
+    height:30px;
+}
+
+#u0_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:656px;
+    height:36px;
+}
+
+.u1 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:646px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u0 {
+    position:absolute;
+    left:60px;
+    top:110px;
+    width:650px;
+    height:30px
+}
+
+.u2 {
+    position:absolute;
+    left:78px;
+    top:120px;
+    width:80px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u3_original {
+    background-image: url('../发布形式一_files/u3_original.png');
+}
+
+.u3_container {
+    position:absolute;
+    left:60px;
+    top:140px;
+    width:650px;
+    height:510px;
+}
+
+#u3_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:656px;
+    height:516px;
+}
+
+.u4 {
+    position:absolute;
+    left:2px;
+    top:247px;
+    width:646px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u3 {
+    position:absolute;
+    left:60px;
+    top:140px;
+    width:650px;
+    height:510px
+}
+
+.u5 {
+    position:absolute;
+    left:77px;
+    top:151px;
+    width:60px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u6 {
+    position:absolute;
+    left:140px;
+    top:148px;
+    width:80px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 12px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u8 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:82px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u9 {
+    position:absolute;
+    left:77px;
+    top:185px;
+    width:30px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u10 {
+    position:absolute;
+    left:100px;
+    top:180px;
+    width:80px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u11 {
+    position:absolute;
+    left:190px;
+    top:180px;
+    width:80px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u12 {
+    position:absolute;
+    left:281px;
+    top:180px;
+    width:80px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u13 {
+    position:absolute;
+    left:379px;
+    top:184px;
+    width:40px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u14 {
+    position:absolute;
+    left:401px;
+    top:180px;
+    width:80px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u15 {
+    position:absolute;
+    left:491px;
+    top:180px;
+    width:80px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u16 {
+    position:absolute;
+    left:582px;
+    top:180px;
+    width:80px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u17 {
+    position:absolute;
+    left:150px;
+    top:483px;
+    width:543px;
+    height:67px;
+    ;
+    ;
+    text-align: left;;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u18 {
+    position:absolute;
+    left:80px;
+    top:571px;
+    width:60px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u19 {
+    position:absolute;
+    left:140px;
+    top:568px;
+    width:120px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 12px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u20 {
+    position:absolute;
+    left:359px;
+    top:564px;
+    width:110px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 12px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u22 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:82px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u24 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:82px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u25_original {
+    background-image: url('../发布形式一_files/u25_original.png');
+}
+
+.u25_container {
+    position:absolute;
+    left:380px;
+    top:602px;
+    width:100px;
+    height:30px;
+}
+
+#u25_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:36px;
+}
+
+.u26 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:96px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u25 {
+    position:absolute;
+    left:380px;
+    top:602px;
+    width:100px;
+    height:30px
+}
+
+.u27_original {
+    background-image: url('../发布形式一_files/u25_original.png');
+}
+
+.u27_container {
+    position:absolute;
+    left:485px;
+    top:602px;
+    width:100px;
+    height:30px;
+}
+
+#u27_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:36px;
+}
+
+.u28 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:96px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u27 {
+    position:absolute;
+    left:485px;
+    top:602px;
+    width:100px;
+    height:30px
+}
+
+.u29_original {
+    background-image: url('../发布形式一_files/u25_original.png');
+}
+
+.u29_container {
+    position:absolute;
+    left:590px;
+    top:602px;
+    width:100px;
+    height:30px;
+}
+
+#u29_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:36px;
+}
+
+.u30 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:96px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u29 {
+    position:absolute;
+    left:590px;
+    top:602px;
+    width:100px;
+    height:30px
+}
+
+.u31 {
+    position:absolute;
+    left:396px;
+    top:611px;
+    width:70px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u32 {
+    position:absolute;
+    left:498px;
+    top:611px;
+    width:70px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u33 {
+    position:absolute;
+    left:600px;
+    top:611px;
+    width:70px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u34_original {
+    background-image: url('../发布形式一_files/u34_original.png');
+}
+
+.u34_container {
+    position:absolute;
+    left:70px;
+    top:214px;
+    width:200px;
+    height:250px;
+}
+
+#u34_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:206px;
+    height:256px;
+}
+
+.u35 {
+    position:absolute;
+    left:2px;
+    top:117px;
+    width:196px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u34 {
+    position:absolute;
+    left:70px;
+    top:214px;
+    width:200px;
+    height:250px
+}
+
+.u36_original {
+    background-image: url('../发布形式一_files/u36_original.png');
+}
+
+.u36_container {
+    position:absolute;
+    left:75px;
+    top:228px;
+    width:190px;
+    height:202px;
+}
+
+#u36_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:196px;
+    height:208px;
+}
+
+.u37 {
+    position:absolute;
+    left:2px;
+    top:93px;
+    width:186px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u36 {
+    position:absolute;
+    left:75px;
+    top:228px;
+    width:190px;
+    height:202px
+}
+
+.u38 {
+    position:absolute;
+    left:76px;
+    top:436px;
+    width:130px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u39 {
+    position:absolute;
+    left:213px;
+    top:436px;
+    width:50px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 12px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u40_line {
+    background-image: url('../发布形式一_files/u40_line.png');
+}
+
+.u40_line {
+    position:absolute;
+    left:70px;
+    top:475px;
+    width:620px;
+    height:3px;
+}
+
+.u40 {
+    position:absolute;
+    left:70px;
+    top:475px;
+    width:620px;
+    height:3px
+}
+
+.u41_original {
+    background-image: url('../发布形式一_files/u41_original.png');
+}
+
+.u41_container {
+    position:absolute;
+    left:77px;
+    top:486px;
+    width:65px;
+    height:65px;
+}
+
+#u41_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:71px;
+    height:71px;
+}
+
+.u42 {
+    position:absolute;
+    left:2px;
+    top:24px;
+    width:61px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u41 {
+    position:absolute;
+    left:77px;
+    top:486px;
+    width:65px;
+    height:65px
+}
+
+.u43 {
+    position:absolute;
+    left:89px;
+    top:501px;
+    width:40px;
+    height:36px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u44 {
+    position:absolute;
+    left:290px;
+    top:567px;
+    width:60px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u45_original {
+    background-image: url('../发布形式一_files/u45_original.png');
+}
+
+.u45_container {
+    position:absolute;
+    left:86px;
+    top:209px;
+    width:35px;
+    height:11px;
+}
+
+#u45_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:41px;
+    height:17px;
+}
+
+.u46 {
+    position:absolute;
+    left:2px;
+    top:-2px;
+    width:31px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u45 {
+    position:absolute;
+    left:86px;
+    top:209px;
+    width:35px;
+    height:11px
+}
+
+.u47 {
+    position:absolute;
+    left:86px;
+    top:208px;
+    width:40px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u48_original {
+    background-image: url('../发布形式一_files/u34_original.png');
+}
+
+.u48_container {
+    position:absolute;
+    left:285px;
+    top:214px;
+    width:200px;
+    height:250px;
+}
+
+#u48_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:206px;
+    height:256px;
+}
+
+.u49 {
+    position:absolute;
+    left:2px;
+    top:117px;
+    width:196px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u48 {
+    position:absolute;
+    left:285px;
+    top:214px;
+    width:200px;
+    height:250px
+}
+
+.u50_original {
+    background-image: url('../发布形式一_files/u50_original.png');
+}
+
+.u50_container {
+    position:absolute;
+    left:500px;
+    top:214px;
+    width:200px;
+    height:160px;
+}
+
+#u50_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:206px;
+    height:166px;
+}
+
+.u51 {
+    position:absolute;
+    left:2px;
+    top:72px;
+    width:196px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u50 {
+    position:absolute;
+    left:500px;
+    top:214px;
+    width:200px;
+    height:160px
+}
+
+.u52_original {
+    background-image: url('../发布形式一_files/u45_original.png');
+}
+
+.u52_container {
+    position:absolute;
+    left:300px;
+    top:209px;
+    width:35px;
+    height:11px;
+}
+
+#u52_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:41px;
+    height:17px;
+}
+
+.u53 {
+    position:absolute;
+    left:2px;
+    top:-2px;
+    width:31px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u52 {
+    position:absolute;
+    left:300px;
+    top:209px;
+    width:35px;
+    height:11px
+}
+
+.u54_original {
+    background-image: url('../发布形式一_files/u45_original.png');
+}
+
+.u54_container {
+    position:absolute;
+    left:516px;
+    top:210px;
+    width:35px;
+    height:11px;
+}
+
+#u54_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:41px;
+    height:17px;
+}
+
+.u55 {
+    position:absolute;
+    left:2px;
+    top:-2px;
+    width:31px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u54 {
+    position:absolute;
+    left:516px;
+    top:210px;
+    width:35px;
+    height:11px
+}
+
+.u56 {
+    position:absolute;
+    left:301px;
+    top:207px;
+    width:40px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u57 {
+    position:absolute;
+    left:512px;
+    top:209px;
+    width:40px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u58_original {
+    background-image: url('../发布形式一_files/u58_original.png');
+}
+
+.u58_container {
+    position:absolute;
+    left:290px;
+    top:228px;
+    width:190px;
+    height:92px;
+}
+
+#u58_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:196px;
+    height:98px;
+}
+
+.u59 {
+    position:absolute;
+    left:2px;
+    top:38px;
+    width:186px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u58 {
+    position:absolute;
+    left:290px;
+    top:228px;
+    width:190px;
+    height:92px
+}
+
+.u60 {
+    position:absolute;
+    left:300px;
+    top:234px;
+    width:170px;
+    height:60px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u61_original {
+    background-image: url('../发布形式一_files/u61_original.png');
+}
+
+.u61_container {
+    position:absolute;
+    left:294px;
+    top:303px;
+    width:184px;
+    height:15px;
+}
+
+#u61_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:184px;
+    height:15px;
+}
+
+.u62 {
+    position:absolute;
+    left:2px;
+    top:0px;
+    width:180px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u61 {
+    position:absolute;
+    left:294px;
+    top:303px;
+    width:184px;
+    height:15px
+}
+
+.u63_original {
+    background-image: url('../发布形式一_files/u63_original.png');
+}
+
+.u63_container {
+    position:absolute;
+    left:290px;
+    top:326px;
+    width:190px;
+    height:104px;
+}
+
+#u63_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:196px;
+    height:110px;
+}
+
+.u64 {
+    position:absolute;
+    left:2px;
+    top:44px;
+    width:186px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u63 {
+    position:absolute;
+    left:290px;
+    top:326px;
+    width:190px;
+    height:104px
+}
+
+.u65 {
+    position:absolute;
+    left:300px;
+    top:330px;
+    width:170px;
+    height:80px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u66_original {
+    background-image: url('../发布形式一_files/u61_original.png');
+}
+
+.u66_container {
+    position:absolute;
+    left:293px;
+    top:414px;
+    width:184px;
+    height:15px;
+}
+
+#u66_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:184px;
+    height:15px;
+}
+
+.u67 {
+    position:absolute;
+    left:2px;
+    top:0px;
+    width:180px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u66 {
+    position:absolute;
+    left:293px;
+    top:414px;
+    width:184px;
+    height:15px
+}
+
+.u68 {
+    position:absolute;
+    left:292px;
+    top:436px;
+    width:130px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u69 {
+    position:absolute;
+    left:435px;
+    top:440px;
+    width:30px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u70 {
+    position:absolute;
+    left:505px;
+    top:230px;
+    width:190px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u71_original {
+    background-image: url('../发布形式一_files/u71_original.png');
+}
+
+.u71_container {
+    position:absolute;
+    left:505px;
+    top:259px;
+    width:190px;
+    height:110px;
+}
+
+#u71_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:196px;
+    height:116px;
+}
+
+.u72 {
+    position:absolute;
+    left:2px;
+    top:47px;
+    width:186px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u71 {
+    position:absolute;
+    left:505px;
+    top:259px;
+    width:190px;
+    height:110px
+}
+
+.u73 {
+    position:absolute;
+    left:512px;
+    top:265px;
+    width:180px;
+    height:100px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u74_original {
+    background-image: url('../发布形式一_files/u74_original.png');
+}
+
+.u74_container {
+    position:absolute;
+    left:499px;
+    top:383px;
+    width:200px;
+    height:80px;
+}
+
+#u74_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:206px;
+    height:86px;
+}
+
+.u75 {
+    position:absolute;
+    left:2px;
+    top:32px;
+    width:196px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u74 {
+    position:absolute;
+    left:499px;
+    top:383px;
+    width:200px;
+    height:80px
+}
+
+.u76_original {
+    background-image: url('../发布形式一_files/u76_original.png');
+}
+
+.u76_container {
+    position:absolute;
+    left:514px;
+    top:379px;
+    width:80px;
+    height:11px;
+}
+
+#u76_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:86px;
+    height:17px;
+}
+
+.u77 {
+    position:absolute;
+    left:2px;
+    top:-2px;
+    width:76px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u76 {
+    position:absolute;
+    left:514px;
+    top:379px;
+    width:80px;
+    height:11px
+}
+
+.u78 {
+    position:absolute;
+    left:521px;
+    top:377px;
+    width:60px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u80 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:12px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u81_original {
+    background-image: url('../发布形式一_files/u81_original.png');
+}
+
+.u81_container {
+    position:absolute;
+    left:530px;
+    top:395px;
+    width:154px;
+    height:23px;
+}
+
+#u81_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:160px;
+    height:29px;
+}
+
+.u82 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:150px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u81 {
+    position:absolute;
+    left:530px;
+    top:395px;
+    width:154px;
+    height:23px
+}
+
+.u83 {
+    position:absolute;
+    left:536px;
+    top:400px;
+    width:100px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u85 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:12px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u86_original {
+    background-image: url('../发布形式一_files/u81_original.png');
+}
+
+.u86_container {
+    position:absolute;
+    left:531px;
+    top:425px;
+    width:154px;
+    height:23px;
+}
+
+#u86_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:160px;
+    height:29px;
+}
+
+.u87 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:150px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u86 {
+    position:absolute;
+    left:531px;
+    top:425px;
+    width:154px;
+    height:23px
+}
+
+.u88 {
+    position:absolute;
+    left:539px;
+    top:429px;
+    width:100px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u89_original {
+    background-image: url('../发布形式一_files/u0_original.png');
+}
+
+.u89_container {
+    position:absolute;
+    left:60px;
+    top:660px;
+    width:650px;
+    height:30px;
+}
+
+#u89_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:656px;
+    height:36px;
+}
+
+.u90 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:646px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u89 {
+    position:absolute;
+    left:60px;
+    top:660px;
+    width:650px;
+    height:30px
+}
+
+.u91 {
+    position:absolute;
+    left:78px;
+    top:670px;
+    width:80px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u92_original {
+    background-image: url('../发布形式一_files/u3_original.png');
+}
+
+.u92_container {
+    position:absolute;
+    left:60px;
+    top:690px;
+    width:650px;
+    height:510px;
+}
+
+#u92_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:656px;
+    height:516px;
+}
+
+.u93 {
+    position:absolute;
+    left:2px;
+    top:247px;
+    width:646px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u92 {
+    position:absolute;
+    left:60px;
+    top:690px;
+    width:650px;
+    height:510px
+}
+
+.u94 {
+    position:absolute;
+    left:77px;
+    top:701px;
+    width:60px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u95 {
+    position:absolute;
+    left:140px;
+    top:698px;
+    width:80px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 12px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u97 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:82px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u98 {
+    position:absolute;
+    left:77px;
+    top:735px;
+    width:30px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u99 {
+    position:absolute;
+    left:100px;
+    top:730px;
+    width:80px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u100 {
+    position:absolute;
+    left:190px;
+    top:730px;
+    width:80px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u101 {
+    position:absolute;
+    left:281px;
+    top:730px;
+    width:80px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u102 {
+    position:absolute;
+    left:379px;
+    top:734px;
+    width:40px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u103 {
+    position:absolute;
+    left:401px;
+    top:730px;
+    width:80px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u104 {
+    position:absolute;
+    left:491px;
+    top:730px;
+    width:80px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u105 {
+    position:absolute;
+    left:582px;
+    top:730px;
+    width:80px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u106 {
+    position:absolute;
+    left:150px;
+    top:1033px;
+    width:543px;
+    height:67px;
+    ;
+    ;
+    text-align: left;;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u107 {
+    position:absolute;
+    left:80px;
+    top:1121px;
+    width:60px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u108 {
+    position:absolute;
+    left:140px;
+    top:1118px;
+    width:120px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 12px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u109 {
+    position:absolute;
+    left:359px;
+    top:1114px;
+    width:110px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 12px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u111 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:82px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u113 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:82px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u114_original {
+    background-image: url('../发布形式一_files/u25_original.png');
+}
+
+.u114_container {
+    position:absolute;
+    left:380px;
+    top:1152px;
+    width:100px;
+    height:30px;
+}
+
+#u114_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:36px;
+}
+
+.u115 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:96px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u114 {
+    position:absolute;
+    left:380px;
+    top:1152px;
+    width:100px;
+    height:30px
+}
+
+.u116_original {
+    background-image: url('../发布形式一_files/u25_original.png');
+}
+
+.u116_container {
+    position:absolute;
+    left:485px;
+    top:1152px;
+    width:100px;
+    height:30px;
+}
+
+#u116_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:36px;
+}
+
+.u117 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:96px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u116 {
+    position:absolute;
+    left:485px;
+    top:1152px;
+    width:100px;
+    height:30px
+}
+
+.u118_original {
+    background-image: url('../发布形式一_files/u25_original.png');
+}
+
+.u118_container {
+    position:absolute;
+    left:590px;
+    top:1152px;
+    width:100px;
+    height:30px;
+}
+
+#u118_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:36px;
+}
+
+.u119 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:96px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u118 {
+    position:absolute;
+    left:590px;
+    top:1152px;
+    width:100px;
+    height:30px
+}
+
+.u120 {
+    position:absolute;
+    left:396px;
+    top:1161px;
+    width:70px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u121 {
+    position:absolute;
+    left:498px;
+    top:1161px;
+    width:70px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u122 {
+    position:absolute;
+    left:600px;
+    top:1161px;
+    width:70px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u123_original {
+    background-image: url('../发布形式一_files/u34_original.png');
+}
+
+.u123_container {
+    position:absolute;
+    left:287px;
+    top:764px;
+    width:200px;
+    height:250px;
+}
+
+#u123_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:206px;
+    height:256px;
+}
+
+.u124 {
+    position:absolute;
+    left:2px;
+    top:117px;
+    width:196px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u123 {
+    position:absolute;
+    left:287px;
+    top:764px;
+    width:200px;
+    height:250px
+}
+
+.u125_original {
+    background-image: url('../发布形式一_files/u36_original.png');
+}
+
+.u125_container {
+    position:absolute;
+    left:292px;
+    top:778px;
+    width:190px;
+    height:202px;
+}
+
+#u125_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:196px;
+    height:208px;
+}
+
+.u126 {
+    position:absolute;
+    left:2px;
+    top:93px;
+    width:186px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u125 {
+    position:absolute;
+    left:292px;
+    top:778px;
+    width:190px;
+    height:202px
+}
+
+.u127 {
+    position:absolute;
+    left:293px;
+    top:986px;
+    width:130px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u128 {
+    position:absolute;
+    left:305px;
+    top:783px;
+    width:175px;
+    height:192px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u129 {
+    position:absolute;
+    left:430px;
+    top:986px;
+    width:50px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 12px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u130_line {
+    background-image: url('../发布形式一_files/u130_line.png');
+}
+
+.u130_line {
+    position:absolute;
+    left:70px;
+    top:1025px;
+    width:620px;
+    height:3px;
+}
+
+.u130 {
+    position:absolute;
+    left:70px;
+    top:1025px;
+    width:620px;
+    height:3px
+}
+
+.u131_original {
+    background-image: url('../发布形式一_files/u41_original.png');
+}
+
+.u131_container {
+    position:absolute;
+    left:77px;
+    top:1036px;
+    width:65px;
+    height:65px;
+}
+
+#u131_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:71px;
+    height:71px;
+}
+
+.u132 {
+    position:absolute;
+    left:2px;
+    top:24px;
+    width:61px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u131 {
+    position:absolute;
+    left:77px;
+    top:1036px;
+    width:65px;
+    height:65px
+}
+
+.u133 {
+    position:absolute;
+    left:89px;
+    top:1051px;
+    width:40px;
+    height:36px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u134 {
+    position:absolute;
+    left:290px;
+    top:1117px;
+    width:60px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u135_original {
+    background-image: url('../发布形式一_files/u45_original.png');
+}
+
+.u135_container {
+    position:absolute;
+    left:303px;
+    top:759px;
+    width:35px;
+    height:11px;
+}
+
+#u135_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:41px;
+    height:17px;
+}
+
+.u136 {
+    position:absolute;
+    left:2px;
+    top:-2px;
+    width:31px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u135 {
+    position:absolute;
+    left:303px;
+    top:759px;
+    width:35px;
+    height:11px
+}
+
+.u137 {
+    position:absolute;
+    left:303px;
+    top:758px;
+    width:40px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u138_original {
+    background-image: url('../发布形式一_files/u34_original.png');
+}
+
+.u138_container {
+    position:absolute;
+    left:72px;
+    top:764px;
+    width:200px;
+    height:250px;
+}
+
+#u138_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:206px;
+    height:256px;
+}
+
+.u139 {
+    position:absolute;
+    left:2px;
+    top:117px;
+    width:196px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u138 {
+    position:absolute;
+    left:72px;
+    top:764px;
+    width:200px;
+    height:250px
+}
+
+.u140_original {
+    background-image: url('../发布形式一_files/u50_original.png');
+}
+
+.u140_container {
+    position:absolute;
+    left:500px;
+    top:764px;
+    width:200px;
+    height:160px;
+}
+
+#u140_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:206px;
+    height:166px;
+}
+
+.u141 {
+    position:absolute;
+    left:2px;
+    top:72px;
+    width:196px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u140 {
+    position:absolute;
+    left:500px;
+    top:764px;
+    width:200px;
+    height:160px
+}
+
+.u142_original {
+    background-image: url('../发布形式一_files/u45_original.png');
+}
+
+.u142_container {
+    position:absolute;
+    left:87px;
+    top:759px;
+    width:35px;
+    height:11px;
+}
+
+#u142_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:41px;
+    height:17px;
+}
+
+.u143 {
+    position:absolute;
+    left:2px;
+    top:-2px;
+    width:31px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u142 {
+    position:absolute;
+    left:87px;
+    top:759px;
+    width:35px;
+    height:11px
+}
+
+.u144_original {
+    background-image: url('../发布形式一_files/u45_original.png');
+}
+
+.u144_container {
+    position:absolute;
+    left:516px;
+    top:760px;
+    width:35px;
+    height:11px;
+}
+
+#u144_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:41px;
+    height:17px;
+}
+
+.u145 {
+    position:absolute;
+    left:2px;
+    top:-2px;
+    width:31px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u144 {
+    position:absolute;
+    left:516px;
+    top:760px;
+    width:35px;
+    height:11px
+}
+
+.u146 {
+    position:absolute;
+    left:88px;
+    top:757px;
+    width:40px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u147 {
+    position:absolute;
+    left:512px;
+    top:759px;
+    width:40px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u148_original {
+    background-image: url('../发布形式一_files/u58_original.png');
+}
+
+.u148_container {
+    position:absolute;
+    left:77px;
+    top:778px;
+    width:190px;
+    height:92px;
+}
+
+#u148_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:196px;
+    height:98px;
+}
+
+.u149 {
+    position:absolute;
+    left:2px;
+    top:38px;
+    width:186px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u148 {
+    position:absolute;
+    left:77px;
+    top:778px;
+    width:190px;
+    height:92px
+}
+
+.u150 {
+    position:absolute;
+    left:87px;
+    top:784px;
+    width:170px;
+    height:60px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u151_original {
+    background-image: url('../发布形式一_files/u61_original.png');
+}
+
+.u151_container {
+    position:absolute;
+    left:81px;
+    top:853px;
+    width:184px;
+    height:15px;
+}
+
+#u151_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:184px;
+    height:15px;
+}
+
+.u152 {
+    position:absolute;
+    left:2px;
+    top:0px;
+    width:180px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u151 {
+    position:absolute;
+    left:81px;
+    top:853px;
+    width:184px;
+    height:15px
+}
+
+.u153_original {
+    background-image: url('../发布形式一_files/u63_original.png');
+}
+
+.u153_container {
+    position:absolute;
+    left:77px;
+    top:876px;
+    width:190px;
+    height:104px;
+}
+
+#u153_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:196px;
+    height:110px;
+}
+
+.u154 {
+    position:absolute;
+    left:2px;
+    top:44px;
+    width:186px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u153 {
+    position:absolute;
+    left:77px;
+    top:876px;
+    width:190px;
+    height:104px
+}
+
+.u155 {
+    position:absolute;
+    left:87px;
+    top:880px;
+    width:170px;
+    height:80px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u156_original {
+    background-image: url('../发布形式一_files/u61_original.png');
+}
+
+.u156_container {
+    position:absolute;
+    left:80px;
+    top:964px;
+    width:184px;
+    height:15px;
+}
+
+#u156_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:184px;
+    height:15px;
+}
+
+.u157 {
+    position:absolute;
+    left:2px;
+    top:0px;
+    width:180px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u156 {
+    position:absolute;
+    left:80px;
+    top:964px;
+    width:184px;
+    height:15px
+}
+
+.u158 {
+    position:absolute;
+    left:79px;
+    top:986px;
+    width:130px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u159 {
+    position:absolute;
+    left:222px;
+    top:990px;
+    width:30px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u160 {
+    position:absolute;
+    left:505px;
+    top:780px;
+    width:190px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u161_original {
+    background-image: url('../发布形式一_files/u71_original.png');
+}
+
+.u161_container {
+    position:absolute;
+    left:505px;
+    top:809px;
+    width:190px;
+    height:110px;
+}
+
+#u161_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:196px;
+    height:116px;
+}
+
+.u162 {
+    position:absolute;
+    left:2px;
+    top:47px;
+    width:186px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u161 {
+    position:absolute;
+    left:505px;
+    top:809px;
+    width:190px;
+    height:110px
+}
+
+.u163 {
+    position:absolute;
+    left:512px;
+    top:815px;
+    width:180px;
+    height:100px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u164_original {
+    background-image: url('../发布形式一_files/u74_original.png');
+}
+
+.u164_container {
+    position:absolute;
+    left:499px;
+    top:933px;
+    width:200px;
+    height:80px;
+}
+
+#u164_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:206px;
+    height:86px;
+}
+
+.u165 {
+    position:absolute;
+    left:2px;
+    top:32px;
+    width:196px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u164 {
+    position:absolute;
+    left:499px;
+    top:933px;
+    width:200px;
+    height:80px
+}
+
+.u166_original {
+    background-image: url('../发布形式一_files/u76_original.png');
+}
+
+.u166_container {
+    position:absolute;
+    left:514px;
+    top:929px;
+    width:80px;
+    height:11px;
+}
+
+#u166_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:86px;
+    height:17px;
+}
+
+.u167 {
+    position:absolute;
+    left:2px;
+    top:-2px;
+    width:76px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u166 {
+    position:absolute;
+    left:514px;
+    top:929px;
+    width:80px;
+    height:11px
+}
+
+.u168 {
+    position:absolute;
+    left:521px;
+    top:927px;
+    width:60px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u170 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:12px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u171_original {
+    background-image: url('../发布形式一_files/u81_original.png');
+}
+
+.u171_container {
+    position:absolute;
+    left:530px;
+    top:945px;
+    width:154px;
+    height:23px;
+}
+
+#u171_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:160px;
+    height:29px;
+}
+
+.u172 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:150px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u171 {
+    position:absolute;
+    left:530px;
+    top:945px;
+    width:154px;
+    height:23px
+}
+
+.u173 {
+    position:absolute;
+    left:536px;
+    top:950px;
+    width:100px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u175 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:12px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u176_original {
+    background-image: url('../发布形式一_files/u81_original.png');
+}
+
+.u176_container {
+    position:absolute;
+    left:531px;
+    top:975px;
+    width:154px;
+    height:23px;
+}
+
+#u176_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:160px;
+    height:29px;
+}
+
+.u177 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:150px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u176 {
+    position:absolute;
+    left:531px;
+    top:975px;
+    width:154px;
+    height:23px
+}
+
+.u178 {
+    position:absolute;
+    left:539px;
+    top:979px;
+    width:100px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u179 {
+    position:absolute;
+    left:60px;
+    top:29px;
+    width:220px;
+    height:41px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u180 {
+    position:absolute;
+    left:360px;
+    top:35px;
+    width:100px;
+    height:25px;
+    ;
+    ;
+    text-align: center;;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:bold;
+    text-decoration:none;
+    
+}
+
+.u181 {
+    position:absolute;
+    left:470px;
+    top:35px;
+    width:100px;
+    height:25px;
+    ;
+    ;
+    text-align: center;;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:bold;
+    text-decoration:none;
+    
+}
+
+.u182 {
+    position:absolute;
+    left:580px;
+    top:35px;
+    width:100px;
+    height:25px;
+    ;
+    ;
+    text-align: center;;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:bold;
+    text-decoration:none;
+    
+}
+
+.u183 {
+    position:absolute;
+    left:761px;
+    top:130px;
+    width:80px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u184 {
+    position:absolute;
+    left:760px;
+    top:105px;
+    width:80px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u185_original {
+    background-image: url('../发布形式一_files/u185_original.png');
+}
+
+.u185_container {
+    position:absolute;
+    left:762px;
+    top:154px;
+    width:326px;
+    height:195px;
+}
+
+#u185_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:326px;
+    height:195px;
+}
+
+.u186 {
+    position:absolute;
+    left:2px;
+    top:90px;
+    width:322px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u185 {
+    position:absolute;
+    left:762px;
+    top:154px;
+    width:326px;
+    height:195px
+}
+
+.u187 {
+    position:absolute;
+    left:760px;
+    top:358px;
+    width:80px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u188_original {
+    background-image: url('../发布形式一_files/u188_original.png');
+}
+
+.u188_container {
+    position:absolute;
+    left:762px;
+    top:382px;
+    width:329px;
+    height:100px;
+}
+
+#u188_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:329px;
+    height:100px;
+}
+
+.u189 {
+    position:absolute;
+    left:2px;
+    top:42px;
+    width:325px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u188 {
+    position:absolute;
+    left:762px;
+    top:382px;
+    width:329px;
+    height:100px
+}
+
+.u190 {
+    position:absolute;
+    left:766px;
+    top:492px;
+    width:80px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u191_original {
+    background-image: url('../发布形式一_files/u191_original.png');
+}
+
+.u191_container {
+    position:absolute;
+    left:767px;
+    top:519px;
+    width:327px;
+    height:101px;
+}
+
+#u191_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:327px;
+    height:101px;
+}
+
+.u192 {
+    position:absolute;
+    left:2px;
+    top:42px;
+    width:323px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u191 {
+    position:absolute;
+    left:767px;
+    top:519px;
+    width:327px;
+    height:101px
+}
+
+.u193_original {
+    background-image: url('../发布形式一_files/u193_original.png');
+}
+
+.u193_container {
+    position:absolute;
+    left:160px;
+    top:308px;
+    width:80px;
+    height:20px;
+}
+
+#u193_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:86px;
+    height:26px;
+}
+
+.u194 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:76px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u193 {
+    position:absolute;
+    left:160px;
+    top:308px;
+    width:80px;
+    height:20px
+}
+
+.u195 {
+    position:absolute;
+    left:88px;
+    top:233px;
+    width:175px;
+    height:192px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u196 {
+    position:absolute;
+    left:172px;
+    top:310px;
+    width:70px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u197_original {
+    background-image: url('../发布形式一_files/u197_original.png');
+}
+
+.u197_container {
+    position:absolute;
+    left:339px;
+    top:274px;
+    width:50px;
+    height:20px;
+}
+
+#u197_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:56px;
+    height:26px;
+}
+
+.u198 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:46px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u197 {
+    position:absolute;
+    left:339px;
+    top:274px;
+    width:50px;
+    height:20px
+}
+
+.u199 {
+    position:absolute;
+    left:345px;
+    top:277px;
+    width:40px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u200_original {
+    background-image: url('../发布形式一_files/u200_original.png');
+}
+
+.u200_container {
+    position:absolute;
+    left:360px;
+    top:350px;
+    width:60px;
+    height:20px;
+}
+
+#u200_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:66px;
+    height:26px;
+}
+
+.u201 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:56px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u200 {
+    position:absolute;
+    left:360px;
+    top:350px;
+    width:60px;
+    height:20px
+}
+
+.u202 {
+    position:absolute;
+    left:369px;
+    top:353px;
+    width:50px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u203 {
+    position:absolute;
+    left:768px;
+    top:630px;
+    width:190px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u204_original {
+    background-image: url('../发布形式一_files/u204_original.png');
+}
+
+.u204_container {
+    position:absolute;
+    left:817px;
+    top:654px;
+    width:146px;
+    height:117px;
+}
+
+#u204_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:146px;
+    height:117px;
+}
+
+.u205 {
+    position:absolute;
+    left:2px;
+    top:50px;
+    width:142px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u204 {
+    position:absolute;
+    left:817px;
+    top:654px;
+    width:146px;
+    height:117px
+}
+
+.u206 {
+    position:absolute;
+    left:774px;
+    top:783px;
+    width:130px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u207 {
+    position:absolute;
+    left:774px;
+    top:814px;
+    width:130px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'宋体';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u208_original {
+    background-image: url('../发布形式一_files/u204_original.png');
+}
+
+.u208_container {
+    position:absolute;
+    left:909px;
+    top:782px;
+    width:146px;
+    height:117px;
+}
+
+#u208_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:146px;
+    height:117px;
+}
+
+.u209 {
+    position:absolute;
+    left:2px;
+    top:50px;
+    width:142px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u208 {
+    position:absolute;
+    left:909px;
+    top:782px;
+    width:146px;
+    height:117px
+}
+

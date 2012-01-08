@@ -1,0 +1,24 @@
+﻿var sitemap = 
+{
+"rootNodes":[
+{
+"pageName":"首页",
+"type":"Wireframe",
+"url":"首页.html",
+"children":[
+{
+"pageName":"发布形式一",
+"type":"Wireframe",
+"url":"发布形式一.html"},
+{
+"pageName":"发布形式二",
+"type":"Wireframe",
+"url":"发布形式二.html"},
+{
+"pageName":"发布形式三",
+"type":"Wireframe",
+"url":"发布形式三.html"},
+{
+"pageName":"搜索",
+"type":"Wireframe",
+"url":"搜索.html"}]}]};
