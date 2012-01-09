@@ -90,6 +90,7 @@
 #define IDD_DIALOG_PUB_HISTORY          236
 #define IDD_DIALOG_NUMBER               237
 #define IDD_DIALOG_CONTENT_LIST         238
+#define IDD_DIALOG_ADDR_SEL             239
 #define IDC_BTN_MainPage                1000
 #define IDC_COLOR_NAME                  1000
 #define IDC_CONFIG_SET_SYSBKCLR         1000
@@ -271,11 +272,14 @@
 #define IDC_BUTTON_SW2_ADD_ALL_COUNTY   1104
 #define IDC_BUTTON_DEL                  1104
 #define IDC_BUTTON_DELETE               1104
+#define IDC_BUTTON_ALL_COUNTY           1104
 #define IDC_TAB_NEW_NEXT                1105
 #define IDC_BUTTON_W1_TO_PROVINCE       1105
 #define IDC_BUTTON_SW1_CLEAN_PHONE_NUM  1105
 #define IDC_BUTTON_SW2_DEL              1105
 #define IDC_BUTTON_RENAME               1105
+#define IDC_BUTTON4                     1105
+#define IDC_BUTTON_CANCEL               1105
 #define IDC_TAB_MY_PREV                 1106
 #define IDC_BUTTON_W1_TO_CITY           1106
 #define IDC_BUTTON_SW2_CLEAN            1106
@@ -310,8 +314,10 @@
 #define IDC_LIST1                       1123
 #define IDC_PROGRESS1                   1124
 #define IDC_LIST_SW2_TO_CITY            1124
+#define IDC_LIST_CITY                   1124
 #define IDC_BTN_WLR                     1125
 #define IDC_LIST_SW2_TO_COUNTY          1125
+#define IDC_LIST_COUNTY                 1125
 #define IDC_BTN_SERVER                  1126
 #define IDC_LIST_SW2_DEST_KEY_WORD      1126
 #define IDC_LIST_SW2_TO_COUNTY2         1126
@@ -440,7 +446,6 @@
 #define IDC_BUTTON_PW2_CLOSE            1241
 #define IDC_BUTTON_PW1_CLOSE            1242
 #define IDC_CHECK_NO_FROM_ADDR          1243
-#define IDC_TAB1                        1244
 #define IDC_TAB_SEARCH_WAY              1244
 #define IDC_BUTTON_OK                   1247
 #define IDC_BUTTON_CLEAN                1248
@@ -512,7 +517,10 @@
 #define IDC_BUTTON_KB_NUM_DOT           1304
 #define IDC_BUTTON_PW1_FROM_COUNTY      1304
 #define IDC_BUTTON_KB_NUM_ZERO2         1305
+#define IDC_EDIT_DEST_ADDR              1305
 #define IDC_BUTTON_KB_NUM_D_ZERO        1306
+#define IDC_BUTTON_ALL_CITY             1306
+#define IDC_LIST_PROVINCE               1307
 #define ID_32771                        32771
 #define ID_MENU_SENDMSG_SENDMSG         32772
 #define ID_32775                        32775
@@ -527,9 +535,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        239
+#define _APS_NEXT_RESOURCE_VALUE        240
 #define _APS_NEXT_COMMAND_VALUE         32783
-#define _APS_NEXT_CONTROL_VALUE         1305
+#define _APS_NEXT_CONTROL_VALUE         1308
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

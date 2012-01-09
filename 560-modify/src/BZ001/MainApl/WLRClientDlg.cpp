@@ -40,6 +40,7 @@
 #include "PublishWayOneDlg.h"
 #include "PublishWayTwoDlg.h"
 #include "SearchMainDlg.h"
+#include "CommDef.h"
 // 美化外观插件
 //#include "SkinFeature.h"
 //#pragma comment(lib,"SkinFeature.lib")
@@ -114,6 +115,7 @@ enum MSG_Type
 };
 MSG_Type showtype;
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
+
 
 class CAboutDlg : public CDialog
 {
@@ -402,6 +404,8 @@ BOOL CWLRClientDlg::OnInitDialog()
 	//取得用户类型
 	this->is_funcs_enabled = this->get_funcs_status(svrIO.userInf.loginName);
 
+	//
+	InitCommData();
 
                                          
     // 初始化按钮
