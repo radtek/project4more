@@ -139,10 +139,10 @@ public:
 	afx_msg void OnPaint();
 public:
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
-	afx_msg void OnBnClickedButtonLocal();
+	/*afx_msg void OnBnClickedButtonLocal();
 	afx_msg void OnBnClickedButtonCancelSearch();
 	afx_msg void OnBnClickedButtonSecrecy();
-	afx_msg void OnBnClickedButtonStopRefresh();
+	afx_msg void OnBnClickedButtonStopRefresh();*/
 public:
 	void GetStartAddr(string& sProvince, string& sCity, string& sCounty)const
 	{
@@ -152,7 +152,7 @@ public:
 	}
 	void SetStartAddr(const string& sProvince, const string& sCity, const string& sCounty, bool bShow)
 	{
-		m_editStartAddr.SetWindowText(_T(""));
+	//	m_editStartAddr.SetWindowText(_T(""));
 
 		m_sStartProvince = sProvince;
 		m_sStartCity = sCity;
@@ -170,7 +170,7 @@ public:
 		{
 			sAddr += "+"+sCounty;
 		}
-		m_editStartAddr.SetWindowText(sAddr.c_str());
+	//	m_editStartAddr.SetWindowText(sAddr.c_str());
 	}
 	CString GetDestAddr(string& sProvince, string& sCity, string& sCounty)const
 	{
@@ -180,7 +180,7 @@ public:
 	}
 	void SetDestAddr(const string& sProvince, const string& sCity, const string& sCounty, bool bShow)
 	{
-		m_editDestAddr.SetWindowText(_T(""));
+		//m_editDestAddr.SetWindowText(_T(""));
 
 		m_sDestProvince = sProvince;
 		m_sDestCity = sCity;
@@ -199,7 +199,7 @@ public:
 		{
 			sAddr += "+"+sCounty;
 		}
-		m_editDestAddr.SetWindowText(sAddr.c_str());
+		//m_editDestAddr.SetWindowText(sAddr.c_str());
 	}
 	UINT8 GetCurType()const
 	{
@@ -213,13 +213,13 @@ private:
 	//CPictureEx m_Picture;
 	CPictureEx m_Picture;
 
-	CHoverButton m_btnLocal;
-	CHoverButton m_btnCancelSearch;
-	CHoverButton m_btnSecrecy;
-	CHoverButton m_btnStopRefresh;
+	//CHoverButton m_btnLocal;
+	//CHoverButton m_btnCancelSearch;
+	//CHoverButton m_btnSecrecy;
+	//CHoverButton m_btnStopRefresh;
 
-	CMouseRspEdit m_editStartAddr;
-	CMouseRspEdit m_editDestAddr;
+	//CMouseRspEdit m_editStartAddr;
+	//CMouseRspEdit m_editDestAddr;
 	string		  m_sStartProvince;
 	string		  m_sStartCity;
 	string		  m_sStartCounty;

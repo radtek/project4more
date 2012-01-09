@@ -78,12 +78,12 @@ void CTabNewInfDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_TAB_NEW_PREV, btnPrev);
 	DDX_Control(pDX, IDC_TAB_NEW_NEXT, btnNext);
 	DDX_Control(pDX, IDC_PIC, m_Picture);
-	DDX_Control(pDX, IDC_BUTTON_LOCAL, m_btnLocal);
-	DDX_Control(pDX, IDC_BUTTON_CANCEL_SEARCH, m_btnCancelSearch);
-	DDX_Control(pDX, IDC_BUTTON_SECRECY, m_btnSecrecy);
-	DDX_Control(pDX, IDC_BUTTON_STOP_REFRESH, m_btnStopRefresh);
-	DDX_Control(pDX, IDC_EDID_START_ADDR, m_editStartAddr);
-	DDX_Control(pDX, IDC_EDID_DEST_ADDR, m_editDestAddr);
+	//DDX_Control(pDX, IDC_BUTTON_LOCAL, m_btnLocal);
+	//DDX_Control(pDX, IDC_BUTTON_CANCEL_SEARCH, m_btnCancelSearch);
+	//DDX_Control(pDX, IDC_BUTTON_SECRECY, m_btnSecrecy);
+	//DDX_Control(pDX, IDC_BUTTON_STOP_REFRESH, m_btnStopRefresh);
+	//DDX_Control(pDX, IDC_EDID_START_ADDR, m_editStartAddr);
+	//DDX_Control(pDX, IDC_EDID_DEST_ADDR, m_editDestAddr);
 }
 
 
@@ -100,11 +100,11 @@ BEGIN_MESSAGE_MAP(CTabNewInfDlg, CDialog)
 	ON_WM_TIMER()
 	ON_WM_PAINT()
 	ON_WM_CTLCOLOR()
-	ON_BN_CLICKED(IDC_BUTTON_LOCAL, &CTabNewInfDlg::OnBnClickedButtonLocal)
+	/*ON_BN_CLICKED(IDC_BUTTON_LOCAL, &CTabNewInfDlg::OnBnClickedButtonLocal)
 	ON_BN_CLICKED(IDC_BUTTON_CANCEL_SEARCH, &CTabNewInfDlg::OnBnClickedButtonCancelSearch)
 	ON_BN_CLICKED(IDC_BUTTON_SECRECY, &CTabNewInfDlg::OnBnClickedButtonSecrecy)
 	ON_BN_CLICKED(IDC_BUTTON_STOP_REFRESH, &CTabNewInfDlg::OnBnClickedButtonStopRefresh)
-	ON_EN_CHANGE(IDC_EDID_START_ADDR, &CTabNewInfDlg::OnEnChangeEdidStartAddr)
+	ON_EN_CHANGE(IDC_EDID_START_ADDR, &CTabNewInfDlg::OnEnChangeEdidStartAddr)*/
 END_MESSAGE_MAP()
 
 // 自动改变控件位置大小
@@ -137,10 +137,10 @@ BOOL CTabNewInfDlg::OnInitDialog()
 	/*btnPrev.ShowWindow(SW_HIDE);
 	btnNext.ShowWindow(SW_HIDE);*/
 
-	m_btnLocal.LoadBitmap(IDB_LOCAL);
+	/*m_btnLocal.LoadBitmap(IDB_LOCAL);
 	m_btnCancelSearch.LoadBitmap(IDB_CANCEL);
 	m_btnSecrecy.LoadBitmap(IDB_SECRECY);
-	m_btnStopRefresh.LoadBitmap(IDB_STOP_REFRESH);
+	m_btnStopRefresh.LoadBitmap(IDB_STOP_REFRESH);*/
 
 	InitializeCriticalSection(&csStop);
 	//DWORD PID;
@@ -307,8 +307,8 @@ int CTabNewInfDlg::setData(int type, int curpage)
     switch (curType) {
         case 0: // 货源
 			
-			m_editStartAddr.SetWindowText(_T(""));
-			m_editDestAddr.SetWindowText(_T(""));
+		//	m_editStartAddr.SetWindowText(_T(""));
+		//	m_editDestAddr.SetWindowText(_T(""));
 
 			title.record = "最新货源信息";
 			//svrIO->getNewGoodsInf(contentData, curInput);
@@ -419,8 +419,8 @@ int CTabNewInfDlg::setData(int type, int curpage)
             //svrIO->getNewBulkGoodsInf(contentData, curInput);
             break;
         case 2: // 车源
-			m_editStartAddr.SetWindowText(_T(""));
-			m_editDestAddr.SetWindowText(_T(""));
+		//	m_editStartAddr.SetWindowText(_T(""));
+		//	m_editDestAddr.SetWindowText(_T(""));
 
             title.record = "最新车源信息";
 			//contentData.clear();
@@ -1006,24 +1006,24 @@ void CTabNewInfDlg::OnTimer(UINT_PTR nIDEvent)
 void CTabNewInfDlg::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
-	CBitmap bmp;
-	if (bmp.LoadBitmap(IDB_NEW_INFO_TABLE))
-	{
-		// Get the size of the bitmap
-		BITMAP bmpInfo;
-		bmp.GetBitmap(&bmpInfo);
+	//CBitmap bmp;
+	//if (bmp.LoadBitmap(IDB_NEW_INFO_TABLE))
+	//{
+	//	// Get the size of the bitmap
+	//	BITMAP bmpInfo;
+	//	bmp.GetBitmap(&bmpInfo);
 
-		CDC dcMemory;
-		dcMemory.CreateCompatibleDC(&dc);
+	//	CDC dcMemory;
+	//	dcMemory.CreateCompatibleDC(&dc);
 
-		CBitmap* pOldBitmap = dcMemory.SelectObject(&bmp);
+	//	CBitmap* pOldBitmap = dcMemory.SelectObject(&bmp);
 
-		CRect rect;
-		GetClientRect(&rect);
-		dc.BitBlt(0, 0, bmpInfo.bmWidth, bmpInfo.bmHeight, &dcMemory, 0, 0, SRCCOPY);
+	//	CRect rect;
+	//	GetClientRect(&rect);
+	//	dc.BitBlt(0, 0, bmpInfo.bmWidth, bmpInfo.bmHeight, &dcMemory, 0, 0, SRCCOPY);
 
-		dcMemory.SelectObject(pOldBitmap);
-	}
+	//	dcMemory.SelectObject(pOldBitmap);
+	//}
 }
 
 HBRUSH CTabNewInfDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -1045,59 +1045,59 @@ HBRUSH CTabNewInfDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 
 #include "WLRClientDlg.h"
-void CTabNewInfDlg::OnBnClickedButtonLocal()
-{
-	m_editStartAddr.SetWindowText(_T(""));
-	if( curType == 0 || curType == 3)
-	{
-		((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_START_SEARCH, 0, 0);
-	}
-	else if( curType == 2 || curType == 5 )
-	{
-		((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_START_SEARCH, 2, 0);
-	}
-}
-
-void CTabNewInfDlg::OnBnClickedButtonCancelSearch()
-{
-	CString sStartAddr, sDestAddr;
-	m_editDestAddr.GetWindowText(sDestAddr);
-	if( sDestAddr.IsEmpty() )
-	{
-		m_sStartProvince = m_sStartCity = m_sStartCounty = "";
-		m_sDestProvince = m_sDestCity = m_sDestCounty = "";
-		return ;
-	}
-	m_editDestAddr.SetWindowText(_T(""));
-
-	if( m_sStartProvince.empty() || m_sStartProvince == "不限" )
-	{
-		m_editStartAddr.SetWindowText(_T(""));
-		m_sStartProvince = m_sStartCity = m_sStartCounty = "";
-		vector<TabNewInfRecord> vecRecord;
-		setGrid(&vecRecord);
-		return ;
-	}
-	m_editDestAddr.SetWindowText(_T(""));
-	if( curType == 0 || curType == 3)
-	{
-		((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_CANCEL_SEARCH, 0, 1);
-	}
-	else if( curType == 2 || curType == 5 )
-	{
-		((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_CANCEL_SEARCH, 2, 1);
-	}
-}
-
-void CTabNewInfDlg::OnBnClickedButtonSecrecy()
-{
-	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_SECRECY);
-}
-
-void CTabNewInfDlg::OnBnClickedButtonStopRefresh()
-{
-	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_STOP_REFRESH);
-}
+//void CTabNewInfDlg::OnBnClickedButtonLocal()
+//{
+//	m_editStartAddr.SetWindowText(_T(""));
+//	if( curType == 0 || curType == 3)
+//	{
+//		((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_START_SEARCH, 0, 0);
+//	}
+//	else if( curType == 2 || curType == 5 )
+//	{
+//		((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_START_SEARCH, 2, 0);
+//	}
+//}
+//
+//void CTabNewInfDlg::OnBnClickedButtonCancelSearch()
+//{
+//	CString sStartAddr, sDestAddr;
+//	m_editDestAddr.GetWindowText(sDestAddr);
+//	if( sDestAddr.IsEmpty() )
+//	{
+//		m_sStartProvince = m_sStartCity = m_sStartCounty = "";
+//		m_sDestProvince = m_sDestCity = m_sDestCounty = "";
+//		return ;
+//	}
+//	m_editDestAddr.SetWindowText(_T(""));
+//
+//	if( m_sStartProvince.empty() || m_sStartProvince == "不限" )
+//	{
+//		m_editStartAddr.SetWindowText(_T(""));
+//		m_sStartProvince = m_sStartCity = m_sStartCounty = "";
+//		vector<TabNewInfRecord> vecRecord;
+//		setGrid(&vecRecord);
+//		return ;
+//	}
+//	m_editDestAddr.SetWindowText(_T(""));
+//	if( curType == 0 || curType == 3)
+//	{
+//		((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_CANCEL_SEARCH, 0, 1);
+//	}
+//	else if( curType == 2 || curType == 5 )
+//	{
+//		((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_CANCEL_SEARCH, 2, 1);
+//	}
+//}
+//
+//void CTabNewInfDlg::OnBnClickedButtonSecrecy()
+//{
+//	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_SECRECY);
+//}
+//
+//void CTabNewInfDlg::OnBnClickedButtonStopRefresh()
+//{
+//	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_STOP_REFRESH);
+//}
 
 LRESULT CTabNewInfDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 {

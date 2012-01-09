@@ -232,6 +232,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ContentDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\CountryRegion.cpp"
 				>
 			</File>
@@ -284,6 +288,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NumberDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\PictureEx.cpp"
 				>
 			</File>
@@ -305,6 +313,18 @@
 			</File>
 			<File
 				RelativePath=".\PubGoodsDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PubHistoryDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PublishWayOneDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PublishWayTwoDlg.cpp"
 				>
 			</File>
 			<File
@@ -332,7 +352,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SearchFavoriteDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\SearchGoodsDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SearchMainDlg.cpp"
 				>
 			</File>
 			<File
@@ -341,6 +369,18 @@
 			</File>
 			<File
 				RelativePath=".\SearchSpecialDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SearchWayOneDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SearchWayThreeDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SearchWayTwoDlg.cpp"
 				>
 			</File>
 			<File
@@ -550,6 +590,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ContentDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\CountryRegion.h"
 				>
 			</File>
@@ -610,6 +654,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NumberDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\PictureEx.h"
 				>
 			</File>
@@ -631,6 +679,18 @@
 			</File>
 			<File
 				RelativePath=".\PubGoodsDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PubHistoryDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PublishWayOneDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PublishWayTwoDlg.h"
 				>
 			</File>
 			<File
@@ -662,7 +722,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SearchFavoriteDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SearchGoodsDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SearchMainDlg.h"
 				>
 			</File>
 			<File
@@ -671,6 +739,18 @@
 			</File>
 			<File
 				RelativePath=".\SearchSpecialDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SearchWayOneDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SearchWayThreeDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SearchWayTwoDlg.h"
 				>
 			</File>
 			<File

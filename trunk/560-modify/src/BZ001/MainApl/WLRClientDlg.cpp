@@ -36,6 +36,10 @@
 
 #include "UserCenter.h"
 #include "WebHTTP.h"
+
+#include "PublishWayOneDlg.h"
+#include "PublishWayTwoDlg.h"
+#include "SearchMainDlg.h"
 // 美化外观插件
 //#include "SkinFeature.h"
 //#pragma comment(lib,"SkinFeature.lib")
@@ -257,6 +261,11 @@ BEGIN_MESSAGE_MAP(CWLRClientDlg, CDialog)
 	ON_BN_CLICKED(IDC_BTN_SHOPPING_MALL, &CWLRClientDlg::OnBnClickedBtnShoppingMall)
 	ON_BN_CLICKED(IDC_BTN_GPS_LOCATING, &CWLRClientDlg::OnBnClickedBtnGpsLocating)
 	ON_BN_CLICKED(IDC_BTN_MY_APP, &CWLRClientDlg::OnBnClickedBtnMyApp)
+	ON_BN_CLICKED(IDC_BUTTON_PUB_WAY_ONE, &CWLRClientDlg::OnBnClickedButtonPubWayOne)
+	ON_BN_CLICKED(IDC_BUTTON_PUB_WAY_TWO, &CWLRClientDlg::OnBnClickedButtonPubWayTwo)
+	ON_BN_CLICKED(IDC_BUTTON_SEARCH, &CWLRClientDlg::OnBnClickedButtonSearch)
+	ON_BN_CLICKED(IDC_BUTTON_HIDE_PHONE, &CWLRClientDlg::OnBnClickedButtonHidePhone)
+	ON_BN_CLICKED(IDC_BUTTON_STOP_REFRESH, &CWLRClientDlg::OnBnClickedButtonStopRefresh)
 END_MESSAGE_MAP()
 
 BEGIN_EASYSIZE_MAP(CWLRClientDlg)
@@ -350,7 +359,7 @@ BOOL CWLRClientDlg::OnInitDialog()
 
 
     // 检查更新-----徐清华取消检查更新
-    checkUpate();
+    //checkUpate();
 	
 
     // 加载设置
@@ -3720,6 +3729,8 @@ void CWLRClientDlg::OnBnClickedCancel()
 //发布货源
 void CWLRClientDlg::OnBnClickedBtnReleasegoods()
 {
+	CPublishWayOneDlg dlg;
+	dlg.DoModal();
 	// TODO: Add your control notification handler code here
 	if ( is_funcs_enabled ) 
 		pubGoodsInf();
@@ -3858,4 +3869,41 @@ LRESULT CWLRClientDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	}
 	return CDialog::WindowProc(message, wParam, lParam);
+}
+
+void CWLRClientDlg::OnBnClickedButtonPubWayOne()
+{
+	CPublishWayOneDlg dlg;
+	if( dlg.DoModal() == IDOK )
+	{
+
+	}
+}
+
+void CWLRClientDlg::OnBnClickedButtonPubWayTwo()
+{
+	CPublishWayTwoDlg dlg;
+	if( dlg.DoModal() == IDOK )
+	{
+
+	}
+}
+
+void CWLRClientDlg::OnBnClickedButtonSearch()
+{
+	CSearchMainDlg dlg;
+	if( dlg.DoModal() == IDOK )
+	{
+
+	}
+}
+
+void CWLRClientDlg::OnBnClickedButtonHidePhone()
+{
+	// TODO: Add your control notification handler code here
+}
+
+void CWLRClientDlg::OnBnClickedButtonStopRefresh()
+{
+	// TODO: Add your control notification handler code here
 }

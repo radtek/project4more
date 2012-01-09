@@ -364,4 +364,10 @@ private:
 	//xqh:add the following code
 protected:
 	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
+public:
+	afx_msg void OnBnClickedButtonPubWayOne();
+	afx_msg void OnBnClickedButtonPubWayTwo();
+	afx_msg void OnBnClickedButtonSearch();
+	afx_msg void OnBnClickedButtonHidePhone();
+	afx_msg void OnBnClickedButtonStopRefresh();
 };

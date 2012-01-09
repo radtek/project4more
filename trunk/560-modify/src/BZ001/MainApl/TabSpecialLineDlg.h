@@ -119,10 +119,10 @@ public:
     afx_msg void OnMenuOperationDelfav();
     afx_msg void OnBnClickedTabSpecialLinePrev();
     afx_msg void OnBnClickedTabSpecialLineNext();
-	afx_msg void OnBnClickedButtonLineLocal();
+	/*afx_msg void OnBnClickedButtonLineLocal();
 	afx_msg void OnBnClickedButtonLineCancelSearch();
 	afx_msg void OnBnClickedButtonLineSecrecy();
-	afx_msg void OnBnClickedButtonLineStopRefresh();
+	afx_msg void OnBnClickedButtonLineStopRefresh();*/
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 public:
 	void GetStartAddr(string& sProvince, string& sCity, string& sCounty)const
@@ -133,7 +133,7 @@ public:
 	}
 	void SetStartAddr(const string& sProvince, const string& sCity, const string& sCounty, bool bShow)
 	{
-		m_editStartAddr.SetWindowText(_T(""));
+	//	m_editStartAddr.SetWindowText(_T(""));
 
 		m_sStartProvince = sProvince;
 		m_sStartCity = sCity;
@@ -152,7 +152,7 @@ public:
 		{
 			sAddr += "+"+sCounty;
 		}
-		m_editStartAddr.SetWindowText(sAddr.c_str());
+		//m_editStartAddr.SetWindowText(sAddr.c_str());
 	}
 	CString GetDestAddr(string& sProvince, string& sCity, string& sCounty)const
 	{
@@ -162,7 +162,7 @@ public:
 	}
 	void SetDestAddr(const string& sProvince, const string& sCity, const string& sCounty, bool bShow)
 	{
-		m_editDestAddr.SetWindowText(_T(""));
+		//m_editDestAddr.SetWindowText(_T(""));
 		m_sDestProvince = sProvince;
 		m_sDestCity = sCity;
 		m_sDestCounty = sCounty;
@@ -179,25 +179,27 @@ public:
 		{
 			sAddr += "+"+sCounty;
 		}
-		m_editDestAddr.SetWindowText(sAddr.c_str());
+		//m_editDestAddr.SetWindowText(sAddr.c_str());
 	}
 	UINT8 GetCurType()const
 	{
 		return curType;
 	}
-	void ShowSearchControl(bool bShow);
+	//void ShowSearchControl(bool bShow);
 private:
 	CHoverButton btnPrev;
 	CHoverButton btnNext;
+	/*
 	CHoverButton m_btnLocal;
 	CHoverButton m_btnCancelSearch;
 	CHoverButton m_btnSecrecy;
 	CHoverButton m_btnStopRefresh;
+	CMouseRspEdit m_editStartAddr;
+	CMouseRspEdit m_editDestAddr;*/
 
 	CPictureEx m_Picture;
 
-	CMouseRspEdit m_editStartAddr;
-	CMouseRspEdit m_editDestAddr;
+	
 	string		  m_sStartProvince;
 	string		  m_sStartCity;
 	string		  m_sStartCounty;
