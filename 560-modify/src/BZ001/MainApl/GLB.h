@@ -8,15 +8,15 @@
 #include <vector>
 using namespace std;
 //#define _NEWCODE_
-#define _LOCAL_TEST_
+//#define _LOCAL_TEST_
 //#define _OFF_LINE_
 //#define _AUTO_LOGIN_
 
 #ifdef _LOCAL_TEST_
 const string WEB_SERVICE_ADDRESS = "http://192.168.7.108:8080";
 #else
-//const string WEB_SERVICE_ADDRESS = "http://www.566560.com:8603";
-	const string WEB_SERVICE_ADDRESS = "http://www.566560.com";
+const string WEB_SERVICE_ADDRESS = "http://www.566560.com:8603";
+//const string WEB_SERVICE_ADDRESS = "http://www.566560.com";
 #endif
 
 //extern string global_web_service_home;
