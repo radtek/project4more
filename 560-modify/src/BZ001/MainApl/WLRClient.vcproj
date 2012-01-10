@@ -754,6 +754,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SearchCriteria.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SearchFavoriteDlg.h"
 				>
 			</File>

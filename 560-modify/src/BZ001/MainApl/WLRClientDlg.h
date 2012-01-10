@@ -367,7 +367,4 @@ protected:
 public:
 	afx_msg void OnBnClickedButtonPubWayOne();
 	afx_msg void OnBnClickedButtonPubWayTwo();
-	afx_msg void OnBnClickedButtonSearch();
-	afx_msg void OnBnClickedButtonHidePhone();
-	afx_msg void OnBnClickedButtonStopRefresh();
 };

@@ -26,7 +26,13 @@ void CContentDlg::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CContentDlg, CDialog)
+	ON_BN_CLICKED(IDC_BUTTON_CLOSE, &CContentDlg::OnBnClickedButtonClose)
 END_MESSAGE_MAP()
 
 
 // CContentDlg message handlers
+
+void CContentDlg::OnBnClickedButtonClose()
+{
+	CDialog::OnOK();
+}

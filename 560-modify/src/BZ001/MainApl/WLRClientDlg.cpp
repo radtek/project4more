@@ -265,9 +265,6 @@ BEGIN_MESSAGE_MAP(CWLRClientDlg, CDialog)
 	ON_BN_CLICKED(IDC_BTN_MY_APP, &CWLRClientDlg::OnBnClickedBtnMyApp)
 	ON_BN_CLICKED(IDC_BUTTON_PUB_WAY_ONE, &CWLRClientDlg::OnBnClickedButtonPubWayOne)
 	ON_BN_CLICKED(IDC_BUTTON_PUB_WAY_TWO, &CWLRClientDlg::OnBnClickedButtonPubWayTwo)
-	ON_BN_CLICKED(IDC_BUTTON_SEARCH, &CWLRClientDlg::OnBnClickedButtonSearch)
-	ON_BN_CLICKED(IDC_BUTTON_HIDE_PHONE, &CWLRClientDlg::OnBnClickedButtonHidePhone)
-	ON_BN_CLICKED(IDC_BUTTON_STOP_REFRESH, &CWLRClientDlg::OnBnClickedButtonStopRefresh)
 END_MESSAGE_MAP()
 
 BEGIN_EASYSIZE_MAP(CWLRClientDlg)
@@ -1949,228 +1946,206 @@ void CWLRClientDlg::search(UINT8 nType, UINT8 nOption/* = 1*/)
 {
 	switch (nType) 
 	{
-			case 0: // 搜索货源 
+	case eSearchType_Goods: // 搜索货源 
+		{
+			CSearchMainDlg dlg;
+			dlg.SetSearchType(eSearchType_Goods);
+			if (dlg.DoModal() == IDOK)
+			{
+				const CSearchCriteria* pSearchCriteria = dlg.GetCurSearchCriteria();
+				if( pSearchCriteria != NULL )
 				{
-					if( nOption == 0 )//本地
+					InSearchGoods tmp;
+					tmp.startProvince = pSearchCriteria->GetStartProvince();
+					tmp.startCity = pSearchCriteria->GetStartCity();
+					tmp.startCounty = pSearchCriteria->GetStartCounty();
+					tmp.endProvince = pSearchCriteria->GetEndProvince();
+					tmp.endCity = pSearchCriteria->GetEndCity();
+					tmp.endCounty = pSearchCriteria->GetEndCounty();
+					tmp.carLength = pSearchCriteria->GetCarLength();
+					tmp.carType = pSearchCriteria->GetCarType();
+					if( tmp.startProvince.empty() )
 					{
-						InSearchGoods tmp;
-						tmp.startProvince = user.province;
-						tmp.startCity = user.city;
-						tmp.startCounty = "不限";
-						tmp.endProvince = "不限";
-						tmp.endCity = "不限";
-						tmp.endCounty = "不限";
-						tmp.carLength = "不限";
-						tmp.carType = "不限";
-						setSearchGoods(tmp, nOption);
+						tmp.startProvince = NO_LIMIT_STRING;
 					}
-					else if( nOption == 1 )
+					if( tmp.startCity.empty() )
 					{
-						InSearchGoods tmp;
-						newGoodsInf.GetStartAddr(tmp.startProvince, tmp.startCity, tmp.startCounty);
-						tmp.endCity = "不限";
-						tmp.endCounty = "不限";
-						tmp.carLength = "不限";
-						tmp.carType = "不限";
-						setSearchGoods(tmp, nOption);
+						tmp.startCity = NO_LIMIT_STRING;
 					}
-					else
+					if( tmp.startCounty.empty() )
 					{
-						CSearchGoodsDlg sgDlg;
-						sgDlg.myCR = &myCR;
-						if (sgDlg.DoModal() == IDOK) {
-							InSearchGoods tmp;
-							tmp.startProvince = (LPTSTR)(LPCTSTR)sgDlg.strStartProvince;
-							tmp.startCity = (LPTSTR)(LPCTSTR)sgDlg.strStartCity;
-							tmp.startCounty = (LPTSTR)(LPCTSTR)sgDlg.strStartCounty;
-							tmp.endProvince = (LPTSTR)(LPCTSTR)sgDlg.strEndProvince;
-							tmp.endCity = (LPTSTR)(LPCTSTR)sgDlg.strEndCity;
-							tmp.endCounty = (LPTSTR)(LPCTSTR)sgDlg.strEndCounty;
-							tmp.carLength = (LPTSTR)(LPCTSTR)sgDlg.strCarLength;
-							tmp.carType = (LPTSTR)(LPCTSTR)sgDlg.strCarType;
-							if( tmp.startProvince.empty() )
-							{
-								tmp.startProvince = "不限";
-							}
-							if( tmp.startCity.empty() )
-							{
-								tmp.startCity = "不限";
-							}
-							if( tmp.startCounty.empty() )
-							{
-								tmp.startCounty = "不限";
-							}
-							if( tmp.endProvince.empty() )
-							{
-								tmp.endProvince = "不限";
-							}
-							if( tmp.endCity.empty() )
-							{
-								tmp.endCity = "不限";
-							}
-							if( tmp.endCounty.empty() )
-							{
-								tmp.endCounty = "不限";
-							}
+						tmp.startCounty = NO_LIMIT_STRING;
+					}
+					if( tmp.endProvince.empty() )
+					{
+						tmp.endProvince = NO_LIMIT_STRING;
+					}
+					if( tmp.endCity.empty() )
+					{
+						tmp.endCity = NO_LIMIT_STRING;
+					}
+					if( tmp.endCounty.empty() )
+					{
+						tmp.endCounty = NO_LIMIT_STRING;
+					}
+					if( tmp.carLength.empty() )
+					{
+						tmp.carLength = NO_LIMIT_STRING;
+					}
+					if( tmp.carType.empty() )
+					{
+						tmp.carType = NO_LIMIT_STRING;
+					}
 
-							setSearchGoods(tmp, nOption);
-						}
-					}
-					
-					break;
+					setSearchGoods(tmp, nOption);
 				}
-			case 1:	// 搜索零担
-				{
-					CSearchBulkGoodsDlg sbgDlg;
-					sbgDlg.myCR = &myCR;
-					if (sbgDlg.DoModal() == IDOK) {
-						InSearchBulkGoods tmp;
-						tmp.startProvince = (LPTSTR)(LPCTSTR)sbgDlg.strStartProvince;
-						tmp.startCity = (LPTSTR)(LPCTSTR)sbgDlg.strStartCity;
-						tmp.startCounty = (LPTSTR)(LPCTSTR)sbgDlg.strStartCounty;
-						tmp.endProvince = (LPTSTR)(LPCTSTR)sbgDlg.strEndProvince;
-						tmp.endCity = (LPTSTR)(LPCTSTR)sbgDlg.strEndCity;
-						tmp.endCounty = (LPTSTR)(LPCTSTR)sbgDlg.strEndCounty;
-						setSearchBulkGoods(tmp, 2);
-					}
-					break;
-				}
-			case 2:	// 搜索车源
-				{                
-					if( nOption == 0 )
-					{
-						InSearchCars tmp;
-						tmp.startProvince = user.province;
-						tmp.startCity = user.city;
-						tmp.startCounty = "不限";
-						tmp.endProvince = "不限";
-						tmp.endCity = "不限";
-						tmp.endCounty = "不限";
-						tmp.carType = "不限";
-						tmp.carLength = "不限";
-						setSearchCars(tmp, nOption);
-					}
-					else if( nOption == 1 )
-					{
-						InSearchCars tmp;
-						newCarsInf.GetStartAddr(tmp.startProvince, tmp.startCity, tmp.startCounty);
-						tmp.endProvince = "不限";
-						tmp.endCity = "不限";
-						tmp.endCounty = "不限";
-						tmp.carType = "不限";
-						tmp.carLength = "不限";
-						setSearchCars(tmp, nOption);
-					}
-					else
-					{
-						CSearchCarsDlg scDlg;
-						scDlg.myCR = &myCR;
-						if (scDlg.DoModal() == IDOK) {
-							InSearchCars tmp;
-							tmp.startProvince = (LPTSTR)(LPCTSTR)scDlg.strStartProvince;
-							tmp.startCity = (LPTSTR)(LPCTSTR)scDlg.strStartCity;
-							tmp.startCounty = (LPTSTR)(LPCTSTR)scDlg.strStartCounty;
-							tmp.endProvince = (LPTSTR)(LPCTSTR)scDlg.strEndProvince;
-							tmp.endCity = (LPTSTR)(LPCTSTR)scDlg.strEndCity;
-							tmp.endCounty = (LPTSTR)(LPCTSTR)scDlg.strEndCounty;
-							tmp.carLength = (LPTSTR)(LPCTSTR)scDlg.strCarLength;
-							tmp.carType = (LPTSTR)(LPCTSTR)scDlg.strCarType;
-							if( tmp.startProvince.empty() )
-							{
-								tmp.startProvince = "不限";
-							}
-							if( tmp.startCity.empty() )
-							{
-								tmp.startCity = "不限";
-							}
-							if( tmp.startCounty.empty() )
-							{
-								tmp.startCounty = "不限";
-							}
-							if( tmp.endProvince.empty() )
-							{
-								tmp.endProvince = "不限";
-							}
-							if( tmp.endCity.empty() )
-							{
-								tmp.endCity = "不限";
-							}
-							if( tmp.endCounty.empty() )
-							{
-								tmp.endCounty = "不限";
-							}
-							setSearchCars(tmp, nOption);
-						}
-					}
-					break;
-				}
-			case 3:	// 搜索专线
-				{
 
-					if( nOption == 0 )
+			}
+
+			break;
+		}
+	case eSearchType_Car:	// 搜索车源
+		{                
+			CSearchMainDlg dlg;
+			dlg.SetSearchType(eSearchType_Car);
+			if (dlg.DoModal() == IDOK)
+			{
+				const CSearchCriteria* pSearchCriteria = dlg.GetCurSearchCriteria();
+				if( pSearchCriteria != NULL )
+				{
+					InSearchCars tmp;
+					tmp.startProvince = pSearchCriteria->GetStartProvince();
+					tmp.startCity = pSearchCriteria->GetStartCity();
+					tmp.startCounty = pSearchCriteria->GetStartCounty();
+					tmp.endProvince = pSearchCriteria->GetEndProvince();
+					tmp.endCity = pSearchCriteria->GetEndCity();
+					tmp.endCounty = pSearchCriteria->GetEndCounty();
+					tmp.carLength = pSearchCriteria->GetCarLength();
+					tmp.carType = pSearchCriteria->GetCarType();
+					if( tmp.startProvince.empty() )
 					{
-						InSearchSpecail tmp;
-						tmp.startProvince = user.province;
-						tmp.startCity = user.city;
-						tmp.startCounty = "不限";
-						tmp.endProvince = "不限";
-						tmp.endCity = "不限";
-						tmp.endCounty = "不限";
-						setSearchSpecail(tmp, nOption);
+						tmp.startProvince = NO_LIMIT_STRING;
 					}
-					else if( nOption == 1 )
+					if( tmp.startCity.empty() )
 					{
-						InSearchSpecail tmp;
-						searchSpecialLine.GetStartAddr(tmp.startProvince, tmp.startCity, tmp.startCounty);
-						tmp.endProvince = "不限";
-						tmp.endCity = "不限";
-						tmp.endCounty = "不限";
-						setSearchSpecail(tmp, nOption);
+						tmp.startCity = NO_LIMIT_STRING;
 					}
-					else
+					if( tmp.startCounty.empty() )
 					{
-						CSearchSpecialDlg ssDlg;
-						ssDlg.myCR = &myCR;
-						if (ssDlg.DoModal() == IDOK) {
-							InSearchSpecail tmp;
-							tmp.startProvince = (LPTSTR)(LPCTSTR)ssDlg.strStartProvince;
-							tmp.startCity = (LPTSTR)(LPCTSTR)ssDlg.strStartCity;
-							tmp.startCounty = (LPTSTR)(LPCTSTR)ssDlg.strStartCounty;
-							tmp.endProvince = (LPTSTR)(LPCTSTR)ssDlg.strEndProvince;
-							tmp.endCity = (LPTSTR)(LPCTSTR)ssDlg.strEndCity;
-							tmp.endCounty = (LPTSTR)(LPCTSTR)ssDlg.strEndCounty;
-							if( tmp.startProvince.empty() )
-							{
-								tmp.startProvince = "不限";
-							}
-							if( tmp.startCity.empty() )
-							{
-								tmp.startCity = "不限";
-							}
-							if( tmp.startCounty.empty() )
-							{
-								tmp.startCounty = "不限";
-							}
-							if( tmp.endProvince.empty() )
-							{
-								tmp.endProvince = "不限";
-							}
-							if( tmp.endCity.empty() )
-							{
-								tmp.endCity = "不限";
-							}
-							if( tmp.endCounty.empty() )
-							{
-								tmp.endCounty = "不限";
-							}
-							setSearchSpecail(tmp, nOption);
-						}
+						tmp.startCounty = NO_LIMIT_STRING;
 					}
-					break;
+					if( tmp.endProvince.empty() )
+					{
+						tmp.endProvince = NO_LIMIT_STRING;
+					}
+					if( tmp.endCity.empty() )
+					{
+						tmp.endCity = NO_LIMIT_STRING;
+					}
+					if( tmp.endCounty.empty() )
+					{
+						tmp.endCounty = NO_LIMIT_STRING;
+					}
+					if( tmp.carLength.empty() )
+					{
+						tmp.carLength = NO_LIMIT_STRING;
+					}
+					if( tmp.carType.empty() )
+					{
+						tmp.carType = NO_LIMIT_STRING;
+					}
+
+					setSearchCars(tmp, nOption);
 				}
-			default:
-				//faBuHuoYuan();
-				break;
+
+			}
+
+			break;
+			break;
+		}
+	case eSearchType_SpecialLine:	// 搜索专线
+		{
+
+			if( nOption == 0 )
+			{
+				InSearchSpecail tmp;
+				tmp.startProvince = user.province;
+				tmp.startCity = user.city;
+				tmp.startCounty = NO_LIMIT_STRING;
+				tmp.endProvince = NO_LIMIT_STRING;
+				tmp.endCity = NO_LIMIT_STRING;
+				tmp.endCounty = NO_LIMIT_STRING;
+				setSearchSpecail(tmp, nOption);
+			}
+			else if( nOption == 1 )
+			{
+				InSearchSpecail tmp;
+				searchSpecialLine.GetStartAddr(tmp.startProvince, tmp.startCity, tmp.startCounty);
+				tmp.endProvince = NO_LIMIT_STRING;
+				tmp.endCity = NO_LIMIT_STRING;
+				tmp.endCounty = NO_LIMIT_STRING;
+				setSearchSpecail(tmp, nOption);
+			}
+			else
+			{
+				CSearchSpecialDlg ssDlg;
+				ssDlg.myCR = &myCR;
+				if (ssDlg.DoModal() == IDOK) {
+					InSearchSpecail tmp;
+					tmp.startProvince = (LPTSTR)(LPCTSTR)ssDlg.strStartProvince;
+					tmp.startCity = (LPTSTR)(LPCTSTR)ssDlg.strStartCity;
+					tmp.startCounty = (LPTSTR)(LPCTSTR)ssDlg.strStartCounty;
+					tmp.endProvince = (LPTSTR)(LPCTSTR)ssDlg.strEndProvince;
+					tmp.endCity = (LPTSTR)(LPCTSTR)ssDlg.strEndCity;
+					tmp.endCounty = (LPTSTR)(LPCTSTR)ssDlg.strEndCounty;
+					if( tmp.startProvince.empty() )
+					{
+						tmp.startProvince = NO_LIMIT_STRING;
+					}
+					if( tmp.startCity.empty() )
+					{
+						tmp.startCity = NO_LIMIT_STRING;
+					}
+					if( tmp.startCounty.empty() )
+					{
+						tmp.startCounty = NO_LIMIT_STRING;
+					}
+					if( tmp.endProvince.empty() )
+					{
+						tmp.endProvince = NO_LIMIT_STRING;
+					}
+					if( tmp.endCity.empty() )
+					{
+						tmp.endCity = NO_LIMIT_STRING;
+					}
+					if( tmp.endCounty.empty() )
+					{
+						tmp.endCounty = NO_LIMIT_STRING;
+					}
+					setSearchSpecail(tmp, nOption);
+				}
+			}
+			break;
+		}
+	case eSearchType_BulkGoods:	// 搜索零担
+		{
+			CSearchBulkGoodsDlg sbgDlg;
+			sbgDlg.myCR = &myCR;
+			if (sbgDlg.DoModal() == IDOK) {
+				InSearchBulkGoods tmp;
+				tmp.startProvince = (LPTSTR)(LPCTSTR)sbgDlg.strStartProvince;
+				tmp.startCity = (LPTSTR)(LPCTSTR)sbgDlg.strStartCity;
+				tmp.startCounty = (LPTSTR)(LPCTSTR)sbgDlg.strStartCounty;
+				tmp.endProvince = (LPTSTR)(LPCTSTR)sbgDlg.strEndProvince;
+				tmp.endCity = (LPTSTR)(LPCTSTR)sbgDlg.strEndCity;
+				tmp.endCounty = (LPTSTR)(LPCTSTR)sbgDlg.strEndCounty;
+				setSearchBulkGoods(tmp, 2);
+			}
+			break;
+		}
+	default:
+		//faBuHuoYuan();
+		break;
 	}
 }
 // 搜索货源
@@ -2203,11 +2178,11 @@ int CWLRClientDlg::setSearchGoods(const InSearchGoods& input, UINT8 nOption)
     searchGoodsInf.setData(3);
 
 	//option:0，本地；1，取消；2，正常搜索
-	searchGoodsInf.SetStartAddr(input.startProvince, input.startCity, input.startCounty, true);
+	/*searchGoodsInf.SetStartAddr(input.startProvince, input.startCity, input.startCounty, true);
 	searchGoodsInf.SetDestAddr(input.endProvince, input.endCity, input.endCounty, nOption==2?true:false);
 
 	newGoodsInf.SetStartAddr(input.startProvince, input.startCity, input.startCounty, true);
-	newGoodsInf.SetDestAddr(input.endProvince, input.endCity, input.endCounty, nOption==2?true:false);
+	newGoodsInf.SetDestAddr(input.endProvince, input.endCity, input.endCounty, nOption==2?true:false);*/
     return 0;
 }
     
@@ -2271,11 +2246,11 @@ int CWLRClientDlg::setSearchCars(const InSearchCars& input,UINT8 nOption)
     searchCarsInf.setIfShowPhone(ifShowPhone); 
     searchCarsInf.setData(5);
 
-	searchCarsInf.SetStartAddr(input.startProvince, input.startCity, input.startCounty, true);
+	/*searchCarsInf.SetStartAddr(input.startProvince, input.startCity, input.startCounty, true);
 	searchCarsInf.SetDestAddr(input.endProvince, input.endCity, input.endCounty, nOption==2?true:false);
 
 	newCarsInf.SetStartAddr(input.startProvince, input.startCity, input.startCounty, true);
-	newCarsInf.SetDestAddr(input.endProvince, input.endCity, input.endCounty, nOption==2?true:false);
+	newCarsInf.SetDestAddr(input.endProvince, input.endCity, input.endCounty, nOption==2?true:false);*/
     return 0;
 }
     
@@ -3893,22 +3868,37 @@ void CWLRClientDlg::OnBnClickedButtonPubWayTwo()
 
 	}
 }
-
-void CWLRClientDlg::OnBnClickedButtonSearch()
-{
-	CSearchMainDlg dlg;
-	if( dlg.DoModal() == IDOK )
-	{
-
-	}
-}
-
-void CWLRClientDlg::OnBnClickedButtonHidePhone()
-{
-	// TODO: Add your control notification handler code here
-}
-
-void CWLRClientDlg::OnBnClickedButtonStopRefresh()
-{
-	// TODO: Add your control notification handler code here
-}
+//
+//void CWLRClientDlg::OnBnClickedButtonSearch()
+//{
+//	static int i = 0;
+//	CSearchMainDlg dlg;
+//	if(i == 0)
+//	{
+//		dlg.SetSearchType(eSearchType_Goods);
+//		++i;
+//	}
+//	else if( i == 1)
+//	{
+//		dlg.SetSearchType(eSearchType_Car);
+//		++i;
+//	}
+//	else
+//	{
+//		dlg.SetSearchType(eSearchType_Car|eSearchType_Goods);
+//		++i;
+//	}
+//	if( dlg.DoModal() == IDOK )
+//	{
+//	}
+//}
+//
+//void CWLRClientDlg::OnBnClickedButtonHidePhone()
+//{
+//	// TODO: Add your control notification handler code here
+//}
+//
+//void CWLRClientDlg::OnBnClickedButtonStopRefresh()
+//{
+//	// TODO: Add your control notification handler code here
+//}

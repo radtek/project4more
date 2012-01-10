@@ -41,6 +41,8 @@ public:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
+	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
+
 // { my define
 public:
     // 服务器通信
@@ -143,6 +145,10 @@ public:
 	afx_msg void OnBnClickedButtonCancelSearch();
 	afx_msg void OnBnClickedButtonSecrecy();
 	afx_msg void OnBnClickedButtonStopRefresh();*/
+
+	afx_msg void OnBnClickedButtonSearch();
+	afx_msg void OnBnClickedButtonStopRefresh();
+	afx_msg void OnBnClickedButtonHidePhoneNum();
 public:
 	void GetStartAddr(string& sProvince, string& sCity, string& sCounty)const
 	{
@@ -210,6 +216,11 @@ private:
 	CHoverButton btnPrev;
 	// 后页
 	CHoverButton btnNext;
+	CHoverButton m_btnTopPage;
+	CHoverButton m_btnBottomPage;
+	CHoverButton m_btnSearch;
+	CHoverButton m_btnStopRefresh;
+	CHoverButton m_btnHidePhoneNum;
 	//CPictureEx m_Picture;
 	CPictureEx m_Picture;
 
@@ -226,8 +237,5 @@ private:
 	string		  m_sDestProvince;
 	string		  m_sDestCity;
 	string		  m_sDestCounty;
-protected:
-	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
-public:
-	afx_msg void OnEnChangeEdidStartAddr();
+	
 };

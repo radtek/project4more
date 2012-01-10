@@ -5,6 +5,7 @@
 #include "WLRClient.h"
 #include "TabNewInfDlg.h"
 #include "SendPhoneMsgDlg.h"
+#include "CommDef.h"
 #include "header.h"
 
 extern UserInfo user;
@@ -84,6 +85,11 @@ void CTabNewInfDlg::DoDataExchange(CDataExchange* pDX)
 	//DDX_Control(pDX, IDC_BUTTON_STOP_REFRESH, m_btnStopRefresh);
 	//DDX_Control(pDX, IDC_EDID_START_ADDR, m_editStartAddr);
 	//DDX_Control(pDX, IDC_EDID_DEST_ADDR, m_editDestAddr);
+	DDX_Control(pDX, IDC_TAB_NEW_UPTOP, m_btnTopPage);
+	DDX_Control(pDX, IDC_TAB_NEW_BOTTOM_DOWN, m_btnBottomPage);
+	DDX_Control(pDX, IDC_BUTTON_SEARCH, m_btnSearch);
+	DDX_Control(pDX, IDC_BUTTON_STOP_REFRESH, m_btnStopRefresh);
+	DDX_Control(pDX, IDC_BUTTON_HIDE_PHONE_NUM, m_btnHidePhoneNum);
 }
 
 
@@ -105,14 +111,25 @@ BEGIN_MESSAGE_MAP(CTabNewInfDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON_SECRECY, &CTabNewInfDlg::OnBnClickedButtonSecrecy)
 	ON_BN_CLICKED(IDC_BUTTON_STOP_REFRESH, &CTabNewInfDlg::OnBnClickedButtonStopRefresh)
 	ON_EN_CHANGE(IDC_EDID_START_ADDR, &CTabNewInfDlg::OnEnChangeEdidStartAddr)*/
+	ON_BN_CLICKED(IDC_BUTTON_SEARCH, &CTabNewInfDlg::OnBnClickedButtonSearch)
+	ON_BN_CLICKED(IDC_BUTTON_STOP_REFRESH, &CTabNewInfDlg::OnBnClickedButtonStopRefresh)
+	ON_BN_CLICKED(IDC_BUTTON_HIDE_PHONE_NUM, &CTabNewInfDlg::OnBnClickedButtonHidePhoneNum)
 END_MESSAGE_MAP()
 
 // 自动改变控件位置大小
 BEGIN_EASYSIZE_MAP(CTabNewInfDlg)
     // EASYSIZE(control,left,top,right,bottom,options)
 	EASYSIZE(IDC_TAB_NEW_INF_LIST, ES_BORDER, ES_BORDER, ES_BORDER, ES_BORDER, 0)
-    EASYSIZE(IDC_TAB_NEW_NEXT, ES_KEEPSIZE, ES_BORDER, ES_BORDER, ES_KEEPSIZE, 0)
-    EASYSIZE(IDC_TAB_NEW_PREV, ES_KEEPSIZE, ES_BORDER, IDC_TAB_NEW_NEXT, ES_KEEPSIZE, 0)
+	EASYSIZE(IDC_TAB_NEW_BOTTOM_DOWN, ES_KEEPSIZE, ES_BORDER, ES_BORDER, ES_KEEPSIZE, 0)
+	EASYSIZE(IDC_TAB_NEW_NEXT, ES_KEEPSIZE, ES_BORDER, IDC_TAB_NEW_BOTTOM_DOWN, ES_KEEPSIZE, 0)
+	EASYSIZE(IDC_TAB_NEW_PREV, ES_KEEPSIZE, ES_BORDER, IDC_TAB_NEW_NEXT, ES_KEEPSIZE, 0)
+	EASYSIZE(IDC_TAB_NEW_UPTOP, ES_KEEPSIZE, ES_BORDER, IDC_TAB_NEW_PREV, ES_KEEPSIZE, 0)
+	EASYSIZE(IDC_BUTTON_HIDE_PHONE_NUM, ES_KEEPSIZE, ES_BORDER, IDC_TAB_NEW_UPTOP, ES_KEEPSIZE, 0)
+	EASYSIZE(IDC_BUTTON_STOP_REFRESH, ES_KEEPSIZE, ES_BORDER, IDC_BUTTON_HIDE_PHONE_NUM, ES_KEEPSIZE, 0)
+	EASYSIZE(IDC_BUTTON_SEARCH, ES_KEEPSIZE, ES_BORDER, IDC_BUTTON_STOP_REFRESH, ES_KEEPSIZE, 0)
+	
+    
+    
 END_EASYSIZE_MAP
 
 // CTabNewInfDlg 消息处理程序
@@ -133,6 +150,13 @@ BOOL CTabNewInfDlg::OnInitDialog()
     // 初始化按钮
     btnPrev.LoadBitmap(IDB_PREVPAGE);
     btnNext.LoadBitmap(IDB_NEXTPAGE);
+	m_btnTopPage.LoadBitmap(IDB_TOP_PAGE);
+	m_btnBottomPage.LoadBitmap(IDB_BOTTOM_PAGE);
+
+
+	m_btnSearch.LoadBitmap(IDB_LOCAL);//
+	m_btnStopRefresh.LoadBitmap(IDB_STOP_REFRESH);
+	m_btnHidePhoneNum.LoadBitmap(IDB_SECRECY);
 	
 	/*btnPrev.ShowWindow(SW_HIDE);
 	btnNext.ShowWindow(SW_HIDE);*/
@@ -1107,11 +1131,11 @@ LRESULT CTabNewInfDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			if( curType == 0 || curType == 3)//货源
 			{
-				((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_START_SEARCH, 0, 2);
+				((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_START_SEARCH, eSearchType_Goods, 2);
 			}
 			else if( curType == 2 || curType == 5 )//车源
 			{
-				((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_START_SEARCH, 2, 2);
+				((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_START_SEARCH, eSearchType_Car, 2);
 			}
 		}
 		break;
@@ -1119,12 +1143,25 @@ LRESULT CTabNewInfDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 	return CDialog::WindowProc(message, wParam, lParam);
 }
 
-void CTabNewInfDlg::OnEnChangeEdidStartAddr()
-{
-	// TODO:  If this is a RICHEDIT control, the control will not
-	// send this notification unless you override the CDialog::OnInitDialog()
-	// function and call CRichEditCtrl().SetEventMask()
-	// with the ENM_CHANGE flag ORed into the mask.
 
-	// TODO:  Add your control notification handler code here
+void CTabNewInfDlg::OnBnClickedButtonSearch()
+{
+	if( curType == 0 || curType == 3)//货源
+	{
+		((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_START_SEARCH, eSearchType_Goods, 2);
+	}
+	else if( curType == 2 || curType == 5 )//车源
+	{
+		((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_START_SEARCH, eSearchType_Car, 2);
+	}
+}
+
+void CTabNewInfDlg::OnBnClickedButtonStopRefresh()
+{
+	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_STOP_REFRESH);
+}
+
+void CTabNewInfDlg::OnBnClickedButtonHidePhoneNum()
+{
+	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_SECRECY);
 }

@@ -91,6 +91,9 @@
 #define IDD_DIALOG_NUMBER               237
 #define IDD_DIALOG_CONTENT_LIST         238
 #define IDD_DIALOG_ADDR_SEL             239
+#define IDB_BOTTOM_PAGE                 240
+#define IDB_BITMAP5                     241
+#define IDB_TOP_PAGE                    241
 #define IDC_BTN_MainPage                1000
 #define IDC_COLOR_NAME                  1000
 #define IDC_CONFIG_SET_SYSBKCLR         1000
@@ -278,7 +281,6 @@
 #define IDC_BUTTON_SW1_CLEAN_PHONE_NUM  1105
 #define IDC_BUTTON_SW2_DEL              1105
 #define IDC_BUTTON_RENAME               1105
-#define IDC_BUTTON4                     1105
 #define IDC_BUTTON_CANCEL               1105
 #define IDC_TAB_MY_PREV                 1106
 #define IDC_BUTTON_W1_TO_CITY           1106
@@ -295,10 +297,9 @@
 #define IDC_TAB_NEW_BOTTOM_DOWN         1109
 #define IDC_SEND_PHONEMSG_MSG           1110
 #define IDC_BUTTON_PRIACE_NUM           1110
-#define IDC_TAB_SPECIAL_LINE_UPTOP      1110
 #define IDC_SEND_PHONEMSG_PHONE         1111
 #define IDC_BUTTON_SW3_CLEAN_KEY_WORD   1111
-#define IDC_TAB_SPECIAL_LINE_NEXT2      1111
+#define IDC_TAB_NEW_BOTTOM_DOWN2        1111
 #define IDC_USER_LOGIN_USERNAME         1112
 #define IDC_BUTTON_SW3_BACKSPACE        1112
 #define IDC_USER_LOGIN_PASSWORD         1113
@@ -354,6 +355,7 @@
 #define IDC_BUTTON_SECRECY              1146
 #define IDC_BUTTON_STOP_REFRESH         1147
 #define IDC_EDID_LINE_START_ADDR        1148
+#define IDC_BUTTON_HIDE_PHONE_NUM       1148
 #define IDC_EDID_LINE_DEST_ADDR         1149
 #define IDC_BUTTON_LINE_LOCAL           1150
 #define IDC_BUTTON_LINE_CANCEL_SEARCH   1151
@@ -455,6 +457,7 @@
 #define IDC_BUTTON_SAVE                 1250
 #define IDC_RADIO_SW1_CARS              1250
 #define IDC_STATIC_FROM_ADDR            1251
+#define IDC_STATIC_SW1_FROM_ADDR        1251
 #define IDC_BUTTON_SW1_SELECT           1252
 #define IDC_COMBO_SW1_KEY_WORD          1257
 #define IDC_COMBO_SW1_PUBLISHER         1258
@@ -535,7 +538,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        240
+#define _APS_NEXT_RESOURCE_VALUE        242
 #define _APS_NEXT_COMMAND_VALUE         32783
 #define _APS_NEXT_CONTROL_VALUE         1308
 #define _APS_NEXT_SYMED_VALUE           101

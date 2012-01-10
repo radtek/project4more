@@ -41,7 +41,6 @@ END_MESSAGE_MAP()
 
 void CAddrSelDlg::InitProvinceList()
 {
-	m_listProvince.SetColumnWidth(70);
 	if(g_pCountryRegion == NULL)
 	{
 		return ;
@@ -115,6 +114,10 @@ void CAddrSelDlg::FillCountyList(const CString& sCity)
 BOOL CAddrSelDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
+
+	m_listProvince.SetColumnWidth(70);
+	m_listCity.SetColumnWidth(70);
+	m_listCounty.SetColumnWidth(70);
 
 	InitProvinceList();
 
@@ -223,5 +226,9 @@ void CAddrSelDlg::OnLbnSelchangeListCounty()
 	if( m_listCity.GetSelCount() == 0 )
 	{
 		m_listCity.SetSel(0);
+		m_selCities.clear();
+		CString sCity;
+		m_listCity.GetText(0, sCity);
+		m_selCities.push_back(sCity);
 	}
 }

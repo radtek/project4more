@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "WLRClient.h"
 #include "TabSpecialLineDlg.h"
+#include "CommDef.h"
 #include "header.h"
 
 // CTabSpecialLineDlg ¶Ô»°¿ò
@@ -956,12 +957,12 @@ void CTabSpecialLineDlg::OnBnClickedButtonLineLocal()
 	m_editStartAddr.SetWindowText(_T(""));
 	m_editDestAddr.SetWindowText(_T(""));
 
-	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_START_SEARCH, 3, 0);
+	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_START_SEARCH, eSearchType_SpecialLine, 0);
 }
 
 void CTabSpecialLineDlg::OnBnClickedButtonLineCancelSearch()
 {
-	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_CANCEL_SEARCH,3, 1);
+	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_CANCEL_SEARCH,eSearchType_SpecialLine, 1);
 }
 
 void CTabSpecialLineDlg::OnBnClickedButtonLineSecrecy()
@@ -981,7 +982,7 @@ LRESULT CTabSpecialLineDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lPara
 	{
 	case WM_EDIT_LBUTTON_DOWN:
 		{
-			((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_START_SEARCH, 3, 2);
+			((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_START_SEARCH, eSearchType_SpecialLine, 2);
 		}
 		break;
 	}

@@ -12,7 +12,7 @@ IMPLEMENT_DYNAMIC(CSearchMainDlg, CDialog)
 CSearchMainDlg::CSearchMainDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CSearchMainDlg::IDD, pParent)
 {
-
+	m_pCurSearch = NULL;
 }
 
 CSearchMainDlg::~CSearchMainDlg()
@@ -28,6 +28,11 @@ void CSearchMainDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CSearchMainDlg, CDialog)
 	ON_NOTIFY(TCN_SELCHANGE, IDC_TAB_SEARCH_WAY, &CSearchMainDlg::OnTcnSelchangeTabSearchWay)
+	ON_BN_CLICKED(IDC_BUTTON_OK, &CSearchMainDlg::OnBnClickedButtonOk)
+	ON_BN_CLICKED(IDC_BUTTON_CLEAN, &CSearchMainDlg::OnBnClickedButtonClean)
+	ON_BN_CLICKED(IDC_BUTTON_ADD_FAVORITE, &CSearchMainDlg::OnBnClickedButtonAddFavorite)
+	ON_BN_CLICKED(IDC_BUTTON_SAVE, &CSearchMainDlg::OnBnClickedButtonSave)
+	ON_BN_CLICKED(IDC_BUTTON_CLOSE, &CSearchMainDlg::OnBnClickedButtonClose)
 END_MESSAGE_MAP()
 
 
@@ -66,6 +71,7 @@ BOOL CSearchMainDlg::OnInitDialog()
 	m_oWayThreeDlg.ShowWindow(SW_HIDE);
 	m_oFavoriteDlg.ShowWindow(SW_HIDE);
 
+	m_pCurSearch = &m_oWayOneDlg;
 	m_tabSearchWay.SetCurSel(0);
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
@@ -78,6 +84,7 @@ void CSearchMainDlg::OnTcnSelchangeTabSearchWay(NMHDR *pNMHDR, LRESULT *pResult)
 	int nCurSel = m_tabSearchWay.GetCurSel();
 	if( nCurSel == 0 )
 	{
+		m_pCurSearch = &m_oWayOneDlg;
 		m_oWayOneDlg.ShowWindow(SW_SHOW);
 		m_oWayTwoDlg.ShowWindow(SW_HIDE);
 		m_oWayThreeDlg.ShowWindow(SW_HIDE);
@@ -85,6 +92,7 @@ void CSearchMainDlg::OnTcnSelchangeTabSearchWay(NMHDR *pNMHDR, LRESULT *pResult)
 	}
 	else if( nCurSel == 1 )
 	{
+		m_pCurSearch = &m_oWayTwoDlg;
 		m_oWayOneDlg.ShowWindow(SW_HIDE);
 		m_oWayTwoDlg.ShowWindow(SW_SHOW);
 		m_oWayThreeDlg.ShowWindow(SW_HIDE);
@@ -92,6 +100,7 @@ void CSearchMainDlg::OnTcnSelchangeTabSearchWay(NMHDR *pNMHDR, LRESULT *pResult)
 	}
 	else if( nCurSel == 2 )
 	{
+		m_pCurSearch = &m_oWayThreeDlg;
 		m_oWayOneDlg.ShowWindow(SW_HIDE);
 		m_oWayTwoDlg.ShowWindow(SW_HIDE);
 		m_oWayThreeDlg.ShowWindow(SW_SHOW);
@@ -99,9 +108,38 @@ void CSearchMainDlg::OnTcnSelchangeTabSearchWay(NMHDR *pNMHDR, LRESULT *pResult)
 	}
 	else if( nCurSel == 3 )
 	{
+		m_pCurSearch = NULL;
 		m_oWayOneDlg.ShowWindow(SW_HIDE);
 		m_oWayTwoDlg.ShowWindow(SW_HIDE);
 		m_oWayThreeDlg.ShowWindow(SW_HIDE);
 		m_oFavoriteDlg.ShowWindow(SW_SHOW);
 	}
+}
+
+void CSearchMainDlg::OnBnClickedButtonOk()
+{
+	CDialog::OnOK();
+}
+
+void CSearchMainDlg::OnBnClickedButtonClose()
+{
+	CDialog::OnCancel();
+}
+
+void CSearchMainDlg::OnBnClickedButtonClean()
+{
+	if( m_pCurSearch != NULL )
+	{
+		m_pCurSearch->Clean();
+	}
+}
+
+void CSearchMainDlg::OnBnClickedButtonAddFavorite()
+{
+	// TODO: Add your control notification handler code here
+}
+
+void CSearchMainDlg::OnBnClickedButtonSave()
+{
+	// TODO: Add your control notification handler code here
 }
