@@ -376,6 +376,7 @@ BOOL CWLRClientDlg::OnInitDialog()
 		exit(0);
 	}
 
+	g_pCountryRegion = &myCR;
     // 区域信息指针赋值
     svrIO.myCR = &myCR;
 	svrIONew.myCR = &myCR;

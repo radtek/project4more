@@ -1,6 +1,7 @@
 #pragma once
 #include "resource.h"
 #include "afxwin.h"
+#include "CountryRegion.h"
 #include <string>
 #include <map>
 #include <list>
