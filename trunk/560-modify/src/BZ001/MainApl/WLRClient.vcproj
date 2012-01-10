@@ -272,6 +272,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\HistoryManager.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\HoverButton.cpp"
 				>
 			</File>
@@ -328,6 +332,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\PublishRecord.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\PublishWayOneDlg.cpp"
 				>
 			</File>
@@ -341,6 +349,10 @@
 			</File>
 			<File
 				RelativePath=".\PubSpecialDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Record.cpp"
 				>
 			</File>
 			<File
@@ -369,6 +381,10 @@
 			</File>
 			<File
 				RelativePath=".\SearchMainDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SearchRecord.cpp"
 				>
 			</File>
 			<File
@@ -646,6 +662,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\HistoryManager.h"
+				>
+			</File>
+			<File
 				RelativePath=".\HoverButton.h"
 				>
 			</File>
@@ -702,6 +722,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\PublishRecord.h"
+				>
+			</File>
+			<File
 				RelativePath=".\PublishWayOneDlg.h"
 				>
 			</File>
@@ -715,6 +739,10 @@
 			</File>
 			<File
 				RelativePath=".\PubSpecialDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Record.h"
 				>
 			</File>
 			<File
@@ -747,6 +775,10 @@
 			</File>
 			<File
 				RelativePath=".\SearchMainDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SearchRecord.h"
 				>
 			</File>
 			<File
