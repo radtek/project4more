@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "AddrSelDlg.h"
 #include "CommDef.h"
-
+#include "CountryRegion.h"
 // CAddrSelDlg dialog
 
 IMPLEMENT_DYNAMIC(CAddrSelDlg, CDialog)
@@ -41,11 +41,22 @@ END_MESSAGE_MAP()
 void CAddrSelDlg::InitProvinceList()
 {
 	m_listProvince.SetColumnWidth(70);
-	tdMapProvince::const_iterator it = g_mapProvince.begin(), end = g_mapProvince.end();
+	if(g_pCountryRegion == NULL)
+	{
+		return ;
+	}
+
+	vector<Province>::iterator it = g_pCountryRegion->govProvince.begin(), end = g_pCountryRegion->govProvince.end();
 	for(it; it != end; ++it)
 	{
-		m_listProvince.AddString((*it).first);
+		m_listProvince.AddString((*it).name.c_str());
 	}
+
+	//tdMapProvince::const_iterator it = g_mapProvince.begin(), end = g_mapProvince.end();
+	//for(it; it != end; ++it)
+	//{
+	//	m_listProvince.AddString((*it).first);
+	//}
 }
 
 void CAddrSelDlg::FillCityList()
@@ -53,13 +64,13 @@ void CAddrSelDlg::FillCityList()
 	if( !m_sProvince.IsEmpty() )
 	{
 		m_listCity.ResetContent();
-		const tdMapCity* pCities = GetCities(m_sProvince);
-		if(pCities != NULL)
+		const vector<City>* pVecCity = GetCities(m_sProvince);
+		if(pVecCity != NULL)
 		{
-			tdMapCity::const_iterator it = pCities->begin(), end = pCities->end();
+			vector<City>::const_iterator it = pVecCity->begin(), end = pVecCity->end();
 			for(it; it != end; ++it)
 			{
-				m_listCity.AddString((*it).first);
+				m_listCity.AddString((*it).name.c_str());
 			}
 		}
 	}
@@ -71,13 +82,13 @@ void CAddrSelDlg::FillCountyList()
 	if( m_selCities.size() == 1 )
 	{
 		m_listCounty.ResetContent();
-		const tdVecCounty* pCounties = GetCounties(m_sProvince, *m_selCities.begin());
-		if(pCounties != NULL)
+		const vector<County>* pVecCounty = GetCounties(m_sProvince, *m_selCities.begin());
+		if(pVecCounty != NULL)
 		{
-			tdVecCounty::const_iterator it = pCounties->begin(), end = pCounties->end();
+			tdVecCounty::const_iterator it = pVecCounty->begin(), end = pVecCounty->end();
 			for(it; it != end; ++it)
 			{
-				m_listCounty.AddString(*it);
+				m_listCounty.AddString((*it).name.c_str());
 			}
 		}
 	}

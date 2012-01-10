@@ -1,32 +1,30 @@
 #ifndef _FMP_COMM_DEFINE_H
 #define _FMP_COMM_DEFINE_H
 
+#include "CountryRegion.h"
 #include <map>
 #include <vector>
 using std::map;
 using std::vector;
 
-typedef vector<CString> tdVecCounty;
-typedef map<CString,  tdVecCounty > tdMapCity;
-typedef map<CString, tdMapCity > tdMapProvince;
+typedef vector<Province> tdVecProvince;
+typedef vector<City>	tdVecCity;
+typedef vector<County>  tdVecCounty;
 
-extern tdMapProvince g_mapProvince;
 
-inline const tdMapCity* GetCities(const CString& sProvince)
-{
-	tdMapProvince::const_iterator it = g_mapProvince.find(sProvince);
-	return it != g_mapProvince.end()?&(*it).second:NULL;
-}
-inline const tdVecCounty* GetCounties(const CString& sProvince, const CString& sCity)
-{
-	const tdMapCity* pCities = GetCities(sProvince);
-	if( pCities == NULL )
-	{
-		return NULL;
-	}
-	tdMapCity::const_iterator it = pCities->find(sCity);
-	return it != pCities->end()?&(*it).second:NULL;
-}
+extern vector<CString>	g_vecGoods;
+extern vector<CString>  g_vecGoodsType;
+extern vector<CString>  g_vecCarType;
+extern vector<CString>  g_vecCarSize;
+extern vector<CString>  g_vecPrices1;
+extern vector<CString>  g_vecPrices2;
+
+extern CountryRegion*   g_pCountryRegion;
+
+
+
+const tdVecCity* GetCities(const CString& sProvince);
+const tdVecCounty* GetCounties(const CString& sProvince, const CString& sCity);
 
 void InitCommData();
 
