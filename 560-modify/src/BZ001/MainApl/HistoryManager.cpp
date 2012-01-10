@@ -8,6 +8,7 @@ CHistoryManager* CHistoryManager::pInstance = NULL;
 CHistoryManager::CHistoryManager(void)
 {
 	loadPublishRecords("publish.his");
+	loadPublishRecords("search.his");
 }
 
 CHistoryManager::~CHistoryManager(void)
@@ -28,35 +29,44 @@ void CHistoryManager::addPublish(CPublishRecord* pPublish)
 	savePublishRecords("publish.his");
 }
 
+void CHistoryManager::addSearch(CString str)
+{
+	string s(str.GetBuffer());
+	str.ReleaseBuffer();
+	searches.push_back(s);
+	saveSearchHistory("search.his");
+}
+
 void CHistoryManager::savePublishRecords(char* filename)
 {
-	ofstream configFile (filename);
+	ofstream hisFile (filename);
 	int	n = publishes.size();
 
-	if ( configFile.is_open() )
+	if ( hisFile.is_open() )
 	{
 		publishIter		iter;
 		for ( iter = publishes.begin(); iter != publishes.end(); iter++ )
 		{
 			CPublishRecord* pRecord = (*iter);
-			configFile << pRecord->toString() << '\n';
+			hisFile << pRecord->toString() << '\n';
 		}
-		configFile.close();
+		hisFile.close();
 	}
 }
 
+
 void CHistoryManager::loadPublishRecords(char* filename)
 {
-	ifstream myfile (filename);
-
-	if ( myfile.is_open() )
+	ifstream hisFile (filename);
+	
+	if ( hisFile.is_open() )
 	{
 		string	line;
 		clearPublishList();
 
-		while ( myfile.good() )
+		while ( hisFile.good() )
 		{
-			getline(myfile, line);
+			getline(hisFile, line);
 			if ( line.size() == 0 )
 			{
 				continue;
@@ -83,4 +93,42 @@ void CHistoryManager::clearPublishList()
 	}
 
 	publishes.clear();
+}
+
+void CHistoryManager::saveSearchHistory(char* filename)
+{
+	ofstream hisFile (filename);
+
+	if ( hisFile.is_open() )
+	{
+		list<string>::iterator		iter;
+		for ( iter = searches.begin(); iter != searches.end(); iter++ )
+		{
+			string str = (*iter);
+			hisFile << str << '\n';
+		}
+		hisFile.close();
+	}
+
+}
+
+void CHistoryManager::loadSearchHistory(char* filename)
+{
+	ifstream hisFile (filename);
+
+	if ( hisFile.is_open() )
+	{
+		string	line;
+		searches.clear();
+
+		while ( hisFile.good() )
+		{
+			getline(hisFile, line);
+			if ( line.size() == 0 )
+			{
+				continue;
+			}
+			searches.push_back(line);
+		}
+	}
 }
