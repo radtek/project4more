@@ -48,8 +48,8 @@ public:
 	}
 private:
 	void InitProvinceList();
-	void FillCityList();
-	void FillCountyList();
+	void FillCityList(const CString& sProvince);
+	void FillCountyList(const CString& sCity);
 private:
 	CListBox m_listProvince;
 	CListBox m_listCity;
@@ -57,4 +57,6 @@ private:
 	CString	 m_sProvince;
 	list<CString> m_selCities;
 	list<CString> m_selCounties;
+public:
+	afx_msg void OnLbnSelchangeListCounty();
 };

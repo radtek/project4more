@@ -70,12 +70,12 @@ void CTabSpecialLineDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_TAB_SPECIAL_LINE_PREV, btnPrev);
 	DDX_Control(pDX, IDC_TAB_SPECIAL_LINE_NEXT, btnNext);
 	DDX_Control(pDX, IDC_PIC, m_Picture);
-	/*DDX_Control(pDX, IDC_EDID_LINE_START_ADDR, m_editStartAddr);
+	DDX_Control(pDX, IDC_EDID_LINE_START_ADDR, m_editStartAddr);
 	DDX_Control(pDX, IDC_EDID_LINE_DEST_ADDR, m_editDestAddr);
 	DDX_Control(pDX, IDC_BUTTON_LINE_LOCAL, m_btnLocal);
 	DDX_Control(pDX, IDC_BUTTON_LINE_CANCEL_SEARCH, m_btnCancelSearch);
 	DDX_Control(pDX, IDC_BUTTON_LINE_SECRECY, m_btnSecrecy);
-	DDX_Control(pDX, IDC_BUTTON_LINE_STOP_REFRESH, m_btnStopRefresh);*/
+	DDX_Control(pDX, IDC_BUTTON_LINE_STOP_REFRESH, m_btnStopRefresh);
 }
 
 
@@ -89,10 +89,10 @@ BEGIN_MESSAGE_MAP(CTabSpecialLineDlg, CDialog)
     ON_BN_CLICKED(IDC_TAB_SPECIAL_LINE_PREV, &CTabSpecialLineDlg::OnBnClickedTabSpecialLinePrev)
     ON_BN_CLICKED(IDC_TAB_SPECIAL_LINE_NEXT, &CTabSpecialLineDlg::OnBnClickedTabSpecialLineNext)
 	ON_MESSAGE(WM_SETGRID,OnFresh)
-	/*ON_BN_CLICKED(IDC_BUTTON_LINE_LOCAL, &CTabSpecialLineDlg::OnBnClickedButtonLineLocal)
+	ON_BN_CLICKED(IDC_BUTTON_LINE_LOCAL, &CTabSpecialLineDlg::OnBnClickedButtonLineLocal)
 	ON_BN_CLICKED(IDC_BUTTON_LINE_CANCEL_SEARCH, &CTabSpecialLineDlg::OnBnClickedButtonLineCancelSearch)
 	ON_BN_CLICKED(IDC_BUTTON_LINE_SECRECY, &CTabSpecialLineDlg::OnBnClickedButtonLineSecrecy)
-	ON_BN_CLICKED(IDC_BUTTON_LINE_STOP_REFRESH, &CTabSpecialLineDlg::OnBnClickedButtonLineStopRefresh)*/
+	ON_BN_CLICKED(IDC_BUTTON_LINE_STOP_REFRESH, &CTabSpecialLineDlg::OnBnClickedButtonLineStopRefresh)
 	ON_WM_CTLCOLOR()
 	ON_WM_PAINT()
 END_MESSAGE_MAP()
@@ -101,7 +101,7 @@ END_MESSAGE_MAP()
 BEGIN_EASYSIZE_MAP(CTabSpecialLineDlg)
     // EASYSIZE(control,left,top,right,bottom,options)
 	EASYSIZE(IDC_TAB_SPECIAL_LINE_LIST, ES_BORDER, ES_BORDER, ES_BORDER, ES_BORDER, 0)
-    EASYSIZE(IDC_TAB_SPECIAL_LINE_NEXT, IDC_TAB_SPECIAL_LINE_PREV, ES_BORDER, ES_BORDER, ES_KEEPSIZE, 0)
+    EASYSIZE(IDC_TAB_SPECIAL_LINE_NEXT, ES_KEEPSIZE, ES_BORDER, ES_BORDER, ES_KEEPSIZE, 0)
     EASYSIZE(IDC_TAB_SPECIAL_LINE_PREV, ES_KEEPSIZE, ES_BORDER, IDC_TAB_SPECIAL_LINE_NEXT, ES_KEEPSIZE, 0)
 END_EASYSIZE_MAP
 
@@ -124,10 +124,10 @@ BOOL CTabSpecialLineDlg::OnInitDialog()
 	//btnPrev.ShowWindow(SW_HIDE);
 	//btnNext.ShowWindow(SW_HIDE);
 
-	//m_btnLocal.LoadBitmap(IDB_LOCAL);
-	//m_btnCancelSearch.LoadBitmap(IDB_CANCEL);
-	//m_btnSecrecy.LoadBitmap(IDB_SECRECY);
-	//m_btnStopRefresh.LoadBitmap(IDB_STOP_REFRESH);
+	m_btnLocal.LoadBitmap(IDB_LOCAL);
+	m_btnCancelSearch.LoadBitmap(IDB_CANCEL);
+	m_btnSecrecy.LoadBitmap(IDB_SECRECY);
+	m_btnStopRefresh.LoadBitmap(IDB_STOP_REFRESH);
 
 
     // 初始化自动调整控件位置
@@ -280,10 +280,9 @@ int CTabSpecialLineDlg::setData(int type, int curpage)
 	contentData.clear();
     switch (curType) {
         case 0: // 所有专线
-			/*
-			ShowSearchControl(true);
+			
 			m_editStartAddr.SetWindowText(_T(""));
-			m_editDestAddr.SetWindowText(_T(""));*/
+			m_editDestAddr.SetWindowText(_T(""));
 
             title.record = "联系信息";
 			//svrIO->getAllSpecialLineInf(contentData, curInput);
@@ -337,8 +336,6 @@ int CTabSpecialLineDlg::setData(int type, int curpage)
 			}
             break;
         case 1: // 我的专线
-			//ShowSearchControl(false);
-
             title.record = "联系信息";
 			pcontentData->clear();
 			if (contentDataMY.size() != 0)
@@ -391,8 +388,6 @@ int CTabSpecialLineDlg::setData(int type, int curpage)
             //svrIO->getMySpecialLineInf(contentData, curInput);
             break;
         case 2: // 我的收藏
-		//	ShowSearchControl(false);
-
             title.record = "联系信息";
 			pcontentData->clear();
 			if (contentDataSAVE.size() != 0)
@@ -445,7 +440,6 @@ int CTabSpecialLineDlg::setData(int type, int curpage)
             //svrIO->getFavoriteSpecialLineInf(contentData, curInput);
             break;
         case 3: // 搜索专线
-		//	ShowSearchControl(true);
             title.record = "联系信息";
 			//contentData.clear();
 			DWORD PID;
@@ -955,46 +949,30 @@ HBRUSH CTabSpecialLineDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	return hbr;
 }
 
-//
-//#include "WLRClientDlg.h"
-//void CTabSpecialLineDlg::OnBnClickedButtonLineLocal()
-//{
-//	m_editDestAddr.SetWindowText(_T(""));
-//	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_START_SEARCH, 3, 0);
-//}
-//
-//void CTabSpecialLineDlg::OnBnClickedButtonLineCancelSearch()
-//{
-//	CString sStartAddr, sDestAddr;
-//	m_editDestAddr.GetWindowText(sDestAddr);
-//	if( sDestAddr.IsEmpty() )
-//	{
-//		m_sStartProvince = m_sStartCity = m_sStartCounty = "";
-//		m_sDestProvince = m_sDestCity = m_sDestCounty = "";
-//		return ;
-//	}
-//
-//	m_editDestAddr.SetWindowText(_T(""));
-//	if( m_sStartProvince.empty() || m_sStartProvince == "不限" )
-//	{
-//		m_editStartAddr.SetWindowText(_T(""));
-//		m_sStartProvince = m_sStartCity = m_sStartCounty = "";
-//		vector<TabSpecialLineRecord> vecRecord;
-//		setGrid(&vecRecord);
-//		return ;
-//	}
-//	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_CANCEL_SEARCH,3, 1);
-//}
-//
-//void CTabSpecialLineDlg::OnBnClickedButtonLineSecrecy()
-//{
-//	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_SECRECY);
-//}
-//
-//void CTabSpecialLineDlg::OnBnClickedButtonLineStopRefresh()
-//{
-//	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_STOP_REFRESH);
-//}
+
+#include "WLRClientDlg.h"
+void CTabSpecialLineDlg::OnBnClickedButtonLineLocal()
+{
+	m_editStartAddr.SetWindowText(_T(""));
+	m_editDestAddr.SetWindowText(_T(""));
+
+	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_START_SEARCH, 3, 0);
+}
+
+void CTabSpecialLineDlg::OnBnClickedButtonLineCancelSearch()
+{
+	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_CANCEL_SEARCH,3, 1);
+}
+
+void CTabSpecialLineDlg::OnBnClickedButtonLineSecrecy()
+{
+	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_SECRECY);
+}
+
+void CTabSpecialLineDlg::OnBnClickedButtonLineStopRefresh()
+{
+	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_STOP_REFRESH);
+}
 
 
 LRESULT CTabSpecialLineDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
@@ -1003,7 +981,7 @@ LRESULT CTabSpecialLineDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lPara
 	{
 	case WM_EDIT_LBUTTON_DOWN:
 		{
-			//((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_START_SEARCH, 3, 2);
+			((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_START_SEARCH, 3, 2);
 		}
 		break;
 	}
@@ -1013,38 +991,22 @@ LRESULT CTabSpecialLineDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lPara
 void CTabSpecialLineDlg::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
-	//if( curType == 0 )
-	//{
-	//	CBitmap bmp;
-	//	if (bmp.LoadBitmap(IDB_NEW_INFO_TABLE))
-	//	{
-	//		// Get the size of the bitmap
-	//		BITMAP bmpInfo;
-	//		bmp.GetBitmap(&bmpInfo);
+	CBitmap bmp;
+	if (bmp.LoadBitmap(IDB_NEW_INFO_TABLE))
+	{
+		// Get the size of the bitmap
+		BITMAP bmpInfo;
+		bmp.GetBitmap(&bmpInfo);
 
-	//		CDC dcMemory;
-	//		dcMemory.CreateCompatibleDC(&dc);
+		CDC dcMemory;
+		dcMemory.CreateCompatibleDC(&dc);
 
-	//		CBitmap* pOldBitmap = dcMemory.SelectObject(&bmp);
+		CBitmap* pOldBitmap = dcMemory.SelectObject(&bmp);
 
-	//		CRect rect;
-	//		GetClientRect(&rect);
-	//		dc.BitBlt(0, 0, bmpInfo.bmWidth, bmpInfo.bmHeight, &dcMemory, 0, 0, SRCCOPY);
+		CRect rect;
+		GetClientRect(&rect);
+		dc.BitBlt(0, 0, bmpInfo.bmWidth, bmpInfo.bmHeight, &dcMemory, 0, 0, SRCCOPY);
 
-	//		dcMemory.SelectObject(pOldBitmap);
-	//	}
-	//}
+		dcMemory.SelectObject(pOldBitmap);
+	}
 }
-
-//void CTabSpecialLineDlg::ShowSearchControl(bool bShow)
-//{
-//	m_btnLocal.ShowWindow(bShow?SW_SHOW:SW_HIDE);
-//	m_btnCancelSearch.ShowWindow(bShow?SW_SHOW:SW_HIDE);
-//	m_btnSecrecy.ShowWindow(bShow?SW_SHOW:SW_HIDE);
-//	m_btnStopRefresh.ShowWindow(bShow?SW_SHOW:SW_HIDE);
-//	m_editStartAddr.ShowWindow(bShow?SW_SHOW:SW_HIDE);
-//	m_editDestAddr.ShowWindow(bShow?SW_SHOW:SW_HIDE);
-//	GetDlgItem(IDC_STATIC_START_ADDR)->ShowWindow(bShow?SW_SHOW:SW_HIDE);
-//	GetDlgItem(IDC_STATIC_DEST_ADDR)->ShowWindow(bShow?SW_SHOW:SW_HIDE);
-//
-//}
