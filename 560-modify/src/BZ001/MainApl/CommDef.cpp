@@ -25,6 +25,7 @@ const tdVecCity* GetCities(const CString& sProvince)
 	}
 	return NULL;
 }
+
 const tdVecCounty* GetCounties(const CString& sProvince, const CString& sCity)
 {
 	const tdVecCity* pCities = GetCities(sProvince);
@@ -42,6 +43,46 @@ const tdVecCounty* GetCounties(const CString& sProvince, const CString& sCity)
 		}
 	}
 	return NULL;
+}
+
+const void GetProvincesName(vector<CString> &vecProvincesName)
+{
+	if (g_pCountryRegion)
+	{
+		vecProvincesName.clear();
+
+		vector<Province>::const_iterator it = g_pCountryRegion->govProvince.begin(), end = g_pCountryRegion->govProvince.end();
+		for(it; it != end; ++it)
+			vecProvincesName.push_back(it->name.c_str());
+	}
+}
+
+const void GetCitiesNameByProvince(vector<CString> &vecCitiesName, const CString &strProvince)
+{
+	const tdVecCity *pVecCities = GetCities(strProvince);
+
+	if (pVecCities)
+	{
+		vecCitiesName.clear();
+
+		tdVecCity::const_iterator it = pVecCities->begin(), end = pVecCities->end();
+		for(it; it != end; ++it)
+			vecCitiesName.push_back(it->name.c_str());
+	}
+}
+
+const void GetCountiesNameByProvinceAndCity(vector<CString> &vecCountiesName, const CString &strProvince, const CString &strCity)
+{
+	const tdVecCounty *pVecCounties = GetCounties(strProvince, strCity);
+
+	if (pVecCounties)
+	{
+		vecCountiesName.clear();
+
+		tdVecCounty::const_iterator it = pVecCounties->begin(), end = pVecCounties->end();
+		for(it; it != end; ++it)
+			vecCountiesName.push_back(it->name.c_str());
+	}
 }
 
 void InitCommData()
