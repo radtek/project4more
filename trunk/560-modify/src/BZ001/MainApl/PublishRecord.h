@@ -1,10 +1,26 @@
 #pragma once
-#include "record.h"
+#include <map>
+#include <string>
+#include <list>
 
-class CPublishRecord :
-	public CRecord
+using namespace std;
+
+class CPublishRecord
 {
 public:
-	CPublishRecord(void);
+	CPublishRecord();
+	CPublishRecord(string str);
 	~CPublishRecord(void);
+
+	string	toString();
+	void	fromString(string str);
+
+	CString	get(string key);
+	void	set(string key, CString value);
+
+private:
+	map<string, string>		paras;
 };
+
+typedef list<CPublishRecord *>	publishList;
+typedef publishList::iterator	publishIter;
