@@ -352,10 +352,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Record.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\ReportCtrl.cpp"
 				>
 			</File>
@@ -381,10 +377,6 @@
 			</File>
 			<File
 				RelativePath=".\SearchMainDlg.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\SearchRecord.cpp"
 				>
 			</File>
 			<File
@@ -742,10 +734,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Record.h"
-				>
-			</File>
-			<File
 				RelativePath=".\ReportCtrl.h"
 				>
 			</File>
@@ -775,10 +763,6 @@
 			</File>
 			<File
 				RelativePath=".\SearchMainDlg.h"
-				>
-			</File>
-			<File
-				RelativePath=".\SearchRecord.h"
 				>
 			</File>
 			<File
