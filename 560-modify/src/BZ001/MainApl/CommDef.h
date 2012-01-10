@@ -21,6 +21,9 @@ extern vector<CString>  g_vecPrices2;
 
 extern CountryRegion*   g_pCountryRegion;
 
+enum ESearchType{eSearchType_Goods = 0x01, eSearchType_Car = 0x02, eSearchType_SpecialLine};
+
+#define NO_LIMIT_STRING _T("²»ÏÞ")
 
 
 const tdVecCity* GetCities(const CString& sProvince);
