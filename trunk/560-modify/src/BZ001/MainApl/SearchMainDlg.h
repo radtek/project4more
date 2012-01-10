@@ -24,12 +24,38 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();
+public:
+	afx_msg void OnTcnSelchangeTabSearchWay(NMHDR *pNMHDR, LRESULT *pResult);
+public:
+	int GetSearchType()
+	{
+		return m_nSearchType;
+	}
+	void SetSearchType(int nType)
+	{
+		m_nSearchType = nType;
+		m_oWayOneDlg.SetSearchType(m_nSearchType);
+		m_oWayTwoDlg.SetSearchType(m_nSearchType);
+		m_oWayThreeDlg.SetSearchType(m_nSearchType);
+	}
+
+	const CSearchCriteria* GetCurSearchCriteria()const
+	{
+		return m_pCurSearch;
+	}
+public:
+	afx_msg void OnBnClickedButtonOk();
+	afx_msg void OnBnClickedButtonClean();
+	afx_msg void OnBnClickedButtonAddFavorite();
+	afx_msg void OnBnClickedButtonSave();
+	afx_msg void OnBnClickedButtonClose();
+
 private:
 	CTabCtrl m_tabSearchWay;
 	CSearchWayOneDlg	m_oWayOneDlg;
 	CSearchWayTwoDlg	m_oWayTwoDlg;
 	CSearchWayThreeDlg	m_oWayThreeDlg;
 	CSearchFavoriteDlg	m_oFavoriteDlg;
-public:
-	afx_msg void OnTcnSelchangeTabSearchWay(NMHDR *pNMHDR, LRESULT *pResult);
+	CSearchCriteria*	m_pCurSearch;
+	int	    m_nSearchType;//can be one or the combination of ESearchType
 };

@@ -1,10 +1,11 @@
 #pragma once
 #include "resource.h"
 #include "afxwin.h"
+#include "SearchCriteria.h"
 
 // CSearchWayOneDlg dialog
 
-class CSearchWayOneDlg : public CDialog
+class CSearchWayOneDlg : public CDialog, public CSearchCriteria
 {
 	DECLARE_DYNAMIC(CSearchWayOneDlg)
 
@@ -20,6 +21,7 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
+	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedRadioSw1All();
 	afx_msg void OnBnClickedRadioSw1Goods();
 	afx_msg void OnBnClickedRadioSw1Cars();
@@ -34,8 +36,30 @@ public:
 	afx_msg void OnBnClickedButtonSw1CleanPhoneNum();
 	afx_msg void OnBnClickedRadioMatchAll();
 	afx_msg void OnBnClickedRadioMatchAny();
-	CString m_sDestAddr;
+public:
+	void Clean();
+	int GetSearchType()
+	{
+		return m_nSearchType;
+	}
+	void SetSearchType(int nType)
+	{
+		m_nSearchType = nType;
+	}
+	
+private:
+	void InitSearchTypeRadio();
+	void FillKeywordCombox();
+	void FillPublisherCombox();
+	void FillPhoneNumberCombox();
+	void UpdateKeyword(const CString& sNewKeyword);
+
 private:
 	CComboBox m_comboxPublisher;
 	CComboBox m_comboxPhoneNum;
+	CComboBox m_comboxKeyword;
+
+	CString m_sDestAddr;
+
+	int	    m_nSearchType;//can be one or the combination of ESearchType
 };
