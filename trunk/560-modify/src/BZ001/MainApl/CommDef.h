@@ -29,6 +29,11 @@ enum ESearchType{eSearchType_Goods = 0x01, eSearchType_Car = 0x02, eSearchType_S
 const tdVecCity* GetCities(const CString& sProvince);
 const tdVecCounty* GetCounties(const CString& sProvince, const CString& sCity);
 
+const void GetProvincesName(vector<CString> &vecProvincesName);
+const void GetCitiesNameByProvince(vector<CString> &vecCitiesName, const CString &strProvince);
+
+const void GetCountiesNameByProvinceAndCity(vector<CString> &vecCountiesName, const CString &strProvince, const CString &strCity);
+
 void InitCommData();
 
 #endif
