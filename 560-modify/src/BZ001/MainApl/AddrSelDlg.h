@@ -33,6 +33,7 @@ public:
 	afx_msg void OnBnClickedButtonCancel();
 	afx_msg void OnLbnSelchangeListProvince();
 	afx_msg void OnLbnSelchangeListCity();
+	afx_msg void OnLbnSelchangeListCounty();
 public:
 	const CString& GetSelProvince()const
 	{
@@ -57,6 +58,5 @@ private:
 	CString	 m_sProvince;
 	list<CString> m_selCities;
 	list<CString> m_selCounties;
-public:
-	afx_msg void OnLbnSelchangeListCounty();
+
 };
