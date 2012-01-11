@@ -198,10 +198,14 @@ void CSearchWayOneDlg::OnBnClickedButtonSw1Addr()
 
 void CSearchWayOneDlg::OnBnClickedButtonSw1Goods()
 {
-	CContentDlg dlg;
+	vector<CString> vecGoods;
+	vecGoods.push_back(NO_LIMIT_STRING);
+	vecGoods.push_back("≤‚ ‘");
+	vecGoods.push_back("≤‚ ‘1");
+	CContentDlg dlg(GetParent(), GetDlgItem(IDC_BUTTON_SW1_GOODS), &vecGoods, &m_sGoods);
+	//CWnd* pCtrl = GetDlgItem(IDC_BUTTON_SW1_GOODS);
 	if( dlg.DoModal() == IDOK )
 	{
-		m_sGoods = NO_LIMIT_STRING;
 		UpdateKeyword(m_sGoods);
 	}
 }
@@ -209,10 +213,11 @@ void CSearchWayOneDlg::OnBnClickedButtonSw1Goods()
 
 void CSearchWayOneDlg::OnBnClickedButtonSw1GoodsType()
 {
-	CContentDlg dlg;
+	vector<CString> vecGoodsType;
+	vecGoodsType.push_back(NO_LIMIT_STRING);
+	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW1_GOODS_TYPE), &vecGoodsType, &m_sGoodsType);
 	if( dlg.DoModal() == IDOK )
 	{
-		m_sGoodsType = NO_LIMIT_STRING;
 		UpdateKeyword(m_sGoodsType);
 	}
 }
@@ -220,20 +225,22 @@ void CSearchWayOneDlg::OnBnClickedButtonSw1GoodsType()
 
 void CSearchWayOneDlg::OnBnClickedButtonSw1CarType()
 {
-	CContentDlg dlg;
+	vector<CString> vecCarType;
+	vecCarType.push_back(NO_LIMIT_STRING);
+	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW1_CAR_TYPE), &vecCarType, &m_sCarType);
 	if( dlg.DoModal() == IDOK )
 	{
-		m_sCarType = NO_LIMIT_STRING;
 		UpdateKeyword(m_sCarType);
 	}
 }
 
 void CSearchWayOneDlg::OnBnClickedButtonSw1CarSize()
 {
-	CContentDlg dlg;
+	vector<CString> vecCarType;
+	vecCarType.push_back(NO_LIMIT_STRING);
+	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW1_CAR_SIZE), &vecCarType, &m_sCarLength);
 	if( dlg.DoModal() == IDOK )
 	{
-		m_sCarLength = NO_LIMIT_STRING;
 		UpdateKeyword(m_sCarLength);
 	}
 }

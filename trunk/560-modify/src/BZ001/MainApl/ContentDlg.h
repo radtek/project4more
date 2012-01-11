@@ -13,7 +13,7 @@ class CContentDlg : public CDialog
 	DECLARE_DYNAMIC(CContentDlg)
 
 public:
-	CContentDlg(CWnd* pParent, int nEditCtrlID, const vector<CString> *pVecItems, CString *strOut);   // standard constructor
+	CContentDlg(CWnd* pParent, CWnd* pCtrlWnd, const vector<CString> *pVecItems, CString *strOut);   // standard constructor
 	virtual ~CContentDlg();
 
 // Dialog Data
@@ -33,6 +33,6 @@ private:
 	const vector<CString> *m_pVecItems;
 	CString *m_strOut;
 
-	int m_nEditCtrlID;
+	CWnd	 *m_pCtrlWnd;
 	CListBox *m_pListBox;
 };

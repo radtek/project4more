@@ -948,6 +948,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\BTN_BOTTOM_PAGE.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\BTN_BULKGOODS.bmp"
 				>
 			</File>
@@ -1077,6 +1081,10 @@
 			</File>
 			<File
 				RelativePath=".\res\BTN_TAKE_PHOTO.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\BTN_TOP_PAGE .bmp"
 				>
 			</File>
 			<File
