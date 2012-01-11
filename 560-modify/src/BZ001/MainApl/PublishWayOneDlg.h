@@ -35,4 +35,6 @@ private:
 	CString m_strProvinceTo;
 	CString m_strCityTo;
 	CString m_strCountyTo;
+public:
+	afx_msg void OnBnClickedButtonPw1History();
 };
