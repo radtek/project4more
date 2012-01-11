@@ -7,6 +7,8 @@
 #include "ContentDlg.h"
 #include "NumberDlg.h"
 
+#include "PubHistoryDlg.h"
+
 
 // CPublishWayOne dialog
 
@@ -43,6 +45,7 @@ BEGIN_MESSAGE_MAP(CPublishWayOneDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON_W1_TO_COUNTY, &CPublishWayOneDlg::OnBnClickedButtonW1ToCounty)
 	ON_BN_CLICKED(IDC_BUTTON_GOODS_NUM, &CPublishWayOneDlg::OnBnClickedButtonGoodsNum)
 	ON_BN_CLICKED(IDC_BUTTON_CAR_NUM, &CPublishWayOneDlg::OnBnClickedButtonCarNum)
+	ON_BN_CLICKED(IDC_BUTTON_PW1_HISTORY, &CPublishWayOneDlg::OnBnClickedButtonPw1History)
 END_MESSAGE_MAP()
 
 
@@ -132,4 +135,12 @@ void CPublishWayOneDlg::OnBnClickedButtonCarNum()
 	// TODO: Add your control notification handler code here
 	CNumberDlg dlgNumber(this, IDC_EDIT_CAR_NUM);
 	dlgNumber.DoModal();
+}
+
+void CPublishWayOneDlg::OnBnClickedButtonPw1History()
+{
+	// TODO: Add your control notification handler code here
+	CPubHistoryDlg	dlg;
+
+	dlg.DoModal();
 }

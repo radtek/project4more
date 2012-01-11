@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "PubHistoryDlg.h"
-
+#include "HistoryManager.h"
 
 // CPubHistoryDlg dialog
 
@@ -12,7 +12,7 @@ IMPLEMENT_DYNAMIC(CPubHistoryDlg, CDialog)
 CPubHistoryDlg::CPubHistoryDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CPubHistoryDlg::IDD, pParent)
 {
-
+	
 }
 
 CPubHistoryDlg::~CPubHistoryDlg()
@@ -22,8 +22,44 @@ CPubHistoryDlg::~CPubHistoryDlg()
 void CPubHistoryDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_LIST_PUB_HISTORY, publishHistory);
 }
 
+BOOL CPubHistoryDlg::OnInitDialog()
+{
+	CDialog::OnInitDialog();
+
+	initPublishHistory();
+
+	return TRUE;
+}
+
+void CPubHistoryDlg::initPublishHistory()
+{
+	CRect	rect;
+	publishHistory.GetClientRect(&rect);
+	int cell = rect.Width()/5;
+	publishHistory.InsertColumn(0, "出发", LVCFMT_LEFT, cell);
+	publishHistory.InsertColumn(1, "到达", LVCFMT_LEFT, cell);
+	publishHistory.InsertColumn(2, "消息", LVCFMT_LEFT, cell*3);
+
+	publishList publishes = CHistoryManager::getInstance()->getPublishes();
+	publishIter	iter;
+	int	count = 0;
+
+	for ( iter = publishes.begin(); iter != publishes.end(); iter++ )
+	{
+		CString	temp;
+		CPublishRecord* pRecord = (*iter);
+		publishHistory.InsertItem(count, "aaa");
+		temp = pRecord->get("fromCity");
+		publishHistory.SetItemText(count, 0, temp);
+		temp = pRecord->get("toCity");
+		publishHistory.SetItemText(count, 1, temp);
+		temp = pRecord->get("msg");
+		publishHistory.SetItemText(count, 2, temp);
+	}
+}
 
 BEGIN_MESSAGE_MAP(CPubHistoryDlg, CDialog)
 END_MESSAGE_MAP()
