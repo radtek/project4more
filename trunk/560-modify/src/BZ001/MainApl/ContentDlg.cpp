@@ -11,7 +11,7 @@
 IMPLEMENT_DYNAMIC(CContentDlg, CDialog)
 
 CContentDlg::CContentDlg(CWnd* pParent, CWnd* pCtrlWnd, const vector<CString> *pVecItems, CString *strOut)
-	: CDialog(CContentDlg::IDD, pParent), m_pCtrlWnd(pCtrlWnd), m_pVecItems(pVecItems), m_strOut(strOut), m_pListBox(NULL)
+	: CDialog(CContentDlg::IDD, pParent), m_pCtrlWnd(pCtrlWnd), m_pVecItems(pVecItems), m_strOut(strOut)
 {
 }
 
@@ -22,51 +22,50 @@ CContentDlg::~CContentDlg()
 void CContentDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_STATIC_TITLE, m_staticTitle);
+	DDX_Control(pDX, IDC_BUTTON_CLOSE, m_btnClose);
+	DDX_Control(pDX, IDC_LIST_CONTENT, m_listContent);
 }
 
 BOOL CContentDlg::OnInitDialog()
 {
+	static int s_nColWidth = 50;
+	CRect rc, rcStatic, rcBtn, rcList;
+	int nCount = 0, nWidth = 0, nHeight = 0, nRow = 0, nColumn = 0;
+
 	CDialog::OnInitDialog();
 
-	CRect rc, rcEdit, rcListOrg, rcList;
-	GetClientRect(&rc);
-
-	int nCount = 0, nWidth = 0, nHeight = 0, nRow = 0, nColumn = 0;
-	if (m_pListBox = (CListBox *)GetDlgItem(IDC_LIST_CONTENT))
+	vector<CString>::const_iterator it = m_pVecItems->begin(), end = m_pVecItems->end();
+	for(it; it != end; ++it)
 	{
-		vector<CString>::const_iterator it = m_pVecItems->begin(), end = m_pVecItems->end();
-		for(it; it != end; ++it)
-		{
-			m_pListBox->AddString(*it);
-			nCount++;
-		}
+		m_listContent.AddString(*it);
+		nCount++;
+	}
 
-		if (nCount <= 5)
-		{
-			nColumn = 5;
-			nRow = 1;
-		}
-		else
-		{
-			nColumn = 5;
-			nRow = nCount / 5 + (nCount % 5 ? 1 : 0);
-		}
+	if (nCount <= 5)
+	{
+		nColumn = 5;
+		nRow = 1;
+	}
+	else
+	{
+		nColumn = 5;
+		nRow = nCount / 5 + (nCount % 5 ? 1 : 0);
+	}
 
-		m_pListBox->GetClientRect(&rcListOrg);
-		rcList = rcListOrg;
-		rcList.top += 20;
-		rcList.right = rcList.left + nColumn * 50;
-		rcList.bottom = rcList.top + nRow * 20;
+	m_staticTitle.GetClientRect(&rcStatic);
+	m_listContent.SetColumnWidth(s_nColWidth);
+	m_listContent.MoveWindow(rcStatic.left, rcStatic.bottom + 2, nColumn * s_nColWidth + 2, nRow * m_listContent.GetItemHeight(0) + 4);
 
-		m_pListBox->SetColumnWidth(50);
-		m_pListBox->MoveWindow(rcList);
+	m_btnClose.GetClientRect(rcBtn);
+	m_listContent.GetClientRect(&rcList);
+	m_staticTitle.MoveWindow(rcStatic.left, rcStatic.top, rcList.Width() - rcBtn.Width() - 4, rcStatic.Height());
+	m_btnClose.MoveWindow(rcList.Width() - rcBtn.Width(), rcBtn.top, rcBtn.Width(), rcBtn.Height());
 
-		if (m_pCtrlWnd)
-		{
-			m_pCtrlWnd->GetWindowRect(&rcEdit);
-
-			MoveWindow(rcEdit.left, rcEdit.bottom + 2, rc.Width() + rcList.Width() - rcListOrg.Width(), rc.Height() + rcList.Height() - rcListOrg.Height());
-		}
+	if (m_pCtrlWnd)
+	{
+		m_pCtrlWnd->GetWindowRect(&rc);
+		MoveWindow(rc.left, rc.bottom + 2, rcList.Width() + 6, rcStatic.Height() + rcList.Height() + 8);
 	}
 	return TRUE;
 }
@@ -89,15 +88,12 @@ void CContentDlg::OnBnClickedButtonClose()
 void CContentDlg::OnLbnSelchangeListContent()
 {
 	// TODO: Add your control notification handler code here
-	if (m_pListBox)
+	int nIndex = m_listContent.GetCurSel();
+	if (nIndex >= 0 && nIndex < m_listContent.GetCount())
 	{
-		int nIndex = m_pListBox->GetCurSel();
-		if (nIndex >= 0 && nIndex < m_pListBox->GetCount())
-		{
-			m_strOut->Empty();
-			m_pListBox->GetText(nIndex, *m_strOut);
+		m_strOut->Empty();
+		m_listContent.GetText(nIndex, *m_strOut);
 
-			CDialog::OnOK();
-		}
+		CDialog::OnOK();
 	}
 }

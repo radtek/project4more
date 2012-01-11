@@ -30,9 +30,11 @@ public:
 	afx_msg void OnLbnSelchangeListContent();
 
 private:
+	CWnd *m_pCtrlWnd;
 	const vector<CString> *m_pVecItems;
 	CString *m_strOut;
-
-	CWnd	 *m_pCtrlWnd;
-	CListBox *m_pListBox;
+	
+	CStatic m_staticTitle;
+	CButton m_btnClose;
+	CListBox m_listContent;
 };

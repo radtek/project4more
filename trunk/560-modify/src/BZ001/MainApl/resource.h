@@ -525,6 +525,7 @@
 #define IDC_BUTTON_KB_NUM_D_ZERO        1306
 #define IDC_BUTTON_ALL_CITY             1306
 #define IDC_LIST_PROVINCE               1307
+#define IDC_STATIC_TITLE                1311
 #define ID_32771                        32771
 #define ID_MENU_SENDMSG_SENDMSG         32772
 #define ID_32775                        32775
@@ -541,7 +542,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        242
 #define _APS_NEXT_COMMAND_VALUE         32783
-#define _APS_NEXT_CONTROL_VALUE         1308
+#define _APS_NEXT_CONTROL_VALUE         1312
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
