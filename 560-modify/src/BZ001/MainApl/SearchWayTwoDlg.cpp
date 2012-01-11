@@ -50,6 +50,12 @@ BEGIN_MESSAGE_MAP(CSearchWayTwoDlg, CDialog)
 	ON_BN_CLICKED(IDC_RADIO_SW2_ALL, &CSearchWayTwoDlg::OnBnClickedRadioSw2All)
 	ON_BN_CLICKED(IDC_RADIO_SW2_GOODS, &CSearchWayTwoDlg::OnBnClickedRadioSw2Goods)
 	ON_BN_CLICKED(IDC_RADIO_SW2_CARS, &CSearchWayTwoDlg::OnBnClickedRadioSw2Cars)
+	ON_CBN_SELCHANGE(IDC_COMBO_SW2_FROM_PROVINCE, &CSearchWayTwoDlg::OnCbnSelchangeComboSw2FromProvince)
+	ON_CBN_SELCHANGE(IDC_COMBO_SW2_FROM_CITY, &CSearchWayTwoDlg::OnCbnSelchangeComboSw2FromCity)
+	ON_CBN_SELCHANGE(IDC_COMBO_SW2_FROM_COUNTY, &CSearchWayTwoDlg::OnCbnSelchangeComboSw2FromCounty)
+	ON_LBN_SELCHANGE(IDC_LIST_SW2_TO_PROVINCE, &CSearchWayTwoDlg::OnLbnSelchangeListSw2ToProvince)
+	ON_LBN_SELCHANGE(IDC_LIST_SW2_TO_CITY, &CSearchWayTwoDlg::OnLbnSelchangeListSw2ToCity)
+	ON_LBN_SELCHANGE(IDC_LIST_SW2_TO_COUNTY, &CSearchWayTwoDlg::OnLbnSelchangeListSw2ToCounty)
 END_MESSAGE_MAP()
 
 
@@ -100,7 +106,7 @@ void CSearchWayTwoDlg::FillFromCityList(const CString& sProvince)
 				CString sCity;
 				m_comboxFromCity.SetCurSel(nSel);
 				m_comboxFromCity.GetLBText(nSel, sCity);
-				FillToCountyList(sProvince, sCity);
+				FillFromCountyList(sProvince, sCity);
 			}
 		}
 	}
@@ -187,7 +193,7 @@ void CSearchWayTwoDlg::FillToCountyList(const CString& sProvince, const CString&
 		{
 			if( (*it).name != NO_LIMIT_STRING )
 			{
-				m_listToCounty.AddString((*it).name.c_str());
+				m_comboxFromCounty.AddString((*it).name.c_str());
 			}
 		}
 		/*if(m_listCounty.GetCount() > 0 )
@@ -211,29 +217,167 @@ BOOL CSearchWayTwoDlg::OnInitDialog()
 	// EXCEPTION: OCX Property Pages should return FALSE
 }
 
-void CSearchWayTwoDlg::OnBnClickedButtonSw2AddDest()
+
+void CSearchWayTwoDlg::OnCbnSelchangeComboSw2FromProvince()
+{
+	int nSel = m_comboxFromProv.GetCurSel();
+	if( nSel != -1 )
+	{
+		m_comboxFromProv.GetLBText(nSel, m_sStartProvince);
+		FillFromCityList(m_sStartProvince);
+	}
+}
+
+void CSearchWayTwoDlg::OnCbnSelchangeComboSw2FromCity()
+{
+	int nSel = m_comboxFromCity.GetCurSel();
+	if( nSel != -1 )
+	{
+		m_comboxFromCity.GetLBText(nSel, m_sStartCity);
+		FillFromCountyList(m_sStartProvince, m_sStartCity);
+	}
+}
+
+
+void CSearchWayTwoDlg::OnCbnSelchangeComboSw2FromCounty()
+{
+	int nSel = m_comboxFromCounty.GetCurSel();
+	if( nSel != -1 )
+	{
+		m_comboxFromCounty.GetLBText(nSel, m_sStartCounty);
+	}
+}
+
+
+void CSearchWayTwoDlg::OnLbnSelchangeListSw2ToProvince()
+{
+	int nSel = m_listToProvince.GetCurSel();
+	if( nSel != -1 )
+	{
+		m_listToProvince.GetText(nSel, m_sStartProvince);
+		FillToCityList(m_sStartProvince);
+	}
+}
+
+
+void CSearchWayTwoDlg::OnLbnSelchangeListSw2ToCity()
+{
+	CString sCity;
+	int nSelCount = m_listToCity.GetSelCount();
+	if( nSelCount == 1 )
+	{
+		m_listToCity.GetText(m_listToCity.GetCurSel(), sCity);
+		FillFromCountyList(m_sEndProvince, sCity);
+	}
+	else if( nSelCount > 1 )
+	{
+	/*	m_listCounty.ResetContent();
+
+		int *pItems = new int[nSelCount];
+		m_listCity.GetSelItems(nSelCount, pItems);
+		for(int i = 0; i<nSelCount; ++i)
+		{
+			m_listCity.GetText(pItems[i], sCity);
+			m_selCities.push_back(sCity);
+		}
+		delete []pItems;*/
+	}
+}
+
+void CSearchWayTwoDlg::OnLbnSelchangeListSw2ToCounty()
 {
 	// TODO: Add your control notification handler code here
+}
+
+
+void CSearchWayTwoDlg::OnBnClickedButtonSw2AddDest()
+{
+	CString sAddr;
+	int nSel = m_listToCounty.GetSelCount();
+	if( nSel > 0 )
+	{
+		int *pItems = new int[nSel];
+		m_listToCounty.GetSelItems(nSel, pItems);
+		for(int i = 0; i<nSel; ++i)
+		{
+			m_listToCounty.GetText(pItems[i], sAddr);
+			if( find(m_selCounties.begin(), m_selCounties.end(), sAddr) == m_selCounties.end() )
+			{
+				m_selCounties.push_back(sAddr);
+				m_listCriteria.AddString(sAddr);
+			}
+		}
+		delete []pItems;
+
+		m_listToCounty.GetText(0, m_sEndCounty);
+	}
+	else if( (nSel = m_listToCity.GetSelCount()) > 0 )
+	{
+		int *pItems = new int[nSel];
+		m_listToCity.GetSelItems(nSel, pItems);
+		for(int i = 0; i<nSel; ++i)
+		{
+			m_listToCity.GetText(pItems[i], sAddr);
+			if( find(m_selCities.begin(), m_selCities.end(), sAddr) == m_selCities.end() )
+			{
+				m_selCities.push_back(sAddr);
+				m_listCriteria.AddString(sAddr);
+			}
+		}
+		delete []pItems;
+
+		m_listToCity.GetText(0, m_sEndCity);
+	}
+	else if( (nSel = m_listToProvince.GetCurSel()) != -1 )
+	{
+		//m_listToProvince.GetText(nSel, m_sEndProvince);
+	}
+
 }
 
 void CSearchWayTwoDlg::OnBnClickedButtonSw2AddAllCity()
 {
-	// TODO: Add your control notification handler code here
+	CString sCity;
+	int nCount = m_listToCity.GetCount();
+	for(int i = 0; i<nCount; ++i)
+	{
+		m_listToCity.GetText(i, sCity);
+		if( find(m_selCities.begin(), m_selCities.end(), sCity) == m_selCities.end() )
+		{
+			m_selCities.push_back(sCity);
+			m_listCriteria.AddString(sCity);
+		}
+	}
+
+	m_listToCity.GetText(0, m_sEndCity);
+
 }
 
 void CSearchWayTwoDlg::OnBnClickedButtonSw2AddAllCounty()
 {
-	// TODO: Add your control notification handler code here
+	CString sCounty;
+	int nCount = m_listToCounty.GetCount();
+	for(int i = 0; i<nCount; ++i)
+	{
+		m_listToCounty.GetText(i, sCounty);
+		if( find(m_selCounties.begin(), m_selCounties.end(), sCounty) == m_selCounties.end() )
+		{
+			m_selCounties.push_back(sCounty);
+			m_listCriteria.AddString(sCounty);
+		}
+	}
+
+	m_listToCounty.GetText(0, m_sEndCounty);
 }
 
 void CSearchWayTwoDlg::OnBnClickedButtonSw2Del()
 {
-	// TODO: Add your control notification handler code here
+	
 }
 
 void CSearchWayTwoDlg::OnBnClickedButtonSw2Clean()
 {
-	// TODO: Add your control notification handler code here
+	Clean();
 }
 
 void CSearchWayTwoDlg::OnBnClickedButtonSw2AddKeyWord()
@@ -254,4 +398,14 @@ void CSearchWayTwoDlg::OnBnClickedRadioSw2Goods()
 void CSearchWayTwoDlg::OnBnClickedRadioSw2Cars()
 {
 	m_nSearchType = eSearchType_Car;
+}
+
+void CSearchWayTwoDlg::Clean()
+{
+	m_listCriteria.ResetContent();
+	m_selCities.clear();
+	m_selCounties.clear();
+	m_sEndProvince.Empty();
+	m_sEndCity.Empty();
+	m_sEndCounty.Empty();
 }
