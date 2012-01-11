@@ -60,12 +60,12 @@ void CAddrSelDlg::InitProvinceList()
 	}
 }
 
-void CAddrSelDlg::FillCityList(const CString& sProvice)
+void CAddrSelDlg::FillCityList(const CString& sProvince)
 {
-	if( !sProvice.IsEmpty() )
+	if( !sProvince.IsEmpty() )
 	{
 		m_listCity.ResetContent();
-		const vector<City>* pVecCity = GetCities(sProvice);
+		const vector<City>* pVecCity = GetCities(sProvince);
 		if(pVecCity != NULL)
 		{
 			vector<City>::const_iterator it = pVecCity->begin(), end = pVecCity->end();
@@ -90,7 +90,6 @@ void CAddrSelDlg::FillCityList(const CString& sProvice)
 
 void CAddrSelDlg::FillCountyList(const CString& sCity)
 {
-	m_listCounty.ResetContent();
 	m_listCounty.ResetContent();
 	const vector<County>* pVecCounty = GetCounties(m_sProvince, sCity);
 	if(pVecCounty != NULL)

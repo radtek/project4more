@@ -65,7 +65,7 @@ END_MESSAGE_MAP()
 void CNumberDlg::OnBnClickedButtonKbNumZero()
 {
 	// TODO: Add your control notification handler code here
-	AppendEditCtrlText("1");
+	AppendEditCtrlText("0");
 }
 
 void CNumberDlg::OnBnClickedButtonKbNumDot()

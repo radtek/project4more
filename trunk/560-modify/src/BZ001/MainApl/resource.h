@@ -499,6 +499,7 @@
 #define IDC_LIST_CONTENT                1293
 #define IDC_BUTTON_KB_NUM_SEVEN4        1294
 #define IDC_EDIT_PW1_FROM_PROVINCE      1294
+#define IDC_BUTTON_KB_CLOSE             1294
 #define IDC_BUTTON_KB_NUM_FOUR          1295
 #define IDC_EDIT_PW1_FROM_CITY          1295
 #define IDC_BUTTON_KB_NUM_FIVE          1296
