@@ -20,9 +20,16 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual BOOL OnInitDialog();
 
 	DECLARE_MESSAGE_MAP()
 public:
+	afx_msg void OnBnClickedRadioSw2All();
+	afx_msg void OnBnClickedRadioSw2Goods();
+	afx_msg void OnBnClickedRadioSw2Cars();
+	afx_msg void OnCbnSelchangeComboSw2FromProvince();
+	afx_msg void OnCbnSelchangeComboSw2FromCity();
+	afx_msg void OnCbnSelchangeComboSw2FromCounty();
 	afx_msg void OnBnClickedButtonSw2AddDest();
 	afx_msg void OnBnClickedButtonSw2AddAllCity();
 	afx_msg void OnBnClickedButtonSw2AddAllCounty();
@@ -46,6 +53,8 @@ private:
 	void InitToProvinceList();
 	void FillToCityList(const CString& sProvince);
 	void FillToCountyList(const CString& sProvince, const CString& sCity);
+
+	void Clean();
 private:
 	int m_nSearchType;
 
@@ -60,10 +69,8 @@ private:
 
 	list<CString> m_selCities;
 	list<CString> m_selCounties;
-
 public:
-	virtual BOOL OnInitDialog();
-	afx_msg void OnBnClickedRadioSw2All();
-	afx_msg void OnBnClickedRadioSw2Goods();
-	afx_msg void OnBnClickedRadioSw2Cars();
+	afx_msg void OnLbnSelchangeListSw2ToProvince();
+	afx_msg void OnLbnSelchangeListSw2ToCity();
+	afx_msg void OnLbnSelchangeListSw2ToCounty();
 };
