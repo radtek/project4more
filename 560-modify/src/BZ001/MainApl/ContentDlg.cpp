@@ -10,8 +10,8 @@
 
 IMPLEMENT_DYNAMIC(CContentDlg, CDialog)
 
-CContentDlg::CContentDlg(CWnd* pParent, int nEditCtrlID, const vector<CString> *pVecItems, CString *strOut)
-	: CDialog(CContentDlg::IDD, pParent), m_nEditCtrlID(nEditCtrlID), m_pVecItems(pVecItems), m_strOut(strOut), m_pListBox(NULL)
+CContentDlg::CContentDlg(CWnd* pParent, CWnd* pCtrlWnd, const vector<CString> *pVecItems, CString *strOut)
+	: CDialog(CContentDlg::IDD, pParent), m_pCtrlWnd(pCtrlWnd), m_pVecItems(pVecItems), m_strOut(strOut), m_pListBox(NULL)
 {
 }
 
@@ -29,9 +29,9 @@ BOOL CContentDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	CRect rc, rcEdit, rcListOrg, rcList;
-	CWnd *pEditCtrl = ((CDialog *)GetParent())->GetDlgItem(m_nEditCtrlID);
-	int nCount = 0, nWidth = 0, nHeight = 0, nRow = 0, nColumn = 0;
+	GetClientRect(&rc);
 
+	int nCount = 0, nWidth = 0, nHeight = 0, nRow = 0, nColumn = 0;
 	if (m_pListBox = (CListBox *)GetDlgItem(IDC_LIST_CONTENT))
 	{
 		vector<CString>::const_iterator it = m_pVecItems->begin(), end = m_pVecItems->end();
@@ -43,7 +43,7 @@ BOOL CContentDlg::OnInitDialog()
 
 		if (nCount <= 5)
 		{
-			nColumn = nCount;
+			nColumn = 5;
 			nRow = 1;
 		}
 		else
@@ -56,15 +56,14 @@ BOOL CContentDlg::OnInitDialog()
 		rcList = rcListOrg;
 		rcList.top += 20;
 		rcList.right = rcList.left + nColumn * 50;
-		rcList.bottom = rcList.top + nRow * 14;
+		rcList.bottom = rcList.top + nRow * 20;
 
 		m_pListBox->SetColumnWidth(50);
 		m_pListBox->MoveWindow(rcList);
 
-		if (pEditCtrl)
+		if (m_pCtrlWnd)
 		{
-			GetClientRect(&rc);
-			pEditCtrl->GetWindowRect(&rcEdit);
+			m_pCtrlWnd->GetWindowRect(&rcEdit);
 
 			MoveWindow(rcEdit.left, rcEdit.bottom + 2, rc.Width() + rcList.Width() - rcListOrg.Width(), rc.Height() + rcList.Height() - rcListOrg.Height());
 		}
@@ -93,7 +92,7 @@ void CContentDlg::OnLbnSelchangeListContent()
 	if (m_pListBox)
 	{
 		int nIndex = m_pListBox->GetCurSel();
-		if (nIndex > 0 && nIndex < m_pListBox->GetCount())
+		if (nIndex >= 0 && nIndex < m_pListBox->GetCount())
 		{
 			m_strOut->Empty();
 			m_pListBox->GetText(nIndex, *m_strOut);

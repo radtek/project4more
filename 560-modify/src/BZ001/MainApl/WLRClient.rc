@@ -937,12 +937,12 @@ BEGIN
 END
 
 IDD_DIALOG_CONTENT_LIST DIALOGEX 0, 0, 310, 176
-STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     CTEXT           "选择",IDC_STATIC,2,1,288,16,SS_CENTERIMAGE
-    PUSHBUTTON      "×",IDC_BUTTON_CLOSE,291,1,18,16
-    LISTBOX         IDC_LIST_CONTENT,0,16,307,159,LBS_SORT | LBS_NOINTEGRALHEIGHT | LBS_MULTICOLUMN | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "×",IDC_BUTTON_CLOSE,292,1,18,16
+    LISTBOX         IDC_LIST_CONTENT,1,17,307,159,LBS_SORT | LBS_NOINTEGRALHEIGHT | LBS_MULTICOLUMN | WS_VSCROLL | WS_TABSTOP
 END
 
 IDD_DIALOG_ADDR_SEL DIALOGEX 0, 0, 329, 235
@@ -1424,8 +1424,8 @@ END
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
 LANGUAGE 4, 2
 #pragma code_page(936)
-#include "res\WLRClient.rc2"  // 非 Microsoft Visual C++ 编辑的资源
-#include "afxres.rc"     // 标准组件
+#include "res\WLRClient.rc2"  // ·? Microsoft Visual C++ ±à?-μ?×ê?′
+#include "afxres.rc"     // ±ê×?×é?t
 #endif
 
 /////////////////////////////////////////////////////////////////////////////

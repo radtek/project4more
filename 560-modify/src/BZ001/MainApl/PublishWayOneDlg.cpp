@@ -54,7 +54,7 @@ void CPublishWayOneDlg::OnBnClickedButtonPw1FromProvince()
 	vector<CString> vecItems;
 	GetProvincesName(vecItems);
 
-	CContentDlg dlgContent(this, IDC_EDIT_PW1_FROM_PROVINCE, &vecItems, &m_strProvinceFrom);
+	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_FROM_PROVINCE), &vecItems, &m_strProvinceFrom);
 	dlgContent.DoModal();
 
 	UpdateData(FALSE);
@@ -66,7 +66,7 @@ void CPublishWayOneDlg::OnBnClickedButtonPw1FromCity()
 	vector<CString> vecItems;
 	GetCitiesNameByProvince(vecItems, m_strProvinceFrom);
 
-	CContentDlg dlgContent(this, IDC_EDIT_PW1_FROM_CITY, &vecItems, &m_strCityFrom);
+	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_FROM_CITY), &vecItems, &m_strCityFrom);
 	dlgContent.DoModal();
 
 	UpdateData(FALSE);
@@ -78,7 +78,7 @@ void CPublishWayOneDlg::OnBnClickedButtonPw1FromCounty()
 	vector<CString> vecItems;
 	GetCountiesNameByProvinceAndCity(vecItems, m_strProvinceFrom, m_strCityFrom);
 
-	CContentDlg dlgContent(this, IDC_EDIT_PW1_FROM_COUNTY, &vecItems, &m_strCountyFrom);
+	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_FROM_COUNTY), &vecItems, &m_strCountyFrom);
 	dlgContent.DoModal();
 
 	UpdateData(FALSE);
@@ -90,7 +90,7 @@ void CPublishWayOneDlg::OnBnClickedButtonW1ToProvince()
 	vector<CString> vecItems;
 	GetProvincesName(vecItems);
 
-	CContentDlg dlgContent(this, IDC_EDIT_PW1_TO_PROVINCE, &vecItems, &m_strProvinceTo);
+	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_TO_PROVINCE), &vecItems, &m_strProvinceTo);
 	dlgContent.DoModal();
 
 	UpdateData(FALSE);
@@ -102,7 +102,7 @@ void CPublishWayOneDlg::OnBnClickedButtonW1ToCity()
 	vector<CString> vecItems;
 	GetCitiesNameByProvince(vecItems, m_strProvinceTo);
 
-	CContentDlg dlgContent(this, IDC_EDIT_PW1_TO_CITY, &vecItems, &m_strCityTo);
+	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_TO_CITY), &vecItems, &m_strCityTo);
 	dlgContent.DoModal();
 
 	UpdateData(FALSE);
@@ -114,7 +114,7 @@ void CPublishWayOneDlg::OnBnClickedButtonW1ToCounty()
 	vector<CString> vecItems;
 	GetCountiesNameByProvinceAndCity(vecItems, m_strProvinceTo, m_strCityTo);
 
-	CContentDlg dlgContent(this, IDC_EDIT_PW1_TO_COUNTY, &vecItems, &m_strCountyTo);
+	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_TO_COUNTY), &vecItems, &m_strCountyTo);
 	dlgContent.DoModal();
 
 	UpdateData(FALSE);
