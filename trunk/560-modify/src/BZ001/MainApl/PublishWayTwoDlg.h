@@ -1,5 +1,7 @@
 #pragma once
 #include "resource.h"
+#include "hoverbutton.h"
+#include "afxwin.h"
 
 // CPublishWayTwoDlg dialog
 
@@ -16,6 +18,14 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual BOOL OnInitDialog();
 
 	DECLARE_MESSAGE_MAP()
+private:
+	CHoverButton m_btnFromProvince;
+	CHoverButton m_btnFromCity;
+	CHoverButton m_btnFromCounty;
+	CHoverButton m_btnToProvince;
+	CHoverButton m_btnToCity;
+	CHoverButton m_btnToCounty;
 };

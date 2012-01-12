@@ -33,6 +33,15 @@ void CPublishWayOneDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_PW1_TO_PROVINCE, m_strProvinceTo);
 	DDX_Text(pDX, IDC_EDIT_PW1_TO_CITY, m_strCityTo);
 	DDX_Text(pDX, IDC_EDIT_PW1_TO_COUNTY, m_strCountyTo);
+	DDX_Control(pDX, IDC_BUTTON_PW1_FROM_PROVINCE, m_btnFromProv);
+	DDX_Control(pDX, IDC_BUTTON_PW1_FROM_CITY, m_btnFromCity);
+	DDX_Control(pDX, IDC_BUTTON_PW1_FROM_COUNTY, m_btnFromCounty);
+	DDX_Control(pDX, IDC_BUTTON_W1_TO_PROVINCE, m_btnToProvince);
+	DDX_Control(pDX, IDC_BUTTON_W1_TO_CITY, m_btnToCity);
+	DDX_Control(pDX, IDC_BUTTON_W1_TO_COUNTY, m_btnToCounty);
+	DDX_Control(pDX, IDC_BUTTON_PRIACE_NUM, m_bntPrice);
+	DDX_Control(pDX, IDC_BUTTON_GOODS_NUM, m_btnGoodsNum);
+	DDX_Control(pDX, IDC_BUTTON_CAR_NUM, m_btnCarNum);
 }
 
 
@@ -50,6 +59,25 @@ END_MESSAGE_MAP()
 
 
 // CPublishWayOne message handlers
+
+BOOL CPublishWayOneDlg::OnInitDialog()
+{
+	CDialog::OnInitDialog();
+
+	m_btnFromProv.LoadBitmap(IDB_BITMAP_COMMON_BTN);
+	m_btnFromCity.LoadBitmap(IDB_BITMAP_COMMON_BTN);
+	m_btnFromCounty.LoadBitmap(IDB_BITMAP_COMMON_BTN);
+	m_btnToProvince.LoadBitmap(IDB_BITMAP_COMMON_BTN);
+	m_btnToCity.LoadBitmap(IDB_BITMAP_COMMON_BTN);
+	m_btnToCounty.LoadBitmap(IDB_BITMAP_COMMON_BTN);
+	m_bntPrice.LoadBitmap(IDB_BITMAP_COMMON_BTN);
+	m_btnGoodsNum.LoadBitmap(IDB_BITMAP_COMMON_BTN);
+	m_btnCarNum.LoadBitmap(IDB_BITMAP_COMMON_BTN);
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// 异常: OCX 属性页应返回 FALSE
+}
+
 
 void CPublishWayOneDlg::OnBnClickedButtonPw1FromProvince()
 {

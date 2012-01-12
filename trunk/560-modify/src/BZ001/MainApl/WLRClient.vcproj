@@ -972,6 +972,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\BTN_COMMON.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\BTN_FIRST_PAGE .bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\BTN_GOODS.bmp"
 				>
 			</File>
@@ -981,6 +989,10 @@
 			</File>
 			<File
 				RelativePath=".\res\BTN_GPS_LOCATING.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\BTN_LAST_PAGE.bmp"
 				>
 			</File>
 			<File

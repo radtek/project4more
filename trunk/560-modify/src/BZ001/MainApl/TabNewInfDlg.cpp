@@ -150,8 +150,8 @@ BOOL CTabNewInfDlg::OnInitDialog()
     // ≥ı ºªØ∞¥≈•
     btnPrev.LoadBitmap(IDB_PREVPAGE);
     btnNext.LoadBitmap(IDB_NEXTPAGE);
-	m_btnTopPage.LoadBitmap(IDB_TOP_PAGE);
-	m_btnBottomPage.LoadBitmap(IDB_BOTTOM_PAGE);
+	m_btnTopPage.LoadBitmap(IDB_FIRST_PAGE);
+	m_btnBottomPage.LoadBitmap(IDB_LAST_PAGE);
 
 
 	m_btnSearch.LoadBitmap(IDB_LOCAL);//

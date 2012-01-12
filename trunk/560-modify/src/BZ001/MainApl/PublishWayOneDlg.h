@@ -1,5 +1,6 @@
 #pragma once
 #include "resource.h"
+#include "hoverbutton.h"
 
 // CPublishWayOne dialog
 
@@ -16,6 +17,7 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual BOOL OnInitDialog();
 
 	DECLARE_MESSAGE_MAP()
 public:
@@ -27,14 +29,23 @@ public:
 	afx_msg void OnBnClickedButtonW1ToCounty();
 	afx_msg void OnBnClickedButtonGoodsNum();
 	afx_msg void OnBnClickedButtonCarNum();
-
+	afx_msg void OnBnClickedButtonPw1History();
 private:
+	CHoverButton m_btnFromProv;
+	CHoverButton m_btnFromCity;
+	CHoverButton m_btnFromCounty;
+	CHoverButton m_btnToProvince;
+	CHoverButton m_btnToCity;
+	CHoverButton m_btnToCounty;
+	CHoverButton m_bntPrice;
+	CHoverButton m_btnGoodsNum;
+	CHoverButton m_btnCarNum;
+
 	CString m_strProvinceFrom;
 	CString m_strCityFrom;
 	CString m_strCountyFrom;
 	CString m_strProvinceTo;
 	CString m_strCityTo;
 	CString m_strCountyTo;
-public:
-	afx_msg void OnBnClickedButtonPw1History();
+
 };

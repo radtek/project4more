@@ -1955,49 +1955,9 @@ void CWLRClientDlg::search(UINT8 nType, UINT8 nOption/* = 1*/)
 				const CSearchCriteria* pSearchCriteria = dlg.GetCurSearchCriteria();
 				if( pSearchCriteria != NULL )
 				{
-					InSearchGoods tmp;
-					tmp.startProvince = pSearchCriteria->GetStartProvince();
-					tmp.startCity = pSearchCriteria->GetStartCity();
-					tmp.startCounty = pSearchCriteria->GetStartCounty();
-					tmp.endProvince = pSearchCriteria->GetEndProvince();
-					tmp.endCity = pSearchCriteria->GetEndCity();
-					tmp.endCounty = pSearchCriteria->GetEndCounty();
-					tmp.carLength = pSearchCriteria->GetCarLength();
-					tmp.carType = pSearchCriteria->GetCarType();
-					if( tmp.startProvince.empty() )
-					{
-						tmp.startProvince = NO_LIMIT_STRING;
-					}
-					if( tmp.startCity.empty() )
-					{
-						tmp.startCity = NO_LIMIT_STRING;
-					}
-					if( tmp.startCounty.empty() )
-					{
-						tmp.startCounty = NO_LIMIT_STRING;
-					}
-					if( tmp.endProvince.empty() )
-					{
-						tmp.endProvince = NO_LIMIT_STRING;
-					}
-					if( tmp.endCity.empty() )
-					{
-						tmp.endCity = NO_LIMIT_STRING;
-					}
-					if( tmp.endCounty.empty() )
-					{
-						tmp.endCounty = NO_LIMIT_STRING;
-					}
-					if( tmp.carLength.empty() )
-					{
-						tmp.carLength = NO_LIMIT_STRING;
-					}
-					if( tmp.carType.empty() )
-					{
-						tmp.carType = NO_LIMIT_STRING;
-					}
-
-					setSearchGoods(tmp, nOption);
+					InSearchGoods goodsSearch;
+					FillGoodsSearchCriteria(pSearchCriteria, goodsSearch);
+					setSearchGoods(goodsSearch, nOption);
 				}
 
 			}
@@ -2013,49 +1973,8 @@ void CWLRClientDlg::search(UINT8 nType, UINT8 nOption/* = 1*/)
 				const CSearchCriteria* pSearchCriteria = dlg.GetCurSearchCriteria();
 				if( pSearchCriteria != NULL )
 				{
-					InSearchCars tmp;
-					tmp.startProvince = pSearchCriteria->GetStartProvince();
-					tmp.startCity = pSearchCriteria->GetStartCity();
-					tmp.startCounty = pSearchCriteria->GetStartCounty();
-					tmp.endProvince = pSearchCriteria->GetEndProvince();
-					tmp.endCity = pSearchCriteria->GetEndCity();
-					tmp.endCounty = pSearchCriteria->GetEndCounty();
-					tmp.carLength = pSearchCriteria->GetCarLength();
-					tmp.carType = pSearchCriteria->GetCarType();
-					if( tmp.startProvince.empty() )
-					{
-						tmp.startProvince = NO_LIMIT_STRING;
-					}
-					if( tmp.startCity.empty() )
-					{
-						tmp.startCity = NO_LIMIT_STRING;
-					}
-					if( tmp.startCounty.empty() )
-					{
-						tmp.startCounty = NO_LIMIT_STRING;
-					}
-					if( tmp.endProvince.empty() )
-					{
-						tmp.endProvince = NO_LIMIT_STRING;
-					}
-					if( tmp.endCity.empty() )
-					{
-						tmp.endCity = NO_LIMIT_STRING;
-					}
-					if( tmp.endCounty.empty() )
-					{
-						tmp.endCounty = NO_LIMIT_STRING;
-					}
-					if( tmp.carLength.empty() )
-					{
-						tmp.carLength = NO_LIMIT_STRING;
-					}
-					if( tmp.carType.empty() )
-					{
-						tmp.carType = NO_LIMIT_STRING;
-					}
-
-					setSearchCars(tmp, nOption);
+					InSearchCars carsSearch;
+					setSearchCars(carsSearch, nOption);
 				}
 
 			}
@@ -3867,3 +3786,215 @@ void CWLRClientDlg::OnBnClickedButtonPubWayTwo()
 	}
 }
 
+void CWLRClientDlg::FillGoodsSearchCriteria(const CSearchCriteria* pSearchCriteria, InSearchGoods& goodsSearch)
+{
+	const list<CString>& lstStartProv = pSearchCriteria->GetStartProvinceList();
+	list<CString>::const_iterator it = lstStartProv.begin(), end = lstStartProv.end();
+	for(it; it != end; ++it)
+	{
+		goodsSearch.startProvince = *it;
+	}
+
+	const list<CString>& lstStartCity = pSearchCriteria->GetStartCityList();
+	it = lstStartCity.begin(), end = lstStartCity.end();
+	for(it; it != end; ++it)
+	{
+		goodsSearch.startCity = *it;
+	}
+
+	const list<CString>& lstStartCounty = pSearchCriteria->GetStartCountyList();
+	it = lstStartCounty.begin(), end = lstStartCounty.end();
+	for(it; it != end; ++it)
+	{
+		goodsSearch.startCounty = *it;
+	}
+
+	const list<CString>& lstEndProv = pSearchCriteria->GetEndProvinceList();
+	it = lstEndProv.begin(), end = lstEndProv.end();
+	for(it; it != end; ++it)
+	{
+		goodsSearch.endProvince = *it;
+	}
+
+	const list<CString>& lstEndCity = pSearchCriteria->GetEndCityList();
+	it = lstEndCity.begin(), end = lstEndCity.end();
+	for(it; it != end; ++it)
+	{
+		goodsSearch.endCity = *it;
+	}
+
+	const list<CString>& lstEndCounty = pSearchCriteria->GetEndCountyList();
+	it = lstEndCounty.begin(), end = lstEndCounty.end();
+	for(it; it != end; ++it)
+	{
+		goodsSearch.endCounty = *it;
+	}
+
+
+	const list<CString>& lstCarType = pSearchCriteria->GetCarTypeList();
+	it = lstCarType.begin(), end = lstCarType.end();
+	for(it; it != end; ++it)
+	{
+		goodsSearch.carType = *it;
+	}
+
+	const list<CString>& lstCarLength = pSearchCriteria->GetCarLengthList();
+	it = lstCarLength.begin(), end = lstCarLength.end();
+	for(it; it != end; ++it)
+	{
+		goodsSearch.carLength = *it;
+	}
+
+
+	const list<CString>& lstGoods = pSearchCriteria->GetGoodsList();
+	it = lstGoods.begin(), end = lstGoods.end();
+	for(it; it != end; ++it)
+	{
+	}
+
+	const list<CString>& lstGoodsType = pSearchCriteria->GetGoodsTypeList();
+	it = lstGoodsType.begin(), end = lstGoodsType.end();
+	for(it; it != end; ++it)
+	{
+	}
+	
+	if( goodsSearch.startProvince.empty() )
+	{
+		goodsSearch.startProvince = NO_LIMIT_STRING;
+	}
+	if( goodsSearch.startCity.empty() )
+	{
+		goodsSearch.startCity = NO_LIMIT_STRING;
+	}
+	if( goodsSearch.startCounty.empty() )
+	{
+		goodsSearch.startCounty = NO_LIMIT_STRING;
+	}
+	if( goodsSearch.endProvince.empty() )
+	{
+		goodsSearch.endProvince = NO_LIMIT_STRING;
+	}
+	if( goodsSearch.endCity.empty() )
+	{
+		goodsSearch.endCity = NO_LIMIT_STRING;
+	}
+	if( goodsSearch.endCounty.empty() )
+	{
+		goodsSearch.endCounty = NO_LIMIT_STRING;
+	}
+	if( goodsSearch.carLength.empty() )
+	{
+		goodsSearch.carLength = NO_LIMIT_STRING;
+	}
+	if( goodsSearch.carType.empty() )
+	{
+		goodsSearch.carType = NO_LIMIT_STRING;
+	}
+
+}
+
+void CWLRClientDlg::FillCarSearchCriteria(const CSearchCriteria* pSearchCriteria, InSearchCars& carsSearch)
+{
+	const list<CString>& lstStartProv = pSearchCriteria->GetStartProvinceList();
+	list<CString>::const_iterator it = lstStartProv.begin(), end = lstStartProv.end();
+	for(it; it != end; ++it)
+	{
+		carsSearch.startProvince = *it;
+	}
+
+	const list<CString>& lstStartCity = pSearchCriteria->GetStartCityList();
+	it = lstStartCity.begin(), end = lstStartCity.end();
+	for(it; it != end; ++it)
+	{
+		carsSearch.startCity = *it;
+	}
+
+	const list<CString>& lstStartCounty = pSearchCriteria->GetStartCountyList();
+	it = lstStartCounty.begin(), end = lstStartCounty.end();
+	for(it; it != end; ++it)
+	{
+		carsSearch.startCounty = *it;
+	}
+
+	const list<CString>& lstEndProv = pSearchCriteria->GetEndProvinceList();
+	it = lstEndProv.begin(), end = lstEndProv.end();
+	for(it; it != end; ++it)
+	{
+		carsSearch.endProvince = *it;
+	}
+
+	const list<CString>& lstEndCity = pSearchCriteria->GetEndCityList();
+	it = lstEndCity.begin(), end = lstEndCity.end();
+	for(it; it != end; ++it)
+	{
+		carsSearch.endCity = *it;
+	}
+
+	const list<CString>& lstEndCounty = pSearchCriteria->GetEndCountyList();
+	it = lstEndCounty.begin(), end = lstEndCounty.end();
+	for(it; it != end; ++it)
+	{
+		carsSearch.endCounty = *it;
+	}
+
+
+	const list<CString>& lstCarType = pSearchCriteria->GetCarTypeList();
+	it = lstCarType.begin(), end = lstCarType.end();
+	for(it; it != end; ++it)
+	{
+		carsSearch.carType = *it;
+	}
+
+	const list<CString>& lstCarLength = pSearchCriteria->GetCarLengthList();
+	it = lstCarLength.begin(), end = lstCarLength.end();
+	for(it; it != end; ++it)
+	{
+		carsSearch.carLength = *it;
+	}
+
+
+	const list<CString>& lstGoods = pSearchCriteria->GetGoodsList();
+	it = lstGoods.begin(), end = lstGoods.end();
+	for(it; it != end; ++it)
+	{
+	}
+
+	const list<CString>& lstGoodsType = pSearchCriteria->GetGoodsTypeList();
+	it = lstGoodsType.begin(), end = lstGoodsType.end();
+	for(it; it != end; ++it)
+	{
+	}
+
+	if( carsSearch.startProvince.empty() )
+	{
+		carsSearch.startProvince = NO_LIMIT_STRING;
+	}
+	if( carsSearch.startCity.empty() )
+	{
+		carsSearch.startCity = NO_LIMIT_STRING;
+	}
+	if( carsSearch.startCounty.empty() )
+	{
+		carsSearch.startCounty = NO_LIMIT_STRING;
+	}
+	if( carsSearch.endProvince.empty() )
+	{
+		carsSearch.endProvince = NO_LIMIT_STRING;
+	}
+	if( carsSearch.endCity.empty() )
+	{
+		carsSearch.endCity = NO_LIMIT_STRING;
+	}
+	if( carsSearch.endCounty.empty() )
+	{
+		carsSearch.endCounty = NO_LIMIT_STRING;
+	}
+	if( carsSearch.carLength.empty() )
+	{
+		carsSearch.carLength = NO_LIMIT_STRING;
+	}
+	if( carsSearch.carType.empty() )
+	{
+		carsSearch.carType = NO_LIMIT_STRING;
+	}
+}
