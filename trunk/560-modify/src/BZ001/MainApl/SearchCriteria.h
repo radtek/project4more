@@ -7,6 +7,7 @@ class CSearchCriteria
 {
 public:
 	virtual void Clean(){};
+	virtual void Confirm(){};
 public:
 	const CString& GetStartProvince()const
 	{

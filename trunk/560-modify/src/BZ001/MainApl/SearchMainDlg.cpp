@@ -118,6 +118,10 @@ void CSearchMainDlg::OnTcnSelchangeTabSearchWay(NMHDR *pNMHDR, LRESULT *pResult)
 
 void CSearchMainDlg::OnBnClickedButtonOk()
 {
+	if( m_pCurSearch != NULL )
+	{
+		m_pCurSearch->Confirm();
+	}
 	CDialog::OnOK();
 }
 

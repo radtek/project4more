@@ -258,25 +258,9 @@ void CSearchWayOneDlg::OnBnClickedButtonSw1CleanPhoneNum()
 
 void CSearchWayOneDlg::InitSearchTypeRadio()
 {
-	if( m_nSearchType == (eSearchType_Goods|eSearchType_Car) )
-	{
-		((CButton*)GetDlgItem(IDC_RADIO_SW1_ALL))->SetCheck(BST_CHECKED);
-		((CButton*)GetDlgItem(IDC_RADIO_SW1_GOODS))->SetCheck(BST_UNCHECKED);
-		((CButton*)GetDlgItem(IDC_RADIO_SW1_CARS))->SetCheck(BST_UNCHECKED);
-	}
-	else if( m_nSearchType == eSearchType_Goods )
-	{
-		((CButton*)GetDlgItem(IDC_RADIO_SW1_GOODS))->SetCheck(BST_CHECKED);
-		((CButton*)GetDlgItem(IDC_RADIO_SW1_ALL))->SetCheck(BST_UNCHECKED);
-		((CButton*)GetDlgItem(IDC_RADIO_SW1_CARS))->SetCheck(BST_UNCHECKED);
-	}
-	else if( m_nSearchType == eSearchType_Car)
-	{
-		((CButton*)GetDlgItem(IDC_RADIO_SW1_CARS))->SetCheck(BST_CHECKED);
-		((CButton*)GetDlgItem(IDC_RADIO_SW1_ALL))->SetCheck(BST_UNCHECKED);
-		((CButton*)GetDlgItem(IDC_RADIO_SW1_GOODS))->SetCheck(BST_UNCHECKED);
-		
-	} 
+	((CButton*)GetDlgItem(IDC_RADIO_SW1_ALL))->SetCheck(m_nSearchType == (eSearchType_Goods|eSearchType_Car)?BST_CHECKED:BST_UNCHECKED);
+	((CButton*)GetDlgItem(IDC_RADIO_SW1_GOODS))->SetCheck(m_nSearchType == eSearchType_Goods?BST_CHECKED:BST_UNCHECKED);
+	((CButton*)GetDlgItem(IDC_RADIO_SW1_CARS))->SetCheck(m_nSearchType == eSearchType_Car?BST_CHECKED:BST_UNCHECKED);
 }
 
 void CSearchWayOneDlg::FillKeywordCombox()
