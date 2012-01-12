@@ -63,6 +63,7 @@ void CHistoryManager::loadPublishRecords(char* filename)
 	{
 		string	line;
 		clearPublishList();
+		int		count = 0;
 
 		while ( hisFile.good() )
 		{
@@ -72,6 +73,8 @@ void CHistoryManager::loadPublishRecords(char* filename)
 				continue;
 			}
 			CPublishRecord* pRecord = new CPublishRecord(line);
+			pRecord->sn = count;
+			count++;
 			publishes.push_back(pRecord);
 		}
 	}

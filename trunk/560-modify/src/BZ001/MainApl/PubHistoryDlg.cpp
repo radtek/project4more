@@ -43,6 +43,9 @@ void CPubHistoryDlg::initPublishHistory()
 	publishHistory.InsertColumn(1, "到达", LVCFMT_LEFT, cell);
 	publishHistory.InsertColumn(2, "消息", LVCFMT_LEFT, cell*3);
 
+	publishHistory.ModifyStyle(0, LVS_REPORT, NULL);
+	publishHistory.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_INFOTIP | LVS_EX_ONECLICKACTIVATE);
+
 	publishList publishes = CHistoryManager::getInstance()->getPublishes();
 	publishIter	iter;
 	int	count = 0;
@@ -51,18 +54,37 @@ void CPubHistoryDlg::initPublishHistory()
 	{
 		CString	temp;
 		CPublishRecord* pRecord = (*iter);
-		publishHistory.InsertItem(count, "aaa");
+		publishHistory.InsertItem(pRecord->sn, "aaa");
 		temp = pRecord->get("fromCity");
-		publishHistory.SetItemText(count, 0, temp);
+		publishHistory.SetItemText(pRecord->sn, 0, temp);
 		temp = pRecord->get("toCity");
-		publishHistory.SetItemText(count, 1, temp);
+		publishHistory.SetItemText(pRecord->sn, 1, temp);
 		temp = pRecord->get("msg");
-		publishHistory.SetItemText(count, 2, temp);
+		publishHistory.SetItemText(pRecord->sn, 2, temp);
 	}
 }
 
 BEGIN_MESSAGE_MAP(CPubHistoryDlg, CDialog)
+	ON_BN_CLICKED(IDC_BUTTON_PUBLISH, &CPubHistoryDlg::OnBnClickedButtonPublish)
+	ON_BN_CLICKED(IDC_BUTTON_MODIFY, &CPubHistoryDlg::OnBnClickedButtonModify)
+	ON_BN_CLICKED(IDC_BUTTON_DELETE, &CPubHistoryDlg::OnBnClickedButtonDelete)
 END_MESSAGE_MAP()
 
 
 // CPubHistoryDlg message handlers
+
+void CPubHistoryDlg::OnBnClickedButtonPublish()
+{
+	// TODO: Add your control notification handler code here
+}
+
+void CPubHistoryDlg::OnBnClickedButtonModify()
+{
+	// TODO: Add your control notification handler code here
+}
+
+void CPubHistoryDlg::OnBnClickedButtonDelete()
+{
+	// TODO: Add your control notification handler code here
+	POSITION	pos = publishHistory.GetFirstSelectedItemPosition();
+}

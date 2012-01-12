@@ -23,6 +23,11 @@ protected:
 public:
 	CListCtrl publishHistory;
 
+
 private:
 	void	initPublishHistory();
+public:
+	afx_msg void OnBnClickedButtonPublish();
+	afx_msg void OnBnClickedButtonModify();
+	afx_msg void OnBnClickedButtonDelete();
 };

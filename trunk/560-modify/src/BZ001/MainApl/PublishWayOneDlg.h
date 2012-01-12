@@ -17,6 +17,7 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+
 	virtual BOOL OnInitDialog();
 
 	DECLARE_MESSAGE_MAP()
@@ -29,7 +30,6 @@ public:
 	afx_msg void OnBnClickedButtonW1ToCounty();
 	afx_msg void OnBnClickedButtonGoodsNum();
 	afx_msg void OnBnClickedButtonCarNum();
-	afx_msg void OnBnClickedButtonPw1History();
 private:
 	CHoverButton m_btnFromProv;
 	CHoverButton m_btnFromCity;
@@ -48,4 +48,24 @@ private:
 	CString m_strCityTo;
 	CString m_strCountyTo;
 
+	CComboBox msgType;
+	CComboBox shipTime;
+	CComboBox repubSetting;
+	BOOL autoClose;
+	BOOL rememberRepubSetting;
+	BOOL longTimeAvailable;
+	BOOL withMobile;
+	BOOL withName;
+	CString mobile;
+	CString name;
+	CStatic goodPanel;
+	CStatic truckPanel;
+
+public:
+	afx_msg void OnBnClickedButtonPw1History();
+	afx_msg void OnBnClickedButtonPreview();
+	afx_msg void OnBnClickedButtonPw1Pub();
+	afx_msg void OnBnClickedButtonPw1Clean();
+	afx_msg void OnBnClickedButtonPw1Close();
+	afx_msg void OnCbnSelchangeComboPw1InfoType();
 };

@@ -48,8 +48,8 @@ BEGIN
     "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
     "LANGUAGE 4, 2\r\n"
     "#pragma code_page(936)\r\n"
-    "#include ""res\\WLRClient.rc2""  // ?¡è? Microsoft Visual C++ ?¨¤¡§¡è?-|¨¬??¨¢¡§o???\r\n"
-    "#include ""afxres.rc""     // ?¨¤¡§o?¨¢??¨¢¡§|?t\r\n"
+    "#include ""res\\WLRClient.rc2""  // ??¨¨? Microsoft Visual C++ ?¡§¡è?¡ì?¨¨?-|¡§???¡§¡é?¡ìo???\r\n"
+    "#include ""afxres.rc""     // ?¡§¡è?¡ìo?¡§¡é??¡§¡é?¡ì|?t\r\n"
     "#endif\r\n"
     "\0"
 END
