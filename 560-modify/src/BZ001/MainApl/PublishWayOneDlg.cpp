@@ -49,6 +49,18 @@ void CPublishWayOneDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BUTTON_PRIACE_NUM, m_bntPrice);
 	DDX_Control(pDX, IDC_BUTTON_GOODS_NUM, m_btnGoodsNum);
 	DDX_Control(pDX, IDC_BUTTON_CAR_NUM, m_btnCarNum);
+	DDX_Control(pDX, IDC_COMBO_PW1_INFO_TYPE, msgType);
+	DDX_Control(pDX, IDC_COMBO_PW1_LDGOODS_DT, shipTime);
+	DDX_Control(pDX, IDC_COMBO_PW1_REPUB_SETTING, repubSetting);
+	DDX_Check(pDX, IDC_CHECK_W1_CLOSE, autoClose);
+	DDX_Check(pDX, IDC_CHECK_PW1_REM_REPUB_SETTING, rememberRepubSetting);
+	DDX_Check(pDX, IDC_CHECK_PW1_LONGTIME, longTimeAvailable);
+	DDX_Check(pDX, IDC_CHECK_PW1_CONTACT_NAME, withMobile);
+	DDX_Check(pDX, IDC_CHECK_PW1_CONTACT_PHONE, withName);
+	DDX_Text(pDX, IDC_EDIT_PW1_CONTACT_NAME, mobile);
+	DDX_Text(pDX, IDC_EDIT_PW1_CONTACT_PHONE, name);
+	DDX_Control(pDX, IDC_STATIC_GP_GOODS, goodPanel);
+	DDX_Control(pDX, IDC_STATIC_GP_CAR, truckPanel);
 }
 
 
@@ -86,8 +98,22 @@ BOOL CPublishWayOneDlg::OnInitDialog()
 	m_btnGoodsNum.LoadBitmap(IDB_BITMAP_COMMON_BTN);
 	m_btnCarNum.LoadBitmap(IDB_BITMAP_COMMON_BTN);
 
+	initControlValue();
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
+}
+
+void CPublishWayOneDlg::initControlValue()
+{
+	msgType.AddString("发布货源");
+	msgType.AddString("发布车源");
+	msgType.SetCurSel(0);
+
+	goodPanel.GetWindowRect(&firstRect);
+	ScreenToClient(&firstRect);
+	truckPanel.GetWindowRect(&secondRect);
+	ScreenToClient(&secondRect);
 }
 
 
@@ -213,4 +239,21 @@ void CPublishWayOneDlg::OnBnClickedButtonPw1Close()
 void CPublishWayOneDlg::OnCbnSelchangeComboPw1InfoType()
 {
 	// TODO: Add your control notification handler code here
+	if ( msgType.GetCurSel() == 0 )
+	{
+		goodPanel.SetWindowText("有货");
+		truckPanel.SetWindowText("求车");
+		
+		goodPanel.MoveWindow(&firstRect);
+		truckPanel.MoveWindow(&secondRect);
+	}
+	else
+	{
+		goodPanel.SetWindowText("求货");
+		truckPanel.SetWindowText("有车");
+
+		goodPanel.MoveWindow(&secondRect);
+		truckPanel.MoveWindow(&firstRect);
+	}
+
 }
