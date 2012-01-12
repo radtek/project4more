@@ -139,6 +139,11 @@ void CAddrSelDlg::OnBnClickedButtonAllCity()
 
 void CAddrSelDlg::OnBnClickedButtonAllCounty()
 {
+	if( m_listCity.GetSelCount() == 0 )
+	{
+		m_listCity.SetSel(0);
+	}
+
 	int nItemCount = m_listCounty.GetCount();
 	if( nItemCount == 1 )
 	{
