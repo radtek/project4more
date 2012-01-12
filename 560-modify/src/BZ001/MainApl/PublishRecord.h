@@ -18,6 +18,8 @@ public:
 	CString	get(string key);
 	void	set(string key, CString value);
 
+	int		sn;
+
 private:
 	map<string, string>		paras;
 };

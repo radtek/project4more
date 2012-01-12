@@ -16,6 +16,13 @@ IMPLEMENT_DYNAMIC(CPublishWayOneDlg, CDialog)
 
 CPublishWayOneDlg::CPublishWayOneDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CPublishWayOneDlg::IDD, pParent)
+	, autoClose(FALSE)
+	, rememberRepubSetting(FALSE)
+	, longTimeAvailable(FALSE)
+	, withMobile(FALSE)
+	, withName(FALSE)
+	, mobile(_T(""))
+	, name(_T(""))
 {
 
 }
@@ -55,6 +62,11 @@ BEGIN_MESSAGE_MAP(CPublishWayOneDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON_GOODS_NUM, &CPublishWayOneDlg::OnBnClickedButtonGoodsNum)
 	ON_BN_CLICKED(IDC_BUTTON_CAR_NUM, &CPublishWayOneDlg::OnBnClickedButtonCarNum)
 	ON_BN_CLICKED(IDC_BUTTON_PW1_HISTORY, &CPublishWayOneDlg::OnBnClickedButtonPw1History)
+	ON_BN_CLICKED(IDC_BUTTON_PREVIEW, &CPublishWayOneDlg::OnBnClickedButtonPreview)
+	ON_BN_CLICKED(IDC_BUTTON_PW1_PUB, &CPublishWayOneDlg::OnBnClickedButtonPw1Pub)
+	ON_BN_CLICKED(IDC_BUTTON_PW1_CLEAN, &CPublishWayOneDlg::OnBnClickedButtonPw1Clean)
+	ON_BN_CLICKED(IDC_BUTTON_PW1_CLOSE, &CPublishWayOneDlg::OnBnClickedButtonPw1Close)
+	ON_CBN_SELCHANGE(IDC_COMBO_PW1_INFO_TYPE, &CPublishWayOneDlg::OnCbnSelchangeComboPw1InfoType)
 END_MESSAGE_MAP()
 
 
@@ -171,4 +183,34 @@ void CPublishWayOneDlg::OnBnClickedButtonPw1History()
 	CPubHistoryDlg	dlg;
 
 	dlg.DoModal();
+}
+
+void CPublishWayOneDlg::OnBnClickedButtonPreview()
+{
+	// TODO: Add your control notification handler code here
+}
+
+void CPublishWayOneDlg::OnBnClickedButtonPw1Pub()
+{
+	// TODO: Add your control notification handler code here
+	if ( autoClose )
+	{
+		OnOK();
+	}
+}
+
+void CPublishWayOneDlg::OnBnClickedButtonPw1Clean()
+{
+	// TODO: Add your control notification handler code here
+}
+
+void CPublishWayOneDlg::OnBnClickedButtonPw1Close()
+{
+	// TODO: Add your control notification handler code here
+	OnCancel();
+}
+
+void CPublishWayOneDlg::OnCbnSelchangeComboPw1InfoType()
+{
+	// TODO: Add your control notification handler code here
 }
