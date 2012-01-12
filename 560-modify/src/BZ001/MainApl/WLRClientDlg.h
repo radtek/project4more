@@ -21,6 +21,8 @@
 #include "ProgressDlg.h"
 #include "DlgService.h"
 
+class CSearchCriteria;
+
 // CWLRClientDlg ¶Ô»°¿ò
 class CWLRClientDlg : public CDialog
 {
@@ -367,4 +369,7 @@ protected:
 public:
 	afx_msg void OnBnClickedButtonPubWayOne();
 	afx_msg void OnBnClickedButtonPubWayTwo();
+private:
+	void  FillGoodsSearchCriteria(const CSearchCriteria*, InSearchGoods& goodsSearch);
+	void  FillCarSearchCriteria(const CSearchCriteria*, InSearchCars& goodsSearch);
 };

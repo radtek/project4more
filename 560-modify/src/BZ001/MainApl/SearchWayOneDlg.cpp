@@ -58,13 +58,10 @@ BOOL CSearchWayOneDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	((CButton*)GetDlgItem(IDC_RADIO_SW1_ALL))->SetCheck(BST_CHECKED);
+	GetDlgItem(IDC_STATIC_SW1_FROM_ADDR)->SetWindowText(user.city.empty()?user.province.c_str():user.city.c_str());
 
-	m_sStartProvince = user.province.c_str();
-	m_sStartCity = user.city.c_str();
-	m_sStartCounty = NO_LIMIT_STRING;
-
-	GetDlgItem(IDC_STATIC_SW1_FROM_ADDR)->SetWindowText(m_sStartCity.IsEmpty()?m_sStartProvince:m_sStartCity);
+	AddStartProvice(user.province.c_str());
+	AddStartCity(user.city.c_str());
 
 	InitSearchTypeRadio();
 
@@ -112,7 +109,7 @@ void CSearchWayOneDlg::OnBnClickedButtonSw1Select()
 	CAddrSelDlg dlg;
 	if( dlg.DoModal() == IDOK )
 	{
-		m_sEndProvince = m_sDestAddr = dlg.GetSelProvince();
+		AddEndProvice(m_sDestAddr = dlg.GetSelProvince());
 
 		const list<CString>& cityList = dlg.GetSelCities();
 		if(cityList.size() > 0)
@@ -120,10 +117,10 @@ void CSearchWayOneDlg::OnBnClickedButtonSw1Select()
 			m_sDestAddr.Empty();
 
 			list<CString>::const_iterator it = cityList.begin(), end = cityList.end();
-			m_sEndCity = *it;
 			for(it; it != end; ++it)
 			{
 				m_sDestAddr += *it + _T(" ");
+				AddEndCity(*it);
 			}
 
 			const list<CString>& countyList = dlg.GetSelCounties();
@@ -131,22 +128,13 @@ void CSearchWayOneDlg::OnBnClickedButtonSw1Select()
 			{
 				m_sDestAddr.Empty();
 				it = countyList.begin(), end = countyList.end();
-				m_sEndCounty = *it;
 				for(it; it != end; ++it)
 				{
 					m_sDestAddr += *it + _T(" ");
+					AddEndCounty(*it);
 				}
 			}
-			else
-			{
-				m_sEndCounty = NO_LIMIT_STRING;
-			}
 		}
-		else
-		{
-			m_sEndCity = m_sEndCounty = NO_LIMIT_STRING;
-		}
-		
 		UpdateData(FALSE);
 	}
 }
@@ -166,6 +154,7 @@ void CSearchWayOneDlg::OnBnClickedButtonSw1Addr()
 		m_comboxKeyword.GetWindowText(sKeyWord);
 
 		CString sDestAddr(dlg.GetSelProvince());
+		AddEndProvice(sDestAddr);
 
 		const list<CString>& cityList = dlg.GetSelCities();
 		if( cityList.size() > 0 )
@@ -176,6 +165,7 @@ void CSearchWayOneDlg::OnBnClickedButtonSw1Addr()
 			for(it; it != end; ++it)
 			{
 				sDestAddr += *it + _T(" ");
+				AddEndCity(*it);
 			}
 
 			const list<CString>& countyList = dlg.GetSelCounties();
@@ -187,6 +177,7 @@ void CSearchWayOneDlg::OnBnClickedButtonSw1Addr()
 				for(it; it != end; ++it)
 				{
 					sDestAddr += *it + _T(" ");
+					AddEndCounty(*it);
 				}
 			}
 		}
@@ -202,11 +193,13 @@ void CSearchWayOneDlg::OnBnClickedButtonSw1Goods()
 	vecGoods.push_back(NO_LIMIT_STRING);
 	vecGoods.push_back("≤‚ ‘");
 	vecGoods.push_back("≤‚ ‘1");
-	CContentDlg dlg(GetParent(), GetDlgItem(IDC_BUTTON_SW1_GOODS), &vecGoods, &m_sGoods);
+	CString sGoods;
+	CContentDlg dlg(GetParent(), GetDlgItem(IDC_BUTTON_SW1_GOODS), &vecGoods, &sGoods);
 	//CWnd* pCtrl = GetDlgItem(IDC_BUTTON_SW1_GOODS);
 	if( dlg.DoModal() == IDOK )
 	{
-		UpdateKeyword(m_sGoods);
+		AddGoods(sGoods);
+		UpdateKeyword(sGoods);
 	}
 }
 
@@ -215,10 +208,13 @@ void CSearchWayOneDlg::OnBnClickedButtonSw1GoodsType()
 {
 	vector<CString> vecGoodsType;
 	vecGoodsType.push_back(NO_LIMIT_STRING);
-	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW1_GOODS_TYPE), &vecGoodsType, &m_sGoodsType);
+
+	CString sGoodsType;
+	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW1_GOODS_TYPE), &vecGoodsType, &sGoodsType);
 	if( dlg.DoModal() == IDOK )
 	{
-		UpdateKeyword(m_sGoodsType);
+		AddGoodsType(sGoodsType);
+		UpdateKeyword(sGoodsType);
 	}
 }
 
@@ -227,10 +223,13 @@ void CSearchWayOneDlg::OnBnClickedButtonSw1CarType()
 {
 	vector<CString> vecCarType;
 	vecCarType.push_back(NO_LIMIT_STRING);
-	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW1_CAR_TYPE), &vecCarType, &m_sCarType);
+
+	CString sCarType;
+	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW1_CAR_TYPE), &vecCarType, &sCarType);
 	if( dlg.DoModal() == IDOK )
 	{
-		UpdateKeyword(m_sCarType);
+		AddCarType(sCarType);
+		UpdateKeyword(sCarType);
 	}
 }
 
@@ -238,10 +237,13 @@ void CSearchWayOneDlg::OnBnClickedButtonSw1CarSize()
 {
 	vector<CString> vecCarType;
 	vecCarType.push_back(NO_LIMIT_STRING);
-	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW1_CAR_SIZE), &vecCarType, &m_sCarLength);
+
+	CString sCarLength;
+	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW1_CAR_SIZE), &vecCarType, &sCarLength);
 	if( dlg.DoModal() == IDOK )
 	{
-		UpdateKeyword(m_sCarLength);
+		AddCarLength(sCarLength);
+		UpdateKeyword(sCarLength);
 	}
 }
 

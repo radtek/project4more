@@ -27,15 +27,21 @@ public:
 	afx_msg void OnBnClickedRadioSw2All();
 	afx_msg void OnBnClickedRadioSw2Goods();
 	afx_msg void OnBnClickedRadioSw2Cars();
+
 	afx_msg void OnCbnSelchangeComboSw2FromProvince();
 	afx_msg void OnCbnSelchangeComboSw2FromCity();
 	afx_msg void OnCbnSelchangeComboSw2FromCounty();
+
 	afx_msg void OnBnClickedButtonSw2AddDest();
 	afx_msg void OnBnClickedButtonSw2AddAllCity();
 	afx_msg void OnBnClickedButtonSw2AddAllCounty();
 	afx_msg void OnBnClickedButtonSw2Del();
 	afx_msg void OnBnClickedButtonSw2Clean();
 	afx_msg void OnBnClickedButtonSw2AddKeyWord();
+
+	afx_msg void OnLbnSelchangeListSw2ToProvince();
+	afx_msg void OnLbnSelchangeListSw2ToCity();
+	afx_msg void OnLbnSelchangeListSw2ToCounty();
 public:
 	int GetSearchType()
 	{
@@ -48,9 +54,9 @@ public:
 private:
 	void InitSearchTypeRadio();
 
-	void InitFromProvinceList();
-	void FillFromCityList(const CString& sProvince);
-	void FillFromCountyList(const CString& sProvince, const CString& sCity);
+	void InitFromProvinceComboBox();
+	void FillFromCityComboBox(const CString& sProvince);
+	void FillFromCountyComboBox(const CString& sProvince, const CString& sCity);
 
 	void InitToProvinceList();
 	void FillToCityList(const CString& sProvince);
@@ -71,10 +77,6 @@ private:
 	CListBox m_listToCounty;
 	CListBox m_listCriteria;
 
-	list<CString> m_selCities;
-	list<CString> m_selCounties;
-public:
-	afx_msg void OnLbnSelchangeListSw2ToProvince();
-	afx_msg void OnLbnSelchangeListSw2ToCity();
-	afx_msg void OnLbnSelchangeListSw2ToCounty();
+	CString m_sSelStartProv;
+	CString m_sSelEndProv;
 };

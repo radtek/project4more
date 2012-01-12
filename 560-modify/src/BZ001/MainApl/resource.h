@@ -91,9 +91,10 @@
 #define IDD_DIALOG_NUMBER               237
 #define IDD_DIALOG_CONTENT_LIST         238
 #define IDD_DIALOG_ADDR_SEL             239
-#define IDB_BOTTOM_PAGE                 240
-#define IDB_BITMAP5                     241
-#define IDB_TOP_PAGE                    241
+#define IDB_LAST_PAGE                   240
+#define IDB_FIRST_PAGE                  241
+#define IDB_BITMAP4                     242
+#define IDB_BITMAP_COMMON_BTN           242
 #define IDC_BTN_MainPage                1000
 #define IDC_COLOR_NAME                  1000
 #define IDC_CONFIG_SET_SYSBKCLR         1000
@@ -321,7 +322,6 @@
 #define IDC_LIST_COUNTY                 1125
 #define IDC_BTN_SERVER                  1126
 #define IDC_LIST_SW2_DEST_KEY_WORD      1126
-#define IDC_LIST_SW2_TO_COUNTY2         1126
 #define IDC_TREE1                       1127
 #define IDC_EDIT1                       1128
 #define IDC_FWZ                         1129
@@ -361,8 +361,8 @@
 #define IDC_BUTTON_LINE_CANCEL_SEARCH   1151
 #define IDC_BUTTON_LINE_SECRECY         1152
 #define IDC_BUTTON_LINE_STOP_REFRESH    1153
-#define IDC_STATIC_START_ADDR           1154
-#define IDC_STATIC_DEST_ADDR            1155
+#define IDC_LIST_SW3_FROM_ADDR          1154
+#define IDC_STATIC_SW3_DEST_ADDR        1155
 #define IDC_COMBO_INFO_TYPE             1156
 #define IDC_CHECK_CLOSE                 1157
 #define IDC_LIST_GOODS                  1159
@@ -480,6 +480,7 @@
 #define IDC_LIST_SW3_FROM_CITY          1275
 #define IDC_LIST_SW3_FROM_COUNTY        1276
 #define IDC_BUTTON_SW3_ADD_FROM         1277
+#define IDC_BUTTON_SW3_ADD_FROM_ADDR    1277
 #define IDC_BUTTON_SW3_ADD_ALL_CITY     1278
 #define IDC_BUTTON_SW3_ADD_ALL_COUNTY   1279
 #define IDC_BUTTON_SW3_DEL              1280
@@ -540,7 +541,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        242
+#define _APS_NEXT_RESOURCE_VALUE        243
 #define _APS_NEXT_COMMAND_VALUE         32783
 #define _APS_NEXT_CONTROL_VALUE         1312
 #define _APS_NEXT_SYMED_VALUE           101
