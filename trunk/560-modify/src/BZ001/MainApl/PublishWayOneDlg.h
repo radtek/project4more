@@ -1,6 +1,7 @@
 #pragma once
 #include "resource.h"
 #include "hoverbutton.h"
+#include "afxwin.h"
 
 // CPublishWayOne dialog
 
@@ -48,6 +49,19 @@ private:
 	CString m_strCityTo;
 	CString m_strCountyTo;
 
+	CRect		firstRect, secondRect;
+
+public:
+	afx_msg void OnBnClickedButtonPw1History();
+	afx_msg void OnBnClickedButtonPreview();
+	afx_msg void OnBnClickedButtonPw1Pub();
+	afx_msg void OnBnClickedButtonPw1Clean();
+	afx_msg void OnBnClickedButtonPw1Close();
+	afx_msg void OnCbnSelchangeComboPw1InfoType();
+
+private:
+	void initControlValue();
+public:
 	CComboBox msgType;
 	CComboBox shipTime;
 	CComboBox repubSetting;
@@ -60,12 +74,4 @@ private:
 	CString name;
 	CStatic goodPanel;
 	CStatic truckPanel;
-
-public:
-	afx_msg void OnBnClickedButtonPw1History();
-	afx_msg void OnBnClickedButtonPreview();
-	afx_msg void OnBnClickedButtonPw1Pub();
-	afx_msg void OnBnClickedButtonPw1Clean();
-	afx_msg void OnBnClickedButtonPw1Close();
-	afx_msg void OnCbnSelchangeComboPw1InfoType();
 };
