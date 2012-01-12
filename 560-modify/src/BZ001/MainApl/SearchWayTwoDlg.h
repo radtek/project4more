@@ -46,6 +46,8 @@ public:
 		m_nSearchType = nType;
 	}
 private:
+	void InitSearchTypeRadio();
+
 	void InitFromProvinceList();
 	void FillFromCityList(const CString& sProvince);
 	void FillFromCountyList(const CString& sProvince, const CString& sCity);
@@ -55,7 +57,9 @@ private:
 	void FillToCountyList(const CString& sProvince, const CString& sCity);
 
 	void Clean();
+	void Confirm();
 private:
+	enum{eItemData_Province, eItemData_City, eItemData_County, eItemData_Keyword};
 	int m_nSearchType;
 
 	CComboBox m_comboxFromProv;

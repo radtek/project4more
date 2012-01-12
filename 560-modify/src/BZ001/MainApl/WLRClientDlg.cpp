@@ -2059,8 +2059,6 @@ void CWLRClientDlg::search(UINT8 nType, UINT8 nOption/* = 1*/)
 				}
 
 			}
-
-			break;
 			break;
 		}
 	case eSearchType_SpecialLine:	// ËÑË÷×¨Ïß
@@ -3868,37 +3866,4 @@ void CWLRClientDlg::OnBnClickedButtonPubWayTwo()
 
 	}
 }
-//
-//void CWLRClientDlg::OnBnClickedButtonSearch()
-//{
-//	static int i = 0;
-//	CSearchMainDlg dlg;
-//	if(i == 0)
-//	{
-//		dlg.SetSearchType(eSearchType_Goods);
-//		++i;
-//	}
-//	else if( i == 1)
-//	{
-//		dlg.SetSearchType(eSearchType_Car);
-//		++i;
-//	}
-//	else
-//	{
-//		dlg.SetSearchType(eSearchType_Car|eSearchType_Goods);
-//		++i;
-//	}
-//	if( dlg.DoModal() == IDOK )
-//	{
-//	}
-//}
-//
-//void CWLRClientDlg::OnBnClickedButtonHidePhone()
-//{
-//	// TODO: Add your control notification handler code here
-//}
-//
-//void CWLRClientDlg::OnBnClickedButtonStopRefresh()
-//{
-//	// TODO: Add your control notification handler code here
-//}
+
