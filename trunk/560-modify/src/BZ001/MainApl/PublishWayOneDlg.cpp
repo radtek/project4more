@@ -59,8 +59,15 @@ void CPublishWayOneDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_PW1_CONTACT_PHONE, withName);
 	DDX_Text(pDX, IDC_EDIT_PW1_CONTACT_NAME, mobile);
 	DDX_Text(pDX, IDC_EDIT_PW1_CONTACT_PHONE, name);
-	DDX_Control(pDX, IDC_STATIC_GP_GOODS, goodPanel);
-	DDX_Control(pDX, IDC_STATIC_GP_CAR, truckPanel);
+	DDX_Control(pDX, IDC_STATIC_GP_GOODS, firstPanel);
+	DDX_Control(pDX, IDC_STATIC_GP_CAR, secondPanel);
+	DDX_Control(pDX, IDC_LIST_GOODS, goodsList);
+	DDX_Control(pDX, IDC_EDIT_GOODS_NUM, goodsCount);
+	DDX_Control(pDX, IDC_COMBO_GOOD_UNIT, goodsUnit);
+	DDX_Control(pDX, IDC_LIST_CAR_SIZE, truckLength);
+	DDX_Control(pDX, IDC_LIST_CAR_TYPE, truckType);
+	DDX_Control(pDX, IDC_EDIT_CAR_NUM, truckCount);
+	DDX_Control(pDX, IDC_STATIC_CAR_UNIT, truckUnit);
 }
 
 
@@ -109,11 +116,6 @@ void CPublishWayOneDlg::initControlValue()
 	msgType.AddString("发布货源");
 	msgType.AddString("发布车源");
 	msgType.SetCurSel(0);
-
-	goodPanel.GetWindowRect(&firstRect);
-	ScreenToClient(&firstRect);
-	truckPanel.GetWindowRect(&secondRect);
-	ScreenToClient(&secondRect);
 }
 
 
@@ -239,21 +241,45 @@ void CPublishWayOneDlg::OnBnClickedButtonPw1Close()
 void CPublishWayOneDlg::OnCbnSelchangeComboPw1InfoType()
 {
 	// TODO: Add your control notification handler code here
+	int		dx = 0;
+
 	if ( msgType.GetCurSel() == 0 )
 	{
-		goodPanel.SetWindowText("有货");
-		truckPanel.SetWindowText("求车");
+		firstPanel.SetWindowText("有货");
+		secondPanel.SetWindowText("求车");
 		
-		goodPanel.MoveWindow(&firstRect);
-		truckPanel.MoveWindow(&secondRect);
+		dx = -229;
 	}
 	else
 	{
-		goodPanel.SetWindowText("求货");
-		truckPanel.SetWindowText("有车");
+		firstPanel.SetWindowText("有车");
+		secondPanel.SetWindowText("求货");
 
-		goodPanel.MoveWindow(&secondRect);
-		truckPanel.MoveWindow(&firstRect);
+		dx = 229;
 	}
 
+	MoveControl(goodsList, dx, 0);
+	MoveControl(goodsCount, dx, 0);
+	MoveControl(goodsUnit, dx, 0);
+	MoveControl(m_btnGoodsNum, dx, 0);
+
+	MoveControl(truckLength, -dx, 0);
+	MoveControl(truckType, -dx, 0);
+	MoveControl(truckCount, -dx, 0);
+	MoveControl(truckUnit, -dx, 0);
+	MoveControl(m_btnCarNum, -dx, 0);
+}
+
+void CPublishWayOneDlg::MoveControl(CWnd& control, int dx, int dy)
+{
+	CRect	rect;
+	control.GetWindowRect(&rect);
+	ScreenToClient(&rect);
+
+	rect.left += dx;
+	rect.right += dx;
+	rect.top += dy;
+	rect.bottom += dy;
+
+	control.MoveWindow(rect);
 }

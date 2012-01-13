@@ -3,6 +3,9 @@
 #include "hoverbutton.h"
 #include "afxwin.h"
 
+#include <vector>
+using namespace std;
+
 // CPublishWayOne dialog
 
 class CPublishWayOneDlg : public CDialog
@@ -49,8 +52,6 @@ private:
 	CString m_strCityTo;
 	CString m_strCountyTo;
 
-	CRect		firstRect, secondRect;
-
 public:
 	afx_msg void OnBnClickedButtonPw1History();
 	afx_msg void OnBnClickedButtonPreview();
@@ -60,7 +61,11 @@ public:
 	afx_msg void OnCbnSelchangeComboPw1InfoType();
 
 private:
+	
 	void initControlValue();
+
+	void MoveControl(CWnd& control, int dx, int dy);
+
 public:
 	CComboBox msgType;
 	CComboBox shipTime;
@@ -72,6 +77,16 @@ public:
 	BOOL withName;
 	CString mobile;
 	CString name;
-	CStatic goodPanel;
-	CStatic truckPanel;
+
+	CStatic firstPanel;
+	CStatic secondPanel;
+
+	CListBox goodsList;
+	CEdit goodsCount;
+	CComboBox goodsUnit;
+
+	CListBox truckLength;
+	CListBox truckType;
+	CEdit truckCount;
+	CStatic truckUnit;
 };
