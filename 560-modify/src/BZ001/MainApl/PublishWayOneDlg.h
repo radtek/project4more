@@ -89,4 +89,6 @@ public:
 	CListBox truckType;
 	CEdit truckCount;
 	CStatic truckUnit;
+
+	CListBox priceList;
 };
