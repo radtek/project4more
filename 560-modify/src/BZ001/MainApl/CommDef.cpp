@@ -1,9 +1,12 @@
 #include "stdafx.h"
 #include "CommDef.h"
+#include "GLB.h"
 
-vector<CString>  g_vecGoodsType;
-vector<CString>  g_vecCarType;
-vector<CString>  g_vecCarSize;
+vector<CString>	 g_vecSearchGoods;
+vector<CString>  g_vecSearchGoodsType;
+vector<CString>  g_vecSearchCarType;
+vector<CString>  g_vecSearchCarSize;
+
 vector<CString>  g_vecPrices1;
 vector<CString>  g_vecPrices2;
 CountryRegion*   g_pCountryRegion;
@@ -56,6 +59,16 @@ const tdVecCounty* GetCounties(const CString& sProvince, const CString& sCity)
 	}
 	return NULL;
 }
+const string& GetCity(const CString& sProvince, int nCityIndex)
+{
+	const tdVecCity* pCities = GetCities(sProvince);
+	if( pCities == NULL || nCityIndex<0 || nCityIndex>=pCities->size() )
+	{
+		return "";
+	}
+
+	return (*pCities)[nCityIndex].name;
+}
 
 const void GetProvincesName(vector<CString> &vecProvincesName)
 {
@@ -97,8 +110,129 @@ const void GetCountiesNameByProvinceAndCity(vector<CString> &vecCountiesName, co
 	}
 }
 
+static void InitSearchGoodsType()
+{
+	g_vecSearchGoodsType.push_back("整车");
+	g_vecSearchGoodsType.push_back("零担");
+	g_vecSearchGoodsType.push_back("抛货");
+	g_vecSearchGoodsType.push_back("泡货");
+	g_vecSearchGoodsType.push_back("重货");
+	g_vecSearchGoodsType.push_back("普货");
+	g_vecSearchGoodsType.push_back("危货");
+	g_vecSearchGoodsType.push_back("小货");
+	g_vecSearchGoodsType.push_back("倒短货");
+	g_vecSearchGoodsType.push_back("回程货");
+	g_vecSearchGoodsType.push_back("大量货");
+	g_vecSearchGoodsType.push_back("长期货");
+	g_vecSearchGoodsType.push_back("搬家货");
+}
+static void InitSearchGoods()
+{
+	g_vecSearchGoods.push_back("原料");
+	g_vecSearchGoods.push_back("冻货"); 
+	g_vecSearchGoods.push_back("化工");
+	g_vecSearchGoods.push_back("煤炭");
+	g_vecSearchGoods.push_back("配件");
+	g_vecSearchGoods.push_back("矿产");
+	g_vecSearchGoods.push_back("设备");
+	g_vecSearchGoods.push_back("机械");
+	g_vecSearchGoods.push_back("仪器");
+	g_vecSearchGoods.push_back("电器");
+	g_vecSearchGoods.push_back("家具");
+	g_vecSearchGoods.push_back("建材");
+	g_vecSearchGoods.push_back("药材");
+	g_vecSearchGoods.push_back("医药");
+	g_vecSearchGoods.push_back("试剂");
+	g_vecSearchGoods.push_back("海鲜");
+	g_vecSearchGoods.push_back("电机");
+	g_vecSearchGoods.push_back("服装");
+	g_vecSearchGoods.push_back("矿石");
+	g_vecSearchGoods.push_back("食品");
+	g_vecSearchGoods.push_back("粮食");
+	g_vecSearchGoods.push_back("蔬菜");
+	g_vecSearchGoods.push_back("水果");
+	g_vecSearchGoods.push_back("瓜果");
+	g_vecSearchGoods.push_back("饮料");
+	g_vecSearchGoods.push_back("牲畜");
+	g_vecSearchGoods.push_back("家禽");
+	g_vecSearchGoods.push_back("肉制品");
+	g_vecSearchGoods.push_back("纺织品");
+	g_vecSearchGoods.push_back("化妆品");
+	g_vecSearchGoods.push_back("危险品");
+	g_vecSearchGoods.push_back("农产品");
+	g_vecSearchGoods.push_back("工艺品");
+	g_vecSearchGoods.push_back("洗涤品");
+	g_vecSearchGoods.push_back("牧产品");
+	g_vecSearchGoods.push_back("渔产品");
+	g_vecSearchGoods.push_back("电子产品");
+	g_vecSearchGoods.push_back("轻工产品");
+	g_vecSearchGoods.push_back("大型设备");
+	g_vecSearchGoods.push_back("石油制品");
+	g_vecSearchGoods.push_back("办公设备");
+	g_vecSearchGoods.push_back("冷冻食品");
+	g_vecSearchGoods.push_back("桶装化工");
+	g_vecSearchGoods.push_back("箱装化工");
+}
+static void InitSearchCarType()
+{
+	g_vecSearchCarType.push_back("普通车");
+	g_vecSearchCarType.push_back("前四后四");
+	g_vecSearchCarType.push_back("前四后八");
+	g_vecSearchCarType.push_back("前四后十");
+	g_vecSearchCarType.push_back("敞篷车");
+	g_vecSearchCarType.push_back("平板车");
+	g_vecSearchCarType.push_back("高栏车");
+	g_vecSearchCarType.push_back("集装箱");
+	g_vecSearchCarType.push_back("冷藏车");
+	g_vecSearchCarType.push_back("起重车");
+	g_vecSearchCarType.push_back("后八轮");
+	g_vecSearchCarType.push_back("单桥车");
+	g_vecSearchCarType.push_back("自卸车");
+	g_vecSearchCarType.push_back("半封闭车");
+	g_vecSearchCarType.push_back("半挂车");
+	g_vecSearchCarType.push_back("保温车");
+	g_vecSearchCarType.push_back("双桥车");
+	g_vecSearchCarType.push_back("加长挂车");
+	g_vecSearchCarType.push_back("棉被车");
+	g_vecSearchCarType.push_back("大笼子车");
+	g_vecSearchCarType.push_back("高低板");
+	g_vecSearchCarType.push_back("翻斗车");
+}
+static void InitSearchCarSize()
+{
+	g_vecSearchCarSize.push_back("4");
+	g_vecSearchCarSize.push_back("4.2");
+	g_vecSearchCarSize.push_back("4.3");
+	g_vecSearchCarSize.push_back("4.5");
+	g_vecSearchCarSize.push_back("4.8");
+	g_vecSearchCarSize.push_back("5");
+	g_vecSearchCarSize.push_back("5.8");
+	g_vecSearchCarSize.push_back("6");
+	g_vecSearchCarSize.push_back("6.2");
+	g_vecSearchCarSize.push_back("6.8");
+	g_vecSearchCarSize.push_back("7");
+	g_vecSearchCarSize.push_back("7.2");
+	g_vecSearchCarSize.push_back("7.4");
+	g_vecSearchCarSize.push_back("7.8");
+	g_vecSearchCarSize.push_back("8");
+	g_vecSearchCarSize.push_back("8.7");
+	g_vecSearchCarSize.push_back("8.8");
+	g_vecSearchCarSize.push_back("9");
+	g_vecSearchCarSize.push_back("9.6");
+	g_vecSearchCarSize.push_back("12.5");
+	g_vecSearchCarSize.push_back("13");
+	g_vecSearchCarSize.push_back("13.5");
+	g_vecSearchCarSize.push_back("17.5");
+}
+
 void InitCommData()
 {
+	InitSearchGoodsType();
+	InitSearchGoods();
+	InitSearchCarSize();
+	InitSearchCarType();
+
+
 	g_goodsType.push_back("整车");
 	g_goodsType.push_back("零担");
 	g_goodsType.push_back("重货");
@@ -159,6 +293,7 @@ void InitCommData()
 	g_truckType.push_back("普通车");
 	g_truckType.push_back("前四后四");
 	g_truckType.push_back("前四后八");
+	g_truckType.push_back("前四后十");
 	g_truckType.push_back("敞篷车");
 	g_truckType.push_back("平板车");
 	g_truckType.push_back("高栏车");
@@ -174,7 +309,6 @@ void InitCommData()
 	g_truckType.push_back("双桥车");
 	g_truckType.push_back("加长挂车");
 	g_truckType.push_back("棉被车");
-	g_truckType.push_back("前四后十");
 	g_truckType.push_back("大笼子车");
 	g_truckType.push_back("高低板");
 	g_truckType.push_back("翻斗车");
@@ -338,4 +472,145 @@ void InitCommData()
 	g_PeihuoInfo.push_back("元");
 	g_PeihuoInfo.push_back("元/吨");
 	g_PeihuoInfo.push_back("单位");
+}
+
+
+
+#ifndef FIRST_LEV_SPLITER
+#define FIRST_LEV_SPLITER	'|'
+#endif
+
+#ifndef SECOND_LEV_SPLITER
+#define SECOND_LEV_SPLITER  ';'
+#endif
+
+#ifndef THRID_LEV_SPLITER
+#define THRID_LEV_SPLITER	','
+#endif
+
+static void FormatAddr(const tdMapAddr& mapAddr, string& sAddr)
+{
+	if( mapAddr.size() > 0 )
+	{
+		tdMapAddr::const_iterator it = mapAddr.begin(), end = mapAddr.end();
+		for(it; it != end; ++it)
+		{
+			const string& sProvince = (*it).first;
+			const tdMapCity& mapCity = (*it).second;
+			if( mapCity.size() > 0 )
+			{
+				tdMapCity::const_iterator mit = mapCity.begin(), mend = mapCity.end();
+				for(mit; mit != mend; ++mit)
+				{
+					const string& sCity = (*mit).first;
+					const tdListCounty& lstCounty = (*mit).second;
+					if( lstCounty.size() > 0 )
+					{
+						tdListCounty::const_iterator lit = lstCounty.begin(), lend = lstCounty.end();
+						for(lit; lit != lend; ++lit)
+						{
+							sAddr += sProvince + THRID_LEV_SPLITER + sCity + THRID_LEV_SPLITER + *lit + SECOND_LEV_SPLITER;
+						}
+					}
+					else
+					{
+						sAddr += sProvince + THRID_LEV_SPLITER + sCity + THRID_LEV_SPLITER + string(NO_LIMIT_STRING) + SECOND_LEV_SPLITER;
+					}
+				}
+			}
+			else
+			{
+				sAddr += sProvince + THRID_LEV_SPLITER + string(NO_LIMIT_STRING) + THRID_LEV_SPLITER + string(NO_LIMIT_STRING) + SECOND_LEV_SPLITER;
+			}
+		}
+		sAddr.replace(sAddr.length()-1, 1, 1, FIRST_LEV_SPLITER);//replace the last ';' with  '|'
+	}
+	else
+	{
+		sAddr += string(NO_LIMIT_STRING) + THRID_LEV_SPLITER + string(NO_LIMIT_STRING) + THRID_LEV_SPLITER + string(NO_LIMIT_STRING) + FIRST_LEV_SPLITER;
+	}
+
+}
+static void FormatStringList(const list<string>& lstData, string& sData, const string& sDefault=NO_LIMIT_STRING)
+{
+	if( lstData.size() > 0 )
+	{
+		list<string>::const_iterator it = lstData.begin(), end = lstData.end();
+		for(it; it != end; ++it)
+		{
+			sData += *it + SECOND_LEV_SPLITER;
+		}
+		sData.replace(sData.length()-1, 1, 1, FIRST_LEV_SPLITER);//replace the last ';' with  '|'
+	}
+	else
+	{
+		sData += sDefault + FIRST_LEV_SPLITER;
+	}
+}
+
+void FormatGoodsSearchString(const InSearchGoods& goodsSearch, string& sGoodsSearch)
+{
+	//start address
+	FormatAddr(goodsSearch.lstStartAddr, sGoodsSearch);
+
+	//snd address
+	FormatAddr(goodsSearch.lstEndAddr, sGoodsSearch);
+
+	//car type
+	FormatStringList(goodsSearch.lstCarType, sGoodsSearch);
+
+	//car length
+	FormatStringList(goodsSearch.lstCarLength, sGoodsSearch);
+
+	//goods type
+	FormatStringList(goodsSearch.lstGoodsType, sGoodsSearch);
+
+	//goods
+	FormatStringList(goodsSearch.lstGoods, sGoodsSearch);
+
+	//Pubilsher
+	FormatStringList(goodsSearch.lstPublisher, sGoodsSearch);
+
+	//Phone Number
+	FormatStringList(goodsSearch.lstPhoneNum, sGoodsSearch);
+
+	//keyword
+	sGoodsSearch += goodsSearch.sKeyword;
+
+	//wether match all
+	sGoodsSearch += goodsSearch.bMatchAll?"|ALL":"|ANY";
+
+}
+
+void FormatCarsSearchString(const InSearchCars& carsSearch, string& sCarsSearch)
+{
+	//start address
+	FormatAddr(carsSearch.lstStartAddr, sCarsSearch);
+
+	//snd address
+	FormatAddr(carsSearch.lstEndAddr, sCarsSearch);
+
+	//car type
+	FormatStringList(carsSearch.lstCarType, sCarsSearch);
+
+	//car length
+	FormatStringList(carsSearch.lstCarLength, sCarsSearch);
+
+	//goods type
+	FormatStringList(carsSearch.lstGoodsType, sCarsSearch);
+
+	//goods
+	FormatStringList(carsSearch.lstGoods, sCarsSearch);
+
+	//Pubilsher
+	FormatStringList(carsSearch.lstPublisher, sCarsSearch);
+
+	//Phone Number
+	FormatStringList(carsSearch.lstPhoneNum, sCarsSearch);
+
+	//keyword
+	sCarsSearch += carsSearch.sKeyword;
+
+	//whether match all
+	sCarsSearch += carsSearch.bMatchAll?"|ALL":"|ANY";
 }
