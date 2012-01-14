@@ -118,44 +118,37 @@ void CPublishWayOneDlg::initControlValue()
 	msgType.AddString("发布车源");
 	msgType.SetCurSel(0);
 
+	unsigned int n;
+
 	goodsList.SetColumnWidth(110);
-	goodsList.AddString("整车");	goodsList.AddString("零担");	goodsList.AddString("重货");	goodsList.AddString("泡货");	goodsList.AddString("飘货");	goodsList.AddString("普货");	goodsList.AddString("化工");	goodsList.AddString("设备");	goodsList.AddString("蔬菜");	goodsList.AddString("建材");	goodsList.AddString("木材");	goodsList.AddString("食品");	goodsList.AddString("粮食");	goodsList.AddString("冻品");	goodsList.AddString("农副产品");	goodsList.AddString("保温材料");	goodsList.AddString("水果");	goodsList.AddString("矿石");	goodsList.AddString("煤");	goodsList.AddString("医药");	goodsList.AddString("家具");	goodsList.AddString("纸箱");	goodsList.AddString("危化品");	goodsList.AddString("随便装");	goodsList.AddString("配件");	goodsList.AddString("小货");	goodsList.AddString("捎带货");
-	goodsUnit.AddString("吨");
-	goodsUnit.AddString("方");
-	goodsUnit.AddString("件");
-	goodsUnit.AddString("车");
+	for ( n = 0; n < g_goodsType.size(); n++ )
+	{
+		goodsList.AddString(g_goodsType[n].c_str());
+	}
+
+	for ( n = 0; n < g_goodsUnit.size(); n++ )
+	{
+		goodsUnit.AddString(g_goodsUnit[n].c_str());
+	}
 	goodsUnit.SetCurSel(0);
 
-	truckLength.SetColumnWidth(70);
-	truckLength.AddString("4米");
-	truckLength.AddString("4.2米");
-	truckLength.AddString("4.3米");
-	truckLength.AddString("4.5米");
-	truckLength.AddString("4.8米");
-	truckLength.AddString("5米");
-	truckLength.AddString("5.8米");
-	truckLength.AddString("6米");
-	truckLength.AddString("6.2米");
-	truckLength.AddString("6.8米");
-	truckLength.AddString("7米");
-	truckLength.AddString("7.2米");
-	truckLength.AddString("7.4米");
-	truckLength.AddString("7.8米");
-	truckLength.AddString("8米");
-	truckLength.AddString("8.7米");
-	truckLength.AddString("8.8米");
-	truckLength.AddString("9米");
-	truckLength.AddString("9.6米");
-	truckLength.AddString("12.5米");
-	truckLength.AddString("13米");
-	truckLength.AddString("13.5米");
-	truckLength.AddString("17.5米");
+	truckLength.SetColumnWidth(50);
+	for ( n = 0; n < g_truckLength.size(); n++ )
+	{
+		truckLength.AddString(g_truckLength[n].c_str());
+	}
 
-	truckType.SetColumnWidth(70);
-	truckType.AddString("普通车");	truckType.AddString("前四后四");	truckType.AddString("前四后八");	truckType.AddString("敞篷车");	truckType.AddString("平板车");	truckType.AddString("高栏车");	truckType.AddString("集装箱");	truckType.AddString("冷藏车");	truckType.AddString("起重车");	truckType.AddString("后八轮");	truckType.AddString("单桥车");	truckType.AddString("自卸车");	truckType.AddString("半封闭车");	truckType.AddString("半挂车");	truckType.AddString("保温车");	truckType.AddString("双桥车");	truckType.AddString("加长挂车");	truckType.AddString("棉被车");	truckType.AddString("前四后十");	truckType.AddString("大笼子车");	truckType.AddString("高低板");	truckType.AddString("翻斗车");
+	truckType.SetColumnWidth(50);
+	for ( n = 0; n < g_truckType.size(); n++ )
+	{
+		truckType.AddString(g_truckType[n].c_str());
+	}
 
 	priceList.SetColumnWidth(110);
-	priceList.AddString("元/车");	priceList.AddString("元/吨");	priceList.AddString("元/方");	priceList.AddString("元/件");	priceList.AddString("元/总价");	priceList.AddString("元/公斤");	priceList.AddString("公斤");	priceList.AddString("全价");	priceList.AddString("面议");	priceList.AddString("价格高");	priceList.AddString("价格好商");	priceList.AddString("给钱就走");	priceList.AddString("价高急走");
+	for ( n = 0; n < g_priceType.size(); n++ )
+	{
+		priceList.AddString(g_priceType[n].c_str());
+	}
 }
 
 
