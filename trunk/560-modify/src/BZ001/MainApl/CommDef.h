@@ -4,6 +4,7 @@
 #include "CountryRegion.h"
 #include <map>
 #include <vector>
+#include <string>
 using std::map;
 using std::vector;
 
@@ -18,6 +19,12 @@ extern vector<CString>  g_vecCarType;
 extern vector<CString>  g_vecCarSize;
 extern vector<CString>  g_vecPrices1;
 extern vector<CString>  g_vecPrices2;
+
+extern vector<string>	g_goodsType;
+extern vector<string>	g_goodsUnit;
+extern vector<string>	g_truckLength;
+extern vector<string>	g_truckType;
+extern vector<string>	g_priceType;
 
 extern CountryRegion*   g_pCountryRegion;
 
