@@ -20,11 +20,17 @@ extern vector<CString>  g_vecCarSize;
 extern vector<CString>  g_vecPrices1;
 extern vector<CString>  g_vecPrices2;
 
-extern vector<string>	g_goodsType;
-extern vector<string>	g_goodsUnit;
-extern vector<string>	g_truckLength;
-extern vector<string>	g_truckType;
-extern vector<string>	g_priceType;
+extern vector<CString>	g_goodsType;
+extern vector<CString>	g_goodsUnit;
+extern vector<CString>	g_truckLength;
+extern vector<CString>	g_truckType;
+extern vector<CString>	g_priceType;
+
+extern vector<CString>	g_priceTypeFor3;
+extern vector<CString> g_commonDuanyu;
+extern vector<CString> g_commonZi;
+extern vector<CString> g_commonCi;
+extern vector<CString> g_PeihuoInfo;
 
 extern CountryRegion*   g_pCountryRegion;
 

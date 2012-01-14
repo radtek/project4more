@@ -145,33 +145,34 @@ void CPublishWayOneDlg::initControlValue()
 	goodsList.SetColumnWidth(100);
 	for ( n = 0; n < g_goodsType.size(); n++ )
 	{
-		goodsList.AddString(g_goodsType[n].c_str());
+		goodsList.AddString(g_goodsType[n]);
 	}
 
 	for ( n = 0; n < g_goodsUnit.size(); n++ )
 	{
-		goodsUnit.AddString(g_goodsUnit[n].c_str());
+		goodsUnit.AddString(g_goodsUnit[n]);
 	}
 	goodsUnit.SetCurSel(0);
 
 	truckLength.SetColumnWidth(60);
 	for ( n = 0; n < g_truckLength.size(); n++ )
 	{
-		truckLength.AddString(g_truckLength[n].c_str());
+		truckLength.AddString(g_truckLength[n]);
 	}
 
 	truckType.SetColumnWidth(60);
 	for ( n = 0; n < g_truckType.size(); n++ )
 	{
-		truckType.AddString(g_truckType[n].c_str());
+		truckType.AddString(g_truckType[n]);
 	}
 
 	priceList.SetColumnWidth(100);
 	for ( n = 0; n < g_priceType.size(); n++ )
 	{
-		priceList.AddString(g_priceType[n].c_str());
+		priceList.AddString(g_priceType[n]);
 	}
 
+	shipTime.AddString("随时");
 	CString str;
 	//获取系统时间
 	CTime tm = CTime::GetCurrentTime();
@@ -180,7 +181,6 @@ void CPublishWayOneDlg::initControlValue()
 		str=t2.Format("%Y-%m-%d");
 		shipTime.AddString(str);
 	}
-	shipTime.AddString("随时");
 	shipTime.SetCurSel(0);
 
 	repubSetting.AddString("不自动重发");
