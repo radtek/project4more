@@ -475,8 +475,21 @@ void CPublishWayTwoDlg::OnBnClickedButtonBackspace()
 {
 	// TODO: Add your control notification handler code here
 	int		l = preview.GetLength();
+	wchar_t *pwszPreview = NULL;
+	int nWideCharLen = ::MultiByteToWideChar(CP_ACP, 0, preview, l+1, NULL, 0);
+	pwszPreview = new wchar_t[nWideCharLen+1];
+	::MultiByteToWideChar(CP_ACP, 0, preview, l+1, pwszPreview, nWideCharLen+1);
+	int nLength = wcslen(pwszPreview);
+	pwszPreview[nLength-1] = L'\0';
 
-	preview = preview.Left(l - 1);
+	int nMultiByteLen = nWideCharLen*2+2;
+	char *pszPreview = new char[nMultiByteLen];
+	memset(pszPreview, 0, nMultiByteLen);
+	WideCharToMultiByte(CP_ACP, 0, pwszPreview, nWideCharLen-1, pszPreview, nMultiByteLen, NULL, NULL);
+
+	preview = pszPreview;
+	delete []pwszPreview;
+	delete []pszPreview;
 	UpdateData(FALSE);
 }
 
@@ -499,7 +512,7 @@ void CPublishWayTwoDlg::OnBnClickedButtonCarSize()
 {
 	// TODO: Add your control notification handler code here
 	CString  result;
-	CContentDlg dlgContent(this, NULL, &g_truckLength, &result);
+	CContentDlg dlgContent(this, GetDlgItem(IDC_BUTTON_CAR_SIZE), &g_truckLength, &result);
 	if (dlgContent.DoModal() == IDOK)
 	{
 		appendToPreview(result);
@@ -511,7 +524,7 @@ void CPublishWayTwoDlg::OnBnClickedButtonCarType()
 {
 	// TODO: Add your control notification handler code here
 	CString  result;
-	CContentDlg dlgContent(this, NULL, &g_truckType, &result);
+	CContentDlg dlgContent(this, GetDlgItem(IDC_BUTTON_CAR_TYPE), &g_truckType, &result);
 	if (dlgContent.DoModal() == IDOK)
 	{
 		appendToPreview(result);
@@ -523,7 +536,7 @@ void CPublishWayTwoDlg::OnBnClickedButtonPrice()
 {
 	// TODO: Add your control notification handler code here
 	CString  result;
-	CContentDlg dlgContent(this, NULL, &g_priceTypeFor3, &result);
+	CContentDlg dlgContent(this, GetDlgItem(IDC_BUTTON_PRICE), &g_priceTypeFor3, &result);
 	if (dlgContent.DoModal() == IDOK)
 	{
 		appendToPreview(result);
@@ -536,7 +549,7 @@ void CPublishWayTwoDlg::OnBnClickedButtonPhrase()
 {
 	// TODO: Add your control notification handler code here
 	CString  result;
-	CContentDlg dlgContent(this, NULL, &g_commonDuanyu, &result);
+	CContentDlg dlgContent(this, GetDlgItem(IDC_BUTTON_PHRASE), &g_commonDuanyu, &result);
 	if (dlgContent.DoModal() == IDOK)
 	{
 		appendToPreview(result);
@@ -552,7 +565,7 @@ void CPublishWayTwoDlg::OnBnClickedButtonCharacter()
 {
 	// TODO: Add your control notification handler code here
 	CString  result;
-	CContentDlg dlgContent(this, NULL, &g_commonZi, &result);
+	CContentDlg dlgContent(this, GetDlgItem(IDC_BUTTON_CHARACTER), &g_commonZi, &result);
 	if (dlgContent.DoModal() == IDOK)
 	{
 		appendToPreview(result);
@@ -563,7 +576,7 @@ void CPublishWayTwoDlg::OnBnClickedButtonWord()
 {
 	// TODO: Add your control notification handler code here
 	CString  result;
-	CContentDlg dlgContent(this, NULL, &g_commonCi, &result);
+	CContentDlg dlgContent(this, GetDlgItem(IDC_BUTTON_WORD), &g_commonCi, &result);
 	if (dlgContent.DoModal() == IDOK)
 	{
 		appendToPreview(result);

@@ -29,18 +29,21 @@ void CContentDlg::DoDataExchange(CDataExchange* pDX)
 
 BOOL CContentDlg::OnInitDialog()
 {
-	static int s_nColWidth = 50;
+	static int s_nColWidth = 60;
 	CRect rc, rcStatic, rcBtn, rcList;
 	int nCount = 0, nWidth = 0, nHeight = 0, nRow = 0, nColumn = 0;
 
 	CDialog::OnInitDialog();
 
+	int i = 0;
 	vector<CString>::const_iterator it = m_pVecItems->begin(), end = m_pVecItems->end();
-	for(it; it != end; ++it)
+	for(it; it != end; ++it, ++i)
 	{
 		m_listContent.AddString(*it);
 		nCount++;
 	}
+
+	m_listContent.SetItemHeight(0, m_listContent.GetItemHeight(0)+5);
 
 	if (nCount <= 5)
 	{
