@@ -30,7 +30,7 @@ CPublishWayTwoDlg::CPublishWayTwoDlg(CWnd* pParent /*=NULL*/)
 	, longTimeAvailable(FALSE)
 	, rememberRepubSetting(FALSE)
 {
-
+	publishKind = 0;
 }
 
 CPublishWayTwoDlg::~CPublishWayTwoDlg()
@@ -122,6 +122,11 @@ BEGIN_MESSAGE_MAP(CPublishWayTwoDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON_SPECIAL, &CPublishWayTwoDlg::OnBnClickedButtonSpecial)
 	ON_BN_CLICKED(IDC_BUTTON_CHARACTER, &CPublishWayTwoDlg::OnBnClickedButtonCharacter)
 	ON_BN_CLICKED(IDC_BUTTON_WORD, &CPublishWayTwoDlg::OnBnClickedButtonWord)
+	ON_BN_CLICKED(IDC_BUTTON_PW2_HISTORY, &CPublishWayTwoDlg::OnBnClickedButtonPw2History)
+	ON_BN_CLICKED(IDC_BUTTON_PW2_PUB, &CPublishWayTwoDlg::OnBnClickedButtonPw2Pub)
+	ON_BN_CLICKED(IDC_BUTTON_PW2_CLEAN, &CPublishWayTwoDlg::OnBnClickedButtonPw2Clean)
+	ON_BN_CLICKED(IDC_BUTTON_PW2_CLOSE, &CPublishWayTwoDlg::OnBnClickedButtonPw2Close)
+	ON_CBN_SELCHANGE(IDC_COMBO_INFO_TYPE, &CPublishWayTwoDlg::OnCbnSelchangeComboInfoType)
 END_MESSAGE_MAP()
 
 
@@ -138,8 +143,43 @@ BOOL CPublishWayTwoDlg::OnInitDialog()
 	m_btnToCity.LoadBitmap(IDB_BITMAP_COMMON_BTN);
 	m_btnToCounty.LoadBitmap(IDB_BITMAP_COMMON_BTN);
 
+	initControlValue();
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
+}
+
+void CPublishWayTwoDlg::initControlValue()
+{
+	msgType.AddString("发布货源");
+	msgType.AddString("发布车源");
+	msgType.SetCurSel(0);
+
+	shipTime.AddString("随时");
+	CString str;
+	//获取系统时间
+	CTime tm = CTime::GetCurrentTime();
+	for(int i=0; i<15; ++i) {
+		CTime t2 = tm + CTimeSpan( i, 0, 0, 0 );
+		str=t2.Format("%Y-%m-%d");
+		shipTime.AddString(str);
+	}
+	shipTime.SetCurSel(0);
+
+	repubSetting.AddString("不自动重发");
+	repubSetting.AddString("10分钟2次");
+	repubSetting.AddString("30分钟5次");
+	repubSetting.AddString("2小时10次");
+	repubSetting.SetCurSel(0);
+
+	mobile = userInfo.tel.c_str();
+
+	goodsValue = "冻货";
+	goodsCountValue = "";
+	truckLengthValue = "";
+	truckTypeValue = "";
+	truckCountValue = "";
+	priceListValue = "";
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonW1FromProvince()
@@ -216,6 +256,7 @@ void CPublishWayTwoDlg::OnBnClickedButtonW1ToCounty()
 
 void CPublishWayTwoDlg::appendToPreview(CString str)
 {
+	UpdateData();
 	preview += str;
 	UpdateData(FALSE);
 }
@@ -433,6 +474,10 @@ void CPublishWayTwoDlg::OnBnClickedButtonUnit()
 void CPublishWayTwoDlg::OnBnClickedButtonBackspace()
 {
 	// TODO: Add your control notification handler code here
+	int		l = preview.GetLength();
+
+	preview = preview.Left(l - 1);
+	UpdateData(FALSE);
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonGood1()
@@ -453,21 +498,49 @@ void CPublishWayTwoDlg::OnBnClickedButtonGood3()
 void CPublishWayTwoDlg::OnBnClickedButtonCarSize()
 {
 	// TODO: Add your control notification handler code here
+	CString  result;
+	CContentDlg dlgContent(this, NULL, &g_truckLength, &result);
+	if (dlgContent.DoModal() == IDOK)
+	{
+		appendToPreview(result);
+	}
+	truckLengthValue = result;
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonCarType()
 {
 	// TODO: Add your control notification handler code here
+	CString  result;
+	CContentDlg dlgContent(this, NULL, &g_truckType, &result);
+	if (dlgContent.DoModal() == IDOK)
+	{
+		appendToPreview(result);
+	}
+	truckTypeValue = result;
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonPrice()
 {
 	// TODO: Add your control notification handler code here
+	CString  result;
+	CContentDlg dlgContent(this, NULL, &g_priceTypeFor3, &result);
+	if (dlgContent.DoModal() == IDOK)
+	{
+		appendToPreview(result);
+	}
+
+	priceListValue = result;
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonPhrase()
 {
 	// TODO: Add your control notification handler code here
+	CString  result;
+	CContentDlg dlgContent(this, NULL, &g_commonDuanyu, &result);
+	if (dlgContent.DoModal() == IDOK)
+	{
+		appendToPreview(result);
+	}
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonSpecial()
@@ -478,9 +551,115 @@ void CPublishWayTwoDlg::OnBnClickedButtonSpecial()
 void CPublishWayTwoDlg::OnBnClickedButtonCharacter()
 {
 	// TODO: Add your control notification handler code here
+	CString  result;
+	CContentDlg dlgContent(this, NULL, &g_commonZi, &result);
+	if (dlgContent.DoModal() == IDOK)
+	{
+		appendToPreview(result);
+	}
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonWord()
 {
 	// TODO: Add your control notification handler code here
+	CString  result;
+	CContentDlg dlgContent(this, NULL, &g_commonCi, &result);
+	if (dlgContent.DoModal() == IDOK)
+	{
+		appendToPreview(result);
+	}
+}
+
+void CPublishWayTwoDlg::OnBnClickedButtonPw2History()
+{
+	// TODO: Add your control notification handler code here
+}
+
+void CPublishWayTwoDlg::OnBnClickedButtonPw2Pub()
+{
+	// TODO: Add your control notification handler code here
+	UpdateData();
+
+	if ( goodsValue == "" )
+	{
+		MessageBox("请选择货物种类", "发布");
+		return;
+	}
+	CString w = goodsCountValue;
+	CString tl = truckLengthValue;
+	CString tt = truckTypeValue;
+	CString tc = truckCountValue;
+	CString pu = priceListValue;
+
+	if ( w == "" )
+		w = "NULL";
+
+	if ( tl == "" )
+		tl = "NULL";
+
+	if ( tt == "" )
+		tt = "NULL";
+
+	if ( tc == "" )
+		tc = "NULL";
+
+	if ( pu == "" )
+		pu = "NULL";
+
+	CString tmp = m_strProvinceFrom + "|" + m_strCityFrom + "|" + m_strCountyFrom
+		+ "|" + m_strProvinceTo + "|" + m_strCityTo + "|" + m_strCountyTo
+		+ "|" + goodsValue + "|" + "1" + "|" + "NULL"
+		+ "|" + "普货" + "|" + "1" + "|" + pu + "|NULL|" + tl + "|" + tt + "|"
+		+ "1" + "|" + mobile + "|" + shipTimeValue + "|" + repubSettingValue;
+
+	if (rememberRepubSetting)
+	{
+		tmp = tmp + "|" + "1"; 
+	}
+	else
+	{
+		tmp = tmp + "|" + "0";
+	}
+
+	if (longTimeAvailable)
+	{
+		tmp = tmp + "|" + "长期有效|"; 
+	}
+	else
+	{
+		tmp = tmp + "|" + "24小时|";
+	}
+
+	CString sText = preview;
+
+	sText.Replace("|","");	
+	tmp += sText;
+
+	pubInf = (LPTSTR)(LPCTSTR)tmp;
+
+	OnOK();
+}
+
+void CPublishWayTwoDlg::OnBnClickedButtonPw2Clean()
+{
+	// TODO: Add your control notification handler code here
+}
+
+void CPublishWayTwoDlg::OnBnClickedButtonPw2Close()
+{
+	// TODO: Add your control notification handler code here
+	OnCancel();
+}
+
+void CPublishWayTwoDlg::OnCbnSelchangeComboInfoType()
+{
+	// TODO: Add your control notification handler code here
+	if ( msgType.GetCurSel() == 0 )
+	{
+		publishKind = 0;
+	}
+	else
+	{
+		publishKind = 1;
+	}
 }

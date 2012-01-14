@@ -3,6 +3,9 @@
 #include "hoverbutton.h"
 #include "afxwin.h"
 
+#include "CountryRegion.h"
+#include "GLB.h"
+
 // CPublishWayTwoDlg dialog
 
 class CPublishWayTwoDlg : public CDialog
@@ -107,6 +110,28 @@ public:
 	BOOL longTimeAvailable;
 	BOOL rememberRepubSetting;
 
+	string	pubInf;
+
+	CountryRegion *myCR;
+	UserInfo userInfo;
+
+	int	publishKind;
+
+	CString goodsValue;
+	CString goodsCountValue;
+	CString truckLengthValue;
+	CString truckTypeValue;
+	CString truckCountValue;
+	CString priceListValue;
+
 private:
 	void appendToPreview(CString str);
+
+	void initControlValue();
+public:
+	afx_msg void OnBnClickedButtonPw2History();
+	afx_msg void OnBnClickedButtonPw2Pub();
+	afx_msg void OnBnClickedButtonPw2Clean();
+	afx_msg void OnBnClickedButtonPw2Close();
+	afx_msg void OnCbnSelchangeComboInfoType();
 };
