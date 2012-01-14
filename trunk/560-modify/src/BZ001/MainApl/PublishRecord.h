@@ -1,3 +1,6 @@
+#ifndef _FMP_PUBLISH_RECORD_H
+#define _FMP_PUBLISH_RECORD_H
+
 #pragma once
 #include <map>
 #include <string>
@@ -9,14 +12,14 @@ class CPublishRecord
 {
 public:
 	CPublishRecord();
-	CPublishRecord(string str);
+	CPublishRecord(const string& str);
 	~CPublishRecord(void);
 
 	string	toString();
-	void	fromString(string str);
+	void	fromString(const string& str);
 
-	CString	get(string key);
-	void	set(string key, CString value);
+	CString	get(const string& key);
+	void	set(const string& key, const CString& value);
 
 	int		sn;
 
@@ -26,3 +29,5 @@ private:
 
 typedef list<CPublishRecord *>	publishList;
 typedef publishList::iterator	publishIter;
+
+#endif //_FMP_PUBLISH_RECORD_H

@@ -119,10 +119,13 @@ public:
 	//option:0，本地；1，取消；2，正常搜索
 	void search(UINT8 nType,UINT8 nOption);
     // 设置搜索信息    
-    int setSearchGoods(const InSearchGoods& input, UINT8 nOption); // 搜索货源
+    int setSearchGoods(const CSearchCriteria* pSearchCriteria, UINT8 nOption); // 搜索货源
+	int setSearchGoods(const string& sSearchCriteria, UINT8 nOption); // 搜索货源
+	int setSearchCars(const CSearchCriteria* pSearchCriteria, UINT8 nOption); // 搜索车源
+	int setSearchCars(const string& sSearchCriteria, UINT8 nOption); // 搜索车源
+	int setSearchSpecail(const InSearchSpecail& input, UINT8 nOption); // 搜索专线    
     int setSearchBulkGoods(const InSearchBulkGoods& input, UINT8 nOption); // 搜索零担
-    int setSearchCars(const InSearchCars& input, UINT8 nOption); // 搜索车源
-    int setSearchSpecail(const InSearchSpecail& input, UINT8 nOption); // 搜索专线    
+    
 
     // 用户登录        
     int userLogin(); 
@@ -338,6 +341,9 @@ private:
 	CHoverButton m_btnGPSLocating;
 	// 公告按钮
 	CHoverButton btnNotice;
+
+	CHoverButton m_btnPubWayOne;
+	CHoverButton m_btnPubWayTwo;
 
 	CScrollerCtrl pubAD;
 

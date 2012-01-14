@@ -50,6 +50,7 @@ public:
 
 	 ServerIO *svrIONew;
     // ËÑË÷Ìõ¼þ
+	string sSearchCriteria;
     InSearchGoods goodsKeyword;
     InSearchBulkGoods bulkGoodsKeyword;
     InSearchCars carsKeyword;
@@ -221,6 +222,8 @@ private:
 	CHoverButton m_btnSearch;
 	CHoverButton m_btnStopRefresh;
 	CHoverButton m_btnHidePhoneNum;
+	CHoverButton m_btnPubWayOne;
+	CHoverButton m_btnPubWayTwo;
 	//CPictureEx m_Picture;
 	CPictureEx m_Picture;
 
@@ -237,5 +240,7 @@ private:
 	string		  m_sDestProvince;
 	string		  m_sDestCity;
 	string		  m_sDestCounty;
-	
+public:
+	afx_msg void OnBnClickedButtonPubWayOne();
+	afx_msg void OnBnClickedButtonPubWayTwo();
 };

@@ -27,7 +27,7 @@ public:
 	afx_msg void OnBnClickedRadioSw1Cars();
 	afx_msg void OnBnClickedButtonSw1Select();
 	afx_msg void OnBnClickedButtonSw1CleanAddr();
-	afx_msg void OnBnClickedButtonSw1Addr();
+	//afx_msg void OnBnClickedButtonSw1Addr();
 	afx_msg void OnBnClickedButtonSw1Goods();
 	afx_msg void OnBnClickedButtonSw1CarType();
 	afx_msg void OnBnClickedButtonSw1CarSize();
@@ -38,15 +38,7 @@ public:
 	afx_msg void OnBnClickedRadioMatchAny();
 public:
 	void Clean();
-	int GetSearchType()
-	{
-		return m_nSearchType;
-	}
-	void SetSearchType(int nType)
-	{
-		m_nSearchType = nType;
-	}
-	
+	void Confirm();
 private:
 	void InitSearchTypeRadio();
 	void FillKeywordCombox();
@@ -60,6 +52,4 @@ private:
 	CComboBox m_comboxKeyword;
 
 	CString m_sDestAddr;
-
-	int	    m_nSearchType;//can be one or the combination of ESearchType
 };

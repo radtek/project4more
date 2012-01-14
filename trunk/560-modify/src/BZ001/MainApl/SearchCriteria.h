@@ -4,50 +4,51 @@
 #include <afxstr.h>
 #include <algorithm>
 #include <list>
+#include <string>
+#include <map>
+#include "CommDef.h"
 using namespace std;
 
 class CSearchCriteria
 {
 public:
+	CSearchCriteria()
+	{
+		m_bMatchAll = false;
+	}
 	virtual void Clean()
 	{
-		m_lstStartProvince.clear();
-		m_lstStartCity.clear();
-		m_lstStartCounty.clear();
-		m_lstEndProvince.clear();
-		m_lstEndCity.clear();
-		m_lstEndCounty.clear();
+		m_mapStartAddr.clear();
+		m_mapEndAddr.clear();
+
 		m_lstCarType.clear();
 		m_lstCarLength.clear();
 		m_lstGoods.clear();
 		m_lstGoodsType.clear();
+
+		m_sKeyword.clear();
 	}
 	virtual void Confirm(){}
 
-	bool AddStartProvice(const CString& sProvince)
+
+	bool AddStartAddr(const CString& sProvince, const CString& sCity, const CString& sCounty)
 	{
-		return AddData(sProvince, m_lstStartProvince);
+		return AddAddr(sProvince, sCity, sCounty, m_mapStartAddr);
 	}
-	bool AddStartCity(const CString& sCity)
+	bool AddEndAddr(const CString& sProvince, const CString& sCity, const CString& sCounty)
 	{
-		return AddData(sCity, m_lstStartCity);
+		return AddAddr(sProvince, sCity, sCounty, m_mapEndAddr);
 	}
-	bool AddStartCounty(const CString& sCounty)
+
+	bool RemoveStartAddr(const CString& sProvince, const CString& sCity, const CString& sCounty)
 	{
-		return AddData(sCounty, m_lstStartCounty);
+		return RemoveAddr(sProvince, sCity, sCounty, m_mapStartAddr);
 	}
-	bool AddEndProvice(const CString& sProvince)
+	bool RemoveEndAddr(const CString& sProvince, const CString& sCity, const CString& sCounty)
 	{
-		return AddData(sProvince, m_lstEndProvince);
+		return RemoveAddr(sProvince, sCity, sCounty, m_mapEndAddr);
 	}
-	bool AddEndCity(const CString& sCity)
-	{
-		return AddData(sCity, m_lstEndCity);
-	}
-	bool AddEndCounty(const CString& sCounty)
-	{
-		return AddData(sCounty, m_lstEndCounty);
-	}
+
 	bool AddCarType(const CString& sCarType)
 	{
 		return AddData(sCarType, m_lstCarType);
@@ -65,30 +66,6 @@ public:
 		return AddData(sGoodsType, m_lstGoodsType);
 	}
 
-	void RemoveStartProvice(const CString& sProvince)
-	{
-		return RemoveData(sProvince, m_lstStartProvince);
-	}
-	void RemoveStartCity(const CString& sCity)
-	{
-		return RemoveData(sCity, m_lstStartCity);
-	}
-	void RemoveStartCounty(const CString& sCounty)
-	{
-		return RemoveData(sCounty, m_lstStartCounty);
-	}
-	void RemoveEndProvice(const CString& sProvince)
-	{
-		return RemoveData(sProvince, m_lstEndProvince);
-	}
-	void RemoveEndCity(const CString& sCity)
-	{
-		return RemoveData(sCity, m_lstEndCity);
-	}
-	void RemoveEndCounty(const CString& sCounty)
-	{
-		return RemoveData(sCounty, m_lstEndCounty);
-	}
 	void RemoveCarType(const CString& sCarType)
 	{
 		return RemoveData(sCarType, m_lstCarType);
@@ -106,89 +83,190 @@ public:
 		return RemoveData(sGoodsType, m_lstGoodsType);
 	}
 public:
-	const list<CString>& GetStartProvinceList()const
+	const tdMapAddr& GetStartAddrList()const
 	{
-		return m_lstStartProvince;
+		return m_mapStartAddr;
 	}
-	const list<CString>& GetStartCityList()const
+	const tdMapAddr& GetEndAddrList()const
 	{
-		return m_lstStartCity;
+		return m_mapEndAddr;
 	}
-	const list<CString>& GetStartCountyList()const
-	{
-		return m_lstStartCounty;
-	}
-	const list<CString>& GetEndProvinceList()const
-	{
-		return m_lstEndProvince;
-	}
-	const list<CString>& GetEndCityList()const
-	{
-		return m_lstEndCity;
-	}
-	const list<CString>& GetEndCountyList()const
-	{
-		return m_lstEndCounty;
-	}
-	const list<CString>& GetCarTypeList()const
+	const list<string>& GetCarTypeList()const
 	{
 		return m_lstCarType;
 	}
-	const list<CString>& GetCarLengthList()const
+	const list<string>& GetCarLengthList()const
 	{
 		return m_lstCarLength;
 	}
 
-	const list<CString>& GetGoodsList()const
+	const list<string>& GetGoodsList()const
 	{
 		return m_lstGoods;
 	}
-	const list<CString>& GetGoodsTypeList()const
+	const list<string>& GetGoodsTypeList()const
 	{
 		return m_lstGoodsType;
 	}
-protected:
-	bool AddData(const CString& sData, list<CString>& lstData)
+
+	const list<string>& GetPublisherList()const
 	{
-		if( find(lstData.begin(), lstData.end(), sData) == lstData.end() )
+		return m_lstPublisher;
+	}
+
+	const list<string>& GetPhoneNumList()const
+	{
+		return m_lstPhoneNum;
+	}
+
+	bool IsMatchAll()const
+	{
+		return m_bMatchAll;
+	}
+
+	const string& GetKeyword()const
+	{
+		return m_sKeyword;
+	}
+
+	int GetSearchType()const
+	{
+		return m_nSearchType;
+	}
+	void SetSearchType(int nSearchType)
+	{
+		m_nSearchType = nSearchType;
+	}
+protected:
+	bool AddAddr(const CString& sProvince, const CString& sCity, const CString& sCounty, tdMapAddr& mapAddr)
+	{
+		tdMapCity& mapCity = mapAddr[string(sProvince)];
+		if( sCity == NO_LIMIT_STRING )
 		{
-			lstData.push_back(sData);
+			mapCity.clear();
+			tdListCounty& lstCounty = mapCity[NO_LIMIT_STRING];
+			lstCounty.push_back(NO_LIMIT_STRING);
+			return true;
+		}
+		
+		mapCity.erase(NO_LIMIT_STRING);
+
+		tdMapCity::iterator it = mapCity.find(string(sCity));
+		if( it == mapCity.end() )
+		{
+			tdListCounty& lstCounty = mapCity[string(sCity)];
+			lstCounty.push_back(string(sCounty));
+			return true;
+
+		}
+		tdListCounty& lstCounty = (*it).second;
+		if( sCounty == NO_LIMIT_STRING )
+		{
+			lstCounty.clear();
+		}
+		else
+		{
+			lstCounty.remove(NO_LIMIT_STRING);
+		}
+		return AddData(sCounty, lstCounty);
+	}
+	bool RemoveAddr(const CString& sProvince, const CString& sCity, const CString& sCounty, tdMapAddr& mapAddr)
+	{
+		tdMapAddr::iterator it = mapAddr.find(string(sProvince));
+		if( it == mapAddr.end() )
+		{
+			return false;
+		}
+		tdMapCity& mapCity = (*it).second;
+		if( sCity == NO_LIMIT_STRING && sCounty == NO_LIMIT_STRING)
+		{
+			mapCity.clear();
+			mapAddr.erase(it);
+			return true;
+		}
+
+		if( !sCity.IsEmpty() )
+		{
+			tdMapCity::iterator cityIt = mapCity.find(string(sCity));
+			if( cityIt == mapCity.end() )
+			{
+				return false;
+			}
+
+			tdListCounty& lstCounty = (*cityIt).second;
+			if( sCounty == NO_LIMIT_STRING )
+			{
+				lstCounty.clear();
+				mapCity.erase(cityIt);
+				if( mapCity.size() == 0 )
+				{
+					mapAddr.erase(it);
+				}
+			}
+			else
+			{
+				lstCounty.remove(string(sCounty));
+				if( lstCounty.size() == 0 )
+				{
+					mapCity.erase(cityIt);
+					if( mapCity.size() == 0 )
+					{
+						mapAddr.erase(it);
+					}
+				}
+			}
+		}
+		else
+		{
+			tdMapCity::iterator cit = mapCity.begin(), cend = mapCity.end();
+			for(cit; cit != cend; ++cit)
+			{
+				tdListCounty& lstCounty = (*cit).second;
+				tdListCounty::iterator lit = find(lstCounty.begin(), lstCounty.end(), string(sCounty));
+				if( lit != lstCounty.end() )
+				{
+					lstCounty.erase(lit);
+					break;
+				}
+			}
+		}
+		return true;
+	}
+
+
+	bool AddData(const CString& sData, list<string>& lstData)
+	{
+		if( find(lstData.begin(), lstData.end(), string(sData)) == lstData.end() )
+		{
+			lstData.push_back(string(sData));
 			return true;
 		}
 		return false;
 	}
-	void RemoveData(const CString& sData, list<CString>& lstData)
+	void RemoveData(const CString& sData, list<string>& lstData)
 	{
-		lstData.remove(sData);
+		lstData.remove(string(sData));
 	}
+public:
+	void FormatSearchString(string& sGoodsSearch)const;
+	void FormatAddr(const tdMapAddr& mapAddr, string& sAddr)const;
+	void FormatStringList(const list<string>& lstData, string& sData, const string& sDefault=NO_LIMIT_STRING)const;
 protected:
-	list<CString> m_lstStartProvince;
-	list<CString> m_lstStartCity;
-	list<CString> m_lstStartCounty;
 
-	list<CString> m_lstEndProvince;
-	list<CString> m_lstEndCity;
-	list<CString> m_lstEndCounty;
+	map<string ,map<string, list<string>>> m_mapStartAddr;
+	map<string ,map<string, list<string>>> m_mapEndAddr;
+	
+	list<string> m_lstGoods;
+	list<string> m_lstGoodsType;
 
-	list<CString> m_lstGoods;
-	list<CString> m_lstGoodsType;
+	list<string> m_lstCarType;
+	list<string> m_lstCarLength;
+	list<string> m_lstPublisher;
+	list<string> m_lstPhoneNum;
 
-	list<CString> m_lstCarType;
-	list<CString> m_lstCarLength;
+	string		m_sKeyword;
 
-	//CString m_sStartProvince;
-	//CString m_sStartCity;
-	//CString m_sStartCounty;
-
-	//CString m_sEndProvince;
-	//CString m_sEndCity;
-	//CString m_sEndCounty;
-
-	//CString m_sCarType;
-	//CString m_sCarLength;
-
-	//CString m_sGoods;
-	//CString m_sGoodsType;
-	//
+	bool		m_bMatchAll;
+	int			m_nSearchType;//can be one or the combination of ESearchType
 };
 #endif

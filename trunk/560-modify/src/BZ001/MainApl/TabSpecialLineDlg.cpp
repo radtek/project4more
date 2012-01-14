@@ -127,7 +127,7 @@ BOOL CTabSpecialLineDlg::OnInitDialog()
 
 	m_btnLocal.LoadBitmap(IDB_LOCAL);
 	m_btnCancelSearch.LoadBitmap(IDB_CANCEL);
-	m_btnSecrecy.LoadBitmap(IDB_SECRECY);
+	m_btnSecrecy.LoadBitmap(IDB_HIDE_PHONE_NUM);
 	m_btnStopRefresh.LoadBitmap(IDB_STOP_REFRESH);
 
 

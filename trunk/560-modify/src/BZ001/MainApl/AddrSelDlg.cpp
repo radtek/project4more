@@ -157,26 +157,53 @@ void CAddrSelDlg::OnBnClickedButtonAllCounty()
 
 void CAddrSelDlg::OnBnClickedButtonOk()
 {
-	m_selCounties.clear();
+	int nSel = m_listProvince.GetCurSel();
+	if( nSel != -1 )
+	{
+		m_listProvince.GetText(nSel, m_sProvince);
 
-	CString sCounty;
-	int nSelCount = m_listCounty.GetSelCount();
-	if( nSelCount == 1 )
-	{
-		m_listCounty.GetText(m_listCounty.GetCurSel(), sCounty);
-		m_selCounties.push_back(sCounty);
-	}
-	else if( nSelCount > 1 )
-	{
-		int *pItems = new int[nSelCount];
-		m_listCounty.GetSelItems(nSelCount, pItems);
-		for(int i = 0; i<nSelCount; ++i)
+		m_selCities.clear();
+		CString sCity;
+		int nSelCount = m_listCity.GetSelCount();
+		if( nSelCount == 1 )
 		{
-			m_listCounty.GetText(pItems[i], sCounty);
+			m_listCity.GetText(m_listCity.GetCurSel(), sCity);
+			m_selCities.push_back(sCity);
+		}
+		else if( nSelCount > 1 )
+		{
+			int *pItems = new int[nSelCount];
+			m_listCity.GetSelItems(nSelCount, pItems);
+			for(int i = 0; i<nSelCount; ++i)
+			{
+				m_listCity.GetText(pItems[i], sCity);
+				m_selCities.push_back(sCity);
+			}
+			delete []pItems;
+		}
+
+		m_selCounties.clear();
+		CString sCounty;
+		nSelCount = m_listCounty.GetSelCount();
+		if( nSelCount == 1 )
+		{
+			m_listCounty.GetText(m_listCounty.GetCurSel(), sCounty);
 			m_selCounties.push_back(sCounty);
 		}
-		delete []pItems;
+		else if( nSelCount > 1 )
+		{
+			int *pItems = new int[nSelCount];
+			m_listCounty.GetSelItems(nSelCount, pItems);
+			for(int i = 0; i<nSelCount; ++i)
+			{
+				m_listCounty.GetText(pItems[i], sCounty);
+				m_selCounties.push_back(sCounty);
+			}
+			delete []pItems;
+		}
+
 	}
+	
 	CDialog::OnOK();
 }
 
@@ -207,7 +234,7 @@ void CAddrSelDlg::OnLbnSelchangeListCity()
 	if( nSelCount == 1 )
 	{
 		m_listCity.GetText(m_listCity.GetCurSel(), sCity);
-		m_selCities.push_back(sCity);
+		//m_selCities.push_back(sCity);
 		FillCountyList(sCity);
 	}
 	else if( nSelCount > 1 )
@@ -219,7 +246,7 @@ void CAddrSelDlg::OnLbnSelchangeListCity()
 		for(int i = 0; i<nSelCount; ++i)
 		{
 			m_listCity.GetText(pItems[i], sCity);
-			m_selCities.push_back(sCity);
+			//m_selCities.push_back(sCity);
 		}
 		delete []pItems;
 	}
@@ -230,9 +257,9 @@ void CAddrSelDlg::OnLbnSelchangeListCounty()
 	if( m_listCity.GetSelCount() == 0 )
 	{
 		m_listCity.SetSel(0);
-		m_selCities.clear();
+		/*m_selCities.clear();
 		CString sCity;
 		m_listCity.GetText(0, sCity);
-		m_selCities.push_back(sCity);
+		m_selCities.push_back(sCity);*/
 	}
 }

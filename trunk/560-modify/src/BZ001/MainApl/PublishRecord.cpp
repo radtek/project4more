@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "PublishRecord.h"
 
-CPublishRecord::CPublishRecord(string str)
+CPublishRecord::CPublishRecord(const string& str)
 {
 	fromString(str);
 }
@@ -29,7 +29,7 @@ string	CPublishRecord::toString()
 	return result;
 }
 
-void CPublishRecord::fromString(string str)
+void CPublishRecord::fromString(const string& str)
 {
 	int		b, e, m;
 	string	k, v;
@@ -52,15 +52,13 @@ void CPublishRecord::fromString(string str)
 	}
 }
 
-CString CPublishRecord::get(string key)
+CString CPublishRecord::get(const string& key)
 {
 	string v = paras[key];
 	return v.c_str();
 }
 
-void CPublishRecord::set(string key, CString value)
+void CPublishRecord::set(const string& key, const CString& value)
 {
-	string	v(value.GetBuffer());
-	value.ReleaseBuffer();
-	paras[key] = v;
+	paras[key] = string(value);
 }

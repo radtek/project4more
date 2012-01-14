@@ -7,6 +7,7 @@
 #include "CommDef.h"
 #include "GLB.h"
 #include "ContentDlg.h"
+#include "HistoryManager.h"
 
 
 extern UserInfo user;
@@ -41,7 +42,7 @@ BEGIN_MESSAGE_MAP(CSearchWayOneDlg, CDialog)
 	ON_BN_CLICKED(IDC_RADIO_SW1_CARS, &CSearchWayOneDlg::OnBnClickedRadioSw1Cars)
 	ON_BN_CLICKED(IDC_BUTTON_SW1_SELECT, &CSearchWayOneDlg::OnBnClickedButtonSw1Select)
 	ON_BN_CLICKED(IDC_BUTTON_SW1_CLEAN_ADDR, &CSearchWayOneDlg::OnBnClickedButtonSw1CleanAddr)
-	ON_BN_CLICKED(IDC_BUTTON_SW1_ADDR, &CSearchWayOneDlg::OnBnClickedButtonSw1Addr)
+	//ON_BN_CLICKED(IDC_BUTTON_SW1_ADDR, &CSearchWayOneDlg::OnBnClickedButtonSw1Addr)
 	ON_BN_CLICKED(IDC_BUTTON_SW1_GOODS, &CSearchWayOneDlg::OnBnClickedButtonSw1Goods)
 	ON_BN_CLICKED(IDC_BUTTON_SW1_CAR_TYPE, &CSearchWayOneDlg::OnBnClickedButtonSw1CarType)
 	ON_BN_CLICKED(IDC_BUTTON_SW1_CAR_SIZE, &CSearchWayOneDlg::OnBnClickedButtonSw1CarSize)
@@ -60,8 +61,10 @@ BOOL CSearchWayOneDlg::OnInitDialog()
 
 	GetDlgItem(IDC_STATIC_SW1_FROM_ADDR)->SetWindowText(user.city.empty()?user.province.c_str():user.city.c_str());
 
-	AddStartProvice(user.province.c_str());
-	AddStartCity(user.city.c_str());
+	((CButton*)GetDlgItem(IDC_RADIO_MATCH_ANY))->SetCheck(BST_CHECKED);
+	((CButton*)GetDlgItem(IDC_RADIO_MATCH_ALL))->SetCheck(BST_UNCHECKED);
+
+	AddStartAddr(user.province.c_str(), user.city.c_str(), NO_LIMIT_STRING);
 
 	InitSearchTypeRadio();
 
@@ -79,28 +82,39 @@ BOOL CSearchWayOneDlg::OnInitDialog()
 void CSearchWayOneDlg::OnBnClickedRadioSw1All()
 {
 	m_nSearchType = eSearchType_Goods|eSearchType_Car;
+	((CButton*)GetDlgItem(IDC_RADIO_SW1_ALL))->SetCheck(BST_CHECKED);
+	((CButton*)GetDlgItem(IDC_RADIO_SW1_GOODS))->SetCheck(BST_UNCHECKED);
+	((CButton*)GetDlgItem(IDC_RADIO_SW1_CARS))->SetCheck(BST_UNCHECKED);
 }
 
 void CSearchWayOneDlg::OnBnClickedRadioSw1Goods()
 {
 	m_nSearchType = eSearchType_Goods;
+	((CButton*)GetDlgItem(IDC_RADIO_SW1_ALL))->SetCheck(BST_UNCHECKED);
+	((CButton*)GetDlgItem(IDC_RADIO_SW1_GOODS))->SetCheck(BST_CHECKED);
+	((CButton*)GetDlgItem(IDC_RADIO_SW1_CARS))->SetCheck(BST_UNCHECKED);
 }
 
 void CSearchWayOneDlg::OnBnClickedRadioSw1Cars()
 {
 	m_nSearchType = eSearchType_Car;
+	((CButton*)GetDlgItem(IDC_RADIO_SW1_ALL))->SetCheck(BST_UNCHECKED);
+	((CButton*)GetDlgItem(IDC_RADIO_SW1_GOODS))->SetCheck(BST_UNCHECKED);
+	((CButton*)GetDlgItem(IDC_RADIO_SW1_CARS))->SetCheck(BST_CHECKED);
 }
 
 void CSearchWayOneDlg::OnBnClickedRadioMatchAll()
 {
 	((CButton*)GetDlgItem(IDC_RADIO_MATCH_ALL))->SetCheck(BST_CHECKED);
 	((CButton*)GetDlgItem(IDC_RADIO_MATCH_ANY))->SetCheck(BST_UNCHECKED);
+	m_bMatchAll = true;
 }
 
 void CSearchWayOneDlg::OnBnClickedRadioMatchAny()
 {
 	((CButton*)GetDlgItem(IDC_RADIO_MATCH_ALL))->SetCheck(BST_UNCHECKED);
 	((CButton*)GetDlgItem(IDC_RADIO_MATCH_ANY))->SetCheck(BST_CHECKED);
+	m_bMatchAll = false;
 }
 
 
@@ -109,92 +123,106 @@ void CSearchWayOneDlg::OnBnClickedButtonSw1Select()
 	CAddrSelDlg dlg;
 	if( dlg.DoModal() == IDOK )
 	{
-		AddEndProvice(m_sDestAddr = dlg.GetSelProvince());
+		CString sAddr;
+		const CString& sProvince =  dlg.GetSelProvince();
+		sAddr = sProvince;
 
 		const list<CString>& cityList = dlg.GetSelCities();
 		if(cityList.size() > 0)
 		{
-			m_sDestAddr.Empty();
-
-			list<CString>::const_iterator it = cityList.begin(), end = cityList.end();
-			for(it; it != end; ++it)
+			if(cityList.size() > 1 )
 			{
-				m_sDestAddr += *it + _T(" ");
-				AddEndCity(*it);
-			}
-
-			const list<CString>& countyList = dlg.GetSelCounties();
-			if(countyList.size() > 0)
-			{
-				m_sDestAddr.Empty();
-				it = countyList.begin(), end = countyList.end();
+				sAddr.Empty();
+				list<CString>::const_iterator it = cityList.begin(), end = cityList.end();
 				for(it; it != end; ++it)
 				{
-					m_sDestAddr += *it + _T(" ");
-					AddEndCounty(*it);
+					sAddr += *it + _T(" ");
+					AddEndAddr(sProvince, *it, NO_LIMIT_STRING);
+				}
+			}
+			else
+			{
+				const CString& sCity = *cityList.begin();
+				const list<CString>& countyList = dlg.GetSelCounties();
+				if(countyList.size() > 0)
+				{
+					sAddr.Empty();
+					list<CString>::const_iterator it = countyList.begin(), end = countyList.end();
+					for(it; it != end; ++it)
+					{
+						sAddr += *it + _T(" ");
+						AddEndAddr(sProvince, sCity, *it);
+					}
+				}
+				else
+				{
+					sAddr = sCity;
+					AddEndAddr(sProvince, sCity, NO_LIMIT_STRING);
 				}
 			}
 		}
+		else
+		{
+			AddEndAddr(sProvince, NO_LIMIT_STRING, NO_LIMIT_STRING);
+		}
+		m_sDestAddr += " " + sAddr;
 		UpdateData(FALSE);
 	}
 }
 
 void CSearchWayOneDlg::OnBnClickedButtonSw1CleanAddr()
 {
+	CSearchCriteria::Clean();
 	m_sDestAddr.Empty();
 	UpdateData(FALSE);
 }
-
-void CSearchWayOneDlg::OnBnClickedButtonSw1Addr()
-{
-	CAddrSelDlg dlg;
-	if( dlg.DoModal() == IDOK )
-	{
-		CString sKeyWord;
-		m_comboxKeyword.GetWindowText(sKeyWord);
-
-		CString sDestAddr(dlg.GetSelProvince());
-		AddEndProvice(sDestAddr);
-
-		const list<CString>& cityList = dlg.GetSelCities();
-		if( cityList.size() > 0 )
-		{
-			sDestAddr.Empty();
-
-			list<CString>::const_iterator it = cityList.begin(), end = cityList.end();
-			for(it; it != end; ++it)
-			{
-				sDestAddr += *it + _T(" ");
-				AddEndCity(*it);
-			}
-
-			const list<CString>& countyList = dlg.GetSelCounties();
-			if(countyList.size() > 0)
-			{
-				sDestAddr.Empty();
-
-				it = countyList.begin(), end = countyList.end();
-				for(it; it != end; ++it)
-				{
-					sDestAddr += *it + _T(" ");
-					AddEndCounty(*it);
-				}
-			}
-		}
-
-		sKeyWord += _T(" ") + sDestAddr;
-		m_comboxKeyword.SetWindowText(sKeyWord);
-	}
-}
+//
+//void CSearchWayOneDlg::OnBnClickedButtonSw1Addr()
+//{
+//	CAddrSelDlg dlg;
+//	if( dlg.DoModal() == IDOK )
+//	{
+//		CString sKeyWord;
+//		m_comboxKeyword.GetWindowText(sKeyWord);
+//
+//		CString sDestAddr(dlg.GetSelProvince());
+//		AddEndProvice(sDestAddr);
+//
+//		const list<CString>& cityList = dlg.GetSelCities();
+//		if( cityList.size() > 0 )
+//		{
+//			sDestAddr.Empty();
+//
+//			list<CString>::const_iterator it = cityList.begin(), end = cityList.end();
+//			for(it; it != end; ++it)
+//			{
+//				sDestAddr += *it + _T(" ");
+//				AddEndCity(*it);
+//			}
+//
+//			const list<CString>& countyList = dlg.GetSelCounties();
+//			if(countyList.size() > 0)
+//			{
+//				sDestAddr.Empty();
+//
+//				it = countyList.begin(), end = countyList.end();
+//				for(it; it != end; ++it)
+//				{
+//					sDestAddr += *it + _T(" ");
+//					AddEndCounty(*it);
+//				}
+//			}
+//		}
+//
+//		sKeyWord += _T(" ") + sDestAddr;
+//		m_comboxKeyword.SetWindowText(sKeyWord);
+//	}
+//}
 
 void CSearchWayOneDlg::OnBnClickedButtonSw1Goods()
 {
-	vector<CString> vecGoods;
-	vecGoods.push_back(NO_LIMIT_STRING);
-	vecGoods.push_back("≤‚ ‘");
-	vecGoods.push_back("≤‚ ‘1");
 	CString sGoods;
-	CContentDlg dlg(GetParent(), GetDlgItem(IDC_BUTTON_SW1_GOODS), &vecGoods, &sGoods);
+	CContentDlg dlg(GetParent(), GetDlgItem(IDC_BUTTON_SW1_GOODS), &g_vecSearchGoods, &sGoods);
 	//CWnd* pCtrl = GetDlgItem(IDC_BUTTON_SW1_GOODS);
 	if( dlg.DoModal() == IDOK )
 	{
@@ -206,11 +234,8 @@ void CSearchWayOneDlg::OnBnClickedButtonSw1Goods()
 
 void CSearchWayOneDlg::OnBnClickedButtonSw1GoodsType()
 {
-	vector<CString> vecGoodsType;
-	vecGoodsType.push_back(NO_LIMIT_STRING);
-
 	CString sGoodsType;
-	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW1_GOODS_TYPE), &vecGoodsType, &sGoodsType);
+	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW1_GOODS_TYPE), &g_vecSearchGoodsType, &sGoodsType);
 	if( dlg.DoModal() == IDOK )
 	{
 		AddGoodsType(sGoodsType);
@@ -221,11 +246,9 @@ void CSearchWayOneDlg::OnBnClickedButtonSw1GoodsType()
 
 void CSearchWayOneDlg::OnBnClickedButtonSw1CarType()
 {
-	vector<CString> vecCarType;
-	vecCarType.push_back(NO_LIMIT_STRING);
 
 	CString sCarType;
-	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW1_CAR_TYPE), &vecCarType, &sCarType);
+	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW1_CAR_TYPE), &g_vecSearchCarType, &sCarType);
 	if( dlg.DoModal() == IDOK )
 	{
 		AddCarType(sCarType);
@@ -235,11 +258,8 @@ void CSearchWayOneDlg::OnBnClickedButtonSw1CarType()
 
 void CSearchWayOneDlg::OnBnClickedButtonSw1CarSize()
 {
-	vector<CString> vecCarType;
-	vecCarType.push_back(NO_LIMIT_STRING);
-
 	CString sCarLength;
-	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW1_CAR_SIZE), &vecCarType, &sCarLength);
+	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW1_CAR_SIZE), &g_vecSearchCarSize, &sCarLength);
 	if( dlg.DoModal() == IDOK )
 	{
 		AddCarLength(sCarLength);
@@ -267,17 +287,48 @@ void CSearchWayOneDlg::InitSearchTypeRadio()
 
 void CSearchWayOneDlg::FillKeywordCombox()
 {
+	const tdListSearchHistory& lstSearchHis = CHistoryManager::getInstance()->getSearchesHis();
+	tdListSearchHistory::const_iterator it = lstSearchHis.begin(), end = lstSearchHis.end();
+	for(it; it != end; ++it)
+	{
+		CSearchHistory* pHistory = *it;
+		const char* pcszKeyword = pHistory->GetKeyword().c_str();
+		if( pcszKeyword[0] != '\0' && m_comboxKeyword.FindString(-1, pcszKeyword) == CB_ERR )
+		{
+			m_comboxKeyword.AddString(pcszKeyword);
+		}
+	}
 
 }
 
 void CSearchWayOneDlg::FillPublisherCombox()
 {
-
+	const tdListSearchHistory& lstSearchHis = CHistoryManager::getInstance()->getSearchesHis();
+	tdListSearchHistory::const_iterator it = lstSearchHis.begin(), end = lstSearchHis.end();
+	for(it; it != end; ++it)
+	{
+		CSearchHistory* pHistory = *it;
+		const char* pcszPublisher = pHistory->GetPublisher().c_str();
+		if( pcszPublisher[0] != '\0' && m_comboxPublisher.FindString(-1, pcszPublisher) == CB_ERR )
+		{
+			m_comboxPublisher.AddString(pcszPublisher);
+		}
+	}
 }
 
 void CSearchWayOneDlg::FillPhoneNumberCombox()
 {
-
+	const tdListSearchHistory& lstSearchHis = CHistoryManager::getInstance()->getSearchesHis();
+	tdListSearchHistory::const_iterator it = lstSearchHis.begin(), end = lstSearchHis.end();
+	for(it; it != end; ++it)
+	{
+		CSearchHistory* pHistory = *it;
+		const char* pcszPhoneNum = pHistory->GetPhoneNumber().c_str();
+		if( pcszPhoneNum[0] != '\0' && m_comboxPhoneNum.FindString(-1, pcszPhoneNum) == CB_ERR )
+		{
+			m_comboxPhoneNum.AddString(pcszPhoneNum);
+		}
+	}
 }
 
 void CSearchWayOneDlg::UpdateKeyword(const CString& sNewKeyword)
@@ -290,8 +341,30 @@ void CSearchWayOneDlg::UpdateKeyword(const CString& sNewKeyword)
 
 void CSearchWayOneDlg::Clean()
 {
+	CSearchCriteria::Clean();
+
 	GetDlgItem(IDC_EDIT_DEST_ADDR)->SetWindowText(m_sDestAddr = _T(""));
 	m_comboxKeyword.SetWindowText(_T(""));
 	m_comboxPublisher.SetWindowText(_T(""));
 	m_comboxPhoneNum.SetWindowText(_T(""));
+}
+
+void CSearchWayOneDlg::Confirm()
+{
+	CString sKeyWord;
+	m_comboxKeyword.GetWindowText(sKeyWord);
+	m_sKeyword = sKeyWord;
+
+	CString sPublisher;
+	CString sPhoneNum;
+	m_comboxPublisher.GetWindowText(sPublisher);
+	m_comboxPhoneNum.GetWindowText(sPhoneNum);
+	if( !sPublisher.IsEmpty() )
+	{
+		m_lstPublisher.push_back(string(sPublisher));
+	}
+	if( !sPhoneNum.IsEmpty() )
+	{
+		m_lstPhoneNum.push_back(string(sPhoneNum));
+	}
 }

@@ -1,6 +1,15 @@
+#ifndef _FMP_HISTORY_MANAGER_H
+#define _FMP_HISTORY_MANAGER_H
 #pragma once
 
 #include "PublishRecord.h"
+#include "SearchHistory.h"
+#include "SearchFavorite.h"
+
+class CSearchCriteria;
+
+typedef list<CSearchHistory*> tdListSearchHistory;
+typedef list<CSearchFavorite*> tdListSearchFavorite;
 
 class CHistoryManager
 {
@@ -9,19 +18,30 @@ public:
 	static CHistoryManager* getInstance();
 	~CHistoryManager(void);
 
-	publishList&		getPublishes()	{ return publishes; }
-	void				addPublish(CPublishRecord* pPublish);
+	publishList&				getPublishes()	{ return publishes; }
+	void						addPublish(CPublishRecord* pPublish);
 
-	list<string>&		getSearches()	{ return searches; }
-	void				addSearch(CString str);
+	tdListSearchFavorite&		getSearchesFav()	 { return searchesFav; }
+	const tdListSearchFavorite&	getSearchesFav()const{ return searchesFav; }
+	void						addSearchFav(const CSearchCriteria* pSearchCriteria);
+	void						delSearchFav(const string& sName);
+	void						renameSearchFav(const string& sOldName, const string& sNewName);
+	const CSearchFavorite*		findSearchFav(const string& sName);
 
+	tdListSearchHistory&		getSearchesHis()	 { return searchesHis; }
+	const tdListSearchHistory&	getSearchesHis()const{ return searchesHis; }
+	void						addSearchHis(const CSearchCriteria* pSearchCriteria);
 protected:
 	CHistoryManager(void);
-
+private:
+	void CleanPublishHis();
+	void CleanSearchHis();
+	void CleanSearchFav();
 private:
 	static CHistoryManager*		pInstance;
 	publishList					publishes;
-	list<string>				searches;
+	tdListSearchHistory			searchesHis;
+	tdListSearchFavorite		searchesFav;
 
 	void	savePublishRecords(char* filename);
 	void	loadPublishRecords(char* filename);
@@ -29,4 +49,13 @@ private:
 
 	void	saveSearchHistory(char* filename);
 	void	loadSearchHistory(char* filename);
+
+	void	saveSearchFavorite(char* filename);
+	void	loadSearchFavorite(char* filename);
+private:
+	char	m_szPublishHisFile[MAX_PATH];
+	char	m_szSearchHisFile[MAX_PATH];
+	char	m_szSearchFavFile[MAX_PATH];
 };
+
+#endif //#define _FMP_HISTORY_MANAGER_H

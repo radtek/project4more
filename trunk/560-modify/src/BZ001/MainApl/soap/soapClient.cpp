@@ -11,13 +11,13 @@
 #endif
 #include "soapH.h"
 
-SOAP_SOURCE_STAMP("@(#) soapClient.cpp ver 2.7.17 2011-12-09 06:54:39 GMT")
+SOAP_SOURCE_STAMP("@(#) soapClient.cpp ver 2.7.17 2012-01-14 11:19:04 GMT")
 
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getNewBulkGoodsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getNewBulkGoodsInf *ns2__getNewBulkGoodsInf_, ns2__getNewBulkGoodsInfResponse *ns2__getNewBulkGoodsInfResponse_)
 {	struct __ns1__getNewBulkGoodsInf soap_tmp___ns1__getNewBulkGoodsInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -68,7 +68,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getNewBulkGoodsInf(struct soap *soap,
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__collectSpecialLine(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__collectSpecialLine *ns2__collectSpecialLine_, ns2__collectSpecialLineResponse *ns2__collectSpecialLineResponse_)
 {	struct __ns1__collectSpecialLine soap_tmp___ns1__collectSpecialLine;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -119,7 +119,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__collectSpecialLine(struct soap *soap,
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getFavoriteSpecialLineInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getFavoriteSpecialLineInf *ns2__getFavoriteSpecialLineInf_, ns2__getFavoriteSpecialLineInfResponse *ns2__getFavoriteSpecialLineInfResponse_)
 {	struct __ns1__getFavoriteSpecialLineInf soap_tmp___ns1__getFavoriteSpecialLineInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -170,7 +170,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getFavoriteSpecialLineInf(struct soap
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getUserCustomInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getUserCustomInf *ns2__getUserCustomInf_, ns2__getUserCustomInfResponse *ns2__getUserCustomInfResponse_)
 {	struct __ns1__getUserCustomInf soap_tmp___ns1__getUserCustomInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -221,7 +221,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getUserCustomInf(struct soap *soap, c
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getMyCarsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getMyCarsInf *ns2__getMyCarsInf_, ns2__getMyCarsInfResponse *ns2__getMyCarsInfResponse_)
 {	struct __ns1__getMyCarsInf soap_tmp___ns1__getMyCarsInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -272,7 +272,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getMyCarsInf(struct soap *soap, const
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__sendPhoneMessage(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__sendPhoneMessage *ns2__sendPhoneMessage_, ns2__sendPhoneMessageResponse *ns2__sendPhoneMessageResponse_)
 {	struct __ns1__sendPhoneMessage soap_tmp___ns1__sendPhoneMessage;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -323,7 +323,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__sendPhoneMessage(struct soap *soap, c
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getClickServiceStationInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getClickServiceStationInf *ns2__getClickServiceStationInf_, ns2__getClickServiceStationInfResponse *ns2__getClickServiceStationInfResponse_)
 {	struct __ns1__getClickServiceStationInf soap_tmp___ns1__getClickServiceStationInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -374,7 +374,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getClickServiceStationInf(struct soap
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getSearchSpecialLineInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getSearchSpecialLineInf *ns2__getSearchSpecialLineInf_, ns2__getSearchSpecialLineInfResponse *ns2__getSearchSpecialLineInfResponse_)
 {	struct __ns1__getSearchSpecialLineInf soap_tmp___ns1__getSearchSpecialLineInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -425,7 +425,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getSearchSpecialLineInf(struct soap *
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getCustomCarsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getCustomCarsInf *ns2__getCustomCarsInf_, ns2__getCustomCarsInfResponse *ns2__getCustomCarsInfResponse_)
 {	struct __ns1__getCustomCarsInf soap_tmp___ns1__getCustomCarsInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -476,7 +476,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getCustomCarsInf(struct soap *soap, c
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__delGoodsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__delGoodsInf *ns2__delGoodsInf_, ns2__delGoodsInfResponse *ns2__delGoodsInfResponse_)
 {	struct __ns1__delGoodsInf soap_tmp___ns1__delGoodsInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -527,7 +527,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__delGoodsInf(struct soap *soap, const 
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getSearchGoodsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getSearchGoodsInf *ns2__getSearchGoodsInf_, ns2__getSearchGoodsInfResponse *ns2__getSearchGoodsInfResponse_)
 {	struct __ns1__getSearchGoodsInf soap_tmp___ns1__getSearchGoodsInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -575,10 +575,61 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getSearchGoodsInf(struct soap *soap, 
 	return soap_closesock(soap);
 }
 
+SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getSearchGoodsInfNew(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getSearchGoodsInfNew *ns2__getSearchGoodsInfNew_, ns2__getSearchGoodsInfNewResponse *ns2__getSearchGoodsInfNewResponse_)
+{	struct __ns1__getSearchGoodsInfNew soap_tmp___ns1__getSearchGoodsInfNew;
+	if (!soap_endpoint)
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
+	if (!soap_action)
+		soap_action = "";
+	soap->encodingStyle = NULL;
+	soap_tmp___ns1__getSearchGoodsInfNew.ns2__getSearchGoodsInfNew_ = ns2__getSearchGoodsInfNew_;
+	soap_begin(soap);
+	soap_serializeheader(soap);
+	soap_serialize___ns1__getSearchGoodsInfNew(soap, &soap_tmp___ns1__getSearchGoodsInfNew);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put___ns1__getSearchGoodsInfNew(soap, &soap_tmp___ns1__getSearchGoodsInfNew, "-ns1:getSearchGoodsInfNew", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	}
+	if (soap_end_count(soap))
+		return soap->error;
+	if (soap_connect(soap, soap_endpoint, soap_action)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put___ns1__getSearchGoodsInfNew(soap, &soap_tmp___ns1__getSearchGoodsInfNew, "-ns1:getSearchGoodsInfNew", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap_closesock(soap);
+	if (!ns2__getSearchGoodsInfNewResponse_)
+		return soap_closesock(soap);
+	ns2__getSearchGoodsInfNewResponse_->soap_default(soap);
+	if (soap_begin_recv(soap)
+	 || soap_envelope_begin_in(soap)
+	 || soap_recv_header(soap)
+	 || soap_body_begin_in(soap))
+		return soap_closesock(soap);
+	ns2__getSearchGoodsInfNewResponse_->soap_get(soap, "ns2:getSearchGoodsInfNewResponse", "ns2:getSearchGoodsInfNewResponse");
+	if (soap->error)
+		return soap_recv_fault(soap, 0);
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap_closesock(soap);
+	return soap_closesock(soap);
+}
+
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getMyGoodsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getMyGoodsInf *ns2__getMyGoodsInf_, ns2__getMyGoodsInfResponse *ns2__getMyGoodsInfResponse_)
 {	struct __ns1__getMyGoodsInf soap_tmp___ns1__getMyGoodsInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -629,7 +680,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getMyGoodsInf(struct soap *soap, cons
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getSystemScrollAd(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getSystemScrollAd *ns2__getSystemScrollAd_, ns2__getSystemScrollAdResponse *ns2__getSystemScrollAdResponse_)
 {	struct __ns1__getSystemScrollAd soap_tmp___ns1__getSystemScrollAd;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -680,7 +731,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getSystemScrollAd(struct soap *soap, 
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getAgentScrollAd(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getAgentScrollAd *ns2__getAgentScrollAd_, ns2__getAgentScrollAdResponse *ns2__getAgentScrollAdResponse_)
 {	struct __ns1__getAgentScrollAd soap_tmp___ns1__getAgentScrollAd;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -731,7 +782,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getAgentScrollAd(struct soap *soap, c
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getCustomGoodsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getCustomGoodsInf *ns2__getCustomGoodsInf_, ns2__getCustomGoodsInfResponse *ns2__getCustomGoodsInfResponse_)
 {	struct __ns1__getCustomGoodsInf soap_tmp___ns1__getCustomGoodsInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -782,7 +833,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getCustomGoodsInf(struct soap *soap, 
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getClickSearchBulkGoodsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getClickSearchBulkGoodsInf *ns2__getClickSearchBulkGoodsInf_, ns2__getClickSearchBulkGoodsInfResponse *ns2__getClickSearchBulkGoodsInfResponse_)
 {	struct __ns1__getClickSearchBulkGoodsInf soap_tmp___ns1__getClickSearchBulkGoodsInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -833,7 +884,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getClickSearchBulkGoodsInf(struct soa
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__checkChargeUser(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__checkChargeUser *ns2__checkChargeUser_, ns2__checkChargeUserResponse *ns2__checkChargeUserResponse_)
 {	struct __ns1__checkChargeUser soap_tmp___ns1__checkChargeUser;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -884,7 +935,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__checkChargeUser(struct soap *soap, co
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__deleteUserCustomInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__deleteUserCustomInf *ns2__deleteUserCustomInf_, ns2__deleteUserCustomInfResponse *ns2__deleteUserCustomInfResponse_)
 {	struct __ns1__deleteUserCustomInf soap_tmp___ns1__deleteUserCustomInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -935,7 +986,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__deleteUserCustomInf(struct soap *soap
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__setServiceStationInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__setServiceStationInf *ns2__setServiceStationInf_, ns2__setServiceStationInfResponse *ns2__setServiceStationInfResponse_)
 {	struct __ns1__setServiceStationInf soap_tmp___ns1__setServiceStationInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -986,7 +1037,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__setServiceStationInf(struct soap *soa
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getAllSpecialLineInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getAllSpecialLineInf *ns2__getAllSpecialLineInf_, ns2__getAllSpecialLineInfResponse *ns2__getAllSpecialLineInfResponse_)
 {	struct __ns1__getAllSpecialLineInf soap_tmp___ns1__getAllSpecialLineInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -1037,7 +1088,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getAllSpecialLineInf(struct soap *soa
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getClickSearchSpecialLineInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getClickSearchSpecialLineInf *ns2__getClickSearchSpecialLineInf_, ns2__getClickSearchSpecialLineInfResponse *ns2__getClickSearchSpecialLineInfResponse_)
 {	struct __ns1__getClickSearchSpecialLineInf soap_tmp___ns1__getClickSearchSpecialLineInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -1088,7 +1139,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getClickSearchSpecialLineInf(struct s
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__delSpecialLineInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__delSpecialLineInf *ns2__delSpecialLineInf_, ns2__delSpecialLineInfResponse *ns2__delSpecialLineInfResponse_)
 {	struct __ns1__delSpecialLineInf soap_tmp___ns1__delSpecialLineInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -1139,7 +1190,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__delSpecialLineInf(struct soap *soap, 
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getMyBulkGoodsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getMyBulkGoodsInf *ns2__getMyBulkGoodsInf_, ns2__getMyBulkGoodsInfResponse *ns2__getMyBulkGoodsInfResponse_)
 {	struct __ns1__getMyBulkGoodsInf soap_tmp___ns1__getMyBulkGoodsInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -1190,7 +1241,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getMyBulkGoodsInf(struct soap *soap, 
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__addUserCustomInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__addUserCustomInf *ns2__addUserCustomInf_, ns2__addUserCustomInfResponse *ns2__addUserCustomInfResponse_)
 {	struct __ns1__addUserCustomInf soap_tmp___ns1__addUserCustomInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -1241,7 +1292,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__addUserCustomInf(struct soap *soap, c
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getClickSearchGoodsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getClickSearchGoodsInf *ns2__getClickSearchGoodsInf_, ns2__getClickSearchGoodsInfResponse *ns2__getClickSearchGoodsInfResponse_)
 {	struct __ns1__getClickSearchGoodsInf soap_tmp___ns1__getClickSearchGoodsInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -1292,7 +1343,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getClickSearchGoodsInf(struct soap *s
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__setPubGoodsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__setPubGoodsInf *ns2__setPubGoodsInf_, ns2__setPubGoodsInfResponse *ns2__setPubGoodsInfResponse_)
 {	struct __ns1__setPubGoodsInf soap_tmp___ns1__setPubGoodsInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -1343,7 +1394,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__setPubGoodsInf(struct soap *soap, con
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getNewCarsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getNewCarsInf *ns2__getNewCarsInf_, ns2__getNewCarsInfResponse *ns2__getNewCarsInfResponse_)
 {	struct __ns1__getNewCarsInf soap_tmp___ns1__getNewCarsInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -1394,7 +1445,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getNewCarsInf(struct soap *soap, cons
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getSearchBulkGoodsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getSearchBulkGoodsInf *ns2__getSearchBulkGoodsInf_, ns2__getSearchBulkGoodsInfResponse *ns2__getSearchBulkGoodsInfResponse_)
 {	struct __ns1__getSearchBulkGoodsInf soap_tmp___ns1__getSearchBulkGoodsInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -1445,7 +1496,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getSearchBulkGoodsInf(struct soap *so
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__setPubBulkGoodsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__setPubBulkGoodsInf *ns2__setPubBulkGoodsInf_, ns2__setPubBulkGoodsInfResponse *ns2__setPubBulkGoodsInfResponse_)
 {	struct __ns1__setPubBulkGoodsInf soap_tmp___ns1__setPubBulkGoodsInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -1496,7 +1547,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__setPubBulkGoodsInf(struct soap *soap,
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__setPubCarsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__setPubCarsInf *ns2__setPubCarsInf_, ns2__setPubCarsInfResponse *ns2__setPubCarsInfResponse_)
 {	struct __ns1__setPubCarsInf soap_tmp___ns1__setPubCarsInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -1547,7 +1598,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__setPubCarsInf(struct soap *soap, cons
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getClickSearchCarsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getClickSearchCarsInf *ns2__getClickSearchCarsInf_, ns2__getClickSearchCarsInfResponse *ns2__getClickSearchCarsInfResponse_)
 {	struct __ns1__getClickSearchCarsInf soap_tmp___ns1__getClickSearchCarsInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -1598,7 +1649,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getClickSearchCarsInf(struct soap *so
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__browseZoneCars(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__browseZoneCars *ns2__browseZoneCars_, ns2__browseZoneCarsResponse *ns2__browseZoneCarsResponse_)
 {	struct __ns1__browseZoneCars soap_tmp___ns1__browseZoneCars;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -1649,7 +1700,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__browseZoneCars(struct soap *soap, con
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__placeOrder(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__placeOrder *ns2__placeOrder_, ns2__placeOrderResponse *ns2__placeOrderResponse_)
 {	struct __ns1__placeOrder soap_tmp___ns1__placeOrder;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -1700,7 +1751,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__placeOrder(struct soap *soap, const c
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__delBulkGoodsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__delBulkGoodsInf *ns2__delBulkGoodsInf_, ns2__delBulkGoodsInfResponse *ns2__delBulkGoodsInfResponse_)
 {	struct __ns1__delBulkGoodsInf soap_tmp___ns1__delBulkGoodsInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -1751,7 +1802,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__delBulkGoodsInf(struct soap *soap, co
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__usrLogin(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__usrLogin *ns2__usrLogin_, ns2__usrLoginResponse *ns2__usrLoginResponse_)
 {	struct __ns1__usrLogin soap_tmp___ns1__usrLogin;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -1802,7 +1853,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__usrLogin(struct soap *soap, const cha
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__delCarsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__delCarsInf *ns2__delCarsInf_, ns2__delCarsInfResponse *ns2__delCarsInfResponse_)
 {	struct __ns1__delCarsInf soap_tmp___ns1__delCarsInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -1853,7 +1904,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__delCarsInf(struct soap *soap, const c
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getMySpecialLineInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getMySpecialLineInf *ns2__getMySpecialLineInf_, ns2__getMySpecialLineInfResponse *ns2__getMySpecialLineInfResponse_)
 {	struct __ns1__getMySpecialLineInf soap_tmp___ns1__getMySpecialLineInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -1904,7 +1955,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getMySpecialLineInf(struct soap *soap
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__setPubSpecialLineInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__setPubSpecialLineInf *ns2__setPubSpecialLineInf_, ns2__setPubSpecialLineInfResponse *ns2__setPubSpecialLineInfResponse_)
 {	struct __ns1__setPubSpecialLineInf soap_tmp___ns1__setPubSpecialLineInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -1955,7 +2006,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__setPubSpecialLineInf(struct soap *soa
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getNewGoodsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getNewGoodsInf *ns2__getNewGoodsInf_, ns2__getNewGoodsInfResponse *ns2__getNewGoodsInfResponse_)
 {	struct __ns1__getNewGoodsInf soap_tmp___ns1__getNewGoodsInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -2006,7 +2057,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getNewGoodsInf(struct soap *soap, con
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__delFavoriteSpecialLine(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__delFavoriteSpecialLine *ns2__delFavoriteSpecialLine_, ns2__delFavoriteSpecialLineResponse *ns2__delFavoriteSpecialLineResponse_)
 {	struct __ns1__delFavoriteSpecialLine soap_tmp___ns1__delFavoriteSpecialLine;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -2054,10 +2105,61 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__delFavoriteSpecialLine(struct soap *s
 	return soap_closesock(soap);
 }
 
+SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getSearchCarsInfNew(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getSearchCarsInfNew *ns2__getSearchCarsInfNew_, ns2__getSearchCarsInfNewResponse *ns2__getSearchCarsInfNewResponse_)
+{	struct __ns1__getSearchCarsInfNew soap_tmp___ns1__getSearchCarsInfNew;
+	if (!soap_endpoint)
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
+	if (!soap_action)
+		soap_action = "";
+	soap->encodingStyle = NULL;
+	soap_tmp___ns1__getSearchCarsInfNew.ns2__getSearchCarsInfNew_ = ns2__getSearchCarsInfNew_;
+	soap_begin(soap);
+	soap_serializeheader(soap);
+	soap_serialize___ns1__getSearchCarsInfNew(soap, &soap_tmp___ns1__getSearchCarsInfNew);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put___ns1__getSearchCarsInfNew(soap, &soap_tmp___ns1__getSearchCarsInfNew, "-ns1:getSearchCarsInfNew", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	}
+	if (soap_end_count(soap))
+		return soap->error;
+	if (soap_connect(soap, soap_endpoint, soap_action)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put___ns1__getSearchCarsInfNew(soap, &soap_tmp___ns1__getSearchCarsInfNew, "-ns1:getSearchCarsInfNew", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap_closesock(soap);
+	if (!ns2__getSearchCarsInfNewResponse_)
+		return soap_closesock(soap);
+	ns2__getSearchCarsInfNewResponse_->soap_default(soap);
+	if (soap_begin_recv(soap)
+	 || soap_envelope_begin_in(soap)
+	 || soap_recv_header(soap)
+	 || soap_body_begin_in(soap))
+		return soap_closesock(soap);
+	ns2__getSearchCarsInfNewResponse_->soap_get(soap, "ns2:getSearchCarsInfNewResponse", "ns2:getSearchCarsInfNewResponse");
+	if (soap->error)
+		return soap_recv_fault(soap, 0);
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap_closesock(soap);
+	return soap_closesock(soap);
+}
+
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getAgentPopAd(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getAgentPopAd *ns2__getAgentPopAd_, ns2__getAgentPopAdResponse *ns2__getAgentPopAdResponse_)
 {	struct __ns1__getAgentPopAd soap_tmp___ns1__getAgentPopAd;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;
@@ -2108,7 +2210,7 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getAgentPopAd(struct soap *soap, cons
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getSearchCarsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getSearchCarsInf *ns2__getSearchCarsInf_, ns2__getSearchCarsInfResponse *ns2__getSearchCarsInfResponse_)
 {	struct __ns1__getSearchCarsInf soap_tmp___ns1__getSearchCarsInf;
 	if (!soap_endpoint)
-		soap_endpoint = "http://192.168.7.9:7777/fmp/service/fmpserver";
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
 	if (!soap_action)
 		soap_action = "";
 	soap->encodingStyle = NULL;

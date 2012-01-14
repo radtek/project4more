@@ -368,11 +368,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SearchCriteria.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SearchFavorite.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\SearchFavoriteDlg.cpp"
 				>
 			</File>
 			<File
+				RelativePath=".\SearchFavRenameDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\SearchGoodsDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SearchHistory.cpp"
 				>
 			</File>
 			<File
@@ -527,6 +543,7 @@
 						>
 						<Tool
 							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="2"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
@@ -547,6 +564,7 @@
 						>
 						<Tool
 							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="2"
 						/>
 					</FileConfiguration>
 					<FileConfiguration
@@ -561,10 +579,26 @@
 				<File
 					RelativePath=".\soap\soapClientLib.cpp"
 					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="2"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath=".\soap\stdsoap2.cpp"
 					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="2"
+						/>
+					</FileConfiguration>
 				</File>
 			</Filter>
 		</Filter>
@@ -758,11 +792,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SearchFavorite.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SearchFavoriteDlg.h"
 				>
 			</File>
 			<File
+				RelativePath=".\SearchFavRenameDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SearchGoodsDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SearchHistory.h"
 				>
 			</File>
 			<File
@@ -933,6 +979,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\..\Documents and Settings\Administrator\×ÀÃæ\ico\48x48.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\bitmap5.bmp"
 				>
 			</File>
 			<File
@@ -1108,6 +1158,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\HIDE_PHONE_NUM.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\icon1.ico"
 				>
 			</File>
@@ -1136,6 +1190,26 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\PUBLISH_THREE.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\PUBLISH_TWO.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\PUBLISHE_ONE.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SEARCH.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\STOP_REFRESH.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\WLRClient.ico"
 				>
 			</File>
@@ -1154,6 +1228,10 @@
 		</Filter>
 		<File
 			RelativePath=".\ClassDiagram1.cd"
+			>
+		</File>
+		<File
+			RelativePath=".\ClassDiagram2.cd"
 			>
 		</File>
 		<File
