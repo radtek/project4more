@@ -23,8 +23,19 @@ CPublishWayOneDlg::CPublishWayOneDlg(CWnd* pParent /*=NULL*/)
 	, withName(FALSE)
 	, mobile(_T(""))
 	, name(_T(""))
+	, goodsValue(_T(""))
+	, goodsCountValue(_T(""))
+	, goodsUnitValue(_T(""))
+	, truckLengthValue(_T(""))
+	, truckTypeValue(_T(""))
+	, truckCountValue(_T(""))
+	, priceCountValue(_T(""))
+	, priceListValue(_T(""))
+	, preview(_T(""))
+	, shipTimeValue(_T(""))
+	, repubSettingValue(_T(""))
 {
-
+	publishKind = 0;
 }
 
 CPublishWayOneDlg::~CPublishWayOneDlg()
@@ -69,6 +80,17 @@ void CPublishWayOneDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_EDIT_CAR_NUM, truckCount);
 	DDX_Control(pDX, IDC_STATIC_CAR_UNIT, truckUnit);
 	DDX_Control(pDX, IDC_LIST_PRIACE, priceList);
+	DDX_LBString(pDX, IDC_LIST_GOODS, goodsValue);
+	DDX_Text(pDX, IDC_EDIT_GOODS_NUM, goodsCountValue);
+	DDX_CBString(pDX, IDC_COMBO_GOOD_UNIT, goodsUnitValue);
+	DDX_LBString(pDX, IDC_LIST_CAR_SIZE, truckLengthValue);
+	DDX_LBString(pDX, IDC_LIST_CAR_TYPE, truckTypeValue);
+	DDX_Text(pDX, IDC_EDIT_CAR_NUM, truckCountValue);
+	DDX_Text(pDX, IDC_EDIT_PRICE_NUM, priceCountValue);
+	DDX_LBString(pDX, IDC_LIST_PRIACE, priceListValue);
+	DDX_Text(pDX, IDC_EDIT_PW1_PREVIEW, preview);
+	DDX_CBString(pDX, IDC_COMBO_PW1_LDGOODS_DT, shipTimeValue);
+	DDX_CBString(pDX, IDC_COMBO_PW1_REPUB_SETTING, repubSettingValue);
 }
 
 
@@ -120,7 +142,7 @@ void CPublishWayOneDlg::initControlValue()
 
 	unsigned int n;
 
-	goodsList.SetColumnWidth(110);
+	goodsList.SetColumnWidth(100);
 	for ( n = 0; n < g_goodsType.size(); n++ )
 	{
 		goodsList.AddString(g_goodsType[n].c_str());
@@ -132,23 +154,42 @@ void CPublishWayOneDlg::initControlValue()
 	}
 	goodsUnit.SetCurSel(0);
 
-	truckLength.SetColumnWidth(50);
+	truckLength.SetColumnWidth(60);
 	for ( n = 0; n < g_truckLength.size(); n++ )
 	{
 		truckLength.AddString(g_truckLength[n].c_str());
 	}
 
-	truckType.SetColumnWidth(50);
+	truckType.SetColumnWidth(60);
 	for ( n = 0; n < g_truckType.size(); n++ )
 	{
 		truckType.AddString(g_truckType[n].c_str());
 	}
 
-	priceList.SetColumnWidth(110);
+	priceList.SetColumnWidth(100);
 	for ( n = 0; n < g_priceType.size(); n++ )
 	{
 		priceList.AddString(g_priceType[n].c_str());
 	}
+
+	CString str;
+	//获取系统时间
+	CTime tm = CTime::GetCurrentTime();
+	for(int i=0; i<15; ++i) {
+		CTime t2 = tm + CTimeSpan( i, 0, 0, 0 );
+		str=t2.Format("%Y-%m-%d");
+		shipTime.AddString(str);
+	}
+	shipTime.AddString("随时");
+	shipTime.SetCurSel(0);
+
+	repubSetting.AddString("不自动重发");
+	repubSetting.AddString("10分钟2次");
+	repubSetting.AddString("30分钟5次");
+	repubSetting.AddString("2小时10次");
+	repubSetting.SetCurSel(0);
+
+	mobile = userInfo.tel.c_str();
 }
 
 
@@ -249,12 +290,47 @@ void CPublishWayOneDlg::OnBnClickedButtonPw1History()
 void CPublishWayOneDlg::OnBnClickedButtonPreview()
 {
 	// TODO: Add your control notification handler code here
+	UpdateData();
+
+	if ( msgType.GetCurSel() == 0 )
+	{
+		BuildGoodsPreview();
+	}
+	else
+	{
+		BuildTruckPreview();
+	}
 }
 
 void CPublishWayOneDlg::OnBnClickedButtonPw1Pub()
 {
 	// TODO: Add your control notification handler code here
-	if ( autoClose )
+	UpdateData();
+
+	if (!bPreview)
+	{
+		MessageBox("在发布前请先预览！", "发布");
+		return;
+	}
+	if (preview == "")
+	{
+		MessageBox("预览不能为空！", "发布");
+		return;
+	}
+	bPreview = FALSE;
+
+	BOOL	result;
+
+	if ( msgType.GetCurSel() == 0 )
+	{
+		result = PublishGoodsInfo();
+	}
+	else
+	{
+		result = PublishTruckInfo();
+	}
+
+	if ( result )
 	{
 		OnOK();
 	}
@@ -282,6 +358,7 @@ void CPublishWayOneDlg::OnCbnSelchangeComboPw1InfoType()
 		secondPanel.SetWindowText("求车");
 		
 		dx = -229;
+		publishKind = 0;
 	}
 	else
 	{
@@ -289,6 +366,7 @@ void CPublishWayOneDlg::OnCbnSelchangeComboPw1InfoType()
 		secondPanel.SetWindowText("求货");
 
 		dx = 229;
+		publishKind = 1;
 	}
 
 	MoveControl(goodsList, dx, 0);
@@ -315,4 +393,260 @@ void CPublishWayOneDlg::MoveControl(CWnd& control, int dx, int dy)
 	rect.bottom += dy;
 
 	control.MoveWindow(rect);
+}
+
+BOOL CPublishWayOneDlg::CheckGoodsInfo()
+{
+	if ( goodsValue == "" )
+	{
+		MessageBox("请选择货物种类", "发布货源");
+		return FALSE;
+	}
+
+	if (priceListValue == "" && priceCountValue != "")
+	{
+		MessageBox("请选择价格类型", "发布货源");
+		return FALSE;
+	}
+
+	if (priceListValue != "" && priceCountValue == "")
+	{
+		MessageBox("价格不能为空", "发布货源");
+		return FALSE;
+	}
+
+	if (m_strProvinceTo == "" || m_strCityTo == "" || m_strCountyTo == "")
+	{
+		MessageBox("目的地不能为空", "发布货源");
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+void CPublishWayOneDlg::BuildGoodsPreview()
+{
+	if ( CheckGoodsInfo() == FALSE )
+	{
+		return;
+	}
+
+	bPreview = TRUE;
+
+	preview = "有货：" + goodsValue + "，";
+
+	if ( goodsCountValue != "" )
+	{
+		preview = preview + goodsCountValue + goodsUnitValue + "，";
+	}
+
+	if ( priceCountValue != ""  )
+	{
+		preview = preview + "价格：" + priceCountValue + priceListValue + "，";
+	}
+
+	preview = preview + "需要：";
+
+	if ( truckLengthValue != "" )
+	{
+		preview = preview + truckLengthValue;
+	}
+	if ( truckTypeValue != "" )
+	{
+		preview = preview + "“" + truckTypeValue + "”";
+	}
+	preview += "车";
+	if ( truckCountValue != "" )
+	{
+		preview += truckCountValue + "辆";
+	}
+	preview += "。";
+	UpdateData(FALSE);
+}
+
+BOOL CPublishWayOneDlg::CheckTruckInfo()
+{
+	if ( goodsValue == "" )
+	{
+		MessageBox("请选择货物种类", "发布车源");
+		return FALSE;
+	}
+
+	if (m_strProvinceTo == "" || m_strCityTo == "" || m_strCountyTo == "")
+	{
+		MessageBox("目的地不能为空", "发布车源");
+		return FALSE;
+	}
+
+	if ( truckLengthValue == "" )
+	{
+		MessageBox("请选择车辆长度", "发布车源");
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+void CPublishWayOneDlg::BuildTruckPreview()
+{
+	if ( CheckTruckInfo() == FALSE )
+	{
+		return;
+	}
+
+	bPreview = TRUE;
+
+	preview = "有" + truckLengthValue;
+	if ( truckTypeValue != "" )
+	{
+		preview = preview + "“" + truckTypeValue + "”";
+	}
+	preview += "车";
+	if ( truckCountValue != "" )
+	{
+		preview += truckCountValue + "辆";
+	}
+
+	preview = preview + "求货：" + goodsValue + "。";
+
+	UpdateData(FALSE);
+}
+
+BOOL CPublishWayOneDlg::PublishGoodsInfo()
+{
+	if (CheckGoodsInfo() == FALSE)
+	{
+		return FALSE;
+	}
+
+	if (mobile == "") {
+		MessageBox("联系电话不能为空", "发布货源");
+		return FALSE;
+	}
+
+	CString		p, pu;
+
+	if ( priceCountValue == "" && priceListValue == "" )
+	{
+		p = pu = "NULL";
+	}
+	else
+	{
+		p = priceCountValue;
+		pu = priceListValue;
+	}
+
+	CString w = goodsCountValue;
+	CString tl = truckLengthValue;
+	CString tt = truckTypeValue;
+	CString tc = truckCountValue;
+
+	if ( w == "" )
+		w = "NULL";
+
+	if ( tl == "" )
+		tl = "NULL";
+
+	if ( tt == "" )
+		tt = "NULL";
+
+	if ( tc == "" )
+		tc = "NULL";
+
+	CString tmp = m_strProvinceFrom + "|" + m_strCityFrom + "|" + m_strCountyFrom
+		+ "|" + m_strProvinceTo + "|" + m_strCityTo + "|" + m_strCountyTo
+		+ "|" + goodsValue + "|" + goodsCountValue + "|" + "NULL"
+		+ "|" + "普货" + "|" + p + "|" + pu + "|NULL|" + tl + "|" + tt + "|"
+		+ tc + "|" + mobile + "|" + shipTimeValue + "|" + repubSettingValue;
+
+	if (rememberRepubSetting)
+	{
+		tmp = tmp + "|" + "1"; 
+	}
+	else
+	{
+		tmp = tmp + "|" + "0";
+	}
+
+	if (longTimeAvailable)
+	{
+		tmp = tmp + "|" + "长期有效|"; 
+	}
+	else
+	{
+		tmp = tmp + "|" + "24小时|";
+	}
+
+	CString sText = preview;
+
+	sText.Replace("|","");	
+	tmp += sText;
+
+	pubInf = (LPTSTR)(LPCTSTR)tmp;
+
+	return TRUE;
+}
+
+BOOL CPublishWayOneDlg::PublishTruckInfo()
+{
+	if (CheckTruckInfo() == FALSE)
+	{
+		return FALSE;
+	}
+
+	if (mobile == "") {
+		MessageBox("联系电话不能为空", "发布货源");
+		return FALSE;
+	}
+
+	CString	tc = truckCountValue;
+	CString w = goodsCountValue;
+	CString tl = truckLengthValue;
+	CString tt = truckTypeValue;
+
+	if ( tc == "" )
+		tc = "NULL";
+
+	if ( w == "" )
+		w = "NULL";
+
+	if ( tl == "" )
+		tl = "NULL";
+
+	if ( tt == "" )
+		tt = "NULL";
+
+	CString tmp = m_strProvinceFrom + "|" + m_strCityFrom + "|" + m_strCountyFrom
+		+ "|" + m_strProvinceTo + "|" + m_strCityTo + "|" + m_strCountyTo
+		+ "|||||||"
+		+ tc + "|" + w + "|NULL|" + tl + "|" + tt 
+		+ "|" + goodsValue + "|普货|" + mobile + "|" + shipTimeValue + "|" + repubSettingValue;
+	
+	if (rememberRepubSetting)
+	{
+		tmp = tmp + "|" + "1"; 
+	}
+	else
+	{
+		tmp = tmp + "|" + "0";
+	}
+
+	if (longTimeAvailable)
+	{
+		tmp = tmp + "|" + "长期有效|"; 
+	}
+	else
+	{
+		tmp = tmp + "|" + "24小时|";
+	}
+
+	CString sText = preview;
+
+	sText.Replace("|","");
+
+	tmp += sText;
+
+	pubInf = (LPTSTR)(LPCTSTR)tmp; 
+
+	return TRUE;
 }
