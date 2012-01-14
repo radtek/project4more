@@ -22,15 +22,6 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	int GetSearchType()
-	{
-		return m_nSearchType;
-	}
-	void SetSearchType(int nType)
-	{
-		m_nSearchType = nType;
-	}
-public:
 	afx_msg void OnBnClickedRadioSw3All();
 	afx_msg void OnBnClickedRadioSw3Goods();
 	afx_msg void OnBnClickedRadioSw3Cars();
@@ -41,7 +32,7 @@ public:
 	afx_msg void OnBnClickedButtonSw3Clean();
 	afx_msg void OnBnClickedButtonSw3CleanKeyWord();
 	afx_msg void OnBnClickedButtonSw3Backspace();
-	afx_msg void OnBnClickedButtonSw3Addr();
+	//afx_msg void OnBnClickedButtonSw3Addr();
 	afx_msg void OnBnClickedButtonSw3Goods();
 	afx_msg void OnBnClickedButtonSw3CarType();
 	afx_msg void OnBnClickedButtonSw3CarSize();
@@ -56,14 +47,14 @@ private:
 	void FillFromCityList(const CString& sProvince);
 	void FillFromCountyList(const CString& sProvince, const CString& sCity);
 
+	void FillKeywordCombox();
+
 	void Clean();
 	void Confirm();
 
 	void UpdateKeyword(const CString& sNewKeyword);
 private:
 	enum{eItemData_Province, eItemData_City, eItemData_County};
-
-	int m_nSearchType;
 	CListBox m_lstFromProv;
 	CListBox m_lstFromCity;
 	CListBox m_lstFromCounty;

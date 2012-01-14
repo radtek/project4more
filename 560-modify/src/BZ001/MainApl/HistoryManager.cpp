@@ -2,17 +2,37 @@
 #include "HistoryManager.h"
 #include <iostream>
 #include <fstream>
+#include "SearchCriteria.h"
 
 CHistoryManager* CHistoryManager::pInstance = NULL;
 
+#define PUBLISH_HIS_FILE_NAME "publish.his"
+#define SEARCH_HIS_FILE_NAME "search.his"
+#define SEARCH_FAV_FILE_NAME "search.fav"
+
 CHistoryManager::CHistoryManager(void)
 {
-	loadPublishRecords("publish.his");
-	loadPublishRecords("search.his");
+	char szModuleFile[MAX_PATH] = {'\0'};
+	GetModuleFileNameA(NULL, szModuleFile, sizeof(szModuleFile));
+	char* pcszPath = strrchr(szModuleFile, '\\');
+	if( pcszPath != NULL )
+	{
+		*pcszPath = '\0'; 
+	}
+	sprintf(m_szPublishHisFile, "%s\\%s", szModuleFile, PUBLISH_HIS_FILE_NAME);
+	sprintf(m_szSearchHisFile, "%s\\%s", szModuleFile, SEARCH_HIS_FILE_NAME);
+	sprintf(m_szSearchFavFile, "%s\\%s", szModuleFile, SEARCH_FAV_FILE_NAME);
+
+	loadPublishRecords(m_szPublishHisFile);
+	loadSearchHistory(m_szSearchHisFile);
+	loadSearchFavorite(m_szSearchFavFile);
 }
 
 CHistoryManager::~CHistoryManager(void)
 {
+	CleanPublishHis();
+	CleanSearchHis();
+	CleanSearchFav();
 }
 
 CHistoryManager* CHistoryManager::getInstance()
@@ -26,15 +46,7 @@ CHistoryManager* CHistoryManager::getInstance()
 void CHistoryManager::addPublish(CPublishRecord* pPublish)
 {
 	publishes.push_back(pPublish);
-	savePublishRecords("publish.his");
-}
-
-void CHistoryManager::addSearch(CString str)
-{
-	string s(str.GetBuffer());
-	str.ReleaseBuffer();
-	searches.push_back(s);
-	saveSearchHistory("search.his");
+	savePublishRecords(m_szPublishHisFile);
 }
 
 void CHistoryManager::savePublishRecords(char* filename)
@@ -98,16 +110,26 @@ void CHistoryManager::clearPublishList()
 	publishes.clear();
 }
 
+
+/****************search history*********************/
+void CHistoryManager::addSearchHis(const CSearchCriteria* pSearchCriteria)
+{
+	if( !pSearchCriteria->GetKeyword().empty() || pSearchCriteria->GetPublisherList().size() > 0 || pSearchCriteria->GetPhoneNumList().size() > 0 )
+	{
+		searchesHis.push_back(new CSearchHistory(pSearchCriteria));
+		saveSearchHistory(m_szSearchHisFile);
+	}
+}
 void CHistoryManager::saveSearchHistory(char* filename)
 {
 	ofstream hisFile (filename);
 
 	if ( hisFile.is_open() )
 	{
-		list<string>::iterator		iter;
-		for ( iter = searches.begin(); iter != searches.end(); iter++ )
+		tdListSearchHistory::iterator iter = searchesHis.begin(), end = searchesHis.end();
+		for ( iter; iter != end; iter++ )
 		{
-			string str = (*iter);
+			string str = (*iter)->toString();
 			hisFile << str << '\n';
 		}
 		hisFile.close();
@@ -122,7 +144,7 @@ void CHistoryManager::loadSearchHistory(char* filename)
 	if ( hisFile.is_open() )
 	{
 		string	line;
-		searches.clear();
+		searchesHis.clear();
 
 		while ( hisFile.good() )
 		{
@@ -131,7 +153,119 @@ void CHistoryManager::loadSearchHistory(char* filename)
 			{
 				continue;
 			}
-			searches.push_back(line);
+			searchesHis.push_back(new CSearchHistory(line));
 		}
+	}
+}
+
+
+/**************** search favorite *********************/
+void CHistoryManager::addSearchFav(const CSearchCriteria* pSearchCriteria)
+{
+	CSearchFavorite* pSearchFav = new CSearchFavorite(pSearchCriteria);
+	searchesFav.push_back(pSearchFav);
+	saveSearchFavorite(m_szSearchFavFile);
+}
+void CHistoryManager::delSearchFav(const string& sName)
+{
+	tdListSearchFavorite::iterator iter = searchesFav.begin(), end = searchesFav.end();
+	for(iter; iter != end; ++iter)
+	{
+		if( (*iter)->GetName() == sName )
+		{
+			searchesFav.erase(iter);
+			saveSearchFavorite(m_szSearchFavFile);
+			break;
+		}
+	}
+}
+void CHistoryManager::renameSearchFav(const string& sOldName, const string& sNewName)
+{
+	tdListSearchFavorite::iterator iter = searchesFav.begin(), end = searchesFav.end();
+	for(iter; iter != end; ++iter)
+	{
+		CSearchFavorite* pSearchFav = *iter; 
+		if( pSearchFav->GetName() == sOldName )
+		{
+			pSearchFav->SetName(sNewName);
+			saveSearchFavorite(m_szSearchFavFile);
+			break;
+		}
+	}
+}
+const CSearchFavorite*	CHistoryManager::findSearchFav(const string& sName)
+{
+	tdListSearchFavorite::iterator iter = searchesFav.begin(), end = searchesFav.end();
+	for(iter; iter != end; ++iter)
+	{
+		CSearchFavorite* pSearchFav = *iter; 
+		if( pSearchFav->GetName() == sName )
+		{
+			return pSearchFav;
+		}
+	}
+	return NULL;
+}
+
+
+void CHistoryManager::saveSearchFavorite(char* filename)
+{
+	ofstream hisFile (filename);
+
+	if ( hisFile.is_open() )
+	{
+		tdListSearchFavorite::iterator iter = searchesFav.begin(), end = searchesFav.end();
+		for ( iter; iter != end; iter++ )
+		{
+			hisFile << (*iter)->toString() << '\n';
+		}
+		hisFile.close();
+	}
+}
+
+void CHistoryManager::loadSearchFavorite(char* filename)
+{
+	ifstream hisFile (filename);
+
+	if ( hisFile.is_open() )
+	{
+		string	line;
+		searchesFav.clear();
+
+		while ( hisFile.good() )
+		{
+			getline(hisFile, line);
+			if ( line.size() == 0 )
+			{
+				continue;
+			}
+			searchesFav.push_back(new CSearchFavorite(line));
+		}
+	}
+}
+
+
+void CHistoryManager::CleanPublishHis()
+{
+	publishList::iterator it = publishes.begin(), end = publishes.end();
+	for(it; it != end; ++it)
+	{
+		delete *it;
+	}
+}
+void CHistoryManager::CleanSearchHis()
+{
+	tdListSearchHistory::iterator it = searchesHis.begin(), end = searchesHis.end();
+	for(it; it != end; ++it)
+	{
+		delete *it;
+	}
+}
+void CHistoryManager::CleanSearchFav()
+{
+	tdListSearchFavorite::iterator it = searchesFav.begin(), end = searchesFav.end();
+	for(it; it != end; ++it)
+	{
+		delete *it;
 	}
 }

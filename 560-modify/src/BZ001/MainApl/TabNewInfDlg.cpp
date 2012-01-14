@@ -90,6 +90,8 @@ void CTabNewInfDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BUTTON_SEARCH, m_btnSearch);
 	DDX_Control(pDX, IDC_BUTTON_STOP_REFRESH, m_btnStopRefresh);
 	DDX_Control(pDX, IDC_BUTTON_HIDE_PHONE_NUM, m_btnHidePhoneNum);
+	DDX_Control(pDX, IDC_BUTTON_PUB_WAY_ONE, m_btnPubWayOne);
+	DDX_Control(pDX, IDC_BUTTON_PUB_WAY_TWO, m_btnPubWayTwo);
 }
 
 
@@ -114,6 +116,8 @@ BEGIN_MESSAGE_MAP(CTabNewInfDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON_SEARCH, &CTabNewInfDlg::OnBnClickedButtonSearch)
 	ON_BN_CLICKED(IDC_BUTTON_STOP_REFRESH, &CTabNewInfDlg::OnBnClickedButtonStopRefresh)
 	ON_BN_CLICKED(IDC_BUTTON_HIDE_PHONE_NUM, &CTabNewInfDlg::OnBnClickedButtonHidePhoneNum)
+	ON_BN_CLICKED(IDC_BUTTON_PUB_WAY_ONE, &CTabNewInfDlg::OnBnClickedButtonPubWayOne)
+	ON_BN_CLICKED(IDC_BUTTON_PUB_WAY_TWO, &CTabNewInfDlg::OnBnClickedButtonPubWayTwo)
 END_MESSAGE_MAP()
 
 // 自动改变控件位置大小
@@ -127,6 +131,8 @@ BEGIN_EASYSIZE_MAP(CTabNewInfDlg)
 	EASYSIZE(IDC_BUTTON_HIDE_PHONE_NUM, ES_KEEPSIZE, ES_BORDER, IDC_TAB_NEW_UPTOP, ES_KEEPSIZE, 0)
 	EASYSIZE(IDC_BUTTON_STOP_REFRESH, ES_KEEPSIZE, ES_BORDER, IDC_BUTTON_HIDE_PHONE_NUM, ES_KEEPSIZE, 0)
 	EASYSIZE(IDC_BUTTON_SEARCH, ES_KEEPSIZE, ES_BORDER, IDC_BUTTON_STOP_REFRESH, ES_KEEPSIZE, 0)
+	EASYSIZE(IDC_BUTTON_PUB_WAY_TWO, ES_KEEPSIZE, ES_BORDER, IDC_BUTTON_SEARCH, ES_KEEPSIZE, 0)
+	EASYSIZE(IDC_BUTTON_PUB_WAY_ONE, ES_KEEPSIZE, ES_BORDER, IDC_BUTTON_PUB_WAY_TWO, ES_KEEPSIZE, 0)
 	
     
     
@@ -153,10 +159,13 @@ BOOL CTabNewInfDlg::OnInitDialog()
 	m_btnTopPage.LoadBitmap(IDB_FIRST_PAGE);
 	m_btnBottomPage.LoadBitmap(IDB_LAST_PAGE);
 
+	m_btnPubWayOne.LoadBitmap(IDB_PUBLISH_ONE);
+	m_btnPubWayTwo.LoadBitmap(IDB_PUBLISH_TWO);
 
-	m_btnSearch.LoadBitmap(IDB_LOCAL);//
+
+	m_btnSearch.LoadBitmap(IDB_SEARCH);//
 	m_btnStopRefresh.LoadBitmap(IDB_STOP_REFRESH);
-	m_btnHidePhoneNum.LoadBitmap(IDB_SECRECY);
+	m_btnHidePhoneNum.LoadBitmap(IDB_HIDE_PHONE_NUM);
 	
 	/*btnPrev.ShowWindow(SW_HIDE);
 	btnNext.ShowWindow(SW_HIDE);*/
@@ -847,13 +856,21 @@ DWORD CTabNewInfDlg::ThreadFuncSS(LPVOID p)
 		switch (nSSset)
 		{
 		case 0:
-			nstat = dlg->svrIONew->getSearchGoodsInf(dlg->goodsKeyword, *pcontentData, dlg->curInput);
+			if( dlg->sSearchCriteria.empty() )
+			{
+				FormatGoodsSearchString(dlg->goodsKeyword, dlg->sSearchCriteria);
+			}
+			nstat = dlg->svrIONew->getSearchGoodsInf(dlg->sSearchCriteria, *pcontentData, dlg->curInput);
 			break;
 		case 1:
 			nstat = dlg->svrIONew->getSearchBulkGoodsInf(dlg->bulkGoodsKeyword, *pcontentData, dlg->curInput);
 			break;
 		case 2:
-			nstat = dlg->svrIONew->getSearchCarsInf(dlg->carsKeyword, *pcontentData, dlg->curInput);
+			if( dlg->sSearchCriteria.empty() )
+			{
+				FormatCarsSearchString(dlg->carsKeyword, dlg->sSearchCriteria);
+			}
+			nstat = dlg->svrIONew->getSearchCarsInf(dlg->sSearchCriteria, *pcontentData, dlg->curInput);
 			break;
 		case 3:
 			nstat = dlg->svrIONew->getClickSearchGoodsInf(dlg->clickKeyWord, *pcontentData, dlg->curInput);
@@ -1164,4 +1181,14 @@ void CTabNewInfDlg::OnBnClickedButtonStopRefresh()
 void CTabNewInfDlg::OnBnClickedButtonHidePhoneNum()
 {
 	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_SECRECY);
+}
+
+void CTabNewInfDlg::OnBnClickedButtonPubWayOne()
+{
+	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->OnBnClickedButtonPubWayOne();
+}
+
+void CTabNewInfDlg::OnBnClickedButtonPubWayTwo()
+{
+	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->OnBnClickedButtonPubWayTwo();
 }

@@ -7,6 +7,7 @@
 #include "CommDef.h"
 #include "GLB.h"
 #include "ContentDlg.h"
+#include "HistoryManager.h"
 
 extern UserInfo user;
 
@@ -48,7 +49,7 @@ BEGIN_MESSAGE_MAP(CSearchWayThreeDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON_SW3_CLEAN, &CSearchWayThreeDlg::OnBnClickedButtonSw3Clean)
 	ON_BN_CLICKED(IDC_BUTTON_SW3_CLEAN_KEY_WORD, &CSearchWayThreeDlg::OnBnClickedButtonSw3CleanKeyWord)
 	ON_BN_CLICKED(IDC_BUTTON_SW3_BACKSPACE, &CSearchWayThreeDlg::OnBnClickedButtonSw3Backspace)
-	ON_BN_CLICKED(IDC_BUTTON_SW3_ADDR, &CSearchWayThreeDlg::OnBnClickedButtonSw3Addr)
+	//ON_BN_CLICKED(IDC_BUTTON_SW3_ADDR, &CSearchWayThreeDlg::OnBnClickedButtonSw3Addr)
 	ON_BN_CLICKED(IDC_BUTTON_SW3_GOODS, &CSearchWayThreeDlg::OnBnClickedButtonSw3Goods)
 	ON_BN_CLICKED(IDC_BUTTON_SW3_CAR_TYPE, &CSearchWayThreeDlg::OnBnClickedButtonSw3CarType)
 	ON_BN_CLICKED(IDC_BUTTON_SW3_CAR_SIZE, &CSearchWayThreeDlg::OnBnClickedButtonSw3CarSize)
@@ -137,17 +138,34 @@ void CSearchWayThreeDlg::FillFromCountyList(const CString& sProvince, const CStr
 	}
 }
 
+void CSearchWayThreeDlg::FillKeywordCombox()
+{
+	const tdListSearchHistory& lstSearchHis = CHistoryManager::getInstance()->getSearchesHis();
+	tdListSearchHistory::const_iterator it = lstSearchHis.begin(), end = lstSearchHis.end();
+	for(it; it != end; ++it)
+	{
+		CSearchHistory* pHistory = *it;
+		const char* pcszKeyword = pHistory->GetKeyword().c_str();
+		if( pcszKeyword[0] != '\0' && m_comboxKeyword.FindString(-1, pcszKeyword) == CB_ERR )
+		{
+			m_comboxKeyword.AddString(pcszKeyword);
+		}
+	}
+}
+
+
 BOOL CSearchWayThreeDlg::OnInitDialog()
 {
 	__super::OnInitDialog();
 
-	AddEndProvice(user.province.c_str());
-	AddEndCity(user.city.c_str());
+	AddEndAddr(user.province.c_str(), user.city.c_str(), NO_LIMIT_STRING);
 
 	InitSearchTypeRadio();
 	InitFromProvinceList();
 
-	GetDlgItem(IDC_STATIC_SW3_DEST_ADDR)->SetWindowText(user.city.empty()?user.province.c_str():user.city.c_str());
+	CString sDestAddr;
+	sDestAddr.Format("[%s]", user.city.empty()?user.province.c_str():user.city.c_str());
+	GetDlgItem(IDC_STATIC_SW3_DEST_ADDR)->SetWindowText(sDestAddr);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// “Ï≥£: OCX  Ù–‘“≥”¶∑µªÿ FALSE
@@ -166,20 +184,24 @@ void CSearchWayThreeDlg::OnLbnSelchangeListSw3FromProvince()
 
 void CSearchWayThreeDlg::OnLbnSelchangeListSw3FromCity()
 {
-	int nSel = m_lstFromCity.GetCurSel();
-	if(nSel != -1)
+	int nSelCount = m_lstFromCity.GetSelCount();
+	if( nSelCount == 1 )
 	{
 		CString sCity;
-		m_lstFromCity.GetText(nSel, sCity);
+		m_lstFromCity.GetText(m_lstFromCity.GetCurSel(), sCity);
 		FillFromCountyList(m_sSelStartProv, sCity);
+	}
+	else
+	{
+		m_lstFromCounty.ResetContent();
 	}
 }
 
 void CSearchWayThreeDlg::OnLbnSelchangeListSw3FromCounty()
 {
-	if( m_lstFromCity.GetCount() == 0 )
+	if( m_lstFromCity.GetSelCount() == 0 )
 	{
-		m_lstFromCity.SetCurSel(0);
+		m_lstFromCity.SetSel(0);
 	}
 }
 
@@ -201,70 +223,111 @@ void CSearchWayThreeDlg::OnBnClickedRadioSw3Cars()
 
 void CSearchWayThreeDlg::OnBnClickedButtonSw3AddFromAddr()
 {
+	int nProvSel = m_lstFromProv.GetCurSel();
+
 	CString sAddr;
 	int nSel = m_lstFromCounty.GetSelCount();
 	if( nSel > 0 )
 	{
+		int nCitySel = m_lstFromCity.GetCurSel();
+		CString sCity;
+		m_lstFromCity.GetText(nCitySel, sCity);
+
+		int nItemData = (nProvSel<<24)|(nCitySel<<16)|eItemData_County;
+
 		int *pItems = new int[nSel];
 		m_lstFromCounty.GetSelItems(nSel, pItems);
 		for(int i = 0; i<nSel; ++i)
 		{
 			m_lstFromCounty.GetText(pItems[i], sAddr);
-			if( AddStartCounty(sAddr) )
+			AddStartAddr(m_sSelStartProv, sCity, sAddr);
+			int nItemIndex = m_lstFromAddr.FindString(-1, sAddr);
+			if( nItemIndex == LB_ERR ||  m_lstFromAddr.GetItemData(nItemIndex) != nItemData )
 			{
 				m_lstFromAddr.AddString(sAddr);
-				m_lstFromAddr.SetItemData(m_lstFromAddr.GetCount()-1, eItemData_County);
+				m_lstFromAddr.SetItemData(m_lstFromAddr.GetCount()-1, nItemData);
 			}
 		}
 		delete []pItems;
 	}
 	else if( (nSel = m_lstFromCity.GetSelCount()) > 0 )
 	{
+		int nItemData = (nProvSel<<24)|eItemData_City;
+
 		int *pItems = new int[nSel];
 		m_lstFromCity.GetSelItems(nSel, pItems);
 		for(int i = 0; i<nSel; ++i)
 		{
 			m_lstFromCity.GetText(pItems[i], sAddr);
-			if( AddStartCity(sAddr) )
+			AddStartAddr(m_sSelStartProv, sAddr, NO_LIMIT_STRING);
+
+			int nItemIndex = m_lstFromAddr.FindString(-1, sAddr);
+			if( nItemIndex == LB_ERR || (m_lstFromAddr.GetItemData(nItemIndex)&0xffff0000) != (nItemData&0xffff0000) )
 			{
 				m_lstFromAddr.AddString(sAddr);
-				m_lstFromAddr.SetItemData(m_lstFromAddr.GetCount()-1, eItemData_City);
+				m_lstFromAddr.SetItemData(m_lstFromAddr.GetCount()-1, nItemData);
 			}
 		}
 		delete []pItems;
 	}
 	else if( (nSel = m_lstFromProv.GetCurSel()) != -1 )
 	{
-		//m_listToProvince.GetText(nSel, m_sEndProvince);
+		m_lstFromProv.GetText(nSel, m_sSelStartProv);
+		int nItemData = (nSel<<24)|eItemData_Province;
+
+		AddStartAddr(m_sSelStartProv, NO_LIMIT_STRING, NO_LIMIT_STRING);
+
+		int nItemIndex = m_lstFromAddr.FindString(-1, m_sSelStartProv);
+		if( nItemIndex == LB_ERR || (m_lstFromAddr.GetItemData(nItemIndex)&0xffff0000) != (nItemData&0xffff0000) )
+		{
+			m_lstFromAddr.AddString(m_sSelStartProv);
+			m_lstFromAddr.SetItemData(m_lstFromAddr.GetCount()-1, nItemData);
+		}
 	}
 }
 
 void CSearchWayThreeDlg::OnBnClickedButtonSw3AddAllCity()
 {
+	int nProvSel = m_lstFromProv.GetCurSel();
+	int nItemData = (nProvSel<<24)|eItemData_City;
+
 	CString sCity;
 	int nCount = m_lstFromCity.GetCount();
 	for(int i = 0; i<nCount; ++i)
 	{
 		m_lstFromCity.GetText(i, sCity);
-		if( AddStartCity(sCity) )
+		AddStartAddr(m_sSelStartProv, sCity, NO_LIMIT_STRING);
+
+		int nItemIndex = m_lstFromAddr.FindString(-1, sCity);
+		if( nItemIndex == LB_ERR ||  (m_lstFromAddr.GetItemData(nItemIndex)&0xffff0000) != (nItemData&0xffff0000) )
 		{
 			m_lstFromAddr.AddString(sCity);
-			m_lstFromAddr.SetItemData(m_lstFromAddr.GetCount()-1, eItemData_City);
+			m_lstFromAddr.SetItemData(m_lstFromAddr.GetCount()-1, nItemData);
 		}
 	}
 }
 
 void CSearchWayThreeDlg::OnBnClickedButtonSw3AddAllCounty()
 {
+	int nProvSel = m_lstFromProv.GetCurSel();
+	int nCitySel = m_lstFromCity.GetCurSel();
+	CString sCity;
+	m_lstFromCity.GetText(nCitySel, sCity);
+
+	int nItemData = (nProvSel<<24)|(nCitySel<<16)|eItemData_County;
+
 	CString sCounty;
 	int nCount = m_lstFromCounty.GetCount();
 	for(int i = 0; i<nCount; ++i)
 	{
 		m_lstFromCounty.GetText(i, sCounty);
-		if( AddStartCounty(sCounty) )
+		AddStartAddr(m_sSelStartProv, sCity, sCounty);
+
+		int nItemIndex = m_lstFromAddr.FindString(-1, sCounty);
+		if( nItemIndex == LB_ERR ||  (m_lstFromAddr.GetItemData(nItemIndex)&0xffff0000) != (nItemData&0xffff0000) )
 		{
 			m_lstFromAddr.AddString(sCounty);
-			m_lstFromAddr.SetItemData(m_lstFromAddr.GetCount()-1, eItemData_County);
+			m_lstFromAddr.SetItemData(m_lstFromAddr.GetCount()-1, nItemData);
 		}
 	}
 }
@@ -274,16 +337,29 @@ void CSearchWayThreeDlg::OnBnClickedButtonSw3Del()
 	int nSel = m_lstFromAddr.GetCurSel();
 	if( nSel != -1 )
 	{
-		CString sItemData;
-		m_lstFromAddr.GetText(nSel, sItemData);
+		CString sAddr;
+		m_lstFromAddr.GetText(nSel, sAddr);
 		int nItemData = m_lstFromAddr.GetItemData(nSel);
-		if( nItemData == eItemData_City )
+		int nProvIndex = (nItemData>>24)&0x000000ff;
+
+		CString sProvince;
+		m_lstFromProv.GetText(nProvIndex, sProvince);
+
+		int nAddrType = nItemData&0x0000ffff;
+
+		if( nAddrType == eItemData_Province )
 		{
-			RemoveStartCity(sItemData);
+			RemoveStartAddr(sProvince, NO_LIMIT_STRING, NO_LIMIT_STRING);
 		}
-		else if( nItemData == eItemData_County )
+		else if( nAddrType == eItemData_City )
 		{
-			RemoveStartCounty(sItemData);
+			RemoveStartAddr(sProvince, sAddr==sProvince?NO_LIMIT_STRING:sAddr, NO_LIMIT_STRING);
+		}
+		else if( nAddrType == eItemData_County )
+		{
+			int nCityIndex = (nItemData>>16)&0x000000ff;
+			CString sCity = GetCity(sProvince, nCityIndex).c_str();
+			RemoveStartAddr(sProvince, sCity, sAddr);
 		}
 		m_lstFromAddr.DeleteString(nSel);		
 	}
@@ -307,49 +383,45 @@ void CSearchWayThreeDlg::OnBnClickedButtonSw3Backspace()
 	m_comboxKeyword.SetWindowText(sKeyword);
 }
 
-void CSearchWayThreeDlg::OnBnClickedButtonSw3Addr()
-{
-	CAddrSelDlg dlg;
-	if( dlg.DoModal() == IDOK )
-	{
-		CString sDestAddr(dlg.GetSelProvince());
-
-		const list<CString>& cityList = dlg.GetSelCities();
-		if( cityList.size() > 0 )
-		{
-			sDestAddr.Empty();
-
-			list<CString>::const_iterator it = cityList.begin(), end = cityList.end();
-			for(it; it != end; ++it)
-			{
-				sDestAddr += *it + _T(" ");
-			}
-
-			const list<CString>& countyList = dlg.GetSelCounties();
-			if(countyList.size() > 0)
-			{
-				sDestAddr.Empty();
-
-				it = countyList.begin(), end = countyList.end();
-				for(it; it != end; ++it)
-				{
-					sDestAddr += *it + _T(" ");
-				}
-			}
-		}
-		UpdateKeyword(sDestAddr);
-	}
-}
+//void CSearchWayThreeDlg::OnBnClickedButtonSw3Addr()
+//{
+//	CAddrSelDlg dlg;
+//	if( dlg.DoModal() == IDOK )
+//	{
+//		CString sDestAddr(dlg.GetSelProvince());
+//
+//		const list<CString>& cityList = dlg.GetSelCities();
+//		if( cityList.size() > 0 )
+//		{
+//			sDestAddr.Empty();
+//
+//			list<CString>::const_iterator it = cityList.begin(), end = cityList.end();
+//			for(it; it != end; ++it)
+//			{
+//				sDestAddr += *it + _T(" ");
+//			}
+//
+//			const list<CString>& countyList = dlg.GetSelCounties();
+//			if(countyList.size() > 0)
+//			{
+//				sDestAddr.Empty();
+//
+//				it = countyList.begin(), end = countyList.end();
+//				for(it; it != end; ++it)
+//				{
+//					sDestAddr += *it + _T(" ");
+//				}
+//			}
+//		}
+//		UpdateKeyword(sDestAddr);
+//	}
+//}
 
 void CSearchWayThreeDlg::OnBnClickedButtonSw3Goods()
 {
-	vector<CString> vecGoods;
-	vecGoods.push_back(NO_LIMIT_STRING);
-	vecGoods.push_back("≤‚ ‘");
-	vecGoods.push_back("≤‚ ‘1");
+	
 	CString sGoods;
-	CContentDlg dlg(GetParent(), GetDlgItem(IDC_BUTTON_SW3_GOODS), &vecGoods, &sGoods);
-	//CWnd* pCtrl = GetDlgItem(IDC_BUTTON_SW1_GOODS);
+	CContentDlg dlg(GetParent(), GetDlgItem(IDC_BUTTON_SW3_GOODS), &g_vecSearchGoods, &sGoods);
 	if( dlg.DoModal() == IDOK )
 	{
 		AddGoods(sGoods);
@@ -360,11 +432,8 @@ void CSearchWayThreeDlg::OnBnClickedButtonSw3Goods()
 
 void CSearchWayThreeDlg::OnBnClickedButtonSw3GoodsType()
 {
-	vector<CString> vecGoodsType;
-	vecGoodsType.push_back(NO_LIMIT_STRING);
-
 	CString sGoodsType;
-	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW3_GOODS_TYPE), &vecGoodsType, &sGoodsType);
+	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW3_GOODS_TYPE), &g_vecSearchGoodsType, &sGoodsType);
 	if( dlg.DoModal() == IDOK )
 	{
 		AddGoodsType(sGoodsType);
@@ -374,11 +443,8 @@ void CSearchWayThreeDlg::OnBnClickedButtonSw3GoodsType()
 
 void CSearchWayThreeDlg::OnBnClickedButtonSw3CarType()
 {
-	vector<CString> vecCarType;
-	vecCarType.push_back(NO_LIMIT_STRING);
-
 	CString sCarType;
-	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW3_CAR_TYPE), &vecCarType, &sCarType);
+	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW3_CAR_TYPE), &g_vecSearchCarType, &sCarType);
 	if( dlg.DoModal() == IDOK )
 	{
 		AddCarType(sCarType);
@@ -388,11 +454,8 @@ void CSearchWayThreeDlg::OnBnClickedButtonSw3CarType()
 
 void CSearchWayThreeDlg::OnBnClickedButtonSw3CarSize()
 {
-	vector<CString> vecCarType;
-	vecCarType.push_back(NO_LIMIT_STRING);
-
 	CString sCarLength;
-	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW3_CAR_SIZE), &vecCarType, &sCarLength);
+	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW3_CAR_SIZE), &g_vecSearchCarSize, &sCarLength);
 	if( dlg.DoModal() == IDOK )
 	{
 		AddCarLength(sCarLength);
@@ -411,7 +474,9 @@ void CSearchWayThreeDlg::Clean()
 
 void CSearchWayThreeDlg::Confirm()
 {
-
+	CString sKeyWord;
+	m_comboxKeyword.GetWindowText(sKeyWord);
+	m_sKeyword = sKeyWord;
 }
 
 void CSearchWayThreeDlg::UpdateKeyword(const CString& sNewKeyword)

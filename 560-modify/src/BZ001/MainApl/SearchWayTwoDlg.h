@@ -42,15 +42,6 @@ public:
 	afx_msg void OnLbnSelchangeListSw2ToProvince();
 	afx_msg void OnLbnSelchangeListSw2ToCity();
 	afx_msg void OnLbnSelchangeListSw2ToCounty();
-public:
-	int GetSearchType()
-	{
-		return m_nSearchType;
-	}
-	void SetSearchType(int nType)
-	{
-		m_nSearchType = nType;
-	}
 private:
 	void InitSearchTypeRadio();
 
@@ -62,11 +53,12 @@ private:
 	void FillToCityList(const CString& sProvince);
 	void FillToCountyList(const CString& sProvince, const CString& sCity);
 
+	void FillKeywordCombox();
+
 	void Clean();
 	void Confirm();
 private:
 	enum{eItemData_Province, eItemData_City, eItemData_County, eItemData_Keyword};
-	int m_nSearchType;
 
 	CComboBox m_comboxFromProv;
 	CComboBox m_comboxFromCity;

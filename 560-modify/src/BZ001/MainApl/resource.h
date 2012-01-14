@@ -75,7 +75,6 @@
 #define IDB_GOODS_SEARCH                212
 #define IDB_NEW_INFO_TABLE              213
 #define IDB_LOCAL                       214
-#define IDB_STOP_REFRESH                215
 #define IDB_SECRECY                     216
 #define IDB_CANCEL                      217
 #define IDB_MAIN_ICON                   221
@@ -95,6 +94,12 @@
 #define IDB_FIRST_PAGE                  241
 #define IDB_BITMAP4                     242
 #define IDB_BITMAP_COMMON_BTN           242
+#define IDB_PUBLISH_THREE               243
+#define IDB_PUBLISH_TWO                 244
+#define IDB_PUBLISH_ONE                 245
+#define IDB_STOP_REFRESH                247
+#define IDB_HIDE_PHONE_NUM              249
+#define IDD_SEARCH_FAV_RENAME           250
 #define IDC_BTN_MainPage                1000
 #define IDC_COLOR_NAME                  1000
 #define IDC_CONFIG_SET_SYSBKCLR         1000
@@ -488,7 +493,7 @@
 #define IDC_COMBO_SW3_KEY_WORD          1282
 #define IDC_BUTTON_SW3_ADDR             1283
 #define IDC_BUTTON_SW3_GOODS_TYPE       1284
-#define IDC_LIST_SEARCH                 1285
+#define IDC_LIST_CTRL_SEARCH_FAVORITE   1285
 #define IDC_BUTTON_REFRESH              1286
 #define IDC_BUTTON_PW1_HISTORY          1287
 #define IDC_BUTTON_PW2_HISTORY          1288
@@ -528,6 +533,7 @@
 #define IDC_LIST_PROVINCE               1307
 #define IDC_STATIC_TITLE                1311
 #define IDC_STATIC_CAR_UNIT             1312
+#define IDC_EDIT_FAVORITE_NAME          1314
 #define ID_32771                        32771
 #define ID_MENU_SENDMSG_SENDMSG         32772
 #define ID_32775                        32775
@@ -542,9 +548,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        243
+#define _APS_NEXT_RESOURCE_VALUE        251
 #define _APS_NEXT_COMMAND_VALUE         32783
-#define _APS_NEXT_CONTROL_VALUE         1313
+#define _APS_NEXT_CONTROL_VALUE         1315
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

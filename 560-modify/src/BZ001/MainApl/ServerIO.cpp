@@ -1592,7 +1592,7 @@ string ServerIO::collectSpecialLine(string recordID)
 }
     
 // Get search goods result
-int ServerIO::getSearchGoodsInf(InSearchGoods keyword, vector<TabNewInfRecord> &inf, inputParam& input)
+int ServerIO::getSearchGoodsInf(const InSearchGoods& keyword, vector<TabNewInfRecord> &inf, inputParam& input)
 {
 #ifdef _OFF_LINE_
     inf.clear();
@@ -1607,143 +1607,50 @@ int ServerIO::getSearchGoodsInf(InSearchGoods keyword, vector<TabNewInfRecord> &
         inf.push_back(tmp);
     }
 #else
-    // 调用
-    ns2__getSearchGoodsInf inData;
-    std::string id(userInf.id);
-    inData.uid = &id;
-    inData.record = input.record;
-    inData.curpage = input.curpage;
-    string buf = keyword.startProvince + "|" + keyword.startCity + "|" + keyword.startCounty
-        + "|" + keyword.endProvince + "|" + keyword.endCity + "|" + keyword.endCounty
-        + "|" + keyword.carLength + "|" + keyword.carType;
-    std::string UTF8input;
-    MultiByteToUTF8(buf, UTF8input);
-    inData.input = &UTF8input;
-
-    ns2__getSearchGoodsInfResponse outData;
-   
-    if ( soap_call___ns1__getSearchGoodsInf(&mySoap, svrURL.c_str(), NULL, &inData, &outData)== SOAP_OK) {
-        inf.clear();
-		vector<string>::iterator iter = outData.return_.begin();
-		while (iter != outData.return_.end()) {
-            string outTmp("");	
-            vector<string> tokens;
-            TabNewInfRecord tmp;
-			UTF8ToMultiByte(*iter, outTmp);            
-            tokenize(outTmp, tokens, "|");
-#ifdef _NEWCODE_
-			if (tokens.at(0) == "TRUE" && tokens.size() >= 14) {
-				tmp.totalNum = tokens.at(1);
-				tmp.returnNum = tokens.at(2);
-				tmp.recordID = tokens.at(3);
-				tmp.startPlace = tokens.at(4) + tokens.at(5);
-				tmp.endPlace = tokens.at(6) + tokens.at(7);
-				tmp.record = tokens.at(11) + "(" + tokens.at(12) + ")。";
-				tmp.tel = " ";
-				if (tokens.at(8) != "NULL") {
-					tmp.tel +=  tokens.at(8);
-					tmp.tel += " ";
-				} else {
-					if (tokens.at(9) != "NULL") {
-						tmp.tel +=  tokens.at(9);
-						tmp.tel += " ";
-					}
-				}
-				tmp.tel += tokens.at(10);
-				tmp.pubUID = tokens.at(13);
-				inf.push_back(tmp);                
-			}
-#else
-			if (tokens.at(0) == "TRUE" && tokens.size() >= 16) {
-				tmp.totalNum = tokens.at(1);
-				tmp.returnNum = tokens.at(2);
-				tmp.recordID = tokens.at(3);
-				tmp.startPlace = tokens.at(4) + tokens.at(5);
-				if (tokens.at(6) != "NULL")
-				{
-					tmp.startPlace +=  tokens.at(6);
-				}
-
-				tmp.endPlace = tokens.at(7) + tokens.at(8);
-
-				if (tokens.at(9) != "NULL")
-				{
-					tmp.endPlace +=  tokens.at(9);
-				}
-
-				tmp.record = tokens.at(13) + "(" + tokens.at(14) + ")。";
-				tmp.tel = " ";
-				if (tokens.at(10) != "NULL") {
-					tmp.tel +=  tokens.at(10);
-					tmp.tel += " ";
-				} else {
-					if (tokens.at(11) != "NULL") {
-						tmp.tel +=  tokens.at(11);
-						tmp.tel += " ";
-					}
-				}
-				//tmp.tel += tokens.at(12);
-				if (tokens.at(12) != "NULL")
-				{
-					tmp.tel += tokens.at(12);
-				}
-				tmp.pubUID = tokens.at(15);
-				inf.push_back(tmp);                
-			}
-#endif
-
-
-			++iter;
-		}	   
-	   destroySoap();
-   } else {
-	   destroySoap();
-	   //std::cout << "fail" << std::endl;       
-   }
-
+	string sKeyword;
+	FormatGoodsSearchString(keyword, sKeyword);
+	return getSearchGoodsInf(sKeyword, inf, input);
 #endif
 
     return 0;
 }
-    
-// Get search bulk goods result
-int ServerIO::getSearchBulkGoodsInf(InSearchBulkGoods keyword, vector<TabNewInfRecord> &inf, inputParam& input)
+int ServerIO::getSearchGoodsInf(const string& sKeyword, vector<TabNewInfRecord> &inf, inputParam& input)
 {
 #ifdef _OFF_LINE_
-    inf.clear();
-    for (int i=0; i<input.record; ++i) {
-        TabNewInfRecord tmp;
-        tmp.startPlace = keyword.startProvince + keyword.startCity;
-        tmp.endPlace = keyword.endProvince + keyword.endCity;
-        tmp.record = "有货5吨，求10米长车。";
-        tmp.tel = "联系电话:13866666666";
-        inf.push_back(tmp);
-    }
-#else
-    // 调用
-    ns2__getSearchBulkGoodsInf inData;
-    std::string id(userInf.id);
-    inData.uid = &id;
-    inData.record = input.record;
-    inData.curpage = input.curpage;
-    string buf = keyword.startProvince + "|" + keyword.startCity + "|" + keyword.startCounty
-        + "|" + keyword.endProvince + "|" + keyword.endCity + "|" + keyword.endCounty;
-    std::string UTF8input;
-    MultiByteToUTF8(buf, UTF8input);
-    inData.input = &UTF8input;
+	inf.clear();
 
-    ns2__getSearchBulkGoodsInfResponse outData;
-   
-    if ( soap_call___ns1__getSearchBulkGoodsInf(&mySoap, svrURL.c_str(), NULL, &inData, &outData)== SOAP_OK) {
-        inf.clear();
+	for (int i=0; i<input.record; ++i) {
+		TabNewInfRecord tmp;
+		tmp.recordID = "296";
+		tmp.startPlace = keyword.startProvince + keyword.startCity;
+		tmp.endPlace = keyword.endProvince + keyword.endCity;
+		tmp.record = "有货5吨，求:" + keyword.carLength + keyword.carType + "。";
+		tmp.tel = "联系电话:13866666666";
+		inf.push_back(tmp);
+	}
+#else
+	// 调用
+	ns2__getSearchGoodsInfNew inData;
+	std::string id(userInf.id);
+	inData.uid = &id;
+	inData.record = input.record;
+	inData.curpage = input.curpage;
+
+	std::string UTF8input;
+	MultiByteToUTF8(sKeyword, UTF8input);
+	inData.input = &UTF8input;
+
+	ns2__getSearchGoodsInfNewResponse outData;
+
+	if ( soap_call___ns1__getSearchGoodsInfNew(&mySoap, svrURL.c_str(), NULL, &inData, &outData)== SOAP_OK) {
+		inf.clear();
 		vector<string>::iterator iter = outData.return_.begin();
 		while (iter != outData.return_.end()) {
-            string outTmp("");	
-            vector<string> tokens;
-            TabNewInfRecord tmp;
+			string outTmp("");	
+			vector<string> tokens;
+			TabNewInfRecord tmp;
 			UTF8ToMultiByte(*iter, outTmp);            
-            tokenize(outTmp, tokens, "|");
-
+			tokenize(outTmp, tokens, "|");
 #ifdef _NEWCODE_
 			if (tokens.at(0) == "TRUE" && tokens.size() >= 14) {
 				tmp.totalNum = tokens.at(1);
@@ -1808,19 +1715,42 @@ int ServerIO::getSearchBulkGoodsInf(InSearchBulkGoods keyword, vector<TabNewInfR
 
 			++iter;
 		}	   
-	   destroySoap();
-   } else {
-	   destroySoap();
-	   //std::cout << "fail" << std::endl;       
-   }
+		destroySoap();
+	} else {
+		destroySoap();
+		//std::cout << "fail" << std::endl;       
+	}
 
 #endif
 
-    return 0;
+	return 0;
 }
     
 // Get search cars result
-int ServerIO::getSearchCarsInf(InSearchCars keyword, vector<TabNewInfRecord> &inf, inputParam& input)
+int ServerIO::getSearchCarsInf(const InSearchCars& keyword, vector<TabNewInfRecord> &inf, inputParam& input)
+{
+#ifdef _OFF_LINE_
+    inf.clear();
+
+    for (int i=0; i<input.record; ++i) {
+        TabNewInfRecord tmp;
+        tmp.recordID = "296";
+        tmp.startPlace = keyword.startProvince + keyword.startCity;
+        tmp.endPlace = keyword.endProvince + keyword.endCity;
+        tmp.record = "有7米集装箱车1辆, 载重:2吨,求货:冻品。(重货)";
+        tmp.tel = "联系电话:13600000000";
+        inf.push_back(tmp);
+    }
+#else
+   
+	string sKeyword;
+	FormatCarsSearchString(keyword, sKeyword);
+	return getSearchCarsInf(sKeyword, inf, input);
+#endif
+
+    return 0;
+}
+int ServerIO::getSearchCarsInf(const string& sKeyword, vector<TabNewInfRecord> &inf, inputParam& input)
 {
 #ifdef _OFF_LINE_
     inf.clear();
@@ -1836,21 +1766,18 @@ int ServerIO::getSearchCarsInf(InSearchCars keyword, vector<TabNewInfRecord> &in
     }
 #else
     // 调用
-    ns2__getSearchCarsInf inData;
+    ns2__getSearchCarsInfNew inData;
     std::string id(userInf.id);
     inData.uid = &id;
     inData.record = input.record;
     inData.curpage = input.curpage;
-    string buf = keyword.startProvince + "|" + keyword.startCity + "|" + keyword.startCounty
-        + "|" + keyword.endProvince + "|" + keyword.endCity + "|" + keyword.endCounty
-        + "|" + keyword.carLength + "|" + keyword.carType;
     std::string UTF8input;
-    MultiByteToUTF8(buf, UTF8input);
+    MultiByteToUTF8(sKeyword, UTF8input);
     inData.input = &UTF8input;
 
-    ns2__getSearchCarsInfResponse outData;
+    ns2__getSearchCarsInfNewResponse outData;
    
-    if ( soap_call___ns1__getSearchCarsInf(&mySoap, svrURL.c_str(), NULL, &inData, &outData)== SOAP_OK) {
+    if ( soap_call___ns1__getSearchCarsInfNew(&mySoap, svrURL.c_str(), NULL, &inData, &outData)== SOAP_OK) {
         inf.clear();
 		vector<string>::iterator iter = outData.return_.begin();
 		while (iter != outData.return_.end()) {
@@ -1959,7 +1886,7 @@ int ServerIO::getSearchCarsInf(InSearchCars keyword, vector<TabNewInfRecord> &in
 }
     
 // Get search special line result
-int ServerIO::getSearchSpecialLineInf(InSearchSpecail keyword, vector<TabSpecialLineRecord> &inf, inputParam& input)
+int ServerIO::getSearchSpecialLineInf(const InSearchSpecail& keyword, vector<TabSpecialLineRecord> &inf, inputParam& input)
 {
 #ifdef _OFF_LINE_
     inf.clear();
@@ -2035,9 +1962,122 @@ int ServerIO::getSearchSpecialLineInf(InSearchSpecail keyword, vector<TabSpecial
 
     return 0;
 }
+
+// Get search bulk goods result
+int ServerIO::getSearchBulkGoodsInf(const InSearchBulkGoods& keyword, vector<TabNewInfRecord> &inf, inputParam& input)
+{
+#ifdef _OFF_LINE_
+	inf.clear();
+	for (int i=0; i<input.record; ++i) {
+		TabNewInfRecord tmp;
+		tmp.startPlace = keyword.startProvince + keyword.startCity;
+		tmp.endPlace = keyword.endProvince + keyword.endCity;
+		tmp.record = "有货5吨，求10米长车。";
+		tmp.tel = "联系电话:13866666666";
+		inf.push_back(tmp);
+	}
+#else
+	// 调用
+	ns2__getSearchBulkGoodsInf inData;
+	std::string id(userInf.id);
+	inData.uid = &id;
+	inData.record = input.record;
+	inData.curpage = input.curpage;
+	string buf = keyword.startProvince + "|" + keyword.startCity + "|" + keyword.startCounty
+		+ "|" + keyword.endProvince + "|" + keyword.endCity + "|" + keyword.endCounty;
+	std::string UTF8input;
+	MultiByteToUTF8(buf, UTF8input);
+	inData.input = &UTF8input;
+
+	ns2__getSearchBulkGoodsInfResponse outData;
+
+	if ( soap_call___ns1__getSearchBulkGoodsInf(&mySoap, svrURL.c_str(), NULL, &inData, &outData)== SOAP_OK) {
+		inf.clear();
+		vector<string>::iterator iter = outData.return_.begin();
+		while (iter != outData.return_.end()) {
+			string outTmp("");	
+			vector<string> tokens;
+			TabNewInfRecord tmp;
+			UTF8ToMultiByte(*iter, outTmp);            
+			tokenize(outTmp, tokens, "|");
+
+#ifdef _NEWCODE_
+			if (tokens.at(0) == "TRUE" && tokens.size() >= 14) {
+				tmp.totalNum = tokens.at(1);
+				tmp.returnNum = tokens.at(2);
+				tmp.recordID = tokens.at(3);
+				tmp.startPlace = tokens.at(4) + tokens.at(5);
+				tmp.endPlace = tokens.at(6) + tokens.at(7);
+				tmp.record = tokens.at(11) + "(" + tokens.at(12) + ")。";
+				tmp.tel = " ";
+				if (tokens.at(8) != "NULL") {
+					tmp.tel +=  tokens.at(8);
+					tmp.tel += " ";
+				} else {
+					if (tokens.at(9) != "NULL") {
+						tmp.tel +=  tokens.at(9);
+						tmp.tel += " ";
+					}
+				}
+				tmp.tel += tokens.at(10);
+				tmp.pubUID = tokens.at(13);
+				inf.push_back(tmp);                
+			}
+#else
+			if (tokens.at(0) == "TRUE" && tokens.size() >= 16) {
+				tmp.totalNum = tokens.at(1);
+				tmp.returnNum = tokens.at(2);
+				tmp.recordID = tokens.at(3);
+				tmp.startPlace = tokens.at(4) + tokens.at(5);
+				if (tokens.at(6) != "NULL")
+				{
+					tmp.startPlace +=  tokens.at(6);
+				}
+
+				tmp.endPlace = tokens.at(7) + tokens.at(8);
+
+				if (tokens.at(9) != "NULL")
+				{
+					tmp.endPlace +=  tokens.at(9);
+				}
+
+				tmp.record = tokens.at(13) + "(" + tokens.at(14) + ")。";
+				tmp.tel = " ";
+				if (tokens.at(10) != "NULL") {
+					tmp.tel +=  tokens.at(10);
+					tmp.tel += " ";
+				} else {
+					if (tokens.at(11) != "NULL") {
+						tmp.tel +=  tokens.at(11);
+						tmp.tel += " ";
+					}
+				}
+				//tmp.tel += tokens.at(12);
+				if (tokens.at(12) != "NULL")
+				{
+					tmp.tel += tokens.at(12);
+				}
+				tmp.pubUID = tokens.at(15);
+				inf.push_back(tmp);                
+			}
+#endif
+
+
+			++iter;
+		}	   
+		destroySoap();
+	} else {
+		destroySoap();
+		//std::cout << "fail" << std::endl;       
+	}
+
+#endif
+
+	return 0;
+}
     
 // Get click search goods information
-int ServerIO::getClickSearchGoodsInf(InClickSearch keyword, vector<TabNewInfRecord> &inf, inputParam& input)
+int ServerIO::getClickSearchGoodsInf(const InClickSearch& keyword, vector<TabNewInfRecord> &inf, inputParam& input)
 {
 #ifdef _OFF_LINE_
     inf.clear();
@@ -2149,8 +2189,223 @@ int ServerIO::getClickSearchGoodsInf(InClickSearch keyword, vector<TabNewInfReco
     return 0;
 }
     
+// Get click search cars information
+int ServerIO::getClickSearchCarsInf(const InClickSearch& keyword, vector<TabNewInfRecord> &inf, inputParam& input)
+{
+#ifdef _OFF_LINE_
+	inf.clear();
+
+	for (int i=0; i<input.record; ++i) {
+		TabNewInfRecord tmp;
+		tmp.recordID = "296";
+		tmp.startPlace = keyword.province + keyword.city;
+		tmp.endPlace = keyword.province + keyword.city;
+		tmp.record = "有7米集装箱车1辆, 载重:2吨,求货:冻品。(重货) (07-30 10:55) 。";
+		tmp.tel = " 济南泺源货运公司 15267147987 010-3730987";
+		inf.push_back(tmp);
+	}
+#else
+	// 调用
+	ns2__getClickSearchCarsInf inData;
+	std::string id(userInf.id);
+	inData.uid = &id;
+	inData.record = input.record;
+	inData.curpage = input.curpage;
+	string buf = keyword.province + "|" + keyword.city;
+	std::string UTF8input;
+	MultiByteToUTF8(buf, UTF8input);
+	inData.input = &UTF8input;
+
+	ns2__getClickSearchCarsInfResponse outData;
+
+	if ( soap_call___ns1__getClickSearchCarsInf(&mySoap, svrURL.c_str(), NULL, &inData, &outData)== SOAP_OK) {
+		inf.clear();
+		vector<string>::iterator iter = outData.return_.begin();
+		while (iter != outData.return_.end()) {
+			string outTmp("");	
+			vector<string> tokens;
+			TabNewInfRecord tmp;
+			UTF8ToMultiByte(*iter, outTmp);            
+			tokenize(outTmp, tokens, "|");
+
+#ifdef _NEWCODE_
+			if (tokens.at(0) == "TRUE" && tokens.size() >= 14) {
+				tmp.totalNum = tokens.at(1);
+				tmp.returnNum = tokens.at(2);
+				tmp.recordID = tokens.at(3);
+				tmp.startPlace = tokens.at(4) + tokens.at(5);
+				tmp.endPlace = tokens.at(6) + tokens.at(7);
+				tmp.record = tokens.at(11) + "(" + tokens.at(12) + ")。";
+				tmp.tel = " ";
+				if (tokens.at(8) != "NULL") {
+					tmp.tel +=  tokens.at(8);
+					tmp.tel += " ";
+				} else {
+					if (tokens.at(9) != "NULL") {
+						tmp.tel +=  tokens.at(9);
+						tmp.tel += " ";
+					}
+				}
+				tmp.tel += tokens.at(10);
+				tmp.pubUID = tokens.at(13);
+				inf.push_back(tmp);                
+			}
+#else
+			if (tokens.at(0) == "TRUE" && tokens.size() >= 22) {
+				tmp.totalNum = tokens.at(1);
+				tmp.returnNum = tokens.at(2);
+				tmp.recordID = tokens.at(3);
+
+				tmp.startPlace = tokens.at(4) + tokens.at(5);
+
+				if (tokens.at(6) != "NULL")
+				{
+					tmp.startPlace +=  tokens.at(6);
+				}
+
+				tmp.endPlace = tokens.at(7) + tokens.at(8);
+
+				if (tokens.at(9) != "NULL")
+				{
+					tmp.endPlace +=  tokens.at(9);
+				}
+
+				if (tokens.at(10) != "NULL")
+				{
+					tmp.endPlace += " ";
+					tmp.endPlace += tokens.at(10);
+					tmp.endPlace += tokens.at(11);
+					if (tokens.at(12) != "NULL")
+					{
+						tmp.endPlace +=  tokens.at(12);
+					}
+				}
+
+				if (tokens.at(13) != "NULL")
+				{
+					tmp.endPlace += " ";
+					tmp.endPlace += tokens.at(13);
+					tmp.endPlace += tokens.at(14);
+					if (tokens.at(15) != "NULL")
+					{
+						tmp.endPlace +=  tokens.at(15);
+					}
+				}
+
+				tmp.record = tokens.at(19) + "(" + tokens.at(20) + ")。";
+				tmp.tel = " ";
+				if (tokens.at(16) != "NULL") {
+					tmp.tel +=  tokens.at(16);
+					tmp.tel += " ";
+				} else {
+					if (tokens.at(17) != "NULL") {
+						tmp.tel +=  tokens.at(17);
+						tmp.tel += " ";
+					}
+				}
+				//tmp.tel += tokens.at(18);
+				if (tokens.at(18) != "NULL")
+				{
+					tmp.tel += tokens.at(18);
+				}
+				tmp.pubUID = tokens.at(21);
+				inf.push_back(tmp);                
+			}
+#endif
+
+
+			++iter;
+		}	   
+		destroySoap();
+	} else {
+		destroySoap();
+		//std::cout << "fail" << std::endl;       
+	}
+
+#endif
+
+	return 0;
+}
+
+// Get click search special line information
+int ServerIO::getClickSearchSpecialLineInf(const InClickSearch& keyword, vector<TabSpecialLineRecord> &inf, inputParam& input)
+{
+#ifdef _OFF_LINE_
+	inf.clear();
+
+	for (int i=0; i<input.record; ++i) {
+		TabSpecialLineRecord tmp;
+		tmp.recordID = "296";
+		tmp.startPlace = keyword.province + keyword.city;
+		tmp.endPlace = keyword.province + keyword.city;
+		tmp.weightPrice = "600元/吨";
+		tmp.lightPrice = "120元/方";
+		tmp.schedules = "每隔2天一班(单程)";
+		tmp.needTime = "途中时间: 1天";
+		tmp.record = "联系人：赵先生。";
+		tmp.tel = "电话：0571-87703986 15267147987";
+		inf.push_back(tmp);
+	}
+#else
+	// 调用
+	ns2__getClickSearchSpecialLineInf inData;
+	std::string id(userInf.id);
+	inData.uid = &id;
+	inData.record = input.record;
+	inData.curpage = input.curpage;
+	string buf = keyword.province + "|" + keyword.city;
+	std::string UTF8input;
+	MultiByteToUTF8(buf, UTF8input);
+	inData.input = &UTF8input;
+
+	ns2__getClickSearchSpecialLineInfResponse outData;
+
+	if ( soap_call___ns1__getClickSearchSpecialLineInf(&mySoap, svrURL.c_str(), NULL, &inData, &outData)== SOAP_OK) {
+		inf.clear();
+		vector<string>::iterator iter = outData.return_.begin();
+		while (iter != outData.return_.end()) {
+			string outTmp("");	
+			vector<string> tokens;
+			TabSpecialLineRecord tmp;
+			UTF8ToMultiByte(*iter, outTmp);            
+			tokenize(outTmp, tokens, "|");
+			if (tokens.at(0) == "TRUE" && tokens.size() >= 16) {
+				tmp.totalNum = tokens.at(1);
+				tmp.returnNum = tokens.at(2);
+				tmp.recordID = tokens.at(3);
+				tmp.startPlace = tokens.at(4) + tokens.at(5);
+				tmp.endPlace = tokens.at(6) + tokens.at(7);
+				tmp.weightPrice = tokens.at(8);
+				tmp.lightPrice = tokens.at(9);
+				tmp.schedules = tokens.at(10);
+				tmp.needTime = tokens.at(11);
+				tmp.record = "(" + tokens.at(14) + ")";
+
+				tmp.tel = " 联系方式：";
+				if (tokens.at(12) != "NULL") {
+					tmp.tel +=  tokens.at(12);
+					tmp.tel += " ";
+				}
+				tmp.tel += tokens.at(13);
+				tmp.pubUID = tokens.at(15);
+				inf.push_back(tmp);                
+			}
+
+			++iter;
+		}	   
+		destroySoap();
+	} else {
+		destroySoap();
+		//std::cout << "fail" << std::endl;       
+	}
+
+#endif
+
+	return 0;
+}
+
 // Get click search bulkGoods information
-int ServerIO::getClickSearchBulkGoodsInf(InClickSearch keyword, vector<TabNewInfRecord> &inf, inputParam& input)
+int ServerIO::getClickSearchBulkGoodsInf(const InClickSearch& keyword, vector<TabNewInfRecord> &inf, inputParam& input)
 {
 #ifdef _OFF_LINE_
     inf.clear();
@@ -2261,223 +2516,8 @@ int ServerIO::getClickSearchBulkGoodsInf(InClickSearch keyword, vector<TabNewInf
     return 0;
 }
     
-// Get click search cars information
-int ServerIO::getClickSearchCarsInf(InClickSearch keyword, vector<TabNewInfRecord> &inf, inputParam& input)
-{
-#ifdef _OFF_LINE_
-    inf.clear();
-
-    for (int i=0; i<input.record; ++i) {
-        TabNewInfRecord tmp;
-        tmp.recordID = "296";
-        tmp.startPlace = keyword.province + keyword.city;
-        tmp.endPlace = keyword.province + keyword.city;
-        tmp.record = "有7米集装箱车1辆, 载重:2吨,求货:冻品。(重货) (07-30 10:55) 。";
-        tmp.tel = " 济南泺源货运公司 15267147987 010-3730987";
-        inf.push_back(tmp);
-    }
-#else
-    // 调用
-    ns2__getClickSearchCarsInf inData;
-    std::string id(userInf.id);
-    inData.uid = &id;
-    inData.record = input.record;
-    inData.curpage = input.curpage;
-    string buf = keyword.province + "|" + keyword.city;
-    std::string UTF8input;
-    MultiByteToUTF8(buf, UTF8input);
-    inData.input = &UTF8input;
-
-    ns2__getClickSearchCarsInfResponse outData;
-   
-    if ( soap_call___ns1__getClickSearchCarsInf(&mySoap, svrURL.c_str(), NULL, &inData, &outData)== SOAP_OK) {
-        inf.clear();
-		vector<string>::iterator iter = outData.return_.begin();
-		while (iter != outData.return_.end()) {
-            string outTmp("");	
-            vector<string> tokens;
-            TabNewInfRecord tmp;
-			UTF8ToMultiByte(*iter, outTmp);            
-            tokenize(outTmp, tokens, "|");
-
-#ifdef _NEWCODE_
-			if (tokens.at(0) == "TRUE" && tokens.size() >= 14) {
-				tmp.totalNum = tokens.at(1);
-				tmp.returnNum = tokens.at(2);
-				tmp.recordID = tokens.at(3);
-				tmp.startPlace = tokens.at(4) + tokens.at(5);
-				tmp.endPlace = tokens.at(6) + tokens.at(7);
-				tmp.record = tokens.at(11) + "(" + tokens.at(12) + ")。";
-				tmp.tel = " ";
-				if (tokens.at(8) != "NULL") {
-					tmp.tel +=  tokens.at(8);
-					tmp.tel += " ";
-				} else {
-					if (tokens.at(9) != "NULL") {
-						tmp.tel +=  tokens.at(9);
-						tmp.tel += " ";
-					}
-				}
-				tmp.tel += tokens.at(10);
-				tmp.pubUID = tokens.at(13);
-				inf.push_back(tmp);                
-			}
-#else
-			if (tokens.at(0) == "TRUE" && tokens.size() >= 22) {
-				tmp.totalNum = tokens.at(1);
-				tmp.returnNum = tokens.at(2);
-				tmp.recordID = tokens.at(3);
-
-				tmp.startPlace = tokens.at(4) + tokens.at(5);
-
-				if (tokens.at(6) != "NULL")
-				{
-					tmp.startPlace +=  tokens.at(6);
-				}
-
-				tmp.endPlace = tokens.at(7) + tokens.at(8);
-
-				if (tokens.at(9) != "NULL")
-				{
-					tmp.endPlace +=  tokens.at(9);
-				}
-
-				if (tokens.at(10) != "NULL")
-				{
-					tmp.endPlace += " ";
-					tmp.endPlace += tokens.at(10);
-					tmp.endPlace += tokens.at(11);
-					if (tokens.at(12) != "NULL")
-					{
-						tmp.endPlace +=  tokens.at(12);
-					}
-				}
-
-				if (tokens.at(13) != "NULL")
-				{
-					tmp.endPlace += " ";
-					tmp.endPlace += tokens.at(13);
-					tmp.endPlace += tokens.at(14);
-					if (tokens.at(15) != "NULL")
-					{
-						tmp.endPlace +=  tokens.at(15);
-					}
-				}
-
-				tmp.record = tokens.at(19) + "(" + tokens.at(20) + ")。";
-				tmp.tel = " ";
-				if (tokens.at(16) != "NULL") {
-					tmp.tel +=  tokens.at(16);
-					tmp.tel += " ";
-				} else {
-					if (tokens.at(17) != "NULL") {
-						tmp.tel +=  tokens.at(17);
-						tmp.tel += " ";
-					}
-				}
-				//tmp.tel += tokens.at(18);
-				if (tokens.at(18) != "NULL")
-				{
-					tmp.tel += tokens.at(18);
-				}
-				tmp.pubUID = tokens.at(21);
-				inf.push_back(tmp);                
-			}
-#endif
-
-
-			++iter;
-		}	   
-	   destroySoap();
-   } else {
-	   destroySoap();
-	   //std::cout << "fail" << std::endl;       
-   }
-
-#endif
-
-    return 0;
-}
-    
-// Get click search special line information
-int ServerIO::getClickSearchSpecialLineInf(InClickSearch keyword, vector<TabSpecialLineRecord> &inf, inputParam& input)
-{
-#ifdef _OFF_LINE_
-    inf.clear();
-
-    for (int i=0; i<input.record; ++i) {
-        TabSpecialLineRecord tmp;
-        tmp.recordID = "296";
-        tmp.startPlace = keyword.province + keyword.city;
-        tmp.endPlace = keyword.province + keyword.city;
-        tmp.weightPrice = "600元/吨";
-        tmp.lightPrice = "120元/方";
-        tmp.schedules = "每隔2天一班(单程)";
-        tmp.needTime = "途中时间: 1天";
-        tmp.record = "联系人：赵先生。";
-        tmp.tel = "电话：0571-87703986 15267147987";
-        inf.push_back(tmp);
-    }
-#else
-    // 调用
-    ns2__getClickSearchSpecialLineInf inData;
-    std::string id(userInf.id);
-    inData.uid = &id;
-    inData.record = input.record;
-    inData.curpage = input.curpage;
-    string buf = keyword.province + "|" + keyword.city;
-    std::string UTF8input;
-    MultiByteToUTF8(buf, UTF8input);
-    inData.input = &UTF8input;
-
-    ns2__getClickSearchSpecialLineInfResponse outData;
-   
-    if ( soap_call___ns1__getClickSearchSpecialLineInf(&mySoap, svrURL.c_str(), NULL, &inData, &outData)== SOAP_OK) {
-        inf.clear();
-		vector<string>::iterator iter = outData.return_.begin();
-		while (iter != outData.return_.end()) {
-            string outTmp("");	
-            vector<string> tokens;
-            TabSpecialLineRecord tmp;
-			UTF8ToMultiByte(*iter, outTmp);            
-            tokenize(outTmp, tokens, "|");
-            if (tokens.at(0) == "TRUE" && tokens.size() >= 16) {
-                tmp.totalNum = tokens.at(1);
-                tmp.returnNum = tokens.at(2);
-                tmp.recordID = tokens.at(3);
-                tmp.startPlace = tokens.at(4) + tokens.at(5);
-                tmp.endPlace = tokens.at(6) + tokens.at(7);
-                tmp.weightPrice = tokens.at(8);
-                tmp.lightPrice = tokens.at(9);
-                tmp.schedules = tokens.at(10);
-                tmp.needTime = tokens.at(11);
-                tmp.record = "(" + tokens.at(14) + ")";
-
-                tmp.tel = " 联系方式：";
-                if (tokens.at(12) != "NULL") {
-                    tmp.tel +=  tokens.at(12);
-                    tmp.tel += " ";
-                }
-                tmp.tel += tokens.at(13);
-                tmp.pubUID = tokens.at(15);
-                inf.push_back(tmp);                
-            }
-
-			++iter;
-		}	   
-	   destroySoap();
-   } else {
-	   destroySoap();
-	   //std::cout << "fail" << std::endl;       
-   }
-
-#endif
-
-    return 0;
-}
-    
 // Set pub goods information 
-string ServerIO::setPubGoodsInf(string input)
+string ServerIO::setPubGoodsInf(const string& input)
 {
 #ifdef _OFF_LINE_
 
@@ -2509,7 +2549,7 @@ string ServerIO::setPubGoodsInf(string input)
 }
     
 // Set pub bulk goods information
-string ServerIO::setPubBulkGoodsInf(string input)
+string ServerIO::setPubBulkGoodsInf(const string& input)
 {
 #ifdef _OFF_LINE_
 
@@ -2541,7 +2581,7 @@ string ServerIO::setPubBulkGoodsInf(string input)
 }
         
 // Set pub cars information
-string ServerIO::setPubCarsInf(string input)
+string ServerIO::setPubCarsInf(const string& input)
 {
 #ifdef _OFF_LINE_
 
@@ -2573,7 +2613,7 @@ string ServerIO::setPubCarsInf(string input)
 }
     
 // Set pub special line information
-string ServerIO::setPubSpecialLineInf(string input)
+string ServerIO::setPubSpecialLineInf(const string& input)
 {
 #ifdef _OFF_LINE_
 
@@ -2915,7 +2955,7 @@ string ServerIO::getAgentScrollAd()
     return "TRUE";
 }
 //服务站信息
-string ServerIO::getServicestationInf(InSearchService keyword, vector<ServiceInfo> &inf, inputParamFwz& input)
+string ServerIO::getServicestationInf(const InSearchService& keyword, vector<ServiceInfo> &inf, inputParamFwz& input)
 {
 	
 	// 调用
@@ -3160,7 +3200,3 @@ string ServerIO::check_charge_user (string login_name)
 #endif
 	return retval;
 }
-    
-   
-    
-    

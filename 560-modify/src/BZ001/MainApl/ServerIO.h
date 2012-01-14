@@ -51,31 +51,33 @@ public:
     string collectSpecialLine(string recordID);
 
     // Get search goods result
-    int getSearchGoodsInf(InSearchGoods keyword, vector<TabNewInfRecord> &inf, inputParam& input);
+    int getSearchGoodsInf(const InSearchGoods& keyword, vector<TabNewInfRecord> &inf, inputParam& input);
+	int getSearchGoodsInf(const string& sSearchKeyword, vector<TabNewInfRecord> &inf, inputParam& input);
     // Get search bulk goods result
-    int getSearchBulkGoodsInf(InSearchBulkGoods keyword, vector<TabNewInfRecord> &inf, inputParam& input);
+    int getSearchBulkGoodsInf(const InSearchBulkGoods& keyword, vector<TabNewInfRecord> &inf, inputParam& input);
     // Get search cars result
-    int getSearchCarsInf(InSearchCars keyword, vector<TabNewInfRecord> &inf, inputParam& input);
+    int getSearchCarsInf(const InSearchCars& keyword, vector<TabNewInfRecord> &inf, inputParam& input);
+	int getSearchCarsInf(const string& sSearchKeyword, vector<TabNewInfRecord> &inf, inputParam& input);
     // Get search special line result
-    int getSearchSpecialLineInf(InSearchSpecail keyword, vector<TabSpecialLineRecord> &inf, inputParam& input);
+    int getSearchSpecialLineInf(const InSearchSpecail& keyword, vector<TabSpecialLineRecord> &inf, inputParam& input);
 
     // Get click search goods information
-    int getClickSearchGoodsInf(InClickSearch keyword, vector<TabNewInfRecord> &inf, inputParam& input);
+    int getClickSearchGoodsInf(const InClickSearch& keyword, vector<TabNewInfRecord> &inf, inputParam& input);
     // Get click search bulkGoods information
-    int getClickSearchBulkGoodsInf(InClickSearch keyword, vector<TabNewInfRecord> &inf, inputParam& input);
+    int getClickSearchBulkGoodsInf(const InClickSearch& keyword, vector<TabNewInfRecord> &inf, inputParam& input);
     // Get click search cars information
-    int getClickSearchCarsInf(InClickSearch keyword, vector<TabNewInfRecord> &inf, inputParam& input); 
+    int getClickSearchCarsInf(const InClickSearch& keyword, vector<TabNewInfRecord> &inf, inputParam& input); 
     // Get click search special line information
-    int getClickSearchSpecialLineInf(InClickSearch keyword, vector<TabSpecialLineRecord> &inf, inputParam& input);
+    int getClickSearchSpecialLineInf(const InClickSearch& keyword, vector<TabSpecialLineRecord> &inf, inputParam& input);
 
     // Set pub goods information 
-    string setPubGoodsInf(string input);
+    string setPubGoodsInf(const string& input);
     // Set pub bulk goods information
-    string setPubBulkGoodsInf(string input);
+    string setPubBulkGoodsInf(const string& input);
     // Set pub cars information
-    string setPubCarsInf(string input);
+    string setPubCarsInf(const string& input);
     // Set pub special line information
-    string setPubSpecialLineInf(string input);
+    string setPubSpecialLineInf(const string& input);
 
     // Delete goods information
     string delGoodsInf(string recordID);
@@ -98,7 +100,7 @@ public:
     // 获取代理商滚动广告信息
     string getAgentScrollAd();
 	//服务站信息
-	string getServicestationInf(InSearchService keyword, vector<ServiceInfo> &inf, inputParamFwz& input);
+	string getServicestationInf(const InSearchService& keyword, vector<ServiceInfo> &inf, inputParamFwz& input);
 	//给服务站发消息
 	string ServerIO::setServicesMsg(string recordID,string sendMsg);
 	//是否收费用户

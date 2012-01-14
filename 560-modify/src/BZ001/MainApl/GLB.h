@@ -1,11 +1,12 @@
 #pragma once
 
+#include "CommDef.h"
 #include <math.h>
-
 #include <sstream>
 #include <iostream>
 #include <string>
 #include <vector>
+#include <list>
 using namespace std;
 //#define _NEWCODE_
 //#define _LOCAL_TEST_
@@ -21,6 +22,7 @@ const string WEB_SERVICE_ADDRESS = "http://www.566560.com:8603";
 
 //extern string global_web_service_home;
 
+
 // 定时器ID
 const unsigned int AUTO_REFRESH_TIMER_ID = 60;  // 自动刷新定时器ID
 const unsigned int CHECK_NOTICE_TIMER_ID = 61;  // 检查公告定时器ID
@@ -28,7 +30,7 @@ const unsigned int START_CHAT_CLIENT = 62;      // 启动聊天程序定时器ID
 const unsigned int SEND_ACCOUNT_MSG_TO_CHAT = 63;  // 发送账号信息给聊天客户端定时器ID
 
 
-#define  RECORD_NUM 60//读取的信息条数
+#define  RECORD_NUM 200//读取的信息条数
 
 // 用户信息结构
 struct UserInfo {
@@ -134,15 +136,18 @@ struct InServiceMSG{
 	string City;
 };
 // 搜索的输入信息：货源
-struct InSearchGoods{
-    string startProvince;
-    string startCity;
-    string startCounty;
-    string endProvince;
-    string endCity;
-    string endCounty;
-    string carLength;
-    string carType;
+struct InSearchGoods
+{
+	tdMapAddr	 lstStartAddr;
+	tdMapAddr	 lstEndAddr;
+    list<string> lstCarLength;
+    list<string> lstCarType;
+	list<string> lstGoods;
+	list<string> lstGoodsType;
+	list<string> lstPublisher;
+	list<string> lstPhoneNum;
+	string		 sKeyword;
+	bool		 bMatchAll;
 };
 
 // 搜索的输入信息：零担
@@ -157,14 +162,16 @@ struct InSearchBulkGoods{
 
 // 搜索的输入信息：车源
 struct InSearchCars{
-    string startProvince;
-    string startCity;
-    string startCounty;
-    string endProvince;
-    string endCity;
-    string endCounty;
-    string carLength;
-    string carType;
+	tdMapAddr	 lstStartAddr;
+	tdMapAddr	 lstEndAddr;
+    list<string> lstCarLength;
+    list<string> lstCarType;
+	list<string> lstGoods;
+	list<string> lstGoodsType;
+	list<string> lstPublisher;
+	list<string> lstPhoneNum;
+	string		 sKeyword;
+	bool		 bMatchAll;
 };
 
 // 搜索的输入信息：专线

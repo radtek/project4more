@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "SearchMainDlg.h"
+#include "HistoryManager.h"
 
 
 // CSearchMainDlg dialog
@@ -113,6 +114,7 @@ void CSearchMainDlg::OnTcnSelchangeTabSearchWay(NMHDR *pNMHDR, LRESULT *pResult)
 		m_oWayTwoDlg.ShowWindow(SW_HIDE);
 		m_oWayThreeDlg.ShowWindow(SW_HIDE);
 		m_oFavoriteDlg.ShowWindow(SW_SHOW);
+		m_oFavoriteDlg.RefreshFavorite();
 	}
 }
 
@@ -121,6 +123,11 @@ void CSearchMainDlg::OnBnClickedButtonOk()
 	if( m_pCurSearch != NULL )
 	{
 		m_pCurSearch->Confirm();
+		CHistoryManager::getInstance()->addSearchHis(m_pCurSearch);
+	}
+	else if( m_oFavoriteDlg.GetUsedSearchFav() != NULL )
+	{
+		m_bUseSearchFavorite = true;
 	}
 	CDialog::OnOK();
 }
@@ -140,10 +147,26 @@ void CSearchMainDlg::OnBnClickedButtonClean()
 
 void CSearchMainDlg::OnBnClickedButtonAddFavorite()
 {
-	// TODO: Add your control notification handler code here
+	if( m_pCurSearch != NULL )
+	{
+		m_pCurSearch->Confirm();
+		CHistoryManager::getInstance()->addSearchFav(m_pCurSearch);
+	}
 }
 
 void CSearchMainDlg::OnBnClickedButtonSave()
 {
 	// TODO: Add your control notification handler code here
+}
+
+LRESULT CSearchMainDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch(message)
+	{
+	case WM_USE_SEARCH_FAVORITE:
+		m_bUseSearchFavorite = true;
+		CDialog::OnOK();
+		return 0;
+	}
+	return CDialog::WindowProc(message, wParam, lParam);
 }

@@ -43,6 +43,15 @@ public:
 	{
 		return m_pCurSearch;
 	}
+
+	bool ShouldUseSearchFavorite()const
+	{
+		return m_bUseSearchFavorite;
+	}
+	const CSearchFavorite* GetUsedSearchFavorite()const
+	{
+		return m_oFavoriteDlg.GetUsedSearchFav();
+	}
 public:
 	afx_msg void OnBnClickedButtonOk();
 	afx_msg void OnBnClickedButtonClean();
@@ -58,4 +67,7 @@ private:
 	CSearchFavoriteDlg	m_oFavoriteDlg;
 	CSearchCriteria*	m_pCurSearch;
 	int	    m_nSearchType;//can be one or the combination of ESearchType
+	bool    m_bUseSearchFavorite;
+protected:
+	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 };

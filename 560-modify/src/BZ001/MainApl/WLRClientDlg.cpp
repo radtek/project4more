@@ -40,6 +40,7 @@
 #include "PublishWayOneDlg.h"
 #include "PublishWayTwoDlg.h"
 #include "SearchMainDlg.h"
+#include "SearchFavorite.h"
 #include "CommDef.h"
 // 美化外观插件
 //#include "SkinFeature.h"
@@ -195,7 +196,7 @@ void CWLRClientDlg::DoDataExchange(CDataExchange* pDX)
 	//xqh:删除快速发布功能
 	//DDX_Control(pDX, IDC_BTN_Pub, btnQuickPub);
 	DDX_Control(pDX, IDC_BTN_NOTICE, btnNotice);
-//	DDX_Control(pDX, IDC_BTN_CHAT, btnChat);
+	//	DDX_Control(pDX, IDC_BTN_CHAT, btnChat);
 	DDX_Control(pDX, IDC_BTN_SERVER, m_btnserver);
 	DDX_Control(pDX, IDC_BTN_WLR, m_btnwlr);
 	//DDX_Control(pDX, IDC_CEMTER, m_btnuser);
@@ -207,7 +208,7 @@ void CWLRClientDlg::DoDataExchange(CDataExchange* pDX)
 	//发布专线
 	DDX_Control(pDX, IDC_BTN_ReleaseSpecialLine, m_btnReleaseSpecialLine);
 
-    //我的账户
+	//我的账户
 	DDX_Control(pDX, IDC_BTN_MyAccountant, m_btnMyAccountant);
 	//功能应用
 	DDX_Control(pDX, IDC_BTN_MY_APP, m_btnMyApp);
@@ -216,6 +217,8 @@ void CWLRClientDlg::DoDataExchange(CDataExchange* pDX)
 	//积分商城
 	DDX_Control(pDX, IDC_BTN_SHOPPING_MALL, m_btnShoppingMall);
 
+	DDX_Control(pDX, IDC_BUTTON_PUB_WAY_ONE, m_btnPubWayOne);
+	DDX_Control(pDX, IDC_BUTTON_PUB_WAY_TWO, m_btnPubWayTwo);
 }
 
 BEGIN_MESSAGE_MAP(CWLRClientDlg, CDialog)
@@ -765,6 +768,11 @@ int CWLRClientDlg::initButton()
 
 	// 公告按钮    
 	btnNotice.LoadBitmap(IDB_NOTICE);
+
+	m_btnPubWayOne.LoadBitmap(IDB_PUBLISH_ONE);
+	m_btnPubWayTwo.LoadBitmap(IDB_PUBLISH_TWO);
+	m_btnPubWayOne.ShowWindow(SW_HIDE);
+	m_btnPubWayTwo.ShowWindow(SW_HIDE);
 
     // 增值服务
     //btnAddValued.LoadBitmap(IDB_ADDVALUED);
@@ -1955,9 +1963,29 @@ void CWLRClientDlg::search(UINT8 nType, UINT8 nOption/* = 1*/)
 				const CSearchCriteria* pSearchCriteria = dlg.GetCurSearchCriteria();
 				if( pSearchCriteria != NULL )
 				{
-					InSearchGoods goodsSearch;
-					FillGoodsSearchCriteria(pSearchCriteria, goodsSearch);
-					setSearchGoods(goodsSearch, nOption);
+					if( (pSearchCriteria->GetSearchType()&eSearchType_Goods) == eSearchType_Goods )
+					{
+						setSearchGoods(pSearchCriteria, nOption);
+					}
+					if( (pSearchCriteria->GetSearchType()&eSearchType_Car) == eSearchType_Car )
+					{
+						setSearchCars(pSearchCriteria, nOption);
+					}
+				}
+				else if(  dlg.ShouldUseSearchFavorite() )
+				{
+					const CSearchFavorite* pFavorite = dlg.GetUsedSearchFavorite();
+					if( pFavorite != NULL ) 
+					{
+						if( (pFavorite->GetSearchType()&eSearchType_Goods) == eSearchType_Goods )
+						{
+							setSearchGoods(pFavorite->GetSearchCriteria(), nOption);
+						}
+						if( (pFavorite->GetSearchType()&eSearchType_Car) == eSearchType_Car )
+						{
+							setSearchCars(pFavorite->GetSearchCriteria(), nOption);
+						}
+					}
 				}
 
 			}
@@ -1973,8 +2001,29 @@ void CWLRClientDlg::search(UINT8 nType, UINT8 nOption/* = 1*/)
 				const CSearchCriteria* pSearchCriteria = dlg.GetCurSearchCriteria();
 				if( pSearchCriteria != NULL )
 				{
-					InSearchCars carsSearch;
-					setSearchCars(carsSearch, nOption);
+					if( (pSearchCriteria->GetSearchType()&eSearchType_Goods) == eSearchType_Goods )
+					{
+						setSearchGoods(pSearchCriteria, nOption);
+					}
+					if( (pSearchCriteria->GetSearchType()&eSearchType_Car) == eSearchType_Car )
+					{
+						setSearchCars(pSearchCriteria, nOption);
+					}
+				}
+				else if(  dlg.ShouldUseSearchFavorite() )
+				{
+					const CSearchFavorite* pFavorite = dlg.GetUsedSearchFavorite();
+					if( pFavorite != NULL ) 
+					{
+						if( (pSearchCriteria->GetSearchType()&eSearchType_Goods) == eSearchType_Goods )
+						{
+							setSearchGoods(pFavorite->GetSearchCriteria(), nOption);
+						}
+						if( (pSearchCriteria->GetSearchType()&eSearchType_Car) == eSearchType_Car )
+						{
+							setSearchCars(pFavorite->GetSearchCriteria(), nOption);
+						}
+					}
 				}
 
 			}
@@ -2066,7 +2115,14 @@ void CWLRClientDlg::search(UINT8 nType, UINT8 nOption/* = 1*/)
 	}
 }
 // 搜索货源
-int CWLRClientDlg::setSearchGoods(const InSearchGoods& input, UINT8 nOption)
+int CWLRClientDlg::setSearchGoods(const CSearchCriteria* pSearchCriteria, UINT8 nOption)
+{
+	string sSearchCriteria;
+	pSearchCriteria->FormatSearchString(sSearchCriteria);
+	setSearchGoods(sSearchCriteria, nOption);
+    return 0;
+}
+int CWLRClientDlg::setSearchGoods(const string& sSearchCriteria, UINT8 nOption)
 {
     curTabType = SEARCH_GOODS;
     hideAllWindows();
@@ -2090,7 +2146,9 @@ int CWLRClientDlg::setSearchGoods(const InSearchGoods& input, UINT8 nOption)
     // 显示数据
     searchGoodsInf.svrIO = &svrIO; 
     searchGoodsInf.svrIONew = &svrIONew; 
-	searchGoodsInf.goodsKeyword = input;
+	//searchGoodsInf.goodsKeyword = input;
+	searchGoodsInf.sSearchCriteria = sSearchCriteria;
+	//FillGoodsSearchCriteria(pSearchCriteria, searchGoodsInf.goodsKeyword);
     searchGoodsInf.setIfShowPhone(ifShowPhone); 
     searchGoodsInf.setData(3);
 
@@ -2135,7 +2193,15 @@ int CWLRClientDlg::setSearchBulkGoods(const InSearchBulkGoods& input, UINT8 nOpt
 }
     
 // 搜索车源
-int CWLRClientDlg::setSearchCars(const InSearchCars& input,UINT8 nOption)
+int CWLRClientDlg::setSearchCars(const CSearchCriteria* pSearchCriteria, UINT8 nOption)
+{   
+	string sSearchCriteria;
+	pSearchCriteria->FormatSearchString(sSearchCriteria);
+	setSearchCars(sSearchCriteria, nOption);
+    return 0;
+}
+
+int CWLRClientDlg::setSearchCars(const string& sSearchCriteria, UINT8 nOption)
 {   
     curTabType = SEARCH_CARS;
     hideAllWindows();
@@ -2159,7 +2225,7 @@ int CWLRClientDlg::setSearchCars(const InSearchCars& input,UINT8 nOption)
     // 显示数据
     searchCarsInf.svrIO = &svrIO; 
 	searchCarsInf.svrIONew = &svrIONew; 
-	searchCarsInf.carsKeyword = input;
+	searchCarsInf.sSearchCriteria = sSearchCriteria;
     searchCarsInf.setIfShowPhone(ifShowPhone); 
     searchCarsInf.setData(5);
 
@@ -3884,213 +3950,29 @@ void CWLRClientDlg::OnBnClickedButtonPubWayTwo()
 
 void CWLRClientDlg::FillGoodsSearchCriteria(const CSearchCriteria* pSearchCriteria, InSearchGoods& goodsSearch)
 {
-	const list<CString>& lstStartProv = pSearchCriteria->GetStartProvinceList();
-	list<CString>::const_iterator it = lstStartProv.begin(), end = lstStartProv.end();
-	for(it; it != end; ++it)
-	{
-		goodsSearch.startProvince = *it;
-	}
-
-	const list<CString>& lstStartCity = pSearchCriteria->GetStartCityList();
-	it = lstStartCity.begin(), end = lstStartCity.end();
-	for(it; it != end; ++it)
-	{
-		goodsSearch.startCity = *it;
-	}
-
-	const list<CString>& lstStartCounty = pSearchCriteria->GetStartCountyList();
-	it = lstStartCounty.begin(), end = lstStartCounty.end();
-	for(it; it != end; ++it)
-	{
-		goodsSearch.startCounty = *it;
-	}
-
-	const list<CString>& lstEndProv = pSearchCriteria->GetEndProvinceList();
-	it = lstEndProv.begin(), end = lstEndProv.end();
-	for(it; it != end; ++it)
-	{
-		goodsSearch.endProvince = *it;
-	}
-
-	const list<CString>& lstEndCity = pSearchCriteria->GetEndCityList();
-	it = lstEndCity.begin(), end = lstEndCity.end();
-	for(it; it != end; ++it)
-	{
-		goodsSearch.endCity = *it;
-	}
-
-	const list<CString>& lstEndCounty = pSearchCriteria->GetEndCountyList();
-	it = lstEndCounty.begin(), end = lstEndCounty.end();
-	for(it; it != end; ++it)
-	{
-		goodsSearch.endCounty = *it;
-	}
-
-
-	const list<CString>& lstCarType = pSearchCriteria->GetCarTypeList();
-	it = lstCarType.begin(), end = lstCarType.end();
-	for(it; it != end; ++it)
-	{
-		goodsSearch.carType = *it;
-	}
-
-	const list<CString>& lstCarLength = pSearchCriteria->GetCarLengthList();
-	it = lstCarLength.begin(), end = lstCarLength.end();
-	for(it; it != end; ++it)
-	{
-		goodsSearch.carLength = *it;
-	}
-
-
-	const list<CString>& lstGoods = pSearchCriteria->GetGoodsList();
-	it = lstGoods.begin(), end = lstGoods.end();
-	for(it; it != end; ++it)
-	{
-	}
-
-	const list<CString>& lstGoodsType = pSearchCriteria->GetGoodsTypeList();
-	it = lstGoodsType.begin(), end = lstGoodsType.end();
-	for(it; it != end; ++it)
-	{
-	}
-	
-	if( goodsSearch.startProvince.empty() )
-	{
-		goodsSearch.startProvince = NO_LIMIT_STRING;
-	}
-	if( goodsSearch.startCity.empty() )
-	{
-		goodsSearch.startCity = NO_LIMIT_STRING;
-	}
-	if( goodsSearch.startCounty.empty() )
-	{
-		goodsSearch.startCounty = NO_LIMIT_STRING;
-	}
-	if( goodsSearch.endProvince.empty() )
-	{
-		goodsSearch.endProvince = NO_LIMIT_STRING;
-	}
-	if( goodsSearch.endCity.empty() )
-	{
-		goodsSearch.endCity = NO_LIMIT_STRING;
-	}
-	if( goodsSearch.endCounty.empty() )
-	{
-		goodsSearch.endCounty = NO_LIMIT_STRING;
-	}
-	if( goodsSearch.carLength.empty() )
-	{
-		goodsSearch.carLength = NO_LIMIT_STRING;
-	}
-	if( goodsSearch.carType.empty() )
-	{
-		goodsSearch.carType = NO_LIMIT_STRING;
-	}
+	goodsSearch.lstStartAddr = pSearchCriteria->GetStartAddrList();
+	goodsSearch.lstEndAddr = pSearchCriteria->GetEndAddrList();
+	goodsSearch.lstCarLength = pSearchCriteria->GetCarLengthList();
+	goodsSearch.lstCarType = pSearchCriteria->GetCarTypeList();
+	goodsSearch.lstGoods = pSearchCriteria->GetGoodsList();
+	goodsSearch.lstGoodsType = pSearchCriteria->GetGoodsTypeList();
+	goodsSearch.lstPublisher = pSearchCriteria->GetPublisherList();
+	goodsSearch.lstPhoneNum = pSearchCriteria->GetPhoneNumList();
+	goodsSearch.sKeyword = pSearchCriteria->GetKeyword();
+	goodsSearch.bMatchAll = pSearchCriteria->IsMatchAll();
 
 }
 
 void CWLRClientDlg::FillCarSearchCriteria(const CSearchCriteria* pSearchCriteria, InSearchCars& carsSearch)
 {
-	const list<CString>& lstStartProv = pSearchCriteria->GetStartProvinceList();
-	list<CString>::const_iterator it = lstStartProv.begin(), end = lstStartProv.end();
-	for(it; it != end; ++it)
-	{
-		carsSearch.startProvince = *it;
-	}
-
-	const list<CString>& lstStartCity = pSearchCriteria->GetStartCityList();
-	it = lstStartCity.begin(), end = lstStartCity.end();
-	for(it; it != end; ++it)
-	{
-		carsSearch.startCity = *it;
-	}
-
-	const list<CString>& lstStartCounty = pSearchCriteria->GetStartCountyList();
-	it = lstStartCounty.begin(), end = lstStartCounty.end();
-	for(it; it != end; ++it)
-	{
-		carsSearch.startCounty = *it;
-	}
-
-	const list<CString>& lstEndProv = pSearchCriteria->GetEndProvinceList();
-	it = lstEndProv.begin(), end = lstEndProv.end();
-	for(it; it != end; ++it)
-	{
-		carsSearch.endProvince = *it;
-	}
-
-	const list<CString>& lstEndCity = pSearchCriteria->GetEndCityList();
-	it = lstEndCity.begin(), end = lstEndCity.end();
-	for(it; it != end; ++it)
-	{
-		carsSearch.endCity = *it;
-	}
-
-	const list<CString>& lstEndCounty = pSearchCriteria->GetEndCountyList();
-	it = lstEndCounty.begin(), end = lstEndCounty.end();
-	for(it; it != end; ++it)
-	{
-		carsSearch.endCounty = *it;
-	}
-
-
-	const list<CString>& lstCarType = pSearchCriteria->GetCarTypeList();
-	it = lstCarType.begin(), end = lstCarType.end();
-	for(it; it != end; ++it)
-	{
-		carsSearch.carType = *it;
-	}
-
-	const list<CString>& lstCarLength = pSearchCriteria->GetCarLengthList();
-	it = lstCarLength.begin(), end = lstCarLength.end();
-	for(it; it != end; ++it)
-	{
-		carsSearch.carLength = *it;
-	}
-
-
-	const list<CString>& lstGoods = pSearchCriteria->GetGoodsList();
-	it = lstGoods.begin(), end = lstGoods.end();
-	for(it; it != end; ++it)
-	{
-	}
-
-	const list<CString>& lstGoodsType = pSearchCriteria->GetGoodsTypeList();
-	it = lstGoodsType.begin(), end = lstGoodsType.end();
-	for(it; it != end; ++it)
-	{
-	}
-
-	if( carsSearch.startProvince.empty() )
-	{
-		carsSearch.startProvince = NO_LIMIT_STRING;
-	}
-	if( carsSearch.startCity.empty() )
-	{
-		carsSearch.startCity = NO_LIMIT_STRING;
-	}
-	if( carsSearch.startCounty.empty() )
-	{
-		carsSearch.startCounty = NO_LIMIT_STRING;
-	}
-	if( carsSearch.endProvince.empty() )
-	{
-		carsSearch.endProvince = NO_LIMIT_STRING;
-	}
-	if( carsSearch.endCity.empty() )
-	{
-		carsSearch.endCity = NO_LIMIT_STRING;
-	}
-	if( carsSearch.endCounty.empty() )
-	{
-		carsSearch.endCounty = NO_LIMIT_STRING;
-	}
-	if( carsSearch.carLength.empty() )
-	{
-		carsSearch.carLength = NO_LIMIT_STRING;
-	}
-	if( carsSearch.carType.empty() )
-	{
-		carsSearch.carType = NO_LIMIT_STRING;
-	}
+	carsSearch.lstStartAddr = pSearchCriteria->GetStartAddrList();
+	carsSearch.lstEndAddr = pSearchCriteria->GetEndAddrList();
+	carsSearch.lstCarLength = pSearchCriteria->GetCarLengthList();
+	carsSearch.lstCarType = pSearchCriteria->GetCarTypeList();
+	carsSearch.lstGoods = pSearchCriteria->GetGoodsList();
+	carsSearch.lstGoodsType = pSearchCriteria->GetGoodsTypeList();
+	carsSearch.lstPublisher = pSearchCriteria->GetPublisherList();
+	carsSearch.lstPhoneNum = pSearchCriteria->GetPhoneNumList();
+	carsSearch.sKeyword = pSearchCriteria->GetKeyword();
+	carsSearch.bMatchAll = pSearchCriteria->IsMatchAll();
 }
