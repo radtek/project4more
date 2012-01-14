@@ -3770,10 +3770,58 @@ LRESULT CWLRClientDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 void CWLRClientDlg::OnBnClickedButtonPubWayOne()
 {
+	curTabIndex = 0;
 	CPublishWayOneDlg dlg;
+	dlg.myCR = &myCR;
+	dlg.userInfo = svrIOPub.userInf;
 	if( dlg.DoModal() == IDOK )
 	{
+		string result;
+		try                                                   
+		{
+			if ( dlg.publishKind == 0 )
+			{
+				curTabType = GOODS;
+				result = svrIOPub.setPubGoodsInf(dlg.pubInf);
+			}
+			else
+			{
+				curTabType = CARS;
+				result = svrIOPub.setPubCarsInf(dlg.pubInf);        
+			}
+		}
+		catch(...)                                            
+		{                                                     
+			//goto HH;                                          
+		}
+		if ("TRUE" !=  result) {                          
+			MessageBox(result.c_str());                   
+		} else {
+			if ( dlg.publishKind == 0 )
+			{
+				MessageBox("货源发布成功！");
+				try
+				{
+					setGoodsInf();
+				}
+				catch (...)
+				{
 
+				}
+			}
+			else
+			{
+				MessageBox("车源发布成功！");                               
+				try                                                               
+				{                                                                 
+					setCarsInf();                                                  
+				}                                                                 
+				catch (...)                                                       
+				{                                                                 
+
+				}                                                                 
+			}
+		}
 	}
 }
 

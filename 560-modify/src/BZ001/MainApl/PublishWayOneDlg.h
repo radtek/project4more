@@ -3,6 +3,9 @@
 #include "hoverbutton.h"
 #include "afxwin.h"
 
+#include "CountryRegion.h"
+#include "GLB.h"
+
 #include <vector>
 using namespace std;
 
@@ -34,7 +37,14 @@ public:
 	afx_msg void OnBnClickedButtonW1ToCounty();
 	afx_msg void OnBnClickedButtonGoodsNum();
 	afx_msg void OnBnClickedButtonCarNum();
-private:
+	afx_msg void OnBnClickedButtonPw1History();
+	afx_msg void OnBnClickedButtonPreview();
+	afx_msg void OnBnClickedButtonPw1Pub();
+	afx_msg void OnBnClickedButtonPw1Clean();
+	afx_msg void OnBnClickedButtonPw1Close();
+	afx_msg void OnCbnSelchangeComboPw1InfoType();
+
+private:	// control variables
 	CHoverButton m_btnFromProv;
 	CHoverButton m_btnFromCity;
 	CHoverButton m_btnFromCounty;
@@ -45,38 +55,9 @@ private:
 	CHoverButton m_btnGoodsNum;
 	CHoverButton m_btnCarNum;
 
-	CString m_strProvinceFrom;
-	CString m_strCityFrom;
-	CString m_strCountyFrom;
-	CString m_strProvinceTo;
-	CString m_strCityTo;
-	CString m_strCountyTo;
-
-public:
-	afx_msg void OnBnClickedButtonPw1History();
-	afx_msg void OnBnClickedButtonPreview();
-	afx_msg void OnBnClickedButtonPw1Pub();
-	afx_msg void OnBnClickedButtonPw1Clean();
-	afx_msg void OnBnClickedButtonPw1Close();
-	afx_msg void OnCbnSelchangeComboPw1InfoType();
-
-private:
-	
-	void initControlValue();
-
-	void MoveControl(CWnd& control, int dx, int dy);
-
-public:
 	CComboBox msgType;
 	CComboBox shipTime;
 	CComboBox repubSetting;
-	BOOL autoClose;
-	BOOL rememberRepubSetting;
-	BOOL longTimeAvailable;
-	BOOL withMobile;
-	BOOL withName;
-	CString mobile;
-	CString name;
 
 	CStatic firstPanel;
 	CStatic secondPanel;
@@ -91,4 +72,60 @@ public:
 	CStatic truckUnit;
 
 	CListBox priceList;
+
+public:		// value variables
+	CString m_strProvinceFrom;
+	CString m_strCityFrom;
+	CString m_strCountyFrom;
+	CString m_strProvinceTo;
+	CString m_strCityTo;
+	CString m_strCountyTo;
+
+	BOOL autoClose;
+	BOOL rememberRepubSetting;
+	BOOL longTimeAvailable;
+	BOOL withMobile;
+	BOOL withName;
+	CString mobile;
+	CString name;
+
+	CString goodsValue;
+	CString goodsCountValue;
+	CString goodsUnitValue;
+
+	CString truckLengthValue;
+	CString truckTypeValue;
+	CString truckCountValue;
+
+	CString priceCountValue;
+	CString priceListValue;
+	CString preview;
+	CString shipTimeValue;
+	CString repubSettingValue;
+
+	string	pubInf;
+	int		publishKind;
+
+	CountryRegion *myCR;
+	UserInfo userInfo;
+
+private:
+
+	BOOL	bPreview;
+
+	void initControlValue();
+
+	void MoveControl(CWnd& control, int dx, int dy);
+
+	void BuildGoodsPreview();
+
+	void BuildTruckPreview();
+
+	BOOL CheckGoodsInfo();
+
+	BOOL CheckTruckInfo();
+
+	BOOL PublishGoodsInfo();
+
+	BOOL PublishTruckInfo();
 };
