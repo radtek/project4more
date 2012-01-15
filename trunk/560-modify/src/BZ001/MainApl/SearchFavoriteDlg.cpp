@@ -70,7 +70,7 @@ BOOL CSearchFavoriteDlg::OnInitDialog()
 	m_listCtrlFavorite.InsertColumn(1, " ’≤ÿ√˚");
 
 	DWORD dwExtStyle = m_listCtrlFavorite.GetExStyle();
-	dwExtStyle |= (LVS_EX_GRIDLINES|LVS_EX_FULLROWSELECT);
+	dwExtStyle |= (LVS_EX_GRIDLINES|LVS_EX_FULLROWSELECT|LVS_EX_INFOTIP|LVS_EX_ONECLICKACTIVATE);
 	dwExtStyle &= ~LVS_EX_CHECKBOXES;
 	m_listCtrlFavorite.SetExtendedStyle(dwExtStyle);
 
