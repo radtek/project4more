@@ -43,6 +43,6 @@ private:
 	void GetSearchFavName(int nSel, CString& sName);
 private:
 	CListCtrl m_listCtrlFavorite;
-	int		  m_nSelIndex;
+	//int		  m_nSelIndex;
 	const CSearchFavorite* m_pSelSearchFav;
 };

@@ -243,4 +243,6 @@ private:
 public:
 	afx_msg void OnBnClickedButtonPubWayOne();
 	afx_msg void OnBnClickedButtonPubWayTwo();
+	afx_msg void OnBnClickedTabNewUptop();
+	afx_msg void OnBnClickedTabNewBottomDown();
 };
