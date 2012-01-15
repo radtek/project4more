@@ -495,17 +495,44 @@ void CPublishWayTwoDlg::OnBnClickedButtonBackspace()
 
 void CPublishWayTwoDlg::OnBnClickedButtonGood1()
 {
-	// TODO: Add your control notification handler code here
+	RECT rc;
+	GetDlgItem(IDC_BUTTON_GOOD1)->GetWindowRect(&rc);
+	int nItem = g_menuGoods1.TrackPopupMenu(TPM_LEFTALIGN |TPM_RIGHTBUTTON|TPM_RETURNCMD, rc.left, rc.bottom, this);
+	if( nItem != 0 )
+	{
+		CString sGoods;
+		g_menuGoods1.GetMenuString(nItem, sGoods, MF_BYCOMMAND);
+		appendToPreview(sGoods);
+		goodsValue = sGoods;
+	}
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonGood2()
 {
-	// TODO: Add your control notification handler code here
+	RECT rc;
+	GetDlgItem(IDC_BUTTON_GOOD2)->GetWindowRect(&rc);
+	int nItem = g_menuGoods2.TrackPopupMenu(TPM_LEFTALIGN |TPM_RIGHTBUTTON|TPM_RETURNCMD, rc.left, rc.bottom, this);
+	if( nItem != 0 )
+	{
+		CString sGoods;
+		g_menuGoods2.GetMenuString(nItem, sGoods, MF_BYCOMMAND);
+		appendToPreview(sGoods);
+		goodsValue = sGoods;
+	}
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonGood3()
 {
-	// TODO: Add your control notification handler code here
+	RECT rc;
+	GetDlgItem(IDC_BUTTON_GOOD3)->GetWindowRect(&rc);
+	int nItem = g_menuGoods3.TrackPopupMenu(TPM_LEFTALIGN |TPM_RIGHTBUTTON|TPM_RETURNCMD, rc.left, rc.bottom, this);
+	if( nItem != 0 )
+	{
+		CString sGoods;
+		g_menuGoods3.GetMenuString(nItem, sGoods, MF_BYCOMMAND);
+		appendToPreview(sGoods);
+		goodsValue = sGoods;
+	}
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonCarSize()
@@ -769,7 +796,8 @@ void CPublishWayTwoDlg::OnBnClickedButtonPw2Pub()
 
 void CPublishWayTwoDlg::OnBnClickedButtonPw2Clean()
 {
-	// TODO: Add your control notification handler code here
+	preview.Empty();
+	UpdateData(FALSE);
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonPw2Close()

@@ -513,7 +513,8 @@ void CPublishWayOneDlg::FromHistory()
 
 void CPublishWayOneDlg::OnBnClickedButtonPw1Clean()
 {
-	// TODO: Add your control notification handler code here
+	preview.Empty();
+	UpdateData(FALSE);
 }
 
 void CPublishWayOneDlg::OnBnClickedButtonPw1Close()
