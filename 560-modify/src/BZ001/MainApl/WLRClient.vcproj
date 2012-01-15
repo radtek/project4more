@@ -986,6 +986,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\bitmap6.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\BTN_ADDVALUED.bmp"
 				>
 			</File>
