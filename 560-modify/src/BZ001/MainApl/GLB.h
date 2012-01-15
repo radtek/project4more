@@ -30,7 +30,7 @@ const unsigned int START_CHAT_CLIENT = 62;      // 启动聊天程序定时器ID
 const unsigned int SEND_ACCOUNT_MSG_TO_CHAT = 63;  // 发送账号信息给聊天客户端定时器ID
 
 
-#define  RECORD_NUM 200//读取的信息条数
+#define  RECORD_NUM 100//读取的信息条数
 
 // 用户信息结构
 struct UserInfo {

@@ -2809,9 +2809,9 @@ void CWLRClientDlg::OnBnClickedBtnNotice()
     CPopNoticeDlg *dlg = new CPopNoticeDlg;
     dlg->setPos(rect.right, rect.bottom);
     dlg->showMsg = showMsg.c_str();
-	//dlg->showMsgAG = showMsgag.c_str();
-    dlg->Create(IDD_POP_NOTICE, this);
+	dlg->Create(IDD_POP_NOTICE, this);
     dlg->ShowWindow(SW_SHOW);
+
 }
 
 // ¼´½«»æÖÆ¿Ø¼þ
