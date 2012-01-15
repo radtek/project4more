@@ -18,7 +18,7 @@ CSearchFavorite::CSearchFavorite(const CSearchCriteria* pSearchCriteria)
 	ForamtName(pSearchCriteria->GetEndAddrList(), sEndName);
 	if( !sEndName.empty() )
 	{
-		m_sName += "¡ª" + sEndName	;
+		m_sName += (m_sName.empty()?"":"¡ª") + sEndName	;
 	}
 	m_sName += " " + pSearchCriteria->GetKeyword();
 

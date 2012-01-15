@@ -1352,6 +1352,7 @@ IDB_PUBLISH_TWO         BITMAP                  "res\\PUBLISH_TWO.bmp"
 IDB_PUBLISH_ONE         BITMAP                  "res\\PUBLISHE_ONE.bmp"
 IDB_STOP_REFRESH        BITMAP                  "res\\STOP_REFRESH.bmp"
 IDB_HIDE_PHONE_NUM      BITMAP                  "res\\HIDE_PHONE_NUM.bmp"
+IDB_BITMAP5             BITMAP                  "res\\bitmap5.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //

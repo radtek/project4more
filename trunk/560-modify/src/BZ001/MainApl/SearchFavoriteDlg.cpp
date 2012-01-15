@@ -51,33 +51,42 @@ void CSearchFavoriteDlg::InitFavoriteListBox()
 	{
 		CSearchFavorite* pSearchFav = *it;
 		sIndex.Format(" %d ", i);
-		m_listCtrlFavorite.InsertItem(i, sIndex);
-		m_listCtrlFavorite.SetItemText(i, 1, pSearchFav->GetName().c_str());
+		m_listCtrlFavorite.InsertItem(i, "");
+		m_listCtrlFavorite.SetItemText(i, 1, sIndex);
+		m_listCtrlFavorite.SetItemText(i, 2, pSearchFav->GetName().c_str());
 		m_listCtrlFavorite.SetItemData(i, i);
 	}
 }
 
 void CSearchFavoriteDlg::GetSearchFavName(int nSel, CString& sName)
 {
-	sName = m_listCtrlFavorite.GetItemText(nSel, 1);
+	sName = m_listCtrlFavorite.GetItemText(nSel, 2);
 }
 // CSearchFavoriteDlg message handlers
 BOOL CSearchFavoriteDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	m_listCtrlFavorite.InsertColumn(0, "序号");
-	m_listCtrlFavorite.InsertColumn(1, "收藏名");
+	m_listCtrlFavorite.InsertColumn(0, "Image");
+	m_listCtrlFavorite.InsertColumn(1, "序号");
+	m_listCtrlFavorite.InsertColumn(2, "收藏名");
 
 	DWORD dwExtStyle = m_listCtrlFavorite.GetExStyle();
 	dwExtStyle |= (LVS_EX_GRIDLINES|LVS_EX_FULLROWSELECT|LVS_EX_INFOTIP|LVS_EX_ONECLICKACTIVATE);
 	dwExtStyle &= ~LVS_EX_CHECKBOXES;
 	m_listCtrlFavorite.SetExtendedStyle(dwExtStyle);
 
+	CImageList imgList;  //为ClistCtrl设置一个图像列表，以设置行高
+	imgList.Create(IDB_BITMAP5, 20, 1, RGB(255, 255, 255)); // IDB_BITMAP4 是 16*16的 所以行高16像素
+
+	m_listCtrlFavorite.SetImageList(&imgList,LVSIL_SMALL);
+
+
 	CRect rc;
 	m_listCtrlFavorite.GetWindowRect(&rc);
-	m_listCtrlFavorite.SetColumnWidth(0, 30);
-	m_listCtrlFavorite.SetColumnWidth(1, rc.Width() - 30);
+	m_listCtrlFavorite.SetColumnWidth(0, 0);
+	m_listCtrlFavorite.SetColumnWidth(1, 30);
+	m_listCtrlFavorite.SetColumnWidth(2, rc.Width() - 30);
 	
 
 	InitFavoriteListBox();
@@ -96,6 +105,7 @@ void CSearchFavoriteDlg::OnBnClickedButtonUse()
 {
 	if( m_nSelIndex == -1 )
 	{
+		MessageBox(_T("请选择要使用的搜索"), _T("系统提示"), MB_OK);
 		return;
 	}
 	CString sName;
@@ -108,19 +118,34 @@ void CSearchFavoriteDlg::OnBnClickedButtonDel()
 {
 	if( m_nSelIndex == -1 )
 	{
+		MessageBox(_T("请选择要删除的搜索"), _T("系统提示"), MB_OK);
 		return;
 	}
+	int nDelIndex = m_nSelIndex; 
+
 	CString sName;
 	GetSearchFavName(m_nSelIndex, sName);
 	CHistoryManager::getInstance()->delSearchFav(string(sName));
 	m_listCtrlFavorite.DeleteItem(m_nSelIndex);
+
+	CString sIndex;
+	int i = nDelIndex;
+	int nCount = m_listCtrlFavorite.GetItemCount();
+	for(i; i<nCount; ++i)
+	{
+		sIndex.Format(" %d ", i);
+		m_listCtrlFavorite.SetItemText(i, 1, sIndex);
+	}
+
 	m_nSelIndex = -1;
+
 }
 
 void CSearchFavoriteDlg::OnBnClickedButtonRename()
 {
 	if( m_nSelIndex == -1 )
 	{
+		MessageBox(_T("请选择要重命名的搜索"), _T("系统提示"), MB_OK);
 		return;
 	}
 	CSearchFavRenameDlg dlg;
@@ -132,7 +157,7 @@ void CSearchFavoriteDlg::OnBnClickedButtonRename()
 		{
 			GetSearchFavName(m_nSelIndex, sName);
 			CHistoryManager::getInstance()->renameSearchFav(string(sName), string(sNewName));
-			m_listCtrlFavorite.SetItemText(m_nSelIndex, 1, sNewName);
+			m_listCtrlFavorite.SetItemText(m_nSelIndex, 2, sNewName);
 		}
 	}
 }
