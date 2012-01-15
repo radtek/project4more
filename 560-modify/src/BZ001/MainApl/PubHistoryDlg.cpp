@@ -28,6 +28,11 @@ BOOL CPubHistoryDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
+	DWORD dwExtStyle = publishHistory.GetExStyle();
+	dwExtStyle |= (LVS_EX_GRIDLINES|LVS_EX_FULLROWSELECT|LVS_EX_INFOTIP|LVS_EX_ONECLICKACTIVATE);
+	dwExtStyle &= ~LVS_EX_CHECKBOXES;
+	publishHistory.SetExtendedStyle(dwExtStyle);
+
 	initPublishHistory();
 
 	return TRUE;
@@ -41,9 +46,6 @@ void CPubHistoryDlg::initPublishHistory()
 	publishHistory.InsertColumn(0, "出发地", LVCFMT_LEFT, cell);
 	publishHistory.InsertColumn(1, "目的地", LVCFMT_LEFT, cell);
 	publishHistory.InsertColumn(2, "消息", LVCFMT_LEFT, cell*3);
-
-	publishHistory.ModifyStyle(0, LVS_REPORT, NULL);
-	publishHistory.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_INFOTIP | LVS_EX_ONECLICKACTIVATE);
 
 	publishes = CHistoryManager::getInstance()->getPublishes();
 	publishIter	iter;
