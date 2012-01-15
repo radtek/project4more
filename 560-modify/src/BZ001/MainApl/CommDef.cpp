@@ -23,6 +23,25 @@ vector<CString> g_commonZi;
 vector<CString> g_commonCi;
 vector<CString> g_PeihuoInfo;
 
+CMenu g_menuGoods1;
+CMenu g_menuGoods2;
+CMenu g_menuGoods3;
+CMenu g_menuGoods3_MS1;//material steel1
+CMenu g_menuGoods3_MS2;//material steel2
+CMenu g_menuGoods3_CC;//coal and carbon
+CMenu g_menuGoods3_MUV1;//melon and fruit and vegetable
+CMenu g_menuGoods3_MUV2;//melon and fruit and vegetable
+CMenu g_menuGoods3_Vehicle;//Vehicle
+CMenu g_menuGoods3_SubFood;//subsidiary foodstuff
+CMenu g_menuGoods3_FarmProduce;//Farm Produce
+CMenu g_menuGoods3_Paper;//paper
+CMenu g_menuGoods3_GW;//grass and wood
+CMenu g_menuGoods3_Animal;//Animal
+CMenu g_menuGoods3_Electric;//electric
+CMenu g_menuGoods3_SilkHail;//Silk and Hail
+CMenu g_menuGoods3_Other;//Silk and Hail
+
+
 const tdVecCity* GetCities(const CString& sProvince)
 {
 	if(g_pCountryRegion == NULL)
@@ -225,6 +244,402 @@ static void InitSearchCarSize()
 	g_vecSearchCarSize.push_back("17.5");
 }
 
+static void InitPubWay2Good1Menu()
+{
+	g_menuGoods1.CreatePopupMenu();
+	int size = g_vecSearchGoodsType.size();
+	for(int i = 0; i<size; ++i)
+	{
+		g_menuGoods1.InsertMenu(i, MF_STRING|MF_BYPOSITION, i+1, g_vecSearchGoodsType[i]);//the item id start from 1
+	}
+}
+static void InitPubWay2Good2Menu()
+{
+	g_menuGoods2.CreatePopupMenu();
+	int size = g_vecSearchGoods.size();
+	for(int i = 0; i<size; ++i)
+	{
+		g_menuGoods2.InsertMenu(i, MF_STRING|MF_BYPOSITION, i+1, g_vecSearchGoods[i]);
+	}
+}
+
+static void InitMenuGoods3_MS1(int& nMenuId)
+{
+	g_menuGoods3_MS1.CreateMenu();
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ìú");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÑÎ");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¹èÌú");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¹è¸Æ");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¹è±µ");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¹èÊ¯");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¹èÔü");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¹èÃÌ");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÃÌÌú");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÀÓÌú");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÉúÌú");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¸Ö½î");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¸Ö²Ä");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¸Ö¹Ü");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¸Ö°å");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "·Ï¸Ö");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "·ÏÌú");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ìú·Û");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÌúÄ©");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ìú¼þ");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÂÁ¶§");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ã¾¶§");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "µçÊ¯");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "µç³Ø");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "»¯¹¤");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Æ¬¼î");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÇòÍÅ");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "·ÏÂÁ");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "·ÏÍ­");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ï¡ÍÁ");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¸¯ÄÆ");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ê÷Ö¬");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ËÜÁÏ");
+	g_menuGoods3_MS1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "·ÊÁÏ");
+}
+static void InitMenuGoods3_MS2(int& nMenuId)
+{
+	g_menuGoods3_MS2.CreateMenu();
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "´É×©");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Öý¼þ");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÓÍÆá");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ë®Äà");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "É³×Ó");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "É³Ê¯");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¿óÊ¯");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¿ó·Û");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ê¯ÁÏ");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "°×»Ò");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ãæ°üÌú");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ì¼»¯¹è");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¹èÎ¢·Û");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ê¯¸à·Û");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ê¯»Òµ°");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÂÈ»¯¸Æ");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÂÈ»¯ÄÆ");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¹¤ÒµÄÆ");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¹¤ÒµÝÁ");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¸ßÁëÍÁ");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÂÁ·¯ÍÁ");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÄÍ»ðÍÁ");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "·ÏËÜÁÏ");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¿ÕÐÄ×©");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "µØ°å×©");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÄÍ»ð×©");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "·ÏÂÖÌ¥");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¸ÖË¿Éþ");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "PVC¿ÅÁ£");
+	g_menuGoods3_MS2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¼ÓÃÜ¹èÎ¢·Û");
+}
+static void InitMenuGoods3_CC(int& nMenuId)
+{
+	g_menuGoods3_CC.CreateMenu();
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ãº");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¿éÃº");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ô­Ãº");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ä­Ãº");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¾«Ãº");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÑÌÃº");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "´Ö±½");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "½¹Ì¿");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ì¼ËØ");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ä¾Ì¿");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "´ó½¹");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ð¡½¹");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "½¹·Û");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "½¹Á£");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "À¶Ì¿");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Á¤Çà");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÃºÄà");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÎÞÑÌÃº");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "µ÷ÔËÃº");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¾«Ï´Ãº");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ãºí·Ê¯");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ãº½¹ÓÍ");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "2-4Ãº");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "2-6Ãº");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "3-8Ãº");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "·ÛÃº»Ò");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÔöÌ¼¼Á");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "»îÐÔÌ¿");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "µç¼«ºý");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "µç¶ÍÁÏ");
+	g_menuGoods3_CC.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÃºÁ¤Çà");
+}
+static void InitMenuGoods3_MUV1(int& nMenuId)
+{
+	g_menuGoods3_MUV1.CreateMenu();
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Àæ");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ïã¹Ï");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Î÷¹Ï");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¸ÊÕá");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÃÛ¹Ï");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "éÙ×Ó");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ïã½¶");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÀóÖ¦");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "½Û×Ó");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "²¤ÂÜ");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÌÒ×Ó");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ºìÔæ");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÊÁ×Ó");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÆÏÌÑ");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Æ»¹û");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "É³¹û");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ô²´Ð");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ñó´Ð");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÂÜ²·");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "À±½·");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Çà½·");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "»Æ¹Ï");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¶¹½Ç");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÇÛ²Ë");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "°×²Ë");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "²¤²Ë");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "·¬ÇÑ");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¾Â²Ë");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "´óËâ");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ËâÌ¦");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "É½Ò©");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÍÁ¶¹");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÄÏ¹Ï");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¶¬¹Ï");
+	g_menuGoods3_MUV1.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÇÑ×Ó");
+
+}
+static void InitMenuGoods3_MUV2(int& nMenuId)
+{
+	g_menuGoods3_MUV2.CreateMenu();
+	g_menuGoods3_MUV2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¹½Äï");
+	g_menuGoods3_MUV2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÁñÁ«");
+	g_menuGoods3_MUV2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "º£´ø");
+	g_menuGoods3_MUV2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¹þÃÜ¹Ï");
+	g_menuGoods3_MUV2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Æ»¹ûÀæ");
+	g_menuGoods3_MUV2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ºÚ¹Ï×Ó");
+	g_menuGoods3_MUV2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Î÷ºìÊÁ");
+	g_menuGoods3_MUV2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "·¬ÇÑ½´");
+	g_menuGoods3_MUV2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¸ÉÀ±½·");
+	g_menuGoods3_MUV2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "´óÍ·²Ë");
+	g_menuGoods3_MUV2.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÍÑË®²Ë");
+}
+static void InitMenuGoods3_Vehicle(int& nMenuId)
+{
+	g_menuGoods3_Vehicle.CreateMenu();
+	g_menuGoods3_Vehicle.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÍÚ»ú");
+	g_menuGoods3_Vehicle.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "²æ³µ");
+	g_menuGoods3_Vehicle.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "²ù³µ");
+	g_menuGoods3_Vehicle.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "·­¶·³µ");
+	g_menuGoods3_Vehicle.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "×ÔÐÐ³µ");
+	g_menuGoods3_Vehicle.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ð¡½Î³µ");
+	g_menuGoods3_Vehicle.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÍÏÀ­»ú");
+	g_menuGoods3_Vehicle.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ä¦ÍÐ³µ");
+	g_menuGoods3_Vehicle.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "½Á°è»ú");
+	g_menuGoods3_Vehicle.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÊÕ¸î»ú");
+	g_menuGoods3_Vehicle.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "×°ÔØ»ú");
+	g_menuGoods3_Vehicle.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÍÆÍÁ»ú");
+}
+static void InitMenuGoods3_SubFood(int& nMenuId)
+{
+	g_menuGoods3_SubFood.CreateMenu();
+	g_menuGoods3_SubFood.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Å£ÄÌ");
+	g_menuGoods3_SubFood.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "±ý¸É");
+	g_menuGoods3_SubFood.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¾Æ");
+	g_menuGoods3_SubFood.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "°×¾Æ");
+	g_menuGoods3_SubFood.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Æ¡¾Æ");
+	g_menuGoods3_SubFood.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "·äÃÛ");
+	g_menuGoods3_SubFood.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¶¹±ý");
+	g_menuGoods3_SubFood.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ôïÆ¤");
+	g_menuGoods3_SubFood.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ËÇÁÏ");
+	g_menuGoods3_SubFood.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ãæ·Û");
+	g_menuGoods3_SubFood.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÄÌ·Û");
+	g_menuGoods3_SubFood.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "·ÛÌõ");
+	g_menuGoods3_SubFood.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "µí·Û");
+	g_menuGoods3_SubFood.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÑòÈâ");
+	g_menuGoods3_SubFood.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Å£Èâ");
+	g_menuGoods3_SubFood.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÖíÈâ");
+	g_menuGoods3_SubFood.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "²èÒ¶");
+	g_menuGoods3_SubFood.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÑÌ¾Æ");
+	g_menuGoods3_SubFood.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ð¡Ê³Æ·");
+	g_menuGoods3_SubFood.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "»¨ÉúÃ×");
+
+}
+static void InitMenuGoods3_FarmProduce(int& nMenuId)
+{
+	g_menuGoods3_FarmProduce.CreateMenu();
+	g_menuGoods3_FarmProduce.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "»Æ¶¹");
+	g_menuGoods3_FarmProduce.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ü¿¶¹");
+	g_menuGoods3_FarmProduce.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "´ó¶¹");
+	g_menuGoods3_FarmProduce.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÂÌ¶¹");
+	g_menuGoods3_FarmProduce.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "´óÃ×");
+	g_menuGoods3_FarmProduce.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ë®µ¾");
+	g_menuGoods3_FarmProduce.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ºúÂé");
+	g_menuGoods3_FarmProduce.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¿û»¨ÓÍ");
+	g_menuGoods3_FarmProduce.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¿ûÈÊ");
+	g_menuGoods3_FarmProduce.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÐÓÈÊ");
+	g_menuGoods3_FarmProduce.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¹Ï×Ó");
+	g_menuGoods3_FarmProduce.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÓñÃ×");
+	g_menuGoods3_FarmProduce.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "»¨Éú");
+	g_menuGoods3_FarmProduce.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "»¨Éú¹û");
+	g_menuGoods3_FarmProduce.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "èÛè½×Ó");
+	g_menuGoods3_FarmProduce.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÓÍ²Ë×Ñ");
+}
+static void InitMenuGoods3_Paper(int& nMenuId)
+{
+	g_menuGoods3_Paper.CreateMenu();
+	g_menuGoods3_Paper.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ö½Ïä");
+	g_menuGoods3_Paper.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÊéÖ½");
+	g_menuGoods3_Paper.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "·ÏÖ½¿Ç");
+	g_menuGoods3_Paper.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "·ÏÊé±¾");
+	g_menuGoods3_Paper.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "´ò°üÖ½");
+	g_menuGoods3_Paper.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ñ¹ËõÖ½");
+	g_menuGoods3_Paper.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "»Æ°åÖ½");
+	g_menuGoods3_Paper.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¾íÍ²Ö½");
+	g_menuGoods3_Paper.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ð¡¾íÖ½");
+	g_menuGoods3_Paper.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÎÀÉúÖ½");
+	g_menuGoods3_Paper.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ãæ½íÖ½");
+	g_menuGoods3_Paper.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "²Í½íÖ½");
+	g_menuGoods3_Paper.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÓÍÕ±Ö½");
+}
+static void InitMenuGoods3_GW(int& nMenuId)
+{
+	g_menuGoods3_GW.CreateMenu();
+	g_menuGoods3_GW.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Î­°ü");
+	g_menuGoods3_GW.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Î­¿é");
+	g_menuGoods3_GW.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Î­À¦");
+	g_menuGoods3_GW.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Î­¸Ë");
+	g_menuGoods3_GW.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Î­×Ó");
+	g_menuGoods3_GW.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "²Ý°ü");
+	g_menuGoods3_GW.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "²Ý¿é");
+	g_menuGoods3_GW.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "²ÝÀ¦");
+	g_menuGoods3_GW.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "²ÝÆº");
+	g_menuGoods3_GW.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ô­Ä¾");
+	g_menuGoods3_GW.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ä¾²Ä");
+	g_menuGoods3_GW.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ä¾¸Ë");
+	g_menuGoods3_GW.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¿ê×Ó");
+	g_menuGoods3_GW.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ä¾°å");
+	g_menuGoods3_GW.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "°å·½");
+	g_menuGoods3_GW.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÏÊ»¨");
+	g_menuGoods3_GW.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ê÷Ãç");
+	g_menuGoods3_GW.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¸Ê²Ý");
+	g_menuGoods3_GW.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ò©²Ä");
+	g_menuGoods3_GW.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¹¤ÒÕÁ±");
+	g_menuGoods3_GW.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "²ÝÁ±×Ó");	
+
+}
+static void InitMenuGoods3_Animal(int& nMenuId)
+{
+	g_menuGoods3_Animal.CreateMenu();
+	g_menuGoods3_Animal.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÃÛ·ä");
+	g_menuGoods3_Animal.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Å£");
+	g_menuGoods3_Animal.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ñò");
+	g_menuGoods3_Animal.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Âí");
+	g_menuGoods3_Animal.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Öí");
+	g_menuGoods3_Animal.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "´øÓã");
+
+}
+static void InitMenuGoods3_Electric(int& nMenuId)
+{
+	g_menuGoods3_Electric.CreateMenu();
+	g_menuGoods3_Electric.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "±ùÏä");
+	g_menuGoods3_Electric.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "µçÊÓ");
+	g_menuGoods3_Electric.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ï´ÒÂ»ú");
+	g_menuGoods3_Electric.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¿Õµ÷");
+	g_menuGoods3_Electric.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "µçÄÔ");
+
+}
+static void InitMenuGoods3_SilkHail(int& nMenuId)
+{
+	g_menuGoods3_SilkHail.CreateMenu();
+	g_menuGoods3_SilkHail.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÖíÃ«");
+	g_menuGoods3_SilkHail.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Í··¢");
+	g_menuGoods3_SilkHail.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ã«Ôü");
+	g_menuGoods3_SilkHail.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ã«·¢");
+	g_menuGoods3_SilkHail.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÑòÃ«");
+	g_menuGoods3_SilkHail.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¶ìÃ«");
+	g_menuGoods3_SilkHail.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Æ¤×Ó");
+	g_menuGoods3_SilkHail.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÑòÆ¤");
+	g_menuGoods3_SilkHail.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Å£Æ¤");
+	g_menuGoods3_SilkHail.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÑòÈÞ");
+	g_menuGoods3_SilkHail.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "²¼Æ¥");
+}
+static void InitMenuGoods3_Other(int& nMenuId)
+{
+	int i = 0;
+	g_menuGoods3_Other.CreateMenu();
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "º£ÏÊ");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÏÊ»î");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¸É»õ");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¶³»õ");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÑÌ»¨");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "±ÞÅÚ");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "»¨ÅÚ");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "µçÀÂ");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ëþµõ");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Íø¼Ü");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¿ÕÍ°");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÓÍÍ°");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Å©Ò©");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÖÖ×Ó");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "»¯·Ê");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "½à¾ß");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÌÕ´É");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÆæÊ¯");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÃÞ±»");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÂÖÌ¥");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "²£Á§");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ïð½º");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "É³·¢");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "»úÍß");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "ÃÅ´°");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "·ÊÔí");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¾ÆÆ¿");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Ï´ÒÂ·Û");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "Æ¡¾ÆÆ¿");
+	g_menuGoods3_Other.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "¸ÖÄ£°å");
+
+}
+
+static void InitPubway2Good3Menu()
+{
+	int nFirstLevId = 1;
+	int nSndLevId = 100;
+	g_menuGoods3.CreatePopupMenu();
+
+	InitMenuGoods3_MS1(nSndLevId);//material steel1
+	InitMenuGoods3_MS2(nSndLevId);//material steel2
+	InitMenuGoods3_CC(nSndLevId);//coal and carbon
+	InitMenuGoods3_MUV1(nSndLevId);//melon and fruit and vegetable
+	InitMenuGoods3_MUV2(nSndLevId);//melon and fruit and vegetable
+	InitMenuGoods3_Vehicle(nSndLevId);//Vehicle
+	InitMenuGoods3_SubFood(nSndLevId);//subsidiary foodstuff
+	InitMenuGoods3_FarmProduce(nSndLevId);//Farm Produce
+	InitMenuGoods3_Paper(nSndLevId);//paper
+	InitMenuGoods3_GW(nSndLevId);//grass and wood
+	InitMenuGoods3_Animal(nSndLevId);//Animal
+	InitMenuGoods3_Electric(nSndLevId);//electric
+	InitMenuGoods3_SilkHail(nSndLevId);//Silk and Hail
+	InitMenuGoods3_Other(nSndLevId);//Silk and Hail
+	
+
+	g_menuGoods3.AppendMenu(MF_POPUP, (UINT_PTR)g_menuGoods3_MS1.m_hMenu, "Ô­ÁÏ¸Ö²ÄÀà1");
+	g_menuGoods3.AppendMenu(MF_POPUP, (UINT_PTR)g_menuGoods3_MS2.m_hMenu, "Ô­ÁÏ¸Ö²ÄÀà2");
+	g_menuGoods3.AppendMenu(MF_POPUP, (UINT_PTR)g_menuGoods3_CC.m_hMenu, "ÃºÌ¿Æ·");
+	g_menuGoods3.AppendMenu(MF_POPUP, (UINT_PTR)g_menuGoods3_MUV1.m_hMenu, "¹Ï¹ûÊß²ËÀà1");
+	g_menuGoods3.AppendMenu(MF_POPUP, (UINT_PTR)g_menuGoods3_MUV2.m_hMenu, "¹Ï¹ûÊß²ËÀà2");
+	g_menuGoods3.AppendMenu(MF_POPUP, (UINT_PTR)g_menuGoods3_Vehicle.m_hMenu, "³µÁ¾Àà");
+	g_menuGoods3.AppendMenu(MF_POPUP, (UINT_PTR)g_menuGoods3_SubFood.m_hMenu, "¸±Ê³Æ·");
+	g_menuGoods3.AppendMenu(MF_POPUP, (UINT_PTR)g_menuGoods3_FarmProduce.m_hMenu, "Å©²úÆ·");
+	g_menuGoods3.AppendMenu(MF_POPUP, (UINT_PTR)g_menuGoods3_Paper.m_hMenu, "Ö½Àà");
+	g_menuGoods3.AppendMenu(MF_POPUP, (UINT_PTR)g_menuGoods3_GW.m_hMenu, "²ÝÄ¾Àà");
+	g_menuGoods3.AppendMenu(MF_POPUP, (UINT_PTR)g_menuGoods3_Animal.m_hMenu, "¶¯ÎïÀà");
+	g_menuGoods3.AppendMenu(MF_POPUP, (UINT_PTR)g_menuGoods3_Electric.m_hMenu, "µçÆ÷Àà");
+	g_menuGoods3.AppendMenu(MF_POPUP, (UINT_PTR)g_menuGoods3_SilkHail.m_hMenu, "Ë¿Ã«Àà");
+	g_menuGoods3.AppendMenu(MF_POPUP, (UINT_PTR)g_menuGoods3_Other.m_hMenu, "ÆäËûÀà");
+}
+
 void InitCommData()
 {
 	InitSearchGoodsType();
@@ -232,6 +647,9 @@ void InitCommData()
 	InitSearchCarSize();
 	InitSearchCarType();
 
+	InitPubWay2Good1Menu();
+	InitPubWay2Good2Menu();
+	InitPubway2Good3Menu();
 
 	g_goodsType.push_back("Õû³µ");
 	g_goodsType.push_back("Áãµ£");

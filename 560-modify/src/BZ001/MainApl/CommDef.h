@@ -1,7 +1,7 @@
 #ifndef _FMP_COMM_DEFINE_H
 #define _FMP_COMM_DEFINE_H
 
-
+#include <afxwin.h>
 #include "CountryRegion.h"
 #include <string>
 #include <map>
@@ -42,6 +42,25 @@ extern vector<CString> g_commonCi;
 extern vector<CString> g_PeihuoInfo;
 
 extern CountryRegion*   g_pCountryRegion;
+
+extern CMenu g_menuGoods1;
+extern CMenu g_menuGoods2;
+extern CMenu g_menuGoods3;
+extern CMenu g_menuGoods3_MS1;//material steel1
+extern CMenu g_menuGoods3_MS2;//material steel2
+extern CMenu g_menuGoods3_CC;//coal and carbon
+extern CMenu g_menuGoods3_MUV1;//melon and fruit and vegetable
+extern CMenu g_menuGoods3_MUV2;//melon and fruit and vegetable
+extern CMenu g_menuGoods3_Vehicle;//Vehicle
+extern CMenu g_menuGoods3_SubFood;//subsidiary foodstuff
+extern CMenu g_menuGoods3_FarmProduce;//Farm Produce
+extern CMenu g_menuGoods3_Paper;//paper
+extern CMenu g_menuGoods3_GW;//grass and wood
+extern CMenu g_menuGoods3_Animal;//Animal
+extern CMenu g_menuGoods3_Electric;//electric
+extern CMenu g_menuGoods3_SilkHail;//Silk and Hail
+extern CMenu g_menuGoods3_Other;//Silk and Hail
+
 
 struct InSearchGoods;
 struct InSearchCars;
