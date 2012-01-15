@@ -1,5 +1,6 @@
 #pragma once
 #include "resource.h"
+#include "HistoryManager.h"
 
 // CPubHistoryDlg dialog
 
@@ -21,13 +22,23 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	CListCtrl publishHistory;
+	CListCtrl			publishHistory;
 
+	CPublishRecord*		pSelectedRecord;
+
+	bool				autoPublish;
 
 private:
+
+	publishVector publishes;
+
 	void	initPublishHistory();
+
 public:
 	afx_msg void OnBnClickedButtonPublish();
 	afx_msg void OnBnClickedButtonModify();
 	afx_msg void OnBnClickedButtonDelete();
+
+	
+	afx_msg void OnBnClickedButtonClose();
 };

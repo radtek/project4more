@@ -4,7 +4,7 @@
 #pragma once
 #include <map>
 #include <string>
-#include <list>
+#include <vector>
 
 using namespace std;
 
@@ -21,13 +21,11 @@ public:
 	CString	get(const string& key);
 	void	set(const string& key, const CString& value);
 
-	int		sn;
-
 private:
 	map<string, string>		paras;
 };
 
-typedef list<CPublishRecord *>	publishList;
-typedef publishList::iterator	publishIter;
+typedef vector<CPublishRecord *>	publishVector;
+typedef publishVector::iterator		publishIter;
 
 #endif //_FMP_PUBLISH_RECORD_H

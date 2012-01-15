@@ -66,6 +66,23 @@ void CHistoryManager::savePublishRecords(char* filename)
 	}
 }
 
+void CHistoryManager::deletePublish(int n)
+{
+	publishIter		iter;
+	int				count = 0;
+
+	for ( iter = publishes.begin(); iter != publishes.end(); iter++ )
+	{
+		if ( count == n )
+		{
+			publishes.erase(iter);
+			break;
+		}
+		count++;
+	}
+	savePublishRecords(m_szPublishHisFile);
+}
+
 
 void CHistoryManager::loadPublishRecords(char* filename)
 {
@@ -75,7 +92,6 @@ void CHistoryManager::loadPublishRecords(char* filename)
 	{
 		string	line;
 		clearPublishList();
-		int		count = 0;
 
 		while ( hisFile.good() )
 		{
@@ -85,8 +101,6 @@ void CHistoryManager::loadPublishRecords(char* filename)
 				continue;
 			}
 			CPublishRecord* pRecord = new CPublishRecord(line);
-			pRecord->sn = count;
-			count++;
 			publishes.push_back(pRecord);
 		}
 	}
@@ -247,7 +261,7 @@ void CHistoryManager::loadSearchFavorite(char* filename)
 
 void CHistoryManager::CleanPublishHis()
 {
-	publishList::iterator it = publishes.begin(), end = publishes.end();
+	publishVector::iterator it = publishes.begin(), end = publishes.end();
 	for(it; it != end; ++it)
 	{
 		delete *it;

@@ -18,8 +18,9 @@ public:
 	static CHistoryManager* getInstance();
 	~CHistoryManager(void);
 
-	publishList&				getPublishes()	{ return publishes; }
+	publishVector&				getPublishes()	{ return publishes; }
 	void						addPublish(CPublishRecord* pPublish);
+	void						deletePublish(int n);
 
 	tdListSearchFavorite&		getSearchesFav()	 { return searchesFav; }
 	const tdListSearchFavorite&	getSearchesFav()const{ return searchesFav; }
@@ -39,7 +40,7 @@ private:
 	void CleanSearchFav();
 private:
 	static CHistoryManager*		pInstance;
-	publishList					publishes;
+	publishVector					publishes;
 	tdListSearchHistory			searchesHis;
 	tdListSearchFavorite		searchesFav;
 
