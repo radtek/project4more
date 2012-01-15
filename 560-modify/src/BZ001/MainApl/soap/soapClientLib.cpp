@@ -11,6 +11,7 @@
 #define WITH_NOGLOBAL
 #endif
 #define SOAP_FMAC3 static
+#include "stdafx.h"
 #include "soapC.cpp"
 #include "soapClient.cpp"
 

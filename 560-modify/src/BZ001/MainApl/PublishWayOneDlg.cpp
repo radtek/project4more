@@ -7,7 +7,6 @@
 #include "ContentDlg.h"
 #include "NumberDlg.h"
 
-#include "PubHistoryDlg.h"
 
 
 // CPublishWayOne dialog
@@ -36,6 +35,7 @@ CPublishWayOneDlg::CPublishWayOneDlg(CWnd* pParent /*=NULL*/)
 	, repubSettingValue(_T(""))
 {
 	publishKind = 0;
+	pRecord = NULL;
 }
 
 CPublishWayOneDlg::~CPublishWayOneDlg()
@@ -284,7 +284,15 @@ void CPublishWayOneDlg::OnBnClickedButtonPw1History()
 	// TODO: Add your control notification handler code here
 	CPubHistoryDlg	dlg;
 
-	dlg.DoModal();
+	if ( dlg.DoModal() == IDOK )
+	{
+		pRecord = dlg.pSelectedRecord;
+		FromHistory();
+		if ( dlg.autoPublish )
+		{
+			OnOK();
+		}
+	}
 }
 
 void CPublishWayOneDlg::OnBnClickedButtonPreview()
@@ -332,8 +340,175 @@ void CPublishWayOneDlg::OnBnClickedButtonPw1Pub()
 
 	if ( result )
 	{
+		ToHistory();
 		OnOK();
 	}
+}
+
+void CPublishWayOneDlg::ToHistory()
+{
+	CPublishRecord*		pRecord = new CPublishRecord();
+	CString				v;
+
+	// publish type
+	v.Format("%d", msgType.GetCurSel());
+	pRecord->set("msgType", v);
+
+	// from to
+	pRecord->set("strProvinceFrom", m_strProvinceFrom);
+	pRecord->set("strCityFrom", m_strCityFrom);
+	pRecord->set("strCountyFrom", m_strCountyFrom);
+	pRecord->set("strProvinceTo", m_strProvinceTo);
+	pRecord->set("strCityTo", m_strCityTo);
+	pRecord->set("strCountyTo", m_strCountyTo);
+
+	// goods info
+	v.Format("%d", goodsList.GetCurSel());
+	pRecord->set("goodsList", v);
+
+	pRecord->set("goodsCountValue", goodsCountValue);
+
+	v.Format("%d", goodsUnit.GetCurSel());
+	pRecord->set("goodsUnit", v);
+
+	// truck info
+	v.Format("%d", truckLength.GetCurSel());
+	pRecord->set("truckLength", v);
+
+	v.Format("%d", truckType.GetCurSel());
+	pRecord->set("truckType", v);
+
+	pRecord->set("truckCountValue", truckCountValue);
+
+	// price info
+	pRecord->set("priceCountValue", priceCountValue);
+
+	v.Format("%d", priceList.GetCurSel());
+	pRecord->set("priceList", v);
+
+	// preview
+	pRecord->set("preview", preview);
+
+	// others
+	v.Format("%d", shipTime.GetCurSel());
+	pRecord->set("shipTime", v);
+
+	v.Format("%d", repubSetting.GetCurSel());
+	pRecord->set("repubSetting", v);
+
+	v.Format("%d", rememberRepubSetting);
+	pRecord->set("rememberRepubSetting", v);
+
+	v.Format("%d", longTimeAvailable);
+	pRecord->set("longTimeAvailable", v);
+
+	// publish string
+	pRecord->set("pubInf", pubInf.c_str());
+
+	CHistoryManager::getInstance()->addPublish(pRecord);
+}
+
+void CPublishWayOneDlg::SetComboSection(CComboBox& b, string k)
+{
+	CString v = pRecord->get(k);
+	
+	if ( v == "" )
+	{
+		return;
+	}
+
+	int n = atoi((LPSTR)(LPCTSTR)v);
+	b.SetCurSel(n);
+}
+
+void CPublishWayOneDlg::SetListSection(CListBox& b, string k)
+{
+	CString v = pRecord->get(k);
+
+	if ( v == "" )
+	{
+		return;
+	}
+
+	int n = atoi((LPSTR)(LPCTSTR)v);
+	b.SetCurSel(n);
+}
+
+void CPublishWayOneDlg::FromHistory()
+{
+	if ( pRecord == NULL )
+	{
+		return;
+	}
+
+	SetComboSection(msgType, "msgType");
+
+	if ( msgType.GetCurSel() == 0 )
+	{
+		firstPanel.SetWindowText("有货");
+		secondPanel.SetWindowText("求车");
+
+		publishKind = 0;
+	}
+	else
+	{
+		firstPanel.SetWindowText("有车");
+		secondPanel.SetWindowText("求货");
+
+		publishKind = 1;
+	}
+
+	m_strProvinceFrom = pRecord->get("strProvinceFrom");
+	m_strCityFrom = pRecord->get("strCityFrom");
+	m_strCountyFrom = pRecord->get("strCountyFrom");
+	m_strProvinceTo = pRecord->get("strProvinceTo");
+	m_strCityTo = pRecord->get("strCityTo");
+	m_strCountyTo = pRecord->get("strCountyTo");
+
+	SetListSection(goodsList, "goodsList");
+	goodsCountValue = pRecord->get("goodsCountValue");
+	SetComboSection(goodsUnit, "goodsUnit");
+
+	SetListSection(truckLength, "truckLength");
+	SetListSection(truckType, "truckType");
+
+	truckCountValue = pRecord->get("truckCountValue");
+
+	priceCountValue = pRecord->get("priceCountValue");
+	SetListSection(priceList, "priceList");
+
+	preview = pRecord->get("preview");
+
+	SetComboSection(shipTime, "shipTime");
+	SetComboSection(repubSetting, "repubSetting");
+
+	CString	v;
+
+	v = pRecord->get("rememberRepubSetting");
+	if ( v == "0" )
+	{
+		rememberRepubSetting = FALSE;
+	}
+	else
+	{
+		rememberRepubSetting = TRUE;
+	}
+
+	v = pRecord->get("longTimeAvailable");
+	if ( v == "0" )
+	{
+		longTimeAvailable = FALSE;
+	}
+	else
+	{
+		longTimeAvailable = TRUE;
+	}
+
+	v = pRecord->get("pubInf");
+	pubInf = v.GetBuffer();
+	v.ReleaseBuffer();
+
+	UpdateData(FALSE);
 }
 
 void CPublishWayOneDlg::OnBnClickedButtonPw1Clean()
@@ -650,3 +825,4 @@ BOOL CPublishWayOneDlg::PublishTruckInfo()
 
 	return TRUE;
 }
+

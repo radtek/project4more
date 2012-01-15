@@ -6,6 +6,8 @@
 #include "CountryRegion.h"
 #include "GLB.h"
 
+#include "PubHistoryDlg.h"
+
 #include <vector>
 using namespace std;
 
@@ -111,7 +113,8 @@ public:		// value variables
 
 private:
 
-	BOOL	bPreview;
+	BOOL				bPreview;
+	CPublishRecord*		pRecord;
 
 	void initControlValue();
 
@@ -128,4 +131,12 @@ private:
 	BOOL PublishGoodsInfo();
 
 	BOOL PublishTruckInfo();
+
+	void ToHistory();
+
+	void FromHistory();
+
+	void SetComboSection(CComboBox& b, string k);
+
+	void SetListSection(CListBox& b, string k);
 };

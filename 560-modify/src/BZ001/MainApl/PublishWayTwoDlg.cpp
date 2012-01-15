@@ -586,18 +586,38 @@ void CPublishWayTwoDlg::OnBnClickedButtonWord()
 void CPublishWayTwoDlg::OnBnClickedButtonPw2History()
 {
 	// TODO: Add your control notification handler code here
+	CPubHistoryDlg	dlg;
+
+	if ( dlg.DoModal() == IDOK )
+	{
+		pRecord = dlg.pSelectedRecord;
+		FromHistory();
+		if ( dlg.autoPublish )
+		{
+			OnOK();
+		}
+	}
 }
 
-void CPublishWayTwoDlg::OnBnClickedButtonPw2Pub()
+BOOL CPublishWayTwoDlg::PublishGoodsInfo()
 {
-	// TODO: Add your control notification handler code here
-	UpdateData();
-
 	if ( goodsValue == "" )
 	{
-		MessageBox("请选择货物种类", "发布");
-		return;
+		MessageBox("请选择货物种类", "发布货源");
+		return FALSE;
 	}
+
+	if ( preview == "" )
+	{
+		MessageBox("请先生成预览", "发布货源");
+		return FALSE;
+	}
+
+	if (mobile == "") {
+		MessageBox("联系电话不能为空", "发布货源");
+		return FALSE;
+	}
+
 	CString w = goodsCountValue;
 	CString tl = truckLengthValue;
 	CString tt = truckTypeValue;
@@ -650,7 +670,101 @@ void CPublishWayTwoDlg::OnBnClickedButtonPw2Pub()
 
 	pubInf = (LPTSTR)(LPCTSTR)tmp;
 
-	OnOK();
+	return TRUE;
+}
+
+BOOL CPublishWayTwoDlg::PublishTruckInfo()
+{
+	if ( goodsValue == "" )
+	{
+		MessageBox("请选择货物种类", "发布车源");
+		return FALSE;
+	}
+
+	if ( preview == "" )
+	{
+		MessageBox("请先生成预览", "发布车源");
+		return FALSE;
+	}
+
+	if (mobile == "") {
+		MessageBox("联系电话不能为空", "发布车源");
+		return FALSE;
+	}
+
+	CString	tc = truckCountValue;
+	CString w = goodsCountValue;
+	CString tl = truckLengthValue;
+	CString tt = truckTypeValue;
+
+	if ( tc == "" )
+		tc = "NULL";
+
+	if ( w == "" )
+		w = "NULL";
+
+	if ( tl == "" )
+		tl = "NULL";
+
+	if ( tt == "" )
+		tt = "NULL";
+
+	CString tmp = m_strProvinceFrom + "|" + m_strCityFrom + "|" + m_strCountyFrom
+		+ "|" + m_strProvinceTo + "|" + m_strCityTo + "|" + m_strCountyTo
+		+ "|||||||"
+		+ tc + "|" + w + "|NULL|" + tl + "|" + tt 
+		+ "|" + goodsValue + "|普货|" + mobile + "|" + shipTimeValue + "|" + repubSettingValue;
+
+	if (rememberRepubSetting)
+	{
+		tmp = tmp + "|" + "1"; 
+	}
+	else
+	{
+		tmp = tmp + "|" + "0";
+	}
+
+	if (longTimeAvailable)
+	{
+		tmp = tmp + "|" + "长期有效|"; 
+	}
+	else
+	{
+		tmp = tmp + "|" + "24小时|";
+	}
+
+	CString sText = preview;
+
+	sText.Replace("|","");
+
+	tmp += sText;
+
+	pubInf = (LPTSTR)(LPCTSTR)tmp; 
+
+	return TRUE;
+}
+
+void CPublishWayTwoDlg::OnBnClickedButtonPw2Pub()
+{
+	// TODO: Add your control notification handler code here
+	UpdateData();
+
+	BOOL	result;
+
+	if ( msgType.GetCurSel() == 0 )
+	{
+		result = PublishGoodsInfo();
+	}
+	else
+	{
+		result = PublishTruckInfo();
+	}
+
+	if ( result )
+	{
+		ToHistory();
+		OnOK();
+	}
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonPw2Clean()
@@ -675,4 +789,149 @@ void CPublishWayTwoDlg::OnCbnSelchangeComboInfoType()
 	{
 		publishKind = 1;
 	}
+}
+
+void CPublishWayTwoDlg::SetComboSection(CComboBox& b, string k)
+{
+	CString v = pRecord->get(k);
+
+	if ( v == "" )
+	{
+		return;
+	}
+
+	int n = atoi((LPSTR)(LPCTSTR)v);
+	b.SetCurSel(n);
+}
+
+void CPublishWayTwoDlg::SetListSection(CListBox& b, string k)
+{
+	CString v = pRecord->get(k);
+
+	if ( v == "" )
+	{
+		return;
+	}
+
+	int n = atoi((LPSTR)(LPCTSTR)v);
+	b.SetCurSel(n);
+}
+
+void CPublishWayTwoDlg::ToHistory()
+{
+	CPublishRecord*		pRecord = new CPublishRecord();
+	CString				v;
+
+	// publish type
+	v.Format("%d", msgType.GetCurSel());
+	pRecord->set("msgType", v);
+
+	// from to
+	pRecord->set("strProvinceFrom", m_strProvinceFrom);
+	pRecord->set("strCityFrom", m_strCityFrom);
+	pRecord->set("strCountyFrom", m_strCountyFrom);
+	pRecord->set("strProvinceTo", m_strProvinceTo);
+	pRecord->set("strCityTo", m_strCityTo);
+	pRecord->set("strCountyTo", m_strCountyTo);
+
+	// goods info
+	pRecord->set("goodsValue", goodsValue);
+	pRecord->set("goodsCountValue", goodsCountValue);
+
+	// truck info
+	pRecord->set("truckLengthValue", truckLengthValue);
+	pRecord->set("truckTypeValue", truckTypeValue);
+	pRecord->set("truckCountValue", truckCountValue);
+
+	// price info
+	pRecord->set("priceListValue", priceListValue);
+
+	// preview
+	pRecord->set("preview", preview);
+
+	// others
+	v.Format("%d", shipTime.GetCurSel());
+	pRecord->set("shipTime", v);
+
+	v.Format("%d", repubSetting.GetCurSel());
+	pRecord->set("repubSetting", v);
+
+	v.Format("%d", rememberRepubSetting);
+	pRecord->set("rememberRepubSetting", v);
+
+	v.Format("%d", longTimeAvailable);
+	pRecord->set("longTimeAvailable", v);
+
+	// publish string
+	pRecord->set("pubInf", pubInf.c_str());
+
+	CHistoryManager::getInstance()->addPublish(pRecord);
+}
+
+void CPublishWayTwoDlg::FromHistory()
+{
+	if ( pRecord == NULL )
+	{
+		return;
+	}
+
+	SetComboSection(msgType, "msgType");
+
+	if ( msgType.GetCurSel() == 0 )
+	{
+		publishKind = 0;
+	}
+	else
+	{
+		publishKind = 1;
+	}
+
+	m_strProvinceFrom = pRecord->get("strProvinceFrom");
+	m_strCityFrom = pRecord->get("strCityFrom");
+	m_strCountyFrom = pRecord->get("strCountyFrom");
+	m_strProvinceTo = pRecord->get("strProvinceTo");
+	m_strCityTo = pRecord->get("strCityTo");
+	m_strCountyTo = pRecord->get("strCountyTo");
+
+	goodsValue = pRecord->get("goodsValue");
+	goodsCountValue = pRecord->get("goodsCountValue");
+
+	truckLengthValue = pRecord->get("truckLengthValue");
+	truckTypeValue = pRecord->get("truckTypeValue");
+	truckCountValue = pRecord->get("truckCountValue");
+
+	priceListValue = pRecord->get("priceListValue");
+
+	preview = pRecord->get("preview");
+
+	SetComboSection(shipTime, "shipTime");
+	SetComboSection(repubSetting, "repubSetting");
+
+	CString	v;
+
+	v = pRecord->get("rememberRepubSetting");
+	if ( v == "0" )
+	{
+		rememberRepubSetting = FALSE;
+	}
+	else
+	{
+		rememberRepubSetting = TRUE;
+	}
+
+	v = pRecord->get("longTimeAvailable");
+	if ( v == "0" )
+	{
+		longTimeAvailable = FALSE;
+	}
+	else
+	{
+		longTimeAvailable = TRUE;
+	}
+
+	v = pRecord->get("pubInf");
+	pubInf = v.GetBuffer();
+	v.ReleaseBuffer();
+
+	UpdateData(FALSE);
 }

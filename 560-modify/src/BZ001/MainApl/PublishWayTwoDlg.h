@@ -6,6 +6,8 @@
 #include "CountryRegion.h"
 #include "GLB.h"
 
+#include "PubHistoryDlg.h"
+
 // CPublishWayTwoDlg dialog
 
 class CPublishWayTwoDlg : public CDialog
@@ -119,15 +121,32 @@ public:
 
 	CString goodsValue;
 	CString goodsCountValue;
+
 	CString truckLengthValue;
 	CString truckTypeValue;
 	CString truckCountValue;
+
 	CString priceListValue;
 
 private:
+	CPublishRecord*		pRecord;
+
 	void appendToPreview(CString str);
 
 	void initControlValue();
+
+	BOOL PublishGoodsInfo();
+
+	BOOL PublishTruckInfo();
+
+	void ToHistory();
+
+	void FromHistory();
+
+	void SetComboSection(CComboBox& b, string k);
+
+	void SetListSection(CListBox& b, string k);
+
 public:
 	afx_msg void OnBnClickedButtonPw2History();
 	afx_msg void OnBnClickedButtonPw2Pub();
