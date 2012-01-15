@@ -299,6 +299,7 @@ int CTabNewInfDlg::calRow()
     } else {
         curInput.record = (rect.Height()/abs(contentFont.lfHeight))/2;
     }
+	curInput.record = RECORD_NUM;
     return 0;
 }
 
