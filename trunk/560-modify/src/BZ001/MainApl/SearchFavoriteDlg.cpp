@@ -16,7 +16,6 @@ IMPLEMENT_DYNAMIC(CSearchFavoriteDlg, CDialog)
 CSearchFavoriteDlg::CSearchFavoriteDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CSearchFavoriteDlg::IDD, pParent)
 {
-	m_nSelIndex = -1;
 	m_pSelSearchFav = NULL;
 }
 
@@ -103,47 +102,46 @@ void CSearchFavoriteDlg::OnBnClickedButtonRefresh()
 
 void CSearchFavoriteDlg::OnBnClickedButtonUse()
 {
-	if( m_nSelIndex == -1 )
+	int nSelIndex = m_listCtrlFavorite.GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
+	if( nSelIndex == -1 )
 	{
 		MessageBox(_T("请选择要使用的搜索"), _T("系统提示"), MB_OK);
 		return;
 	}
 	CString sName;
-	GetSearchFavName(m_nSelIndex, sName);
+	GetSearchFavName(nSelIndex, sName);
 	m_pSelSearchFav = CHistoryManager::getInstance()->findSearchFav(string(sName));
 	((CSearchMainDlg*)(GetParent()->GetParent()))->PostMessage(WM_USE_SEARCH_FAVORITE);
 }
 
 void CSearchFavoriteDlg::OnBnClickedButtonDel()
 {
-	if( m_nSelIndex == -1 )
+	int nSelIndex = m_listCtrlFavorite.GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
+	if( nSelIndex == -1 )
 	{
 		MessageBox(_T("请选择要删除的搜索"), _T("系统提示"), MB_OK);
 		return;
 	}
-	int nDelIndex = m_nSelIndex; 
 
 	CString sName;
-	GetSearchFavName(m_nSelIndex, sName);
+	GetSearchFavName(nSelIndex, sName);
 	CHistoryManager::getInstance()->delSearchFav(string(sName));
-	m_listCtrlFavorite.DeleteItem(m_nSelIndex);
+	m_listCtrlFavorite.DeleteItem(nSelIndex);
 
 	CString sIndex;
-	int i = nDelIndex;
+	int i = nSelIndex;
 	int nCount = m_listCtrlFavorite.GetItemCount();
 	for(i; i<nCount; ++i)
 	{
 		sIndex.Format(" %d ", i);
 		m_listCtrlFavorite.SetItemText(i, 1, sIndex);
 	}
-
-	m_nSelIndex = -1;
-
 }
 
 void CSearchFavoriteDlg::OnBnClickedButtonRename()
 {
-	if( m_nSelIndex == -1 )
+	int nSelIndex = m_listCtrlFavorite.GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
+	if( nSelIndex == -1 )
 	{
 		MessageBox(_T("请选择要重命名的搜索"), _T("系统提示"), MB_OK);
 		return;
@@ -155,9 +153,9 @@ void CSearchFavoriteDlg::OnBnClickedButtonRename()
 		sNewName = dlg.GetNewName();
 		if( !sNewName.IsEmpty() )
 		{
-			GetSearchFavName(m_nSelIndex, sName);
+			GetSearchFavName(nSelIndex, sName);
 			CHistoryManager::getInstance()->renameSearchFav(string(sName), string(sNewName));
-			m_listCtrlFavorite.SetItemText(m_nSelIndex, 2, sNewName);
+			m_listCtrlFavorite.SetItemText(nSelIndex, 2, sNewName);
 		}
 	}
 }
@@ -165,6 +163,6 @@ void CSearchFavoriteDlg::OnBnClickedButtonRename()
 void CSearchFavoriteDlg::OnLvnItemchangedListCtrlSearchFavorite(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
-	m_nSelIndex = pNMLV->iItem;
+//	m_nSelIndex = pNMLV->iItem;
 	*pResult = 0;
 }

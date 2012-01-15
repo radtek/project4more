@@ -118,6 +118,8 @@ BEGIN_MESSAGE_MAP(CTabNewInfDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON_HIDE_PHONE_NUM, &CTabNewInfDlg::OnBnClickedButtonHidePhoneNum)
 	ON_BN_CLICKED(IDC_BUTTON_PUB_WAY_ONE, &CTabNewInfDlg::OnBnClickedButtonPubWayOne)
 	ON_BN_CLICKED(IDC_BUTTON_PUB_WAY_TWO, &CTabNewInfDlg::OnBnClickedButtonPubWayTwo)
+	ON_BN_CLICKED(IDC_TAB_NEW_UPTOP, &CTabNewInfDlg::OnBnClickedTabNewUptop)
+	ON_BN_CLICKED(IDC_TAB_NEW_BOTTOM_DOWN, &CTabNewInfDlg::OnBnClickedTabNewBottomDown)
 END_MESSAGE_MAP()
 
 // 自动改变控件位置大小
@@ -836,6 +838,29 @@ void CTabNewInfDlg::OnBnClickedTabNewNext()
     setData(curType, curInput.curpage);
 	Invalidate(TRUE);
 }
+void CTabNewInfDlg::OnBnClickedTabNewUptop()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	if(curInput.curpage <= 1) {
+		return;
+	}
+
+	curInput.curpage = 1;
+	setData(curType, curInput.curpage);
+	Invalidate(TRUE);
+}
+
+void CTabNewInfDlg::OnBnClickedTabNewBottomDown()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	if(curInput.curpage == maxPageNum) {
+		return;
+	}
+
+	curInput.curpage = maxPageNum;
+	setData(curType, curInput.curpage);
+	Invalidate(TRUE);
+}
 
 
 //搜索处理线程
@@ -1192,3 +1217,5 @@ void CTabNewInfDlg::OnBnClickedButtonPubWayTwo()
 {
 	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->OnBnClickedButtonPubWayTwo();
 }
+
+
