@@ -115,7 +115,7 @@ void CPubHistoryDlg::OnBnClickedButtonDelete()
 	// TODO: Add your control notification handler code here
 	int	pos = publishHistory.GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
 
-	if ( pos == 0 )
+	if ( pos == -1 )
 	{
 		MessageBox("请选择要删除的记录", "历史记录");
 		return;

@@ -121,6 +121,7 @@ private:
 
 public:
     CGridCtrl m_Grid;
+	afx_msg void OnGridDBLClick(NMHDR *pNotifyStruct, LRESULT* pResult);
     afx_msg void OnGridRClick(NMHDR *pNotifyStruct, LRESULT* pResult);
 // }
 
@@ -150,6 +151,8 @@ public:
 	afx_msg void OnBnClickedButtonSearch();
 	afx_msg void OnBnClickedButtonStopRefresh();
 	afx_msg void OnBnClickedButtonHidePhoneNum();
+public:
+	void SendSMS(const TabNewInfRecord& content);
 public:
 	void GetStartAddr(string& sProvince, string& sCity, string& sCounty)const
 	{

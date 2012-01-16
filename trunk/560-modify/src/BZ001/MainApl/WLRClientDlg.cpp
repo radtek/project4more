@@ -1965,11 +1965,11 @@ void CWLRClientDlg::search(UINT8 nType, UINT8 nOption/* = 1*/)
 				{
 					if( (pSearchCriteria->GetSearchType()&eSearchType_Goods) == eSearchType_Goods )
 					{
-						setSearchGoods(pSearchCriteria, nOption);
+						setSearchGoods(pSearchCriteria, pSearchCriteria->GetSearchType());
 					}
 					if( (pSearchCriteria->GetSearchType()&eSearchType_Car) == eSearchType_Car )
 					{
-						setSearchCars(pSearchCriteria, nOption);
+						setSearchCars(pSearchCriteria, pSearchCriteria->GetSearchType());
 					}
 				}
 				else if(  dlg.ShouldUseSearchFavorite() )
@@ -1979,11 +1979,11 @@ void CWLRClientDlg::search(UINT8 nType, UINT8 nOption/* = 1*/)
 					{
 						if( (pFavorite->GetSearchType()&eSearchType_Goods) == eSearchType_Goods )
 						{
-							setSearchGoods(pFavorite->GetSearchCriteria(), nOption);
+							setSearchGoods(pFavorite->GetSearchCriteria(), pFavorite->GetSearchType());
 						}
 						if( (pFavorite->GetSearchType()&eSearchType_Car) == eSearchType_Car )
 						{
-							setSearchCars(pFavorite->GetSearchCriteria(), nOption);
+							setSearchCars(pFavorite->GetSearchCriteria(), pFavorite->GetSearchType());
 						}
 					}
 				}
@@ -2003,11 +2003,11 @@ void CWLRClientDlg::search(UINT8 nType, UINT8 nOption/* = 1*/)
 				{
 					if( (pSearchCriteria->GetSearchType()&eSearchType_Goods) == eSearchType_Goods )
 					{
-						setSearchGoods(pSearchCriteria, nOption);
+						setSearchGoods(pSearchCriteria, pSearchCriteria->GetSearchType());
 					}
 					if( (pSearchCriteria->GetSearchType()&eSearchType_Car) == eSearchType_Car )
 					{
-						setSearchCars(pSearchCriteria, nOption);
+						setSearchCars(pSearchCriteria, pSearchCriteria->GetSearchType());
 					}
 				}
 				else if(  dlg.ShouldUseSearchFavorite() )
@@ -2017,11 +2017,11 @@ void CWLRClientDlg::search(UINT8 nType, UINT8 nOption/* = 1*/)
 					{
 						if( (pSearchCriteria->GetSearchType()&eSearchType_Goods) == eSearchType_Goods )
 						{
-							setSearchGoods(pFavorite->GetSearchCriteria(), nOption);
+							setSearchGoods(pFavorite->GetSearchCriteria(), pFavorite->GetSearchType());
 						}
 						if( (pSearchCriteria->GetSearchType()&eSearchType_Car) == eSearchType_Car )
 						{
-							setSearchCars(pFavorite->GetSearchCriteria(), nOption);
+							setSearchCars(pFavorite->GetSearchCriteria(), pFavorite->GetSearchType());
 						}
 					}
 				}
@@ -2128,7 +2128,7 @@ int CWLRClientDlg::setSearchGoods(const string& sSearchCriteria, UINT8 nOption)
     hideAllWindows();
 
     mTabMain.DeleteAllItems();
-    mTabMain.InsertItem(0,"搜索货源结果");
+    mTabMain.InsertItem(0,nOption == eSearchType_Goods?"搜索货源结果":"搜索全部信息结果");
     
     //获得IDC_TABTEST客户区大小
     CRect rect;
@@ -2207,7 +2207,7 @@ int CWLRClientDlg::setSearchCars(const string& sSearchCriteria, UINT8 nOption)
     hideAllWindows();
 
     mTabMain.DeleteAllItems();
-    mTabMain.InsertItem(0,"搜索车源结果");
+	mTabMain.InsertItem(0,nOption == eSearchType_Car?"搜索车源结果":"搜索全部信息结果");
     
     //获得IDC_TABTEST客户区大小
     CRect rect;
@@ -3692,8 +3692,6 @@ void CWLRClientDlg::OnBnClickedCancel()
 //发布货源
 void CWLRClientDlg::OnBnClickedBtnReleasegoods()
 {
-	CPublishWayOneDlg dlg;
-	dlg.DoModal();
 	// TODO: Add your control notification handler code here
 	if ( is_funcs_enabled ) 
 		pubGoodsInf();

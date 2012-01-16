@@ -300,6 +300,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NewInfoDetailDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\NumberDlg.cpp"
 				>
 			</File>
@@ -713,6 +717,10 @@
 			</File>
 			<File
 				RelativePath=".\MyRSA.h"
+				>
+			</File>
+			<File
+				RelativePath=".\NewInfoDetailDlg.h"
 				>
 			</File>
 			<File

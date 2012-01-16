@@ -5,6 +5,7 @@
 #include "WLRClient.h"
 #include "TabMyInfDlg.h"
 #include "header.h"
+#include "NewInfoDetailDlg.h"
 
 // CTabMyInfDlg 对话框
 int nmyhy=0;
@@ -77,6 +78,7 @@ BEGIN_MESSAGE_MAP(CTabMyInfDlg, CDialog)
     ON_WM_SIZE()
     //}}AFX_MSG_MAP
     ON_NOTIFY(NM_RCLICK, IDC_TAB_MY_INF_LIST, OnGridRClick)
+	ON_NOTIFY(NM_DBLCLK, IDC_TAB_MY_INF_LIST, OnGridDBLClick)
     ON_COMMAND(ID_MENU_OPERATION_DELETE, &CTabMyInfDlg::OnMenuOperationDelete)
     ON_BN_CLICKED(IDC_TAB_MY_PREV, &CTabMyInfDlg::OnBnClickedTabMyPrev)
     ON_BN_CLICKED(IDC_TAB_MY_NEXT, &CTabMyInfDlg::OnBnClickedTabMyNext)
@@ -585,6 +587,23 @@ void CTabMyInfDlg::OnGridRClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
 	//第五个默认为NULL,表示当用户在菜单以外的区域按鼠标键时，菜单会消失
 	pPopupMenu->TrackPopupMenu(TPM_TOPALIGN,point.x,point.y,this,NULL);
 }
+void CTabMyInfDlg::OnGridDBLClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
+{
+	NM_GRIDVIEW* pItem = (NM_GRIDVIEW*) pNotifyStruct;
+	//CString str;
+	//str.Format(_T("选中行为： %d"), pItem->iRow);
+	//AfxMessageBox(str);
+	// 获取当前选择的行
+	curSelRow = pItem->iRow;
+	if (curSelRow < 0) {
+		return;
+	}
+
+	int index = curSelRow;
+	CNewInfoDetailDlg dlg(&contentData.at(index), (curType==0)?CNewInfoDetailDlg::eInfoType_MyGoods:CNewInfoDetailDlg::eInfoType_MyCars, this);
+	dlg.DoModal();
+}
+
     
 // 弹出菜单：删除
 void CTabMyInfDlg::OnMenuOperationDelete()

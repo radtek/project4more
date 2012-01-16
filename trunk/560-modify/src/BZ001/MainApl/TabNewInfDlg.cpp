@@ -7,6 +7,7 @@
 #include "SendPhoneMsgDlg.h"
 #include "CommDef.h"
 #include "header.h"
+#include "NewInfoDetailDlg.h"
 
 extern UserInfo user;
 // CTabNewInfDlg 对话框
@@ -99,6 +100,7 @@ BEGIN_MESSAGE_MAP(CTabNewInfDlg, CDialog)
     ON_WM_SIZE()
     //}}AFX_MSG_MAP
     ON_NOTIFY(NM_RCLICK, IDC_TAB_NEW_INF_LIST, OnGridRClick)
+	ON_NOTIFY(NM_DBLCLK, IDC_TAB_NEW_INF_LIST, OnGridDBLClick)
     //ON_NOTIFY(NM_DBLCLK, IDC_TAB_NEW_INF_LIST, OnGridRClick)
     ON_COMMAND(ID_MENU_OPERATION_SENDMSG, &CTabNewInfDlg::OnMenuSendmsgSendmsg)
     ON_BN_CLICKED(IDC_TAB_NEW_PREV, &CTabNewInfDlg::OnBnClickedTabNewPrev)
@@ -330,7 +332,7 @@ int CTabNewInfDlg::setData(int type, int curpage)
     string pubUID;     // the user id of pub this record
 	};
 
-	vector<TabNewInfRecord> * pcontentData = new vector<TabNewInfRecord>();
+//	vector<TabNewInfRecord> * pcontentData = new vector<TabNewInfRecord>();
 	//xqh:
 	//内存空间,会导致pcontentData的调用失败，再次取消ZeroMemory
 	//ZeroMemory(pcontentData,sizeof vector<TabNewInfRecord>);
@@ -338,7 +340,7 @@ int CTabNewInfDlg::setData(int type, int curpage)
     title.startPlace = "出发地";
     title.endPlace = "到达地";
 	contentData.clear();
-	pcontentData->clear();
+	//pcontentData->clear();
 	
     switch (curType) {
         case 0: // 货源
@@ -358,7 +360,7 @@ int CTabNewInfDlg::setData(int type, int curpage)
 					{
 						if (contentDataHY[i].recordID != "")
 						{
-							pcontentData->push_back(contentDataHY[i]);
+							//pcontentData->push_back(contentDataHY[i]);
 							contentData.push_back(contentDataHY[i]);
 						}
 
@@ -376,7 +378,7 @@ int CTabNewInfDlg::setData(int type, int curpage)
 						if (curInput.curpage*curInput.record > RECORD_NUM|| (curInput.curpage-1)*curInput.record > RECORD_NUM)
 						{
 
-							pcontentData->clear();
+							//pcontentData->clear();
 							//svrIO->getNewGoodsInf(contentData, curInput);
 							TRACE("ok0  =  %d\n");
 							nSSset = 10;
@@ -391,7 +393,7 @@ int CTabNewInfDlg::setData(int type, int curpage)
 						}
 						if (contentDataHY[i].recordID != "")
 						{
-							pcontentData->push_back(contentDataHY[i]);
+							//pcontentData->push_back(contentDataHY[i]);
 							contentData.push_back(contentDataHY[i]);
 						}
 
@@ -411,7 +413,7 @@ int CTabNewInfDlg::setData(int type, int curpage)
 					{
 						if (contentDataLD[i].recordID != "")
 						{
-							pcontentData->push_back(contentDataLD[i]);
+							//pcontentData->push_back(contentDataLD[i]);
 							contentData.push_back(contentDataLD[i]);
 						}
 					}
@@ -429,7 +431,7 @@ int CTabNewInfDlg::setData(int type, int curpage)
 							//SuspendThread(hThread);
 
 							//Sleep(100);
-							pcontentData->clear();
+							//pcontentData->clear();
 							//svrIO->getNewGoodsInf(contentData, curInput);
 							TRACE("ok0  =  %d\n");
 							nSSset = 11;
@@ -445,7 +447,7 @@ int CTabNewInfDlg::setData(int type, int curpage)
 						}
 						if (contentDataLD[i].recordID != "")
 						{
-							pcontentData->push_back(contentDataLD[i]);
+							//pcontentData->push_back(contentDataLD[i]);
 							contentData.push_back(contentDataLD[i]);
 						}
 
@@ -470,7 +472,7 @@ int CTabNewInfDlg::setData(int type, int curpage)
 					{
 						if (contentDataCY[i].recordID != "")
 						{
-							pcontentData->push_back(contentDataCY[i]);
+						//	pcontentData->push_back(contentDataCY[i]);
 							contentData.push_back(contentDataCY[i]);
 						}
 					}
@@ -502,7 +504,7 @@ int CTabNewInfDlg::setData(int type, int curpage)
 						}
 						if (contentDataCY[i].recordID != "")
 						{
-							pcontentData->push_back(contentDataCY[i]);
+						//	pcontentData->push_back(contentDataCY[i]);
 							//TRACE(contentDataCY[i].recordID.c_str());
 							//TRACE("\n");
 							contentData.push_back(contentDataCY[i]);
@@ -518,7 +520,7 @@ int CTabNewInfDlg::setData(int type, int curpage)
 			//contentData.clear();
 			//SuspendThread(hThread);
 			//Sleep(200);
-			pcontentData->clear();
+		//	pcontentData->clear();
 			nSSset = 0;
 			DWORD PID;
 			HANDLE Main_Thread;
@@ -531,7 +533,7 @@ int CTabNewInfDlg::setData(int type, int curpage)
 			//contentData.clear();
 			//SuspendThread(hThread);
 			//Sleep(200);
-			pcontentData->clear();
+			//pcontentData->clear();
 			nSSset = 1;
 			Main_Thread=CreateThread(NULL,0,ThreadFuncSS,this,0,&PID);
 			CloseHandle(Main_Thread);
@@ -540,7 +542,7 @@ int CTabNewInfDlg::setData(int type, int curpage)
             title.record = "搜索到的车源信息";
 			//contentData.clear();
 			//SuspendThread(hThread);
-			pcontentData->clear();
+			//pcontentData->clear();
 			nSSset = 2;
 			Main_Thread=CreateThread(NULL,0,ThreadFuncSS,this,0,&PID);
 			CloseHandle(Main_Thread);
@@ -550,7 +552,7 @@ int CTabNewInfDlg::setData(int type, int curpage)
             title.record = "搜索到的货源信息";
 			//contentData.clear();
 			//SuspendThread(hThread);
-			pcontentData->clear();
+			//pcontentData->clear();
 			nSSset = 3;
 			Main_Thread=CreateThread(NULL,0,ThreadFuncSS,this,0,&PID);
             break;
@@ -558,7 +560,7 @@ int CTabNewInfDlg::setData(int type, int curpage)
             title.record = "搜索到的零担信息";
 			//contentData.clear();
 			//SuspendThread(hThread);
-			pcontentData->clear();
+			//pcontentData->clear();
 			nSSset = 4;
 			Main_Thread=CreateThread(NULL,0,ThreadFuncSS,this,0,&PID);
 			CloseHandle(Main_Thread);
@@ -567,7 +569,7 @@ int CTabNewInfDlg::setData(int type, int curpage)
             title.record = "搜索到的车源信息";
 			//contentData.clear();
 			//SuspendThread(hThread);
-			pcontentData->clear();
+			//pcontentData->clear();
 			nSSset = 5;
 			Main_Thread=CreateThread(NULL,0,ThreadFuncSS,this,0,&PID);
 			CloseHandle(Main_Thread);
@@ -579,9 +581,9 @@ int CTabNewInfDlg::setData(int type, int curpage)
     titleData = title;
 	
     // 设置最大页数
-	if (pcontentData->size() > 0) {
-		maxPageNum = atoi(pcontentData->at(0).totalNum.c_str()) / curInput.record;
-		int n =atoi(pcontentData->at(0).totalNum.c_str()) % curInput.record;
+	if (contentData.size() > 0) {
+		maxPageNum = atoi(contentData.at(0).totalNum.c_str()) / curInput.record;
+		int n =atoi(contentData.at(0).totalNum.c_str()) % curInput.record;
 		if (n == 0)
 		{
 
@@ -598,7 +600,7 @@ int CTabNewInfDlg::setData(int type, int curpage)
     // 设置表格   
 	try
 	{
-		 setGrid(pcontentData);
+		 setGrid(&contentData);
 	}
 	catch (...)
 	{
@@ -771,32 +773,54 @@ void CTabNewInfDlg::OnGridRClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
 	//第五个默认为NULL,表示当用户在菜单以外的区域按鼠标键时，菜单会消失
 	pPopupMenu->TrackPopupMenu(TPM_TOPALIGN,point.x,point.y,this,NULL);
 }
+void CTabNewInfDlg::OnGridDBLClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
+{
+	NM_GRIDVIEW* pItem = (NM_GRIDVIEW*) pNotifyStruct;
+	//CString str;
+	//str.Format(_T("选中行为： %d"), pItem->iRow);
+	//AfxMessageBox(str);
+	// 获取当前选择的行
+	curSelRow = pItem->iRow;
+	if (curSelRow < 0) {
+		return;
+	}
+
+	int index = curSelRow;
+	CNewInfoDetailDlg dlg(&contentData.at(index), (curType==0||curType==3)?CNewInfoDetailDlg::eInfoType_Goods:CNewInfoDetailDlg::eInfoType_Cars, this);
+	dlg.DoModal();
+}
     
 // 弹出菜单：发短信
 void CTabNewInfDlg::OnMenuSendmsgSendmsg()
 {
     // TODO: 在此添加命令处理程序代码
-    int index = curSelRow;
-    string tmp = contentData.at(index).startPlace + "->" + contentData.at(index).endPlace
-        + "。" + contentData.at(index).record+ contentData.at(index).tel;
-    CSendPhoneMsgDlg dlg;
-    dlg.phoneMsg = tmp.c_str();
-    if (dlg.DoModal() == IDOK) {
+	if( curSelRow >= 0 )
+	{
+		SendSMS(contentData.at(curSelRow));
+	}
+ 
+}
+void CTabNewInfDlg::SendSMS(const TabNewInfRecord& content)
+{
+	string tmp = content.startPlace + "->" + content.endPlace+ "。" + content.record+ content.tel;
+	CSendPhoneMsgDlg dlg;
+	dlg.phoneMsg = tmp.c_str();
+	if (dlg.DoModal() == IDOK) {
 		sphonenum = (LPTSTR)(LPCTSTR)dlg.phoneNumber;
 		sphonetext = (LPTSTR)(LPCTSTR)dlg.phoneMsg;
 		//SuspendThread(hThread);
-//         string result = svrIO->sendPhoneMessage((LPTSTR)(LPCTSTR)dlg.phoneNumber, (LPTSTR)(LPCTSTR)dlg.phoneMsg);
-// 
-//         if (result == "TRUE") {
-//             MessageBox("短信发送成功！","发送短信");
-//         } else {
-//             MessageBox(result.c_str(),"短信发送失败");
-//         }
+		//         string result = svrIO->sendPhoneMessage((LPTSTR)(LPCTSTR)dlg.phoneNumber, (LPTSTR)(LPCTSTR)dlg.phoneMsg);
+		// 
+		//         if (result == "TRUE") {
+		//             MessageBox("短信发送成功！","发送短信");
+		//         } else {
+		//             MessageBox(result.c_str(),"短信发送失败");
+		//         }
 		nSSset = 20;
 		DWORD PID;
 		HANDLE Main_Thread;
 		Main_Thread=CreateThread(NULL,0,ProcMore,this,0,&PID);
-    }
+	}
 }
         
 // set grid content font

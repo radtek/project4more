@@ -95,6 +95,7 @@ public:
     CGridCtrl m_Grid;
     // Grid”“º¸œ˚œ¢
     afx_msg void OnGridRClick(NMHDR *pNotifyStruct, LRESULT* pResult);
+	afx_msg void OnGridDBLClick(NMHDR *pNotifyStruct, LRESULT* pResult);
 // }
 
 	DECLARE_MESSAGE_MAP()
@@ -118,6 +119,8 @@ public:
     afx_msg void OnBnClickedTabCustomPrev();
 public:
     afx_msg void OnBnClickedTabCustomNext();
+public:
+	void SendSMS(const TabCustomInfRecord& content);
 public:
     // «∞“≥
     CHoverButton btnPrev;
