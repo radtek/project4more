@@ -591,9 +591,20 @@ BOOL CPublishWayOneDlg::CheckGoodsInfo()
 		return FALSE;
 	}
 
-	if (m_strProvinceTo == "" || m_strCityTo == "" || m_strCountyTo == "")
+	if (m_strProvinceTo == "")
 	{
-		MessageBox("目的地不能为空", "发布货源");
+		MessageBox("目的地：一级地址不能为空", "发布车源");
+		return FALSE;
+	}
+
+	if( m_strCityTo == "" )
+	{
+		MessageBox("目的地：二级地址不能为空", "发布车源");
+		return FALSE;
+	}
+	if( m_strCountyTo == "" )
+	{
+		MessageBox("目的地：三级地址不能为空", "发布车源");
 		return FALSE;
 	}
 
@@ -648,9 +659,20 @@ BOOL CPublishWayOneDlg::CheckTruckInfo()
 		return FALSE;
 	}
 
-	if (m_strProvinceTo == "" || m_strCityTo == "" || m_strCountyTo == "")
+	if (m_strProvinceTo == "")
 	{
-		MessageBox("目的地不能为空", "发布车源");
+		MessageBox("目的地：一级地址不能为空", "发布车源");
+		return FALSE;
+	}
+
+	if( m_strCityTo == "" )
+	{
+		MessageBox("目的地：二级地址不能为空", "发布车源");
+		return FALSE;
+	}
+	if( m_strCountyTo == "" )
+	{
+		MessageBox("目的地：三级地址不能为空", "发布车源");
 		return FALSE;
 	}
 

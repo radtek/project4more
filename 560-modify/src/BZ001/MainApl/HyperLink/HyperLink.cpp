@@ -144,7 +144,7 @@ TCHAR* CHyperLink::GetLinkText()
 	return lpRet;
 }
 
-void CHyperLink::SetLinkText(TCHAR* lpText)
+void CHyperLink::SetLinkText(const TCHAR* lpText)
 {
 	if (m_lpLinkText != NULL)
 	{
@@ -172,7 +172,7 @@ TCHAR* CHyperLink::GetLinkUrl()
 	return lpRet;
 }
 
-void CHyperLink::SetLinkUrl(TCHAR* lpUrl)
+void CHyperLink::SetLinkUrl(const TCHAR* lpUrl)
 {
 	if (m_lpLinkUrl != NULL)
 	{

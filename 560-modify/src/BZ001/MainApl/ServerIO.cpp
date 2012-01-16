@@ -399,7 +399,8 @@ int ServerIO::getNewGoodsInf(vector<TabNewInfRecord> &inf, inputParam& input)
 				inf.push_back(tmp);                
 			}
 #else
-			if (tokens.at(0) == "TRUE" && tokens.size() >= 16) {
+			if (tokens.at(0) == "TRUE" && tokens.size() >= 16)
+			{
 				tmp.totalNum = tokens.at(1);
 				tmp.returnNum = tokens.at(2);
 				tmp.recordID = tokens.at(3);
@@ -419,11 +420,11 @@ int ServerIO::getNewGoodsInf(vector<TabNewInfRecord> &inf, inputParam& input)
 				tmp.record = tokens.at(13) + "(" + tokens.at(14) + ")。";
 				tmp.tel = " ";
 				if (tokens.at(10) != "NULL") {
-					tmp.tel +=  tokens.at(10);
+					tmp.tel +=  tmp.pubName = tokens.at(10);
 					tmp.tel += " ";
 				} else {
 					if (tokens.at(11) != "NULL") {
-						tmp.tel +=  tokens.at(11);
+						tmp.tel +=  tmp.pubName = tokens.at(11);
 						tmp.tel += " ";
 					}
 				}
@@ -433,6 +434,14 @@ int ServerIO::getNewGoodsInf(vector<TabNewInfRecord> &inf, inputParam& input)
 					tmp.tel += tokens.at(12);
 				}
 				tmp.pubUID = tokens.at(15);
+
+				if( tokens.size() ==  20 )
+				{
+					tmp.pubURL = tokens.at(16);
+					tmp.pubAddress = tokens.at(17);
+					tmp.dateTime = tokens.at(18);
+					tmp.state = tokens.at(19);
+				}
 				inf.push_back(tmp);                
 			}
 #endif
@@ -549,7 +558,7 @@ int ServerIO::getCustomGoodsInf(vector<TabCustomInfRecord> &inf, inputParam& inp
 				tmp.record = tokens.at(13) + "(" + tokens.at(14) + ")。";
 				tmp.tel = " ";
 				if (tokens.at(10) != "NULL") {
-					tmp.tel +=  tokens.at(10);
+					tmp.tel +=  tmp.pubName = tokens.at(10);
 					tmp.tel += " ";
 				} else {
 					if (tokens.at(11) != "NULL") {
@@ -563,6 +572,15 @@ int ServerIO::getCustomGoodsInf(vector<TabCustomInfRecord> &inf, inputParam& inp
 					tmp.tel += tokens.at(12);
 				}
 				tmp.pubUID = tokens.at(15);
+
+				if( tokens.size() ==  20 )
+				{
+					tmp.pubURL = tokens.at(16);
+					tmp.pubAddress = tokens.at(17);
+					tmp.dateTime = tokens.at(18);
+					tmp.state = tokens.at(19);
+				}
+
 				inf.push_back(tmp);                
 			}
 #endif
@@ -659,11 +677,11 @@ int ServerIO::getMyGoodsInf(vector<TabMyInfRecord> &inf, inputParam& input)
 				tmp.record = tokens.at(13) + "(" + tokens.at(14) + ")。";
 				tmp.tel = " ";
 				if (tokens.at(10) != "NULL") {
-					tmp.tel +=  tokens.at(10);
+					tmp.tel +=  tmp.pubName = tokens.at(10);
 					tmp.tel += " ";
 				} else {
 					if (tokens.at(11) != "NULL") {
-						tmp.tel +=  tokens.at(11);
+						tmp.tel +=  tmp.pubName = tokens.at(11);
 						tmp.tel += " ";
 					}
 				}
@@ -673,6 +691,14 @@ int ServerIO::getMyGoodsInf(vector<TabMyInfRecord> &inf, inputParam& input)
 					tmp.tel += tokens.at(12);
 				}
 				tmp.pubUID = tokens.at(15);
+
+				if( tokens.size() ==  20 )
+				{
+					tmp.pubURL = tokens.at(16);
+					tmp.pubAddress = tokens.at(17);
+					tmp.dateTime = tokens.at(18);
+					tmp.state = tokens.at(19);
+				}
 				inf.push_back(tmp);                
 			}
 #endif
@@ -1014,11 +1040,11 @@ int ServerIO::getNewCarsInf(vector<TabNewInfRecord> &inf, inputParam& input)
 				tmp.record = tokens.at(19) + "(" + tokens.at(20) + ")。";
 				tmp.tel = " ";
 				if (tokens.at(16) != "NULL") {
-					tmp.tel +=  tokens.at(16);
+					tmp.tel +=  tmp.pubName = tokens.at(16);
 					tmp.tel += " ";
 				} else {
 					if (tokens.at(17) != "NULL") {
-						tmp.tel +=  tokens.at(17);
+						tmp.tel +=  tmp.pubName = tokens.at(17);
 						tmp.tel += " ";
 					}
 				}
@@ -1027,6 +1053,14 @@ int ServerIO::getNewCarsInf(vector<TabNewInfRecord> &inf, inputParam& input)
 					tmp.tel += tokens.at(18);
 				}
 				tmp.pubUID = tokens.at(21);
+
+				if( tokens.size() > 22 && tokens.size() < 26)
+				{
+					tmp.pubURL = tokens.at(22);
+					tmp.pubAddress = tokens.at(23);
+					tmp.dateTime = tokens.at(24);
+					tmp.state = tokens.at(25);
+				}
 				inf.push_back(tmp);                
 			}
 #endif
@@ -1169,11 +1203,11 @@ int ServerIO::getCustomCarsInf(vector<TabCustomInfRecord> &inf, inputParam& inpu
 				tmp.record = tokens.at(19) + "(" + tokens.at(20) + ")。";
 				tmp.tel = " ";
 				if (tokens.at(16) != "NULL") {
-					tmp.tel +=  tokens.at(16);
+					tmp.tel +=  tmp.pubName = tokens.at(16);
 					tmp.tel += " ";
 				} else {
 					if (tokens.at(17) != "NULL") {
-						tmp.tel +=  tokens.at(17);
+						tmp.tel +=  tmp.pubName = tokens.at(17);
 						tmp.tel += " ";
 					}
 				}
@@ -1182,6 +1216,14 @@ int ServerIO::getCustomCarsInf(vector<TabCustomInfRecord> &inf, inputParam& inpu
 					tmp.tel += tokens.at(18);
 				}
 				tmp.pubUID = tokens.at(21);
+
+				if( tokens.size() > 22 && tokens.size() < 26)
+				{
+					tmp.pubURL = tokens.at(22);
+					tmp.pubAddress = tokens.at(23);
+					tmp.dateTime = tokens.at(24);
+					tmp.state = tokens.at(25);
+				}
 				inf.push_back(tmp);                
 			}
 #endif
@@ -1301,11 +1343,11 @@ int ServerIO::getMyCarsInf(vector<TabMyInfRecord> &inf, inputParam& input)
 				tmp.record = tokens.at(19) + "(" + tokens.at(20) + ")。";
 				tmp.tel = " ";
 				if (tokens.at(16) != "NULL") {
-					tmp.tel +=  tokens.at(16);
+					tmp.tel +=  tmp.pubName = tokens.at(16);
 					tmp.tel += " ";
 				} else {
 					if (tokens.at(17) != "NULL") {
-						tmp.tel +=  tokens.at(17);
+						tmp.tel +=  tmp.pubName = tokens.at(17);
 						tmp.tel += " ";
 					}
 				}
@@ -1314,6 +1356,15 @@ int ServerIO::getMyCarsInf(vector<TabMyInfRecord> &inf, inputParam& input)
 					tmp.tel += tokens.at(18);
 				}
 				tmp.pubUID = tokens.at(21);
+
+				if( tokens.size() > 22 && tokens.size() < 26)
+				{
+					tmp.pubURL = tokens.at(22);
+					tmp.pubAddress = tokens.at(23);
+					tmp.dateTime = tokens.at(24);
+					tmp.state = tokens.at(25);
+				}
+
 				inf.push_back(tmp);                
 			}
 #endif
@@ -1393,6 +1444,16 @@ int ServerIO::getAllSpecialLineInf(vector<TabSpecialLineRecord> &inf, inputParam
 					tmp.tel += tokens.at(13);
 				}
                 tmp.pubUID = tokens.at(15);
+
+				if( tokens.size() > 16 && tokens.size() < 22)
+				{
+					tmp.startAddr = tokens.at(16);
+					tmp.startContact = tokens.at(17);
+					tmp.startPhone = tokens.at(18);
+					tmp.destAddr = tokens.at(19);
+					tmp.destContact = tokens.at(20);
+					tmp.destPhone = tokens.at(21);
+				}
                 inf.push_back(tmp);                
             }
 
@@ -1469,6 +1530,17 @@ int ServerIO::getMySpecialLineInf(vector<TabSpecialLineRecord> &inf, inputParam&
 					tmp.tel += tokens.at(13);
 				}
                 tmp.pubUID = tokens.at(15);
+
+				if( tokens.size() > 16 && tokens.size() < 22)
+				{
+					tmp.startAddr = tokens.at(16);
+					tmp.startContact = tokens.at(17);
+					tmp.startPhone = tokens.at(18);
+					tmp.destAddr = tokens.at(19);
+					tmp.destContact = tokens.at(20);
+					tmp.destPhone = tokens.at(21);
+				}
+
                 inf.push_back(tmp);                
             }
 
@@ -1545,6 +1617,17 @@ int ServerIO::getFavoriteSpecialLineInf(vector<TabSpecialLineRecord> &inf, input
 					tmp.tel += tokens.at(13);
 				}
                 tmp.pubUID = tokens.at(15);
+
+				if( tokens.size() > 16 && tokens.size() < 22)
+				{
+					tmp.startAddr = tokens.at(16);
+					tmp.startContact = tokens.at(17);
+					tmp.startPhone = tokens.at(18);
+					tmp.destAddr = tokens.at(19);
+					tmp.destContact = tokens.at(20);
+					tmp.destPhone = tokens.at(21);
+				}
+
                 inf.push_back(tmp);                
             }
 

@@ -85,10 +85,10 @@ private:
 
 public:
 	TCHAR* GetLinkText();
-	void SetLinkText(TCHAR* lpText);
+	void SetLinkText(const TCHAR* lpText);
 
 	TCHAR* GetLinkUrl();
-	void SetLinkUrl(TCHAR* lpUrl);
+	void SetLinkUrl(const TCHAR* lpUrl);
 
 	void LockInPosition(BOOL bLockInPosition = FALSE);
 

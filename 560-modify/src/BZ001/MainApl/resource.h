@@ -102,6 +102,7 @@
 #define IDD_SEARCH_FAV_RENAME           250
 #define IDB_BITMAP5                     251
 #define IDB_BITMAP6                     252
+#define IDD_DIALOG_DETAIL_INFO          253
 #define IDC_BTN_MainPage                1000
 #define IDC_COLOR_NAME                  1000
 #define IDC_CONFIG_SET_SYSBKCLR         1000
@@ -536,6 +537,16 @@
 #define IDC_STATIC_TITLE                1311
 #define IDC_STATIC_CAR_UNIT             1312
 #define IDC_EDIT_FAVORITE_NAME          1314
+#define IDC_STATIC_PUBLISHER            1318
+#define IDC_STATIC_DT_SCHEDULE          1319
+#define IDC_STATIC_INFO_ID              1320
+#define IDC_BUTTON_SEND_SMS             1321
+#define IDC_STATIC_PUB_ADDR             1322
+#define IDC_STATIC_PUB_DT               1323
+#define IDC_STATIC_INFO_STATUS          1324
+#define IDC_STATIC_ADDR_INFO            1325
+#define IDC_STATIC_INFO_DESC            1326
+#define IDC_STATIC_CONTACT_INFO         1327
 #define ID_32771                        32771
 #define ID_MENU_SENDMSG_SENDMSG         32772
 #define ID_32775                        32775
@@ -550,9 +561,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        253
+#define _APS_NEXT_RESOURCE_VALUE        254
 #define _APS_NEXT_COMMAND_VALUE         32783
-#define _APS_NEXT_CONTROL_VALUE         1315
+#define _APS_NEXT_CONTROL_VALUE         1328
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

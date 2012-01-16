@@ -71,6 +71,11 @@ struct TabNewInfRecord {
     string record;     // record information
     string tel;        // tel information
     string pubUID;     // the user id of pub this record
+	string pubName;	   // the name of the publisher
+	string pubURL;     // the user's url
+	string pubAddress;  //
+	string dateTime;    //
+	string state;		//
 };
     
 // 定制信息（货源、零担、车源）
@@ -83,6 +88,11 @@ struct TabCustomInfRecord {
     string record;     // record information
     string tel;        // tel information
     string pubUID;     // the user id of pub this record
+	string pubName;	   // the name of the publisher
+	string pubURL;     // the user's url
+	string pubAddress;  //
+	string dateTime;    //
+	string state;		//
 };
     
 // 我的信息（货源、零担、车源）
@@ -95,6 +105,11 @@ struct TabMyInfRecord {
     string record;     // record information
     string tel;        // tel information
     string pubUID;     // the user id of pub this record
+	string pubName;	   // the name of the publisher
+	string pubURL;     // the user's url
+	string pubAddress;  //
+	string dateTime;    //
+	string state;		//
 };
     
 // 专线信息（最新专线、我的专线、我收藏的专线）
@@ -111,6 +126,12 @@ struct TabSpecialLineRecord {
     string record;     // record information
     string tel;        // tel information
     string pubUID;     // the user id of pub this record
+	string startAddr;  //
+	string startContact;//
+	string startPhone;//
+	string destAddr;  //
+	string destContact;//
+	string destPhone;//
 };
 //服务站的信息
 struct ServiceInfo

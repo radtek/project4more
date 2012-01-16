@@ -8,6 +8,7 @@
 #include "SendPhoneMsgDlg.h"
 #include "AddCustomZoneDlg.h"
 #include "header.h"
+#include "NewInfoDetailDlg.h"
 // CTabCustomInfDlg 对话框
 
 IMPLEMENT_DYNAMIC(CTabCustomInfDlg, CDialog)
@@ -83,6 +84,7 @@ BEGIN_MESSAGE_MAP(CTabCustomInfDlg, CDialog)
     ON_WM_SIZE()
     //}}AFX_MSG_MAP
     ON_NOTIFY(NM_RCLICK, IDC_TAB_CUSTOM_INF_LIST, OnGridRClick)
+	ON_NOTIFY(NM_DBLCLK, IDC_TAB_CUSTOM_INF_LIST, OnGridDBLClick)
     ON_CBN_SELCHANGE(IDC_TAB_CUSTOM_COMB, &CTabCustomInfDlg::OnCbnSelchangeTabCustomComb)
     ON_BN_CLICKED(IDC_TAB_CUSTOM_ADD, &CTabCustomInfDlg::OnBnClickedTabCustomAdd)
     ON_BN_CLICKED(IDC_TAB_CUSTOM_DELETE, &CTabCustomInfDlg::OnBnClickedTabCustomDelete)
@@ -374,23 +376,46 @@ void CTabCustomInfDlg::OnGridRClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
 	pPopupMenu->TrackPopupMenu(TPM_TOPALIGN, point.x, point.y, this, NULL);
 }
 
+void CTabCustomInfDlg::OnGridDBLClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
+{
+	NM_GRIDVIEW* pItem = (NM_GRIDVIEW*) pNotifyStruct;
+	//CString str;
+	//str.Format(_T("选中行为： %d"), pItem->iRow);
+	//AfxMessageBox(str);
+	// 获取当前选择的行
+	curSelRow = pItem->iRow;
+	if (curSelRow < 0) {
+		return;
+	}
+
+	int index = curSelRow;
+	CNewInfoDetailDlg dlg(&contentData.at(index), (curType==0)?CNewInfoDetailDlg::eInfoType_CustomGoods:CNewInfoDetailDlg::eInfoType_CustomCars, this);
+	dlg.DoModal();
+}
+
 // 弹出菜单：发短信
 void CTabCustomInfDlg::OnMenuSendmsgSendmsg()
 {
     // TODO: 在此添加命令处理程序代码
-    int index = curSelRow;
-    string tmp = contentData.at(index).startPlace + "->" + contentData.at(index).endPlace
-        + "。" + contentData.at(index).record + contentData.at(index).tel;
-    CSendPhoneMsgDlg dlg;
-    dlg.phoneMsg = tmp.c_str();
-    if (dlg.DoModal() == IDOK) {
-//		SuspendThread(hThread);
-//         string result = svrIONew->sendPhoneMessage((LPTSTR)(LPCTSTR)dlg.phoneNumber, (LPTSTR)(LPCTSTR)dlg.phoneMsg);
-//         if (result == "TRUE") {
-//             MessageBox("短信发送成功！","发送短信");
-//         } else {
-//             MessageBox(result.c_str(),"短信发送失败");
-//         }
+	if( curSelRow >= 0 )
+	{
+		SendSMS(contentData.at(curSelRow));
+	}
+}    
+
+void CTabCustomInfDlg::SendSMS(const TabCustomInfRecord& content)
+{
+	string tmp = content.startPlace + "->" + content.endPlace+ "。" + content.record+ content.tel;
+	CSendPhoneMsgDlg dlg;
+	dlg.phoneMsg = tmp.c_str();
+	if (dlg.DoModal() == IDOK) {
+		//		SuspendThread(hThread);
+		//         string result = svrIONew->sendPhoneMessage((LPTSTR)(LPCTSTR)dlg.phoneNumber, (LPTSTR)(LPCTSTR)dlg.phoneMsg);
+		//         if (result == "TRUE") {
+		//             MessageBox("短信发送成功！","发送短信");
+		//         } else {
+		//             MessageBox(result.c_str(),"短信发送失败");
+		//         }
 		sphonenum = (LPTSTR)(LPCTSTR)dlg.phoneNumber;
 		sphonetext = (LPTSTR)(LPCTSTR)dlg.phoneMsg;
 		DWORD PID;
@@ -399,8 +424,9 @@ void CTabCustomInfDlg::OnMenuSendmsgSendmsg()
 		//SuspendThread(hThread);
 		//Sleep(100);
 		Main_Thread=CreateThread(NULL,0,ThreadFuncMy,this,0,&PID);
-    }
-}    
+	}
+}
+
 
 // set grid content font
 int CTabCustomInfDlg::setCridContentFont(SettingFont& font)

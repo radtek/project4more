@@ -87,6 +87,7 @@ public:
 	static DWORD WINAPI ThreadFuncMy(LPVOID p); //Ïß³Ì
 	LONG OnFresh(WPARAM w, LPARAM l);
     afx_msg void OnGridRClick(NMHDR *pNotifyStruct, LRESULT* pResult);
+	afx_msg void OnGridDBLClick(NMHDR *pNotifyStruct, LRESULT* pResult);
 // }
 
 	DECLARE_MESSAGE_MAP()
