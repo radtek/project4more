@@ -146,6 +146,8 @@ public:
     int initTreeCtrl();
     // 隐藏所有的窗口
     int hideAllWindows();
+    //
+    int ShowTabDlgs();
 
     // 区域信息
     CountryRegion myCR;
@@ -176,9 +178,10 @@ private:
     // 是否显示电话
     bool ifShowPhone;
     // 当前显示的TAB内容
-    TabType curTabType;
+    TabType m_curTabType;
+    TabType m_curSearchType;
     // 当前TAB索引
-    int curTabIndex;
+    int m_curTabIndex;
     // 是否自动刷新
     bool ifAutoRefresh;
     // 自动刷新间隔时间

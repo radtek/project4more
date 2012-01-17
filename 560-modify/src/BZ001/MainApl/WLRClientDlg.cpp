@@ -860,7 +860,7 @@ int CWLRClientDlg::initTabCtrl()
 
     setGoodsInf();
     ifInit = true;
-    curTabIndex = 0;
+    m_curTabIndex = 0;
 
     return 0;
 }
@@ -1074,77 +1074,81 @@ void CWLRClientDlg::OnSize(UINT nType, int cx, int cy)
 
     //设置子对话框尺寸并移动到指定位置
 	//EnterCriticalSection(&csPrint);
-    switch (curTabType) {
-    case GOODS:  // 货源                
-        newGoodsInf.MoveWindow(&rect);
-        customGoodsInf.MoveWindow(&rect);
-        myGoodsInf.MoveWindow(&rect);
-        setGoodsInf(curTabIndex);
-        break;
-    case BULKGOODS: // 零担 
-        newBulkGoodsInf.MoveWindow(&rect);
-        myBulkGoodsInf.MoveWindow(&rect);
-        setBulkGoodsInf(curTabIndex);
-        break;
-    case CARS:      // 车源
-        newCarsInf.MoveWindow(&rect);
-        customCarsInf.MoveWindow(&rect);
-        myCarsInf.MoveWindow(&rect);
-        setCarsInf(curTabIndex);
-        break;
-    case LINES:     // 专线
-        allspecialLine.MoveWindow(&rect);
-        mySpecialLine.MoveWindow(&rect);
-        favoriteSpecialLine.MoveWindow(&rect);
-        setSpecialLineInf(curTabIndex);
-        break;
-    case SEARCH_GOODS:     // 搜索货源
-        searchGoodsInf.MoveWindow(&rect);
-        searchGoodsInf.ShowWindow(false);
-        searchGoodsInf.ShowWindow(true);
-        break;
-    case SEARCH_BULKGOODS: // 搜索零担
-        searchBulkGoodsInf.MoveWindow(&rect);
-        searchBulkGoodsInf.ShowWindow(false);
-        searchBulkGoodsInf.ShowWindow(true);
-        break;
-    case SEARCH_CARS:      // 搜索车源
-        searchCarsInf.MoveWindow(&rect);
-        searchCarsInf.ShowWindow(false);
-        searchCarsInf.ShowWindow(true);
-        break;
-    case SEARCH_SPECIAL:   // 搜索专线
-        searchSpecialLine.MoveWindow(&rect);
-        searchSpecialLine.ShowWindow(false);
-        searchSpecialLine.ShowWindow(true);
-        break;
-    case CLICK_SEARCH_GOODS:      // 点击搜索货源
-        searchGoodsInf.MoveWindow(&rect);
-        searchGoodsInf.ShowWindow(false);
-        searchGoodsInf.ShowWindow(true);
-        break;
-    case CLICK_SEARCH_BULKGOODS:  // 点击搜索零担
-        searchBulkGoodsInf.MoveWindow(&rect);
-        searchBulkGoodsInf.ShowWindow(false);
-        searchBulkGoodsInf.ShowWindow(true);
-        break;
-    case CLICK_SEARCH_CARS:       // 点击搜索车源
-        searchCarsInf.MoveWindow(&rect);
-        searchCarsInf.ShowWindow(false);
-        searchCarsInf.ShowWindow(true);
-        break;
-    case CLICK_SEARCH_SPECIAL:    // 点击搜索专线
-        searchSpecialLine.MoveWindow(&rect);
-        searchSpecialLine.ShowWindow(false);
-        searchSpecialLine.ShowWindow(true);
-        break;
-    default:
-        ;
-    }
+    //switch (m_curTabType) {
+    //case GOODS:  // 货源                
+    //    newGoodsInf.MoveWindow(&rect);
+    //    customGoodsInf.MoveWindow(&rect);
+    //    myGoodsInf.MoveWindow(&rect);
+    //    setGoodsInf(m_curTabIndex);
+    //    break;
+    //case BULKGOODS: // 零担 
+    //    newBulkGoodsInf.MoveWindow(&rect);
+    //    myBulkGoodsInf.MoveWindow(&rect);
+    //    setBulkGoodsInf(m_curTabIndex);
+    //    break;
+    //case CARS:      // 车源
+    //    newCarsInf.MoveWindow(&rect);
+    //    customCarsInf.MoveWindow(&rect);
+    //    myCarsInf.MoveWindow(&rect);
+    //    setCarsInf(m_curTabIndex);
+    //    break;
+    //case LINES:     // 专线
+    //    allspecialLine.MoveWindow(&rect);
+    //    mySpecialLine.MoveWindow(&rect);
+    //    favoriteSpecialLine.MoveWindow(&rect);
+    //    setSpecialLineInf(m_curTabIndex);
+    //    break;
+    //case SEARCH_GOODS:     // 搜索货源
+    //    searchGoodsInf.MoveWindow(&rect);
+    //    searchGoodsInf.ShowWindow(false);
+    //    searchGoodsInf.ShowWindow(true);
+    //    break;
+    //case SEARCH_BULKGOODS: // 搜索零担
+    //    searchBulkGoodsInf.MoveWindow(&rect);
+    //    searchBulkGoodsInf.ShowWindow(false);
+    //    searchBulkGoodsInf.ShowWindow(true);
+    //    break;
+    //case SEARCH_CARS:      // 搜索车源
+    //    searchCarsInf.MoveWindow(&rect);
+    //    searchCarsInf.ShowWindow(false);
+    //    searchCarsInf.ShowWindow(true);
+    //    break;
+    //case SEARCH_SPECIAL:   // 搜索专线
+    //    searchSpecialLine.MoveWindow(&rect);
+    //    searchSpecialLine.ShowWindow(false);
+    //    searchSpecialLine.ShowWindow(true);
+    //    break;
+    //case CLICK_SEARCH_GOODS:      // 点击搜索货源
+    //    searchGoodsInf.MoveWindow(&rect);
+    //    searchGoodsInf.ShowWindow(false);
+    //    searchGoodsInf.ShowWindow(true);
+    //    break;
+    //case CLICK_SEARCH_BULKGOODS:  // 点击搜索零担
+    //    searchBulkGoodsInf.MoveWindow(&rect);
+    //    searchBulkGoodsInf.ShowWindow(false);
+    //    searchBulkGoodsInf.ShowWindow(true);
+    //    break;
+    //case CLICK_SEARCH_CARS:       // 点击搜索车源
+    //    searchCarsInf.MoveWindow(&rect);
+    //    searchCarsInf.ShowWindow(false);
+    //    searchCarsInf.ShowWindow(true);
+    //    break;
+    //case CLICK_SEARCH_SPECIAL:    // 点击搜索专线
+    //    searchSpecialLine.MoveWindow(&rect);
+    //    searchSpecialLine.ShowWindow(false);
+    //    searchSpecialLine.ShowWindow(true);
+    //    break;
+    //default:
+    //    ;
+    //}
     //*/
+
+    hideAllWindows();
+    ShowTabDlgs();
 
     // 重置广告滚动条
 	//LeaveCriticalSection(&csPrint);
+
     pubAD.Resize();
 }
     
@@ -1154,8 +1158,8 @@ void CWLRClientDlg::OnTcnSelchangeTabMain(NMHDR *pNMHDR, LRESULT *pResult)
     // TODO: 在此添加控件通知处理程序代码
 	KillTimer(AUTO_REFRESH_TIMER_ID);
     int CurSel = mTabMain.GetCurSel();
-    curTabIndex = CurSel;
-    if (curTabType == GOODS) { // 货源 
+    m_curTabIndex = CurSel;
+    if (m_curTabType == GOODS) { // 货源 
         setGoodsInf(CurSel);
         /*
         switch(CurSel) { 
@@ -1182,7 +1186,7 @@ void CWLRClientDlg::OnTcnSelchangeTabMain(NMHDR *pNMHDR, LRESULT *pResult)
             break;
         }
         */
-    } else if (curTabType == BULKGOODS) { // 零担 
+    } else if (m_curTabType == BULKGOODS) { // 零担 
         setBulkGoodsInf(CurSel);
         /*
         switch(CurSel) { 
@@ -1199,9 +1203,9 @@ void CWLRClientDlg::OnTcnSelchangeTabMain(NMHDR *pNMHDR, LRESULT *pResult)
         default: 
             break;
         }*/
-    } else if (curTabType == CARS) {      // 车源
+    } else if (m_curTabType == CARS) {      // 车源
         setCarsInf(CurSel);
-    } else if (curTabType == LINES) {     // 专线
+    } else if (m_curTabType == LINES) {     // 专线
         setSpecialLineInf(CurSel);;
     } else { // 搜索
         //setSearchInf(CurSel);;
@@ -1228,22 +1232,22 @@ void CWLRClientDlg::OnTvnSelchangedTreeMain(NMHDR *pNMHDR, LRESULT *pResult)
 
 	//MessageBox("您选中的是:" + parStr + " " + strSelect);
     
-    if(curTabType == GOODS || curTabType == SEARCH_GOODS || curTabType == CLICK_SEARCH_GOODS) {
+    if(m_curTabType == GOODS/* || m_curTabType == SEARCH_GOODS || m_curTabType == CLICK_SEARCH_GOODS*/) {
         InClickSearch tmp;
         tmp.province = (LPTSTR)(LPCTSTR)parStr;
         tmp.city = (LPTSTR)(LPCTSTR)strSelect;
         clickSearchGoods(tmp);
-    } else if(curTabType == BULKGOODS || curTabType == SEARCH_BULKGOODS || curTabType == CLICK_SEARCH_BULKGOODS) {
+    } else if(m_curTabType == BULKGOODS/* || m_curTabType == SEARCH_BULKGOODS || m_curTabType == CLICK_SEARCH_BULKGOODS*/) {
         InClickSearch tmp;
         tmp.province = (LPTSTR)(LPCTSTR)parStr;
         tmp.city = (LPTSTR)(LPCTSTR)strSelect;
         clickSearchBulkGoods(tmp);
-    } else if(curTabType == CARS || curTabType == SEARCH_CARS || curTabType == CLICK_SEARCH_CARS) {
+    } else if(m_curTabType == CARS/* || m_curTabType == SEARCH_CARS || m_curTabType == CLICK_SEARCH_CARS*/) {
         InClickSearch tmp;
         tmp.province = (LPTSTR)(LPCTSTR)parStr;
         tmp.city = (LPTSTR)(LPCTSTR)strSelect;
         clickSearchCars(tmp);
-    } else if(curTabType == LINES || curTabType == SEARCH_SPECIAL || curTabType == CLICK_SEARCH_SPECIAL) {
+    } else if(m_curTabType == LINES/* || m_curTabType == SEARCH_SPECIAL || m_curTabType == CLICK_SEARCH_SPECIAL*/) {
         InClickSearch tmp;
         tmp.province = (LPTSTR)(LPCTSTR)parStr;
         tmp.city = (LPTSTR)(LPCTSTR)strSelect;
@@ -1287,6 +1291,134 @@ int CWLRClientDlg::hideAllWindows() {
 
     return 0;
 }
+
+// 隐藏所有的窗口
+int CWLRClientDlg::ShowTabDlgs() {
+    CDialog *pMainTab = NULL, *pSearchTab = NULL;
+
+    switch (m_curTabType)
+    {
+    case GOODS:
+        switch (m_curTabIndex)
+        {
+        case 0:
+            pMainTab = &newGoodsInf;
+            break;
+        case 1:
+            pMainTab = &customGoodsInf;
+            break;
+        case 2:
+            pMainTab = &myGoodsInf;
+            break;
+        default:
+            break;
+        }
+        break;
+    case BULKGOODS:
+        switch (m_curTabIndex)
+        {
+        case 0:
+            pMainTab = &newBulkGoodsInf;
+            break;
+        case 1:
+            pMainTab = &myBulkGoodsInf;
+            break;
+        default:
+            break;
+        }
+        break;
+    case CARS:
+        switch (m_curTabIndex)
+        {
+        case 0:
+            pMainTab = &newCarsInf;
+            break;
+        case 1:
+            pMainTab = &customCarsInf;
+            break;
+        case 2:
+            pMainTab = &myCarsInf;
+            break;
+        default:
+            break;
+        }
+        break;
+    case LINES:
+        switch (m_curTabIndex)
+        {
+        case 0:
+            pMainTab = &allspecialLine;
+            break;
+        case 1:
+            pMainTab = &mySpecialLine;
+            break;
+        case 2:
+            pMainTab = &favoriteSpecialLine;
+            break;
+        default:
+            break;
+        }
+        break;
+    default:
+        break;
+    }
+
+    switch (m_curSearchType)
+    {
+    case SEARCH_GOODS:
+    case CLICK_SEARCH_GOODS:
+        pSearchTab = &searchGoodsInf;
+        break;
+    case SEARCH_BULKGOODS:
+    case CLICK_SEARCH_BULKGOODS:
+        pSearchTab = &searchBulkGoodsInf;
+        break;
+    case SEARCH_CARS:
+    case CLICK_SEARCH_CARS:
+        pSearchTab = &searchCarsInf;
+        break;
+    case SEARCH_SPECIAL:
+    case CLICK_SEARCH_SPECIAL:
+        pSearchTab = &searchSpecialLine;
+        break;
+    default:
+        break;
+    }
+
+    CRect rect;
+    mTabMain.GetClientRect(&rect);
+
+    //调整子对话框在父窗口中的位置
+    rect.top+=20; 
+    rect.left+=1; 
+    rect.right-=2;
+
+    if (pMainTab)
+    {
+        if (pSearchTab)
+        {
+            pMainTab->MoveWindow(rect.left, rect.top, rect.Width(), rect.Height() / 2);
+            pSearchTab->MoveWindow(rect.left, rect.top + rect.Height() / 2, rect.Width(), rect.Height() / 2);
+
+            pSearchTab->ShowWindow(true);
+        }
+        else
+            pMainTab->MoveWindow(rect);
+
+        pMainTab->ShowWindow(true);
+    }
+    else
+    {
+        if (pSearchTab)
+        {
+            pSearchTab->MoveWindow(rect);
+            
+            pSearchTab->ShowWindow(true);
+        }
+    }
+
+    return 0;
+}
     
 // 点击“拍照”按钮
 void CWLRClientDlg::OnBnClickedBtnMainpage()
@@ -1316,7 +1448,7 @@ void CWLRClientDlg::OnBnClickedBtnGoods()
 {
     // TODO: 在此添加控件通知处理程序代码
 	EnterCriticalSection(&csClick);
-	curTabIndex = 0;
+	m_curTabIndex = 0;
     setGoodsInf();
 	LeaveCriticalSection(&csClick);
 }
@@ -1326,7 +1458,7 @@ void CWLRClientDlg::OnBnClickedBtnBulkgoods()
 {
     // TODO: 在此添加控件通知处理程序代码
 	EnterCriticalSection(&csClick);
-	curTabIndex = 0;
+	m_curTabIndex = 0;
     setBulkGoodsInf();
 	LeaveCriticalSection(&csClick);
 }
@@ -1336,7 +1468,7 @@ void CWLRClientDlg::OnBnClickedBtnCars()
 {
     // TODO: 在此添加控件通知处理程序代码
 	EnterCriticalSection(&csClick);
-	curTabIndex = 0;
+	m_curTabIndex = 0;
     setCarsInf();
 	LeaveCriticalSection(&csClick);
 }
@@ -1346,7 +1478,7 @@ void CWLRClientDlg::OnBnClickedBtnLine()
 {
     // TODO: 在此添加控件通知处理程序代码
 	EnterCriticalSection(&csClick);
-	curTabIndex = 0;
+	m_curTabIndex = 0;
     setSpecialLineInf();
 	LeaveCriticalSection(&csClick);
 }
@@ -1544,8 +1676,8 @@ void CWLRClientDlg::OnBnClickedBtnHidetel()
 		// showPhone.LoadBitmap(IDB_SHOWPHONE);
 	}
 	i++;
-    if (curTabType == GOODS) { // 货源 
-        switch(curTabIndex) { 
+    if (m_curTabType == GOODS) { // 货源 
+        switch(m_curTabIndex) { 
         case 0:
             newGoodsInf.setIfShowPhone(switchShowPhone());
             break;
@@ -1560,8 +1692,8 @@ void CWLRClientDlg::OnBnClickedBtnHidetel()
         }
     }
     
-    if (curTabType == BULKGOODS) { // 零担 
-        switch(curTabIndex) { 
+    if (m_curTabType == BULKGOODS) { // 零担 
+        switch(m_curTabIndex) { 
         case 0:
             newBulkGoodsInf.setIfShowPhone(switchShowPhone());
             break;
@@ -1575,8 +1707,8 @@ void CWLRClientDlg::OnBnClickedBtnHidetel()
         }
     } 
     
-    if (curTabType == CARS) { // 车源
-        switch(curTabIndex) { 
+    if (m_curTabType == CARS) { // 车源
+        switch(m_curTabIndex) { 
         case 0:
             newCarsInf.setIfShowPhone(switchShowPhone());
             break;
@@ -1591,8 +1723,8 @@ void CWLRClientDlg::OnBnClickedBtnHidetel()
         }
     } 
     
-    if (curTabType == LINES) { // 专线
-        switch(curTabIndex) { 
+    if (m_curTabType == LINES) { // 专线
+        switch(m_curTabIndex) { 
         case 0:
             allspecialLine.setIfShowPhone(switchShowPhone());
             break;
@@ -1607,19 +1739,19 @@ void CWLRClientDlg::OnBnClickedBtnHidetel()
         }
     } 
 
-    if (curTabType == SEARCH_GOODS || curTabType == CLICK_SEARCH_GOODS) {
+    if (m_curTabType == SEARCH_GOODS || m_curTabType == CLICK_SEARCH_GOODS) {
         searchGoodsInf.setIfShowPhone(switchShowPhone());
     } 
 
-    if (curTabType == SEARCH_BULKGOODS || curTabType == CLICK_SEARCH_BULKGOODS) {
+    if (m_curTabType == SEARCH_BULKGOODS || m_curTabType == CLICK_SEARCH_BULKGOODS) {
         searchBulkGoodsInf.setIfShowPhone(switchShowPhone());
     } 
 
-    if (curTabType == SEARCH_CARS || curTabType == CLICK_SEARCH_CARS) {
+    if (m_curTabType == SEARCH_CARS || m_curTabType == CLICK_SEARCH_CARS) {
         searchCarsInf.setIfShowPhone(switchShowPhone());
     }
 
-    if (curTabType == SEARCH_SPECIAL || curTabType == CLICK_SEARCH_SPECIAL) {
+    if (m_curTabType == SEARCH_SPECIAL || m_curTabType == CLICK_SEARCH_SPECIAL) {
         searchSpecialLine.setIfShowPhone(switchShowPhone());
     }
 }
@@ -1668,7 +1800,7 @@ void CWLRClientDlg::OnBnClickedBtnPub()
 
 int CWLRClientDlg::setGoodsInf(int tabIndex)
 {
-    curTabType = GOODS;
+    m_curTabType = GOODS;
     hideAllWindows();
 
     mTabMain.DeleteAllItems();
@@ -1702,9 +1834,9 @@ int CWLRClientDlg::setGoodsInf(int tabIndex)
 // 				Sleep(100);
 // 			}
 // 		}
-        newGoodsInf.MoveWindow(&rect);
+        //newGoodsInf.MoveWindow(&rect);
         //分别设置隐藏和显示
-        newGoodsInf.ShowWindow(true);
+        //newGoodsInf.ShowWindow(true);
         // 显示数据
         newGoodsInf.svrIONew = &svrIONew; 
 		newGoodsInf.svrIO = &svrIOMore;
@@ -1716,9 +1848,9 @@ int CWLRClientDlg::setGoodsInf(int tabIndex)
 		index = 0;
 		SetTimer(AUTO_REFRESH_TIMER_ID, 1500, NULL);
         //设置子对话框尺寸并移动到指定位置
-        customGoodsInf.MoveWindow(&rect);
+        //customGoodsInf.MoveWindow(&rect);
         //分别设置隐藏和显示
-        customGoodsInf.ShowWindow(true);
+        //customGoodsInf.ShowWindow(true);
         // 显示数据
         customGoodsInf.svrIO = &svrIO; 
 		customGoodsInf.svrIONew = &svrIOCustom;
@@ -1742,9 +1874,9 @@ int CWLRClientDlg::setGoodsInf(int tabIndex)
 // 				Sleep(100);
 // 			}
 // 		}
-        myGoodsInf.MoveWindow(&rect);
+        //myGoodsInf.MoveWindow(&rect);
         //分别设置隐藏和显示
-        myGoodsInf.ShowWindow(true); 
+        //myGoodsInf.ShowWindow(true); 
         // 显示数据
         myGoodsInf.svrIO = &svrIOMy;
 		myGoodsInf.svrIONew = &svrIOMy;
@@ -1756,6 +1888,7 @@ int CWLRClientDlg::setGoodsInf(int tabIndex)
     mTabMain.SetCurSel(tabIndex);
 
     //mTabMain.UpdateData(false);
+    ShowTabDlgs();
 
     return 0;
 }
@@ -1763,7 +1896,7 @@ int CWLRClientDlg::setGoodsInf(int tabIndex)
 // 设置零担信息
 int CWLRClientDlg::setBulkGoodsInf(int tabIndex)
 {
-    curTabType = BULKGOODS;
+    m_curTabType = BULKGOODS;
     hideAllWindows();
 
     mTabMain.DeleteAllItems();
@@ -1782,9 +1915,9 @@ int CWLRClientDlg::setBulkGoodsInf(int tabIndex)
     if (0 == tabIndex) {
 		showtype = NewBulkGood;
         // 设置子对话框尺寸并移动到指定位置
-        newBulkGoodsInf.MoveWindow(&rect);
+        //newBulkGoodsInf.MoveWindow(&rect);
         // 分别设置隐藏和显示
-        newBulkGoodsInf.ShowWindow(true);
+        //newBulkGoodsInf.ShowWindow(true);
         // 显示数据
         newBulkGoodsInf.svrIO = &svrIOMore;
 		newBulkGoodsInf.svrIONew = &svrIONew;
@@ -1793,9 +1926,9 @@ int CWLRClientDlg::setBulkGoodsInf(int tabIndex)
     } else {
 		showtype = MyBulkGood;
         // 设置子对话框尺寸并移动到指定位置
-        myBulkGoodsInf.MoveWindow(&rect);
+        //myBulkGoodsInf.MoveWindow(&rect);
         // 分别设置隐藏和显示
-        myBulkGoodsInf.ShowWindow(true);
+        //myBulkGoodsInf.ShowWindow(true);
         // 显示数据
         myBulkGoodsInf.svrIO = &svrIOMy; 
 		myBulkGoodsInf.svrIONew = &svrIOMy; 
@@ -1806,13 +1939,15 @@ int CWLRClientDlg::setBulkGoodsInf(int tabIndex)
     //设置默认的选项卡
     mTabMain.SetCurSel(tabIndex);
 
+    ShowTabDlgs();
+
     return 0;
 }    
      
 // 设置车源信息
 int CWLRClientDlg::setCarsInf(int tabIndex)
 {
-    curTabType = CARS;
+    m_curTabType = CARS;
     hideAllWindows();
 
     mTabMain.DeleteAllItems();
@@ -1847,9 +1982,9 @@ int CWLRClientDlg::setCarsInf(int tabIndex)
 // 				Sleep(100);
 // 			}
 // 		}
-        newCarsInf.MoveWindow(&rect);
+        //newCarsInf.MoveWindow(&rect);
         //分别设置隐藏和显示
-        newCarsInf.ShowWindow(true);
+        //newCarsInf.ShowWindow(true);
         // 显示数据
         newCarsInf.svrIO = &svrIOMore;
 		newCarsInf.svrIONew = &svrIONew;
@@ -1861,9 +1996,9 @@ int CWLRClientDlg::setCarsInf(int tabIndex)
         //设置子对话框尺寸并移动到指定位置
 		//Sleep(200);
 		index = 0;
-        customCarsInf.MoveWindow(&rect);
+        //customCarsInf.MoveWindow(&rect);
         //分别设置隐藏和显示
-        customCarsInf.ShowWindow(true);
+        //customCarsInf.ShowWindow(true);
         // 显示数据
         customCarsInf.svrIO = &svrIO;
 		customCarsInf.svrIONew = &svrIOCustom;
@@ -1873,9 +2008,9 @@ int CWLRClientDlg::setCarsInf(int tabIndex)
         //设置子对话框尺寸并移动到指定位置
 		//ResumeThread(hThread);
 		showtype = MyCar;
-        myCarsInf.MoveWindow(&rect);
+        //myCarsInf.MoveWindow(&rect);
         //分别设置隐藏和显示
-        myCarsInf.ShowWindow(true); 
+        //myCarsInf.ShowWindow(true); 
         // 显示数据
         myCarsInf.svrIO = &svrIOMy;
 		myCarsInf.svrIONew = &svrIOMy;
@@ -1886,13 +2021,15 @@ int CWLRClientDlg::setCarsInf(int tabIndex)
     //设置默认的选项卡
     mTabMain.SetCurSel(tabIndex);
 
+    ShowTabDlgs();
+
     return 0;
 }
     
 // 设置专线信息
 int CWLRClientDlg::setSpecialLineInf(int tabIndex)
 {
-    curTabType = LINES;
+    m_curTabType = LINES;
     hideAllWindows();
 
     mTabMain.DeleteAllItems();
@@ -1912,9 +2049,9 @@ int CWLRClientDlg::setSpecialLineInf(int tabIndex)
     if (0 == tabIndex) { // 所有专线    
         //设置子对话框尺寸并移动到指定位置
 		showtype = NewSpecial;
-        allspecialLine.MoveWindow(&rect);
+        //allspecialLine.MoveWindow(&rect);
         //分别设置隐藏和显示
-        allspecialLine.ShowWindow(true);
+        //allspecialLine.ShowWindow(true);
         // 显示数据
         allspecialLine.svrIO = &svrIOSpecial;
 		allspecialLine.svrIONew = &svrIOSpecial;
@@ -1923,9 +2060,9 @@ int CWLRClientDlg::setSpecialLineInf(int tabIndex)
     } else if (1 == tabIndex) { // 我的专线
          //设置子对话框尺寸并移动到指定位置
 		showtype = MySpecial;
-        mySpecialLine.MoveWindow(&rect);
+        //mySpecialLine.MoveWindow(&rect);
         //分别设置隐藏和显示
-        mySpecialLine.ShowWindow(true);
+        //mySpecialLine.ShowWindow(true);
         // 显示数据
         mySpecialLine.svrIO = &svrIOSpecial;
 		mySpecialLine.svrIONew = &svrIOSpecial;
@@ -1934,9 +2071,9 @@ int CWLRClientDlg::setSpecialLineInf(int tabIndex)
     } else { // 我的收藏
         //设置子对话框尺寸并移动到指定位置
 		showtype = MyFavoritesSpecial;
-        favoriteSpecialLine.MoveWindow(&rect);
+        //favoriteSpecialLine.MoveWindow(&rect);
         //分别设置隐藏和显示
-        favoriteSpecialLine.ShowWindow(true);
+        //favoriteSpecialLine.ShowWindow(true);
         // 显示数据
         favoriteSpecialLine.svrIO = &svrIOSpecial; 
 		favoriteSpecialLine.svrIONew = &svrIOSpecial;
@@ -1946,6 +2083,8 @@ int CWLRClientDlg::setSpecialLineInf(int tabIndex)
 
     //设置默认的选项卡
     mTabMain.SetCurSel(tabIndex);
+
+    ShowTabDlgs();
 
     return 0;
 }
@@ -2124,11 +2263,11 @@ int CWLRClientDlg::setSearchGoods(const CSearchCriteria* pSearchCriteria, UINT8 
 }
 int CWLRClientDlg::setSearchGoods(const string& sSearchCriteria, UINT8 nOption)
 {
-    curTabType = SEARCH_GOODS;
+    m_curSearchType = SEARCH_GOODS;
     hideAllWindows();
 
-    mTabMain.DeleteAllItems();
-    mTabMain.InsertItem(0,nOption == eSearchType_Goods?"搜索货源结果":"搜索全部信息结果");
+    //mTabMain.DeleteAllItems();
+    //mTabMain.InsertItem(0,nOption == eSearchType_Goods?"搜索货源结果":"搜索全部信息结果");
     
     //获得IDC_TABTEST客户区大小
     CRect rect;
@@ -2140,9 +2279,9 @@ int CWLRClientDlg::setSearchGoods(const string& sSearchCriteria, UINT8 nOption)
     rect.right-=2;    
   
     //设置子对话框尺寸并移动到指定位置
-    searchGoodsInf.MoveWindow(&rect);
+    //searchGoodsInf.MoveWindow(&rect);
     //分别设置隐藏和显示
-    searchGoodsInf.ShowWindow(true);
+    //searchGoodsInf.ShowWindow(true);
     // 显示数据
     searchGoodsInf.svrIO = &svrIO; 
     searchGoodsInf.svrIONew = &svrIONew; 
@@ -2158,17 +2297,20 @@ int CWLRClientDlg::setSearchGoods(const string& sSearchCriteria, UINT8 nOption)
 
 	newGoodsInf.SetStartAddr(input.startProvince, input.startCity, input.startCounty, true);
 	newGoodsInf.SetDestAddr(input.endProvince, input.endCity, input.endCounty, nOption==2?true:false);*/
+
+    ShowTabDlgs();
+
     return 0;
 }
     
 // 搜索零担
 int CWLRClientDlg::setSearchBulkGoods(const InSearchBulkGoods& input, UINT8 nOption)
 {
-    curTabType = SEARCH_BULKGOODS;
+    m_curSearchType = SEARCH_BULKGOODS;
     hideAllWindows();
 
-    mTabMain.DeleteAllItems();
-    mTabMain.InsertItem(0,"搜索零担结果");
+    //mTabMain.DeleteAllItems();
+    //mTabMain.InsertItem(0,"搜索零担结果");
     
     //获得IDC_TABTEST客户区大小
     CRect rect;
@@ -2180,15 +2322,17 @@ int CWLRClientDlg::setSearchBulkGoods(const InSearchBulkGoods& input, UINT8 nOpt
     rect.right-=2;    
   
     //设置子对话框尺寸并移动到指定位置
-    searchBulkGoodsInf.MoveWindow(&rect);
+    //searchBulkGoodsInf.MoveWindow(&rect);
     //分别设置隐藏和显示
-    searchBulkGoodsInf.ShowWindow(true);
+    //searchBulkGoodsInf.ShowWindow(true);
     // 显示数据
     searchBulkGoodsInf.svrIO = &svrIO; 
     searchBulkGoodsInf.svrIONew = &svrIONew;
     searchBulkGoodsInf.setIfShowPhone(ifShowPhone); 
     searchBulkGoodsInf.bulkGoodsKeyword = input;
     searchBulkGoodsInf.setData(4);
+
+    ShowTabDlgs();
     return 0;
 }
     
@@ -2202,12 +2346,12 @@ int CWLRClientDlg::setSearchCars(const CSearchCriteria* pSearchCriteria, UINT8 n
 }
 
 int CWLRClientDlg::setSearchCars(const string& sSearchCriteria, UINT8 nOption)
-{   
-    curTabType = SEARCH_CARS;
+{
+    m_curSearchType = SEARCH_CARS;
     hideAllWindows();
 
-    mTabMain.DeleteAllItems();
-	mTabMain.InsertItem(0,nOption == eSearchType_Car?"搜索车源结果":"搜索全部信息结果");
+ //   mTabMain.DeleteAllItems();
+	//mTabMain.InsertItem(0,nOption == eSearchType_Car?"搜索车源结果":"搜索全部信息结果");
     
     //获得IDC_TABTEST客户区大小
     CRect rect;
@@ -2219,9 +2363,9 @@ int CWLRClientDlg::setSearchCars(const string& sSearchCriteria, UINT8 nOption)
     rect.right-=2;    
   
     //设置子对话框尺寸并移动到指定位置
-    searchCarsInf.MoveWindow(&rect);
+    //searchCarsInf.MoveWindow(&rect);
     //分别设置隐藏和显示
-    searchCarsInf.ShowWindow(true);
+    //searchCarsInf.ShowWindow(true);
     // 显示数据
     searchCarsInf.svrIO = &svrIO; 
 	searchCarsInf.svrIONew = &svrIONew; 
@@ -2234,17 +2378,19 @@ int CWLRClientDlg::setSearchCars(const string& sSearchCriteria, UINT8 nOption)
 
 	newCarsInf.SetStartAddr(input.startProvince, input.startCity, input.startCounty, true);
 	newCarsInf.SetDestAddr(input.endProvince, input.endCity, input.endCounty, nOption==2?true:false);*/
+
+    ShowTabDlgs();
     return 0;
 }
     
 // 搜索专线
 int CWLRClientDlg::setSearchSpecail(const InSearchSpecail& input, UINT8 nOption)
 {
-    curTabType = SEARCH_SPECIAL;
+    m_curSearchType = SEARCH_SPECIAL;
     hideAllWindows();
 
-    mTabMain.DeleteAllItems();
-    mTabMain.InsertItem(0,"搜索专线结果");
+    //mTabMain.DeleteAllItems();
+    //mTabMain.InsertItem(0,"搜索专线结果");
     
     //获得IDC_TABTEST客户区大小
     CRect rect;
@@ -2255,9 +2401,9 @@ int CWLRClientDlg::setSearchSpecail(const InSearchSpecail& input, UINT8 nOption)
     rect.left+=1; 
     rect.right-=2;    
   
-    searchSpecialLine.MoveWindow(&rect);
+    //searchSpecialLine.MoveWindow(&rect);
     //分别设置隐藏和显示
-    searchSpecialLine.ShowWindow(true);
+    //searchSpecialLine.ShowWindow(true);
     // 显示数据
     searchSpecialLine.svrIO = &svrIO; 
 	searchSpecialLine.svrIONew = &svrIONew;
@@ -2271,18 +2417,19 @@ int CWLRClientDlg::setSearchSpecail(const InSearchSpecail& input, UINT8 nOption)
 	allspecialLine.SetStartAddr(input.startProvince, input.startCity, input.startCounty, true);
 	allspecialLine.SetDestAddr(input.endProvince, input.endCity, input.endCounty, nOption==2?true:false);
 
+    ShowTabDlgs();
     return 0;
 }
     
 // 设置点击搜索信息：货源
 int CWLRClientDlg::clickSearchGoods(InClickSearch input)
 {
-    curTabType = CLICK_SEARCH_GOODS;
+    m_curSearchType = CLICK_SEARCH_GOODS;
 
     hideAllWindows();
 
-    mTabMain.DeleteAllItems();
-    mTabMain.InsertItem(0,"搜索货源结果");
+    //mTabMain.DeleteAllItems();
+    //mTabMain.InsertItem(0,"搜索货源结果");
     
     //获得IDC_TABTEST客户区大小
     CRect rect;
@@ -2294,9 +2441,9 @@ int CWLRClientDlg::clickSearchGoods(InClickSearch input)
     rect.right-=2;
 
     //设置子对话框尺寸并移动到指定位置
-    searchGoodsInf.MoveWindow(&rect);
+    //searchGoodsInf.MoveWindow(&rect);
     //分别设置隐藏和显示
-    searchGoodsInf.ShowWindow(true);
+    //searchGoodsInf.ShowWindow(true);
     // 显示数据
     searchGoodsInf.svrIO = &svrIO;
 	searchGoodsInf.svrIONew = &svrIONew;
@@ -2305,19 +2452,20 @@ int CWLRClientDlg::clickSearchGoods(InClickSearch input)
     searchGoodsInf.setData(6);
 
     //设置默认的选项卡
-    mTabMain.SetCurSel(0);
+    //mTabMain.SetCurSel(0);
 
+    ShowTabDlgs();
     return 0;
 }
     
 // 设置点击搜索信息：零担
 int CWLRClientDlg::clickSearchBulkGoods(InClickSearch input)
 {
-    curTabType = CLICK_SEARCH_BULKGOODS;
+    m_curSearchType = CLICK_SEARCH_BULKGOODS;
     hideAllWindows();
 
-    mTabMain.DeleteAllItems();
-    mTabMain.InsertItem(0,"搜索零担结果");
+    //mTabMain.DeleteAllItems();
+    //mTabMain.InsertItem(0,"搜索零担结果");
     
     //获得IDC_TABTEST客户区大小
     CRect rect;
@@ -2329,9 +2477,9 @@ int CWLRClientDlg::clickSearchBulkGoods(InClickSearch input)
     rect.right-=2;    
   
     // 设置子对话框尺寸并移动到指定位置
-    searchBulkGoodsInf.MoveWindow(&rect);
+    //searchBulkGoodsInf.MoveWindow(&rect);
     // 分别设置隐藏和显示
-    searchBulkGoodsInf.ShowWindow(true);
+    //searchBulkGoodsInf.ShowWindow(true);
     // 显示数据
     searchBulkGoodsInf.svrIO = &svrIO;
 	searchBulkGoodsInf.svrIONew = &svrIONew;
@@ -2340,18 +2488,20 @@ int CWLRClientDlg::clickSearchBulkGoods(InClickSearch input)
     searchBulkGoodsInf.setData(7);
 
     //设置默认的选项卡
-    mTabMain.SetCurSel(0);
+    //mTabMain.SetCurSel(0);
+
+    ShowTabDlgs();
     return 0;
 }   
     
 // 设置点击搜索信息：车源
 int CWLRClientDlg::clickSearchCars(InClickSearch input)
 {
-    curTabType = CLICK_SEARCH_CARS;
+    m_curSearchType = CLICK_SEARCH_CARS;
     hideAllWindows();
 
-    mTabMain.DeleteAllItems();
-    mTabMain.InsertItem(0,"搜索车源结果");
+    //mTabMain.DeleteAllItems();
+    //mTabMain.InsertItem(0,"搜索车源结果");
     
     //获得IDC_TABTEST客户区大小
     CRect rect;
@@ -2363,9 +2513,9 @@ int CWLRClientDlg::clickSearchCars(InClickSearch input)
     rect.right-=2;
   
     //设置子对话框尺寸并移动到指定位置
-    searchCarsInf.MoveWindow(&rect);
+    //searchCarsInf.MoveWindow(&rect);
     //分别设置隐藏和显示
-    searchCarsInf.ShowWindow(true);
+    //searchCarsInf.ShowWindow(true);
     // 显示数据
     searchCarsInf.svrIO = &svrIO; 
 	searchCarsInf.svrIONew = &svrIONew;
@@ -2374,18 +2524,20 @@ int CWLRClientDlg::clickSearchCars(InClickSearch input)
     searchCarsInf.setData(8);
 
     //设置默认的选项卡
-    mTabMain.SetCurSel(0);
+    //mTabMain.SetCurSel(0);
+
+    ShowTabDlgs();
     return 0;
 }
     
 // 设置点击搜索信息：专线
 int CWLRClientDlg::clickSearchSpecialLine(InClickSearch input)
 {
-    curTabType = CLICK_SEARCH_SPECIAL;
+    m_curSearchType = CLICK_SEARCH_SPECIAL;
     hideAllWindows();
 
-    mTabMain.DeleteAllItems();
-    mTabMain.InsertItem(0,"搜索专线结果");
+    //mTabMain.DeleteAllItems();
+    //mTabMain.InsertItem(0,"搜索专线结果");
     
     //获得IDC_TABTEST客户区大小
     CRect rect;
@@ -2397,9 +2549,9 @@ int CWLRClientDlg::clickSearchSpecialLine(InClickSearch input)
     rect.right-=2;
   
     //设置子对话框尺寸并移动到指定位置
-    searchSpecialLine.MoveWindow(&rect);
+    //searchSpecialLine.MoveWindow(&rect);
     //分别设置隐藏和显示
-    searchSpecialLine.ShowWindow(true);
+    //searchSpecialLine.ShowWindow(true);
     // 显示数据
     searchSpecialLine.svrIO = &svrIO; 
 	searchSpecialLine.svrIONew = &svrIONew;
@@ -2408,8 +2560,9 @@ int CWLRClientDlg::clickSearchSpecialLine(InClickSearch input)
     searchSpecialLine.setData(4);
 
     //设置默认的选项卡
-    mTabMain.SetCurSel(0);
+    //mTabMain.SetCurSel(0);
 
+    ShowTabDlgs();
     return 0;
 }
         
@@ -2418,8 +2571,8 @@ int CWLRClientDlg::pubGoodsInf()
 {
 	//SuspendThread(hThread);
 	//Sleep(100);
-	curTabType = GOODS;
-	curTabIndex = 0;
+	m_curTabType = GOODS;
+	m_curTabIndex = 0;
     CPubGoodsDlg dlg;
     dlg.myCR = &myCR;
     dlg.userInfo = svrIOPub.userInf;
@@ -2461,8 +2614,8 @@ int CWLRClientDlg::pubGoodsInf()
 int CWLRClientDlg::pubBulkGoodsInf()
 {
 	//SuspendThread(hThread);
-	curTabType =BULKGOODS;
-	curTabIndex = 0;
+	m_curTabType = BULKGOODS;
+	m_curTabIndex = 0;
 	//Sleep(100);
     CPubBulkGoodsDlg dlg;
     dlg.myCR = &myCR;
@@ -2506,8 +2659,8 @@ int CWLRClientDlg::pubBulkGoodsInf()
 int CWLRClientDlg::pubCarsInf()
 {
 	//SuspendThread(hThread);
-	curTabType = CARS;
-	curTabIndex = 0;
+	m_curTabType = CARS;
+	m_curTabIndex = 0;
 	//Sleep(100);
     CPubCarsDlg dlg;
     dlg.myCR = &myCR;
@@ -2551,9 +2704,9 @@ int CWLRClientDlg::pubCarsInf()
 int CWLRClientDlg::pubSpecialLineInf()
 {
 	//SuspendThread(hThread);
-	curTabType = LINES;
+	m_curTabType = LINES;
 	//Sleep(100);
-	curTabIndex = 0;
+	m_curTabIndex = 0;
     CPubSpecialDlg dlg;
     dlg.myCR = &myCR;
     dlg.userInfo = svrIOPub.userInf;
@@ -2598,8 +2751,8 @@ void CWLRClientDlg::refreshShow()
 	try 
 	{
 		//EnterCriticalSection(&csPrintFresh);
-		if (curTabType == GOODS) { // 货源 
-			switch(curTabIndex) { 
+		if (m_curTabType == GOODS) { // 货源 
+			switch(m_curTabIndex) { 
 		case 0:
 			newGoodsInf.setData(0, -1);
 			break;
@@ -2615,8 +2768,8 @@ void CWLRClientDlg::refreshShow()
 		default: 
 			break;
 			}
-		} else if (curTabType == BULKGOODS) { // 零担 
-			switch(curTabIndex) { 
+		} else if (m_curTabType == BULKGOODS) { // 零担 
+			switch(m_curTabIndex) { 
 		case 0:
 			newBulkGoodsInf.setData(1, -1);
 			break;
@@ -2626,8 +2779,8 @@ void CWLRClientDlg::refreshShow()
 		default: 
 			break;
 			}
-		} else if (curTabType == CARS) {      // 车源
-			switch(curTabIndex) { 
+		} else if (m_curTabType == CARS) {      // 车源
+			switch(m_curTabIndex) { 
 		case 0:
 			newCarsInf.setData(2, -1);
 			break;
@@ -2643,8 +2796,8 @@ void CWLRClientDlg::refreshShow()
 		default: 
 			break;
 			}
-		} else if (curTabType == LINES) { // 专线
-			switch(curTabIndex) { 
+		} else if (m_curTabType == LINES) { // 专线
+			switch(m_curTabIndex) { 
 		case 0:
 			allspecialLine.setData(0, -1);
 			break;
@@ -3834,7 +3987,7 @@ LRESULT CWLRClientDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 void CWLRClientDlg::OnBnClickedButtonPubWayOne()
 {
-	curTabIndex = 0;
+	m_curTabIndex = 0;
 	CPublishWayOneDlg dlg;
 	dlg.myCR = &myCR;
 	dlg.userInfo = svrIOPub.userInf;
@@ -3845,12 +3998,12 @@ void CWLRClientDlg::OnBnClickedButtonPubWayOne()
 		{
 			if ( dlg.publishKind == 0 )
 			{
-				curTabType = GOODS;
+				m_curTabType = GOODS;
 				result = svrIOPub.setPubGoodsInf(dlg.pubInf);
 			}
 			else
 			{
-				curTabType = CARS;
+				m_curTabType = CARS;
 				result = svrIOPub.setPubCarsInf(dlg.pubInf);        
 			}
 		}
@@ -3891,7 +4044,7 @@ void CWLRClientDlg::OnBnClickedButtonPubWayOne()
 
 void CWLRClientDlg::OnBnClickedButtonPubWayTwo()
 {
-	curTabIndex = 0;
+	m_curTabIndex = 0;
 	CPublishWayTwoDlg dlg;
 	dlg.myCR = &myCR;
 	dlg.userInfo = svrIOPub.userInf;
@@ -3902,12 +4055,12 @@ void CWLRClientDlg::OnBnClickedButtonPubWayTwo()
 		{
 			if ( dlg.publishKind == 0 )
 			{
-				curTabType = GOODS;
+				m_curTabType = GOODS;
 				result = svrIOPub.setPubGoodsInf(dlg.pubInf);
 			}
 			else
 			{
-				curTabType = CARS;
+				m_curTabType = CARS;
 				result = svrIOPub.setPubCarsInf(dlg.pubInf);        
 			}
 		}

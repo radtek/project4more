@@ -10,7 +10,7 @@
 using namespace std;
 //#define _NEWCODE_
 //#define _LOCAL_TEST_
-//#define _OFF_LINE_
+#define _OFF_LINE_
 //#define _AUTO_LOGIN_
 
 #ifdef _LOCAL_TEST_

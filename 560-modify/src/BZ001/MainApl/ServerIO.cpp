@@ -1683,9 +1683,9 @@ int ServerIO::getSearchGoodsInf(const InSearchGoods& keyword, vector<TabNewInfRe
     for (int i=0; i<input.record; ++i) {
         TabNewInfRecord tmp;
         tmp.recordID = "296";
-        tmp.startPlace = keyword.startProvince + keyword.startCity;
-        tmp.endPlace = keyword.endProvince + keyword.endCity;
-        tmp.record = "有货5吨，求:" + keyword.carLength + keyword.carType + "。";
+        tmp.startPlace = "江苏南京";//keyword.startProvince + keyword.startCity;
+        tmp.endPlace = "上海浦东";//keyword.endProvince + keyword.endCity;
+        tmp.record = "有货5吨，求:" + string("前四后十") + "3.4米";//keyword.carLength + keyword.carType + "。";
         tmp.tel = "联系电话:13866666666";
         inf.push_back(tmp);
     }
@@ -1705,9 +1705,9 @@ int ServerIO::getSearchGoodsInf(const string& sKeyword, vector<TabNewInfRecord> 
 	for (int i=0; i<input.record; ++i) {
 		TabNewInfRecord tmp;
 		tmp.recordID = "296";
-		tmp.startPlace = keyword.startProvince + keyword.startCity;
-		tmp.endPlace = keyword.endProvince + keyword.endCity;
-		tmp.record = "有货5吨，求:" + keyword.carLength + keyword.carType + "。";
+		tmp.startPlace = "江苏南京";//keyword.startProvince + keyword.startCity;
+		tmp.endPlace = "上海浦东";//keyword.endProvince + keyword.endCity;
+		tmp.record = "有货5吨，求:" + string("前四后十") + "3.4米";//keyword.carLength + keyword.carType + "。";
 		tmp.tel = "联系电话:13866666666";
 		inf.push_back(tmp);
 	}
@@ -1818,8 +1818,8 @@ int ServerIO::getSearchCarsInf(const InSearchCars& keyword, vector<TabNewInfReco
     for (int i=0; i<input.record; ++i) {
         TabNewInfRecord tmp;
         tmp.recordID = "296";
-        tmp.startPlace = keyword.startProvince + keyword.startCity;
-        tmp.endPlace = keyword.endProvince + keyword.endCity;
+        tmp.startPlace = "浙江杭州";//keyword.startProvince + keyword.startCity;
+        tmp.endPlace = "江苏常州";//keyword.endProvince + keyword.endCity;
         tmp.record = "有7米集装箱车1辆, 载重:2吨,求货:冻品。(重货)";
         tmp.tel = "联系电话:13600000000";
         inf.push_back(tmp);
@@ -1841,8 +1841,8 @@ int ServerIO::getSearchCarsInf(const string& sKeyword, vector<TabNewInfRecord> &
     for (int i=0; i<input.record; ++i) {
         TabNewInfRecord tmp;
         tmp.recordID = "296";
-        tmp.startPlace = keyword.startProvince + keyword.startCity;
-        tmp.endPlace = keyword.endProvince + keyword.endCity;
+		tmp.startPlace = "浙江杭州";//keyword.startProvince + keyword.startCity;
+		tmp.endPlace = "江苏常州";//keyword.endProvince + keyword.endCity;
         tmp.record = "有7米集装箱车1辆, 载重:2吨,求货:冻品。(重货)";
         tmp.tel = "联系电话:13600000000";
         inf.push_back(tmp);
