@@ -12,8 +12,8 @@ class CNewInfoDetailDlg : public CDialog
 	DECLARE_DYNAMIC(CNewInfoDetailDlg)
 
 public:
-	enum {eInfoType_Goods, eInfoType_Cars, eInfoType_SpecialLine, eInfoType_CustomGoods, eInfoType_CustomCars, eInfoType_MyGoods, eInfoType_MyCars};
-	CNewInfoDetailDlg(const void* m_pNewInfoDetail, int nInfoType, CWnd* pParent = NULL);   // 标准构造函数
+	enum {eInfoType_Goods, eInfoType_Cars, eInfoType_CustomGoods, eInfoType_CustomCars, eInfoType_MyGoods, eInfoType_MyCars};
+	CNewInfoDetailDlg(const void* pNewInfoDetail, int nInfoType, CWnd* pParent = NULL);   // 标准构造函数
 	virtual ~CNewInfoDetailDlg();
 
 // 对话框数据

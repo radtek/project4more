@@ -105,7 +105,7 @@ public:
 
     CGridCtrl m_Grid;
     afx_msg void OnGridRClick(NMHDR *pNotifyStruct, LRESULT* pResult);
-
+	afx_msg void OnGridDBLClick(NMHDR *pNotifyStruct, LRESULT* pResult);
 // }
 
 	DECLARE_MESSAGE_MAP()
