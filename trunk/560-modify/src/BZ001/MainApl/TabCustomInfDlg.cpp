@@ -67,16 +67,18 @@ CTabCustomInfDlg::~CTabCustomInfDlg()
 
 void CTabCustomInfDlg::DoDataExchange(CDataExchange* pDX)
 {
-    CDialog::DoDataExchange(pDX);
-    //{{AFX_DATA_MAP(CTabNewInfDlg)
-    DDX_Control(pDX, IDC_TAB_CUSTOM_INF_LIST, m_Grid); // associate the grid window with a C++ object
-    //}}AFX_DATA_MAP
-    DDX_Control(pDX, IDC_TAB_CUSTOM_COMB, combCustomInf);
-    DDX_CBString(pDX, IDC_TAB_CUSTOM_COMB, customInf);
-    DDX_Control(pDX, IDC_TAB_CUSTOM_PREV, btnPrev);
-    DDX_Control(pDX, IDC_TAB_CUSTOM_NEXT, btnNext);
-    DDX_Control(pDX, IDC_TAB_CUSTOM_ADD, btnAddCustom);
-    DDX_Control(pDX, IDC_TAB_CUSTOM_DELETE, btnDelCustom);
+	CDialog::DoDataExchange(pDX);
+	//{{AFX_DATA_MAP(CTabNewInfDlg)
+	DDX_Control(pDX, IDC_TAB_CUSTOM_INF_LIST, m_Grid); // associate the grid window with a C++ object
+	//}}AFX_DATA_MAP
+	DDX_Control(pDX, IDC_TAB_CUSTOM_COMB, combCustomInf);
+	DDX_CBString(pDX, IDC_TAB_CUSTOM_COMB, customInf);
+	DDX_Control(pDX, IDC_TAB_CUSTOM_PREV, btnPrev);
+	DDX_Control(pDX, IDC_TAB_CUSTOM_NEXT, btnNext);
+	DDX_Control(pDX, IDC_TAB_CUSTOM_ADD, btnAddCustom);
+	DDX_Control(pDX, IDC_TAB_CUSTOM_DELETE, btnDelCustom);
+	DDX_Control(pDX, IDC_TAB_CUSTOM_TOP, m_btnFirstPage);
+	DDX_Control(pDX, IDC_TAB_CUSTOM_BOTTOM, m_btnLastPage);
 }
 
 
@@ -95,13 +97,18 @@ BEGIN_MESSAGE_MAP(CTabCustomInfDlg, CDialog)
 
 	ON_MESSAGE(WM_SETGRID,OnFresh)
 	ON_CBN_CLOSEUP(IDC_TAB_CUSTOM_COMB, &CTabCustomInfDlg::OnCbnCloseupTabCustomComb)
+	ON_BN_CLICKED(IDC_TAB_CUSTOM_TOP, &CTabCustomInfDlg::OnBnClickedTabCustomTop)
+	ON_BN_CLICKED(IDC_TAB_CUSTOM_BOTTOM, &CTabCustomInfDlg::OnBnClickedTabCustomBottom)
 END_MESSAGE_MAP()
 
 BEGIN_EASYSIZE_MAP(CTabCustomInfDlg)
     // EASYSIZE(control,left,top,right,bottom,options)
 	EASYSIZE(IDC_TAB_CUSTOM_INF_LIST, ES_BORDER, ES_BORDER, ES_BORDER, ES_BORDER, 0)
+	EASYSIZE(IDC_TAB_CUSTOM_BOTTOM, ES_KEEPSIZE, ES_BORDER, ES_BORDER, ES_KEEPSIZE, 0)
 	EASYSIZE(IDC_TAB_CUSTOM_NEXT, ES_KEEPSIZE, ES_BORDER, ES_BORDER, ES_KEEPSIZE, 0)
     EASYSIZE(IDC_TAB_CUSTOM_PREV, ES_KEEPSIZE, ES_BORDER, IDC_TAB_CUSTOM_NEXT, ES_KEEPSIZE, 0)
+	EASYSIZE(IDC_TAB_CUSTOM_TOP, ES_KEEPSIZE, ES_BORDER, IDC_TAB_CUSTOM_PREV, ES_KEEPSIZE, 0)
+
 END_EASYSIZE_MAP
 
 // CTabCustomInfDlg 消息处理程序
@@ -117,6 +124,8 @@ BOOL CTabCustomInfDlg::OnInitDialog()
     // 初始化按钮
     btnPrev.LoadBitmap(IDB_PREVPAGE);
     btnNext.LoadBitmap(IDB_NEXTPAGE);
+	m_btnFirstPage.LoadBitmap(IDB_FIRST_PAGE);
+	m_btnLastPage.LoadBitmap(IDB_LAST_PAGE);
 
     // 初始化自动调整控件位置
     INIT_EASYSIZE;
@@ -362,18 +371,27 @@ void CTabCustomInfDlg::OnGridRClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
     if (curSelRow < 0) {
         return;
     }
+
+	const TabCustomInfRecord& content = contentData.at(curSelRow);
+
     // 设置弹出菜单
     CPoint   point; 
     ::GetCursorPos(&point);     			
-    CMenu menu;//菜单
-    CMenu* pPopupMenu;//菜单指针
-    menu.LoadMenu(IDR_MENU_OPERATION);//加载ID为IDR_MENU1的菜单
-    pPopupMenu = menu.GetSubMenu(0);   //获取弹出菜单的第一层子菜单的类指针
+	int nMenuId = 1000;
+	CMenu menu;
+	menu.CreatePopupMenu();
+	menu.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "打开信息");
+	menu.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "发短信");
 
-    //弹出菜单函数，第一个参数表示快捷菜单的下边界与由参数y指定的坐标对齐 
-	//第二和第三个为x、y坐标，第四个表示拥有此菜单的窗口句柄，
-	//第五个默认为NULL,表示当用户在菜单以外的区域按鼠标键时，菜单会消失
-	pPopupMenu->TrackPopupMenu(TPM_TOPALIGN, point.x, point.y, this, NULL);
+	int nRetId = menu.TrackPopupMenu(TPM_LEFTALIGN |TPM_RIGHTBUTTON|TPM_RETURNCMD,point.x,point.y,this,NULL);
+	if( nRetId == 1000 )
+	{
+		ShowDetailInfo(&content);
+	}
+	else if( nRetId == 1001 )
+	{
+		SendSMS(content);
+	}
 }
 
 void CTabCustomInfDlg::OnGridDBLClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
@@ -387,9 +405,7 @@ void CTabCustomInfDlg::OnGridDBLClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/
 	if (curSelRow < 0) {
 		return;
 	}
-
-	int index = curSelRow;
-	CNewInfoDetailDlg dlg(&contentData.at(index), (curType==0)?CNewInfoDetailDlg::eInfoType_CustomGoods:CNewInfoDetailDlg::eInfoType_CustomCars, this);
+	CNewInfoDetailDlg dlg(&contentData.at(curSelRow), (curType==0)?CNewInfoDetailDlg::eInfoType_CustomGoods:CNewInfoDetailDlg::eInfoType_CustomCars, this);
 	dlg.DoModal();
 }
 
@@ -402,30 +418,6 @@ void CTabCustomInfDlg::OnMenuSendmsgSendmsg()
 		SendSMS(contentData.at(curSelRow));
 	}
 }    
-
-void CTabCustomInfDlg::SendSMS(const TabCustomInfRecord& content)
-{
-	string tmp = content.startPlace + "->" + content.endPlace+ "。" + content.record+ content.tel;
-	CSendPhoneMsgDlg dlg;
-	dlg.phoneMsg = tmp.c_str();
-	if (dlg.DoModal() == IDOK) {
-		//		SuspendThread(hThread);
-		//         string result = svrIONew->sendPhoneMessage((LPTSTR)(LPCTSTR)dlg.phoneNumber, (LPTSTR)(LPCTSTR)dlg.phoneMsg);
-		//         if (result == "TRUE") {
-		//             MessageBox("短信发送成功！","发送短信");
-		//         } else {
-		//             MessageBox(result.c_str(),"短信发送失败");
-		//         }
-		sphonenum = (LPTSTR)(LPCTSTR)dlg.phoneNumber;
-		sphonetext = (LPTSTR)(LPCTSTR)dlg.phoneMsg;
-		DWORD PID;
-		HANDLE Main_Thread;
-		nCustom = 20;
-		//SuspendThread(hThread);
-		//Sleep(100);
-		Main_Thread=CreateThread(NULL,0,ThreadFuncMy,this,0,&PID);
-	}
-}
 
 
 // set grid content font
@@ -998,6 +990,41 @@ void CTabCustomInfDlg::OnBnClickedTabCustomNext()
     }
 }
 
+
+
+void CTabCustomInfDlg::OnBnClickedTabCustomTop()
+{
+	if(curInput.curpage == 1) {
+		return;
+	}
+	curInput.curpage = 1;
+
+	if(0 == curType) {
+		setGoods(curInput.curpage);
+	}
+
+	if(1 == curType) {
+		setCars(curInput.curpage);
+	}
+}
+
+void CTabCustomInfDlg::OnBnClickedTabCustomBottom()
+{
+	if(curInput.curpage == maxPageNum) {
+		return;
+	}
+	curInput.curpage = maxPageNum;
+
+	if(0 == curType) {
+		setGoods(curInput.curpage);
+	}
+
+	if(1 == curType) {
+		setCars(curInput.curpage);
+	}
+}
+
+
 void CTabCustomInfDlg::OnCbnDropdownTabCustomComb()
 {
 	// TODO: 在此添加控件通知处理程序代码
@@ -1102,4 +1129,35 @@ void CTabCustomInfDlg::OnCbnCloseupTabCustomComb()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	m_bFresh = FALSE;
+}
+
+void CTabCustomInfDlg::SendSMS(const TabCustomInfRecord& content)
+{
+	string tmp = content.startPlace + "->" + content.endPlace+ "。" + content.record+ content.tel;
+	CSendPhoneMsgDlg dlg;
+	dlg.phoneMsg = tmp.c_str();
+	if (dlg.DoModal() == IDOK) {
+		//		SuspendThread(hThread);
+		//         string result = svrIONew->sendPhoneMessage((LPTSTR)(LPCTSTR)dlg.phoneNumber, (LPTSTR)(LPCTSTR)dlg.phoneMsg);
+		//         if (result == "TRUE") {
+		//             MessageBox("短信发送成功！","发送短信");
+		//         } else {
+		//             MessageBox(result.c_str(),"短信发送失败");
+		//         }
+		sphonenum = (LPTSTR)(LPCTSTR)dlg.phoneNumber;
+		sphonetext = (LPTSTR)(LPCTSTR)dlg.phoneMsg;
+		DWORD PID;
+		HANDLE Main_Thread;
+		nCustom = 20;
+		//SuspendThread(hThread);
+		//Sleep(100);
+		Main_Thread=CreateThread(NULL,0,ThreadFuncMy,this,0,&PID);
+	}
+}
+
+
+void CTabCustomInfDlg::ShowDetailInfo(const TabCustomInfRecord* pContent)
+{
+	CNewInfoDetailDlg dlg(pContent, (curType==0)?CNewInfoDetailDlg::eInfoType_CustomGoods:CNewInfoDetailDlg::eInfoType_CustomCars, this);
+	dlg.DoModal();
 }

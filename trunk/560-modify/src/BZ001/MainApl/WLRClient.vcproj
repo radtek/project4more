@@ -428,6 +428,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SpecLineDetailDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -849,6 +853,10 @@
 			</File>
 			<File
 				RelativePath=".\ServerIO.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SpecLineDetailDlg.h"
 				>
 			</File>
 			<File

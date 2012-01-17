@@ -323,6 +323,23 @@ int CTabNewInfDlg::setData(int type, int curpage)
 		m_btnStopRefresh.ShowWindow(false);
 		GetDlgItem(IDC_PIC)->ShowWindow(false);
 		GetDlgItem(IDC_SHOW)->ShowWindow(false);
+		GetDlgItem(IDC_STATIC_SEARCH_TITLE)->ShowWindow(true);
+		if( m_nSearchType == eSearchType_Goods )
+		{
+			GetDlgItem(IDC_STATIC_SEARCH_TITLE)->SetWindowText("搜索货源结果");
+		}
+		else if( m_nSearchType == eSearchType_Car )
+		{
+			GetDlgItem(IDC_STATIC_SEARCH_TITLE)->SetWindowText("搜索车源结果");
+		}
+		else 
+		{
+			GetDlgItem(IDC_STATIC_SEARCH_TITLE)->SetWindowText("搜索全部信息结果");
+		}
+	}
+	else
+	{
+		GetDlgItem(IDC_STATIC_SEARCH_TITLE)->ShowWindow(false);
 	}
 
 	//EnterCriticalSection(&csPrint);
@@ -772,18 +789,33 @@ void CTabNewInfDlg::OnGridRClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
         return;
     }
 
+	const TabNewInfRecord& content = contentData.at(curSelRow);
     // 设置弹出菜单
     CPoint   point; 
     ::GetCursorPos(&point);     			
-    CMenu menu;//菜单
-    CMenu* pPopupMenu;//菜单指针
-    menu.LoadMenu(IDR_MENU_OPERATION);//加载ID为IDR_MENU1的菜单
-    pPopupMenu = menu.GetSubMenu(0);   //获取弹出菜单的第一层子菜单的类指针
+    //CMenu menu;//菜单
+    //CMenu* pPopupMenu;//菜单指针
+    //menu.LoadMenu(IDR_MENU_OPERATION);//加载ID为IDR_MENU1的菜单
+    //pPopupMenu = menu.GetSubMenu(0);   //获取弹出菜单的第一层子菜单的类指针
+
+	int nMenuId = 1000;
+	CMenu menu;
+	menu.CreatePopupMenu();
+	menu.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "打开信息");
+	menu.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "发短信");
 
     //弹出菜单函数，第一个参数表示快捷菜单的下边界与由参数y指定的坐标对齐 
 	//第二和第三个为x、y坐标，第四个表示拥有此菜单的窗口句柄，
 	//第五个默认为NULL,表示当用户在菜单以外的区域按鼠标键时，菜单会消失
-	pPopupMenu->TrackPopupMenu(TPM_TOPALIGN,point.x,point.y,this,NULL);
+	int nRetId = menu.TrackPopupMenu(TPM_LEFTALIGN |TPM_RIGHTBUTTON|TPM_RETURNCMD,point.x,point.y,this,NULL);
+	if( nRetId == 1000 )
+	{
+		ShowDetailInfo(&content);
+	}
+	else if( nRetId == 1001 )
+	{
+		SendSMS(content);
+	}
 }
 void CTabNewInfDlg::OnGridDBLClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
 {
@@ -796,10 +828,7 @@ void CTabNewInfDlg::OnGridDBLClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
 	if (curSelRow < 0) {
 		return;
 	}
-
-	int index = curSelRow;
-	CNewInfoDetailDlg dlg(&contentData.at(index), (curType==0||curType==3)?CNewInfoDetailDlg::eInfoType_Goods:CNewInfoDetailDlg::eInfoType_Cars, this);
-	dlg.DoModal();
+	ShowDetailInfo(&contentData[curSelRow]);
 }
     
 // 弹出菜单：发短信
@@ -1256,3 +1285,10 @@ void CTabNewInfDlg::OnBnClickedButtonPubWayTwo()
 }
 
 
+
+
+void CTabNewInfDlg::ShowDetailInfo(const TabNewInfRecord* pContent)
+{
+	CNewInfoDetailDlg dlg(pContent, (curType==0||curType==3)?CNewInfoDetailDlg::eInfoType_Goods:CNewInfoDetailDlg::eInfoType_Cars, this);
+	dlg.DoModal();
+}

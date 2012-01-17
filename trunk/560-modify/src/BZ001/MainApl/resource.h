@@ -103,6 +103,7 @@
 #define IDB_BITMAP5                     251
 #define IDB_BITMAP6                     252
 #define IDD_DIALOG_DETAIL_INFO          253
+#define IDD_SPECIAL_LINE_DETAIL         254
 #define IDC_BTN_MainPage                1000
 #define IDC_COLOR_NAME                  1000
 #define IDC_CONFIG_SET_SYSBKCLR         1000
@@ -285,12 +286,14 @@
 #define IDC_BUTTON_DEL                  1104
 #define IDC_BUTTON_DELETE               1104
 #define IDC_BUTTON_ALL_COUNTY           1104
+#define IDC_TAB_CUSTOM_TOP              1104
 #define IDC_TAB_NEW_NEXT                1105
 #define IDC_BUTTON_W1_TO_PROVINCE       1105
 #define IDC_BUTTON_SW1_CLEAN_PHONE_NUM  1105
 #define IDC_BUTTON_SW2_DEL              1105
 #define IDC_BUTTON_RENAME               1105
 #define IDC_BUTTON_CANCEL               1105
+#define IDC_TAB_CUSTOM_BOTTOM           1105
 #define IDC_TAB_MY_PREV                 1106
 #define IDC_BUTTON_W1_TO_CITY           1106
 #define IDC_BUTTON_SW2_CLEAN            1106
@@ -301,6 +304,7 @@
 #define IDC_TAB_SPECIAL_LINE_PREV       1108
 #define IDC_BUTTON_GOODS_NUM            1108
 #define IDC_BUTTON_PUBLISH              1108
+#define IDC_TAB_MY_BOTTOM               1108
 #define IDC_TAB_SPECIAL_LINE_NEXT       1109
 #define IDC_BUTTON_CAR_NUM              1109
 #define IDC_TAB_NEW_BOTTOM_DOWN         1109
@@ -309,6 +313,7 @@
 #define IDC_SEND_PHONEMSG_PHONE         1111
 #define IDC_BUTTON_SW3_CLEAN_KEY_WORD   1111
 #define IDC_TAB_NEW_BOTTOM_DOWN2        1111
+#define IDC_TAB_MY_TOP                  1111
 #define IDC_USER_LOGIN_USERNAME         1112
 #define IDC_BUTTON_SW3_BACKSPACE        1112
 #define IDC_USER_LOGIN_PASSWORD         1113
@@ -547,6 +552,24 @@
 #define IDC_STATIC_ADDR_INFO            1325
 #define IDC_STATIC_INFO_DESC            1326
 #define IDC_STATIC_CONTACT_INFO         1327
+#define IDC_STATIC_SPEC_ADDR_INFO       1328
+#define IDC_STATIC_SPEC_HIGHT_PRICE     1329
+#define IDC_STATIC_SPEC_LIGHT_PRICE     1330
+#define IDC_STATIC_SPEC_SCHEDULE        1331
+#define IDC_STATIC_SPEC_NEED_TIME       1332
+#define IDC_STATIC_SPEC_PUBLISHER       1333
+#define IDC_STATIC_SPEC_START_ADDR_INFO 1334
+#define IDC_STATIC_SPEC_START_ADDR      1335
+#define IDC_STATIC_SPEC_START_CONTACT   1336
+#define IDC_STATIC_SPEC_START_PHONE     1337
+#define IDC_STATIC_SPEC_END_ADDR_INFO   1338
+#define IDC_STATIC_SPEC_END_ADDR        1339
+#define IDC_STATIC_SPEC_END_CONTACT     1340
+#define IDC_STATIC_SPEC_END_PHONE       1341
+#define IDC_STATIC_SPEC_PUBLISHER_INFO  1342
+#define IDC_STATIC_GOAL_GROUP           1343
+#define IDC_STATIC_GROUP_CONTACT        1344
+#define IDC_STATIC_SEARCH_TITLE         1345
 #define ID_32771                        32771
 #define ID_MENU_SENDMSG_SENDMSG         32772
 #define ID_32775                        32775
@@ -561,9 +584,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        254
+#define _APS_NEXT_RESOURCE_VALUE        255
 #define _APS_NEXT_COMMAND_VALUE         32783
-#define _APS_NEXT_CONTROL_VALUE         1328
+#define _APS_NEXT_CONTROL_VALUE         1346
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

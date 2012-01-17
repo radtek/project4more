@@ -6,6 +6,7 @@
 #include "TabSpecialLineDlg.h"
 #include "CommDef.h"
 #include "header.h"
+#include "SpecLineDetailDlg.h"
 
 // CTabSpecialLineDlg 对话框
 
@@ -84,6 +85,7 @@ BEGIN_MESSAGE_MAP(CTabSpecialLineDlg, CDialog)
     ON_WM_SIZE()
     //}}AFX_MSG_MAP
     ON_NOTIFY(NM_RCLICK, IDC_TAB_SPECIAL_LINE_LIST, OnGridRClick)
+	ON_NOTIFY(NM_DBLCLK, IDC_TAB_SPECIAL_LINE_LIST, OnGridDBLClick)
     ON_COMMAND(ID_MENU_OPERATION_COLLECT, &CTabSpecialLineDlg::OnMenuOperationCollect)
     ON_COMMAND(ID_MENU_OPERATION_DELETE, &CTabSpecialLineDlg::OnMenuOperationDelete)
     ON_COMMAND(ID_MENU_OPERATION_DELFAV, &CTabSpecialLineDlg::OnMenuOperationDelfav)
@@ -602,10 +604,10 @@ int CTabSpecialLineDlg::setThisGridContent(int m_nCols,vector<TabSpecialLineReco
                 case 6: // 信息内容
                     //item[i].strText = (*iter).record.c_str();
                     if (ifShowPhone) { 
-                        item[i].strText = (*iter).record.c_str();
+                        //item[i].strText = (*iter).record.c_str();
                         item[i].strText += (*iter).tel.c_str();
                     } else {
-                        item[i].strText = (*iter).record.c_str();            
+                        item[i].strText = (*iter).pubName.c_str();            
                     }                    
                     break;
                 case 7: // 保留列
@@ -707,6 +709,24 @@ void CTabSpecialLineDlg::OnGridRClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/
 	//第五个默认为NULL,表示当用户在菜单以外的区域按鼠标键时，菜单会消失
 	pPopupMenu->TrackPopupMenu(TPM_TOPALIGN,point.x,point.y,this,NULL);
 }
+void CTabSpecialLineDlg::OnGridDBLClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
+{
+	NM_GRIDVIEW* pItem = (NM_GRIDVIEW*) pNotifyStruct;
+	//CString str;
+	//str.Format(_T("选中行为： %d"), pItem->iRow);
+	//AfxMessageBox(str);
+	// 获取当前选择的行
+	curSelRow = pItem->iRow;
+	if (curSelRow <= 0) {
+		return;
+	}
+
+	int index = curSelRow-1;
+	CSpecLineDetailDlg dlg(&contentData.at(index), this);
+	dlg.DoModal();
+}
+
+
     
 // set grid content font
 int CTabSpecialLineDlg::setCridContentFont(SettingFont& font)

@@ -122,12 +122,6 @@ public:
 public:
 	void SendSMS(const TabCustomInfRecord& content);
 public:
-    // 前页
-    CHoverButton btnPrev;
-public:
-    // 后页
-    CHoverButton btnNext;
-public:
     // 增加定制
     CHoverButton btnAddCustom;
 public:
@@ -135,4 +129,14 @@ public:
     CHoverButton btnDelCustom;
 	afx_msg void OnCbnDropdownTabCustomComb();
 	afx_msg void OnCbnCloseupTabCustomComb();
+private:
+	void ShowDetailInfo(const TabCustomInfRecord* pContent);
+	
+	CHoverButton btnPrev;
+	CHoverButton btnNext;
+	CHoverButton m_btnFirstPage;
+	CHoverButton m_btnLastPage;
+public:
+	afx_msg void OnBnClickedTabCustomTop();
+	afx_msg void OnBnClickedTabCustomBottom();
 };

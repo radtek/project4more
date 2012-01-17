@@ -858,10 +858,10 @@ int CWLRClientDlg::initTabCtrl()
     searchCarsInf.Create(IDD_TAB_NEW_INF, GetDlgItem(IDC_TAB_Main));
     searchSpecialLine.Create(IDD_TAB_SPECIAL_LINE, GetDlgItem(IDC_TAB_Main)); 
 
-    setGoodsInf();
     ifInit = true;
     m_curTabIndex = 0;
 
+	setGoodsInf();
     return 0;
 }
     
@@ -1293,7 +1293,8 @@ int CWLRClientDlg::hideAllWindows() {
 }
 
 // 隐藏所有的窗口
-int CWLRClientDlg::ShowTabDlgs() {
+int CWLRClientDlg::ShowTabDlgs() 
+{
     CDialog *pMainTab = NULL, *pSearchTab = NULL;
 
     switch (m_curTabType)
@@ -2289,7 +2290,9 @@ int CWLRClientDlg::setSearchGoods(const string& sSearchCriteria, UINT8 nOption)
 	searchGoodsInf.sSearchCriteria = sSearchCriteria;
 	//FillGoodsSearchCriteria(pSearchCriteria, searchGoodsInf.goodsKeyword);
     searchGoodsInf.setIfShowPhone(ifShowPhone); 
+	searchGoodsInf.SetSearchType(nOption);
     searchGoodsInf.setData(3);
+	
 
 	//option:0，本地；1，取消；2，正常搜索
 	/*searchGoodsInf.SetStartAddr(input.startProvince, input.startCity, input.startCounty, true);
@@ -2371,7 +2374,9 @@ int CWLRClientDlg::setSearchCars(const string& sSearchCriteria, UINT8 nOption)
 	searchCarsInf.svrIONew = &svrIONew; 
 	searchCarsInf.sSearchCriteria = sSearchCriteria;
     searchCarsInf.setIfShowPhone(ifShowPhone); 
+	searchCarsInf.SetSearchType(nOption);
     searchCarsInf.setData(5);
+	
 
 	/*searchCarsInf.SetStartAddr(input.startProvince, input.startCity, input.startCounty, true);
 	searchCarsInf.SetDestAddr(input.endProvince, input.endCity, input.endCounty, nOption==2?true:false);
@@ -3687,22 +3692,7 @@ DWORD CWLRClientDlg::ProcCY(LPVOID lpVoid)
 {
 	CoInitialize(NULL);
 	CWLRClientDlg *pDlg=(CWLRClientDlg*)lpVoid;
-	//DWORD dwWait;
-	/*while((dwWait=::WaitForSingleObject(pDlg->hEvent,60000))!=WAIT_OBJECT_0)
-	{
-		EnterCriticalSection(&csPrint);
-		try 
-		{
-			result1 = pDlg->svrIO.getSystemScrollAd();//弹出公告
-			result2 = pDlg->svrIO.getAgentPopAd();
-			if ("TRUE" == result1 || "TRUE" == result2)
-				::SendMessage(pDlg->GetSafeHwnd(),WM_TCGG,0,0);//通知消息处理弹出公告函数
-		}
-		catch (...)
-		{
-		}
-		LeaveCriticalSection(&csPrint);
-	}*/
+
 	CoUninitialize();
 	return 0;
 }

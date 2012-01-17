@@ -215,6 +215,16 @@ public:
 	{
 		return curType;
 	}
+
+	void SetSearchType(int nType)
+	{
+		m_nSearchType = nType;
+	}
+
+
+private:
+	void ShowDetailInfo(const TabNewInfRecord* pContent);
+
 private:
 	// ǰҳ
 	CHoverButton btnPrev;
@@ -243,6 +253,7 @@ private:
 	string		  m_sDestProvince;
 	string		  m_sDestCity;
 	string		  m_sDestCounty;
+	int			  m_nSearchType;
 public:
 	afx_msg void OnBnClickedButtonPubWayOne();
 	afx_msg void OnBnClickedButtonPubWayTwo();

@@ -10,7 +10,7 @@
 using namespace std;
 //#define _NEWCODE_
 //#define _LOCAL_TEST_
-#define _OFF_LINE_
+//#define _OFF_LINE_
 //#define _AUTO_LOGIN_
 
 #ifdef _LOCAL_TEST_
@@ -72,7 +72,7 @@ struct TabNewInfRecord {
     string tel;        // tel information
     string pubUID;     // the user id of pub this record
 	string pubName;	   // the name of the publisher
-	string pubURL;     // the user's url
+	string pubTime;    // the publish time
 	string pubAddress;  //
 	string dateTime;    //
 	string state;		//
@@ -89,7 +89,7 @@ struct TabCustomInfRecord {
     string tel;        // tel information
     string pubUID;     // the user id of pub this record
 	string pubName;	   // the name of the publisher
-	string pubURL;     // the user's url
+	string pubTime;    // the publish time
 	string pubAddress;  //
 	string dateTime;    //
 	string state;		//
@@ -106,7 +106,7 @@ struct TabMyInfRecord {
     string tel;        // tel information
     string pubUID;     // the user id of pub this record
 	string pubName;	   // the name of the publisher
-	string pubURL;     // the user's url
+	string pubTime;    // the publish time
 	string pubAddress;  //
 	string dateTime;    //
 	string state;		//
@@ -126,6 +126,7 @@ struct TabSpecialLineRecord {
     string record;     // record information
     string tel;        // tel information
     string pubUID;     // the user id of pub this record
+	string pubName;     // the user id of pub this record
 	string startAddr;  //
 	string startContact;//
 	string startPhone;//

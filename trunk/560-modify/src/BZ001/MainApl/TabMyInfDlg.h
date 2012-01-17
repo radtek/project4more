@@ -101,10 +101,21 @@ public:
     afx_msg void OnBnClickedTabMyPrev();
 public:
     afx_msg void OnBnClickedTabMyNext();
+
+	void SendSMS(const TabMyInfRecord& content);
+private:
+	void ShowDetailInfo(const TabMyInfRecord* pContent);
+	
+	void Delete();
+
 public:
-    // «∞“≥
-    CHoverButton btnPrev;
-public:
-    // ∫Û“≥
-    CHoverButton btnNext;
+	afx_msg void OnBnClickedTabMyTop();
+	afx_msg void OnBnClickedTabMyBottom();
+private:
+	CHoverButton btnPrev;
+	CHoverButton btnNext;
+	string sphonetext;
+	string sphonenum;
+	CHoverButton m_btnFirstPage;
+	CHoverButton m_btnLastPage;
 };

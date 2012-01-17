@@ -6,6 +6,7 @@
 #include "TabMyInfDlg.h"
 #include "header.h"
 #include "NewInfoDetailDlg.h"
+#include "SendPhoneMsgDlg.h"
 
 // CTabMyInfDlg 对话框
 int nmyhy=0;
@@ -65,12 +66,14 @@ CTabMyInfDlg::~CTabMyInfDlg()
 
 void CTabMyInfDlg::DoDataExchange(CDataExchange* pDX)
 {
-    CDialog::DoDataExchange(pDX);
-    //{{AFX_DATA_MAP(CTabNewInfDlg)
-    DDX_Control(pDX, IDC_TAB_MY_INF_LIST, m_Grid); // associate the grid window with a C++ object
-    //}}AFX_DATA_MAP
-    DDX_Control(pDX, IDC_TAB_MY_PREV, btnPrev);
-    DDX_Control(pDX, IDC_TAB_MY_NEXT, btnNext);
+	CDialog::DoDataExchange(pDX);
+	//{{AFX_DATA_MAP(CTabNewInfDlg)
+	DDX_Control(pDX, IDC_TAB_MY_INF_LIST, m_Grid); // associate the grid window with a C++ object
+	//}}AFX_DATA_MAP
+	DDX_Control(pDX, IDC_TAB_MY_PREV, btnPrev);
+	DDX_Control(pDX, IDC_TAB_MY_NEXT, btnNext);
+	DDX_Control(pDX, IDC_TAB_MY_TOP, m_btnFirstPage);
+	DDX_Control(pDX, IDC_TAB_MY_BOTTOM, m_btnLastPage);
 }
 
 
@@ -83,14 +86,18 @@ BEGIN_MESSAGE_MAP(CTabMyInfDlg, CDialog)
     ON_BN_CLICKED(IDC_TAB_MY_PREV, &CTabMyInfDlg::OnBnClickedTabMyPrev)
     ON_BN_CLICKED(IDC_TAB_MY_NEXT, &CTabMyInfDlg::OnBnClickedTabMyNext)
 	ON_MESSAGE(WM_SETGRID,OnFresh)
+	ON_BN_CLICKED(IDC_TAB_MY_TOP, &CTabMyInfDlg::OnBnClickedTabMyTop)
+	ON_BN_CLICKED(IDC_TAB_MY_BOTTOM, &CTabMyInfDlg::OnBnClickedTabMyBottom)
 END_MESSAGE_MAP()
 
 // 自动改变控件位置大小
 BEGIN_EASYSIZE_MAP(CTabMyInfDlg)
     // EASYSIZE(control,left,top,right,bottom,options)
 	EASYSIZE(IDC_TAB_MY_INF_LIST, ES_BORDER, ES_BORDER, ES_BORDER, ES_BORDER, 0)
-    EASYSIZE(IDC_TAB_MY_NEXT, ES_KEEPSIZE, ES_BORDER, ES_BORDER, ES_KEEPSIZE, 0)
+	EASYSIZE(IDC_TAB_MY_BOTTOM, ES_KEEPSIZE, ES_BORDER, ES_BORDER, ES_KEEPSIZE, 0)
+    EASYSIZE(IDC_TAB_MY_NEXT, ES_KEEPSIZE, ES_BORDER, IDC_TAB_MY_BOTTOM, ES_KEEPSIZE, 0)
     EASYSIZE(IDC_TAB_MY_PREV, ES_KEEPSIZE, ES_BORDER, IDC_TAB_MY_NEXT, ES_KEEPSIZE, 0)
+	EASYSIZE(IDC_TAB_MY_TOP, ES_KEEPSIZE, ES_BORDER, IDC_TAB_MY_PREV, ES_KEEPSIZE, 0)
 END_EASYSIZE_MAP
 
 // CTabMyInfDlg 消息处理程序
@@ -107,6 +114,8 @@ BOOL CTabMyInfDlg::OnInitDialog()
     // 初始化按钮
     btnPrev.LoadBitmap(IDB_PREVPAGE);
     btnNext.LoadBitmap(IDB_NEXTPAGE);
+	m_btnFirstPage.LoadBitmap(IDB_FIRST_PAGE);
+	m_btnLastPage.LoadBitmap(IDB_LAST_PAGE);
 
     // 初始化自动调整控件位置
     INIT_EASYSIZE;
@@ -574,18 +583,41 @@ void CTabMyInfDlg::OnGridRClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
         return;
     }
 
-    // 设置弹出菜单
-    CPoint   point; 
-    ::GetCursorPos(&point);     			
-    CMenu menu;//菜单
-    CMenu* pPopupMenu;//菜单指针
-    menu.LoadMenu(IDR_MENU_OPERATION);//加载ID为IDR_MENU_OPERATION的菜单
-    pPopupMenu = menu.GetSubMenu(2);   //获取弹出菜单的第一层子菜单的类指针
+	const TabMyInfRecord& content = contentData.at(curSelRow);
 
-    //弹出菜单函数，第一个参数表示快捷菜单的下边界与由参数y指定的坐标对齐 
-	//第二和第三个为x、y坐标，第四个表示拥有此菜单的窗口句柄，
-	//第五个默认为NULL,表示当用户在菜单以外的区域按鼠标键时，菜单会消失
-	pPopupMenu->TrackPopupMenu(TPM_TOPALIGN,point.x,point.y,this,NULL);
+	// 设置弹出菜单
+	CPoint   point; 
+	::GetCursorPos(&point);     			
+	int nMenuId = 1000;
+	CMenu menu;
+	menu.CreatePopupMenu();
+	menu.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "打开本信息");
+	menu.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "修改并发布");
+	menu.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "发送短信");
+	menu.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "删除");
+	menu.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "已成交");
+
+	int nRetId = menu.TrackPopupMenu(TPM_LEFTALIGN |TPM_RIGHTBUTTON|TPM_RETURNCMD,point.x,point.y,this,NULL);
+	if( nRetId == 1000 )
+	{
+		ShowDetailInfo(&content);
+	}
+	else if( nRetId == 1001 )
+	{
+		
+	}
+	else if( nRetId == 1002 )
+	{
+		SendSMS(content);
+	}
+	else if( nRetId == 1003 )
+	{
+		Delete();
+	}
+	else if( nRetId == 1004 )
+	{
+
+	}
 }
 void CTabMyInfDlg::OnGridDBLClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
 {
@@ -598,68 +630,14 @@ void CTabMyInfDlg::OnGridDBLClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
 	if (curSelRow < 0) {
 		return;
 	}
-
-	int index = curSelRow;
-	CNewInfoDetailDlg dlg(&contentData.at(index), (curType==0)?CNewInfoDetailDlg::eInfoType_MyGoods:CNewInfoDetailDlg::eInfoType_MyCars, this);
-	dlg.DoModal();
+	ShowDetailInfo(&contentData.at(curSelRow));
 }
 
     
 // 弹出菜单：删除
 void CTabMyInfDlg::OnMenuOperationDelete()
 {
-    // TODO: 在此添加命令处理程序代码
-    int index = curSelRow;
-	//SuspendThread(hThread);
-
-    switch (curType) {
-        case 0: { // 货源
-
-            string result = svrIO->delGoodsInf(contentData.at(index).recordID);
-            if (result == "TRUE") {
-                MessageBox("删除货源成功！","删除货源");
-            } else {
-                MessageBox(result.c_str(),"删除货源失败");
-            }
-            break;
-                }
-        case 1: {// 零担
-            string result = svrIO->delBulkGoodsInf(contentData.at(index).recordID);
-            if (result == "TRUE") {
-                MessageBox("删除零担成功！","删除零担");
-            } else {
-                MessageBox(result.c_str(),"删除零担失败");
-            }
-            break;
-                }
-        case 2: {// 车源
-            string result = svrIO->delCarsInf(contentData.at(index).recordID);
-            if (result == "TRUE") {
-                MessageBox("删除车源成功！","删除车源");
-            } else {
-                MessageBox(result.c_str(),"删除车源失败");
-            }
-            break;
-                }
-        default:
-            break;
-    }
-
-    // 更新数据
-    setData(curType);
-// 	DWORD dip = 0;
-// 	if (hThread != NULL)
-// 	{
-// 		while(1)
-// 		{
-// 			dip = ResumeThread(hThread);
-// 			if (dip == 0)
-// 			{
-// 				break;
-// 			}
-// 			Sleep(100);
-// 		}
-// 	}
+   Delete();
 }
     
 // set grid content font
@@ -704,6 +682,32 @@ void CTabMyInfDlg::OnBnClickedTabMyNext()
     setData(curType, curInput.curpage);
 	//LeaveCriticalSection(&csPrintFresh);
 }
+
+
+void CTabMyInfDlg::OnBnClickedTabMyTop()
+{
+	if(curInput.curpage <= 1) {
+		return;
+	}
+
+	curInput.curpage = 1;
+	//EnterCriticalSection(&csPrintFresh);
+	setData(curType, curInput.curpage);
+	//LeaveCriticalSection(&csPrintFresh);
+}
+
+void CTabMyInfDlg::OnBnClickedTabMyBottom()
+{
+	if(curInput.curpage == maxPageNum) {
+		return;
+	}
+
+	curInput.curpage = maxPageNum;
+	//EnterCriticalSection(&csPrintFresh);
+	setData(curType, curInput.curpage);
+	//LeaveCriticalSection(&csPrintFresh);
+}
+
 //搜索处理线程
 DWORD CTabMyInfDlg::ThreadFuncMy(LPVOID p)
 {
@@ -728,8 +732,20 @@ DWORD CTabMyInfDlg::ThreadFuncMy(LPVOID p)
 		case 2:
 			nstat = dlg->svrIO->getMyCarsInf(* pcontentData, dlg->curInput);
 			break;
+		case 20:
+			string result = dlg->svrIO->sendPhoneMessage(dlg->sphonenum,dlg->sphonetext);
+			// 
+			LeaveCriticalSection(&csPrintMore);
 
+			if (result == "TRUE") {
+				AfxMessageBox("短信发送成功！");
+			} else {
+				AfxMessageBox(result.c_str());
+			}
+			return 0;
+			break;
 		}
+
 		if (nstat == 0)
 		{
 			//break;
@@ -797,4 +813,69 @@ LONG CTabMyInfDlg::OnFresh(WPARAM w, LPARAM l)
 
 	}
 	return 0;
+}
+
+void CTabMyInfDlg::ShowDetailInfo(const TabMyInfRecord* pContent)
+{
+	CNewInfoDetailDlg dlg(pContent, (curType==0)?CNewInfoDetailDlg::eInfoType_MyGoods:CNewInfoDetailDlg::eInfoType_MyCars, this);
+	dlg.DoModal();
+}
+void CTabMyInfDlg::SendSMS(const TabMyInfRecord& content)
+{
+	string tmp = content.startPlace + "->" + content.endPlace+ "。" + content.record+ content.tel;
+	CSendPhoneMsgDlg dlg;
+	dlg.phoneMsg = tmp.c_str();
+	if (dlg.DoModal() == IDOK) 
+	{
+		sphonenum = (LPTSTR)(LPCTSTR)dlg.phoneNumber;
+		sphonetext = (LPTSTR)(LPCTSTR)dlg.phoneMsg;
+		DWORD PID;
+		HANDLE Main_Thread;
+		nMySet = 20;
+		//SuspendThread(hThread);
+		//Sleep(100);
+		Main_Thread=CreateThread(NULL,0,ThreadFuncMy,this,0,&PID);
+	}
+}
+void CTabMyInfDlg::Delete()
+{
+	// TODO: 在此添加命令处理程序代码
+	int index = curSelRow;
+	//SuspendThread(hThread);
+
+	switch (curType) {
+		case 0: { // 货源
+
+			string result = svrIO->delGoodsInf(contentData.at(index).recordID);
+			if (result == "TRUE") {
+				MessageBox("删除货源成功！","删除货源");
+			} else {
+				MessageBox(result.c_str(),"删除货源失败");
+			}
+			break;
+				}
+		case 1: {// 零担
+			string result = svrIO->delBulkGoodsInf(contentData.at(index).recordID);
+			if (result == "TRUE") {
+				MessageBox("删除零担成功！","删除零担");
+			} else {
+				MessageBox(result.c_str(),"删除零担失败");
+			}
+			break;
+				}
+		case 2: {// 车源
+			string result = svrIO->delCarsInf(contentData.at(index).recordID);
+			if (result == "TRUE") {
+				MessageBox("删除车源成功！","删除车源");
+			} else {
+				MessageBox(result.c_str(),"删除车源失败");
+			}
+			break;
+				}
+		default:
+			break;
+	}
+
+	// 更新数据
+	setData(curType);
 }
