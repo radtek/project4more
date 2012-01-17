@@ -313,6 +313,18 @@ int CTabNewInfDlg::setData(int type, int curpage)
     if (svrIO == NULL) {
         return -1;
     }
+
+	if (type > 2)
+	{
+		m_btnHidePhoneNum.ShowWindow(false);
+		m_btnPubWayOne.ShowWindow(false);
+		m_btnPubWayTwo.ShowWindow(false);
+		m_btnSearch.ShowWindow(false);
+		m_btnStopRefresh.ShowWindow(false);
+		GetDlgItem(IDC_PIC)->ShowWindow(false);
+		GetDlgItem(IDC_SHOW)->ShowWindow(false);
+	}
+
 	//EnterCriticalSection(&csPrint);
     curType = type;
     if (-1 != curpage) { // -1: ±£¡Ùµ±«∞curpage
