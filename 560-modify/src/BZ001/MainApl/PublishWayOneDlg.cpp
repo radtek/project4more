@@ -91,6 +91,9 @@ void CPublishWayOneDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_PW1_PREVIEW, preview);
 	DDX_CBString(pDX, IDC_COMBO_PW1_LDGOODS_DT, shipTimeValue);
 	DDX_CBString(pDX, IDC_COMBO_PW1_REPUB_SETTING, repubSettingValue);
+	DDV_MaxChars(pDX, goodsCountValue, 8);
+	DDV_MaxChars(pDX, truckCountValue, 8);
+	DDV_MaxChars(pDX, priceCountValue, 8);
 }
 
 
@@ -109,6 +112,7 @@ BEGIN_MESSAGE_MAP(CPublishWayOneDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON_PW1_CLEAN, &CPublishWayOneDlg::OnBnClickedButtonPw1Clean)
 	ON_BN_CLICKED(IDC_BUTTON_PW1_CLOSE, &CPublishWayOneDlg::OnBnClickedButtonPw1Close)
 	ON_CBN_SELCHANGE(IDC_COMBO_PW1_INFO_TYPE, &CPublishWayOneDlg::OnCbnSelchangeComboPw1InfoType)
+	ON_BN_CLICKED(IDC_BUTTON_PRIACE_NUM, &CPublishWayOneDlg::OnBnClickedButtonPriaceNum)
 END_MESSAGE_MAP()
 
 
@@ -127,6 +131,10 @@ BOOL CPublishWayOneDlg::OnInitDialog()
 	m_bntPrice.LoadBitmap(IDB_BITMAP_COMMON_BTN);
 	m_btnGoodsNum.LoadBitmap(IDB_BITMAP_COMMON_BTN);
 	m_btnCarNum.LoadBitmap(IDB_BITMAP_COMMON_BTN);
+
+	((CEdit*)GetDlgItem(IDC_EDIT_GOODS_NUM))->SetLimitText(8);
+	((CEdit*)GetDlgItem(IDC_EDIT_CAR_NUM))->SetLimitText(8);
+	((CEdit*)GetDlgItem(IDC_EDIT_PRICE_NUM))->SetLimitText(8);
 
 	initControlValue();
 
@@ -849,3 +857,10 @@ BOOL CPublishWayOneDlg::PublishTruckInfo()
 	return TRUE;
 }
 
+
+void CPublishWayOneDlg::OnBnClickedButtonPriaceNum()
+{
+	// TODO: Add your control notification handler code here
+	CNumberDlg dlgNumber(this, IDC_EDIT_PRICE_NUM);
+	dlgNumber.DoModal();
+}

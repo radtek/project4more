@@ -56,9 +56,9 @@ void CPubHistoryDlg::initPublishHistory()
 		CString	temp;
 		CPublishRecord* pRecord = (*iter);
 		publishHistory.InsertItem(count, "record");
-		temp = pRecord->get("strCityFrom");
+		temp = pRecord->get("strProvinceFrom") + " - " + pRecord->get("strCityFrom");
 		publishHistory.SetItemText(count, 0, temp);
-		temp = pRecord->get("strCityTo");
+		temp = pRecord->get("strProvinceTo") + " - " + pRecord->get("strCityTo");
 		publishHistory.SetItemText(count, 1, temp);
 		temp = pRecord->get("preview");
 		publishHistory.SetItemText(count, 2, temp);
