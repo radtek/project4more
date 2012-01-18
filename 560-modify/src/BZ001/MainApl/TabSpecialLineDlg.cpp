@@ -689,25 +689,61 @@ void CTabSpecialLineDlg::OnGridRClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/
     CPoint   point; 
     ::GetCursorPos(&point);     			
     CMenu menu;//菜单
-    CMenu* pPopupMenu;//菜单指针
-    menu.LoadMenu(IDR_MENU_OPERATION);//加载ID为IDR_MENU_OPERATION的菜单
+	menu.CreatePopupMenu();
 
-    if (curType == 0 || curType == 3 || curType == 4) {
-        pPopupMenu = menu.GetSubMenu(1);   //获取弹出菜单的第一层子菜单的类指针
+	int nMenuId = 1000;
+    if (curType == 0 || curType == 3 || curType == 4) 
+	{
+		int index = curSelRow-1;
+		menu.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "打开本信息");
+		menu.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "收藏专线");
+		int nRetId = menu.TrackPopupMenu(TPM_LEFTALIGN |TPM_RIGHTBUTTON|TPM_RETURNCMD,point.x,point.y,this,NULL);
+		if( nRetId == 1000 )
+		{
+			ShowDetail(contentData.at(index));
+		}
+		else if( nRetId == 1001 )
+		{
+			AddFavorite(contentData.at(index));
+		}
+		
     }
 
     if (curType == 1) {
-        pPopupMenu = menu.GetSubMenu(2);   //获取弹出菜单的第一层子菜单的类指针
+		int index = curSelRow-1;
+		menu.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "打开本信息");
+		menu.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "删除");
+		int nRetId = menu.TrackPopupMenu(TPM_LEFTALIGN |TPM_RIGHTBUTTON|TPM_RETURNCMD,point.x,point.y,this,NULL);
+		if( nRetId == 1000 )
+		{
+			ShowDetail(contentData.at(index));
+		}
+		else if( nRetId == 1001 )
+		{
+			DeleteSpecLine(contentData.at(index));
+		}
+
     }
 
     if (curType == 2) {
-        pPopupMenu = menu.GetSubMenu(3);   //获取弹出菜单的第一层子菜单的类指针
+        int index = curSelRow-1;
+		menu.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "打开本信息");
+		menu.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "取消收藏");
+		int nRetId = menu.TrackPopupMenu(TPM_LEFTALIGN |TPM_RIGHTBUTTON|TPM_RETURNCMD,point.x,point.y,this,NULL);
+		if( nRetId == 1000 )
+		{
+			ShowDetail(contentData.at(index));
+		}
+		else if( nRetId == 1001 )
+		{
+			RemoveFavorite(contentData.at(index));
+		}
     }
 
     //弹出菜单函数，第一个参数表示快捷菜单的下边界与由参数y指定的坐标对齐 
 	//第二和第三个为x、y坐标，第四个表示拥有此菜单的窗口句柄，
 	//第五个默认为NULL,表示当用户在菜单以外的区域按鼠标键时，菜单会消失
-	pPopupMenu->TrackPopupMenu(TPM_TOPALIGN,point.x,point.y,this,NULL);
+	//pPopupMenu->TrackPopupMenu(TPM_TOPALIGN,point.x,point.y,this,NULL);
 }
 void CTabSpecialLineDlg::OnGridDBLClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
 {
@@ -771,25 +807,8 @@ void CTabSpecialLineDlg::OnMenuOperationDelete()
 	{
 		index = 0;
 	}
-	string result;
-	try
-	{
-		 result = svrIO->delSpecialLineInf(contentData.at(index).recordID);
-	}
-	catch (...)
-	{	
 
-		
-	}
-	//ResumeThread(hThread);
-    if (result == "TRUE") {
-        MessageBox("删除专线成功！","删除专线");
-    } else {
-        MessageBox(result.c_str(),"删除专线失败");
-    }
-
-    // 更新显示数据
-    setData(curType);
+	DeleteSpecLine(contentData.at(index));
 }
     
 // 取消专线
@@ -1030,4 +1049,57 @@ void CTabSpecialLineDlg::OnPaint()
 
 		dcMemory.SelectObject(pOldBitmap);
 	}
+}
+
+
+void CTabSpecialLineDlg::DeleteSpecLine(const TabSpecialLineRecord& content)
+{
+	string result;
+	try
+	{
+		result = svrIO->delSpecialLineInf(content.recordID);
+	}
+	catch (...)
+	{	
+
+
+	}
+	//ResumeThread(hThread);
+	if (result == "TRUE") {
+		MessageBox("删除专线成功！","删除专线");
+	} else {
+		MessageBox(result.c_str(),"删除专线失败");
+	}
+
+	// 更新显示数据
+	setData(curType);
+}
+void CTabSpecialLineDlg::AddFavorite(const TabSpecialLineRecord& content)
+{
+	string result = svrIO->collectSpecialLine(content.recordID);
+	//ResumeThread(hThread);
+	if (result == "TRUE") {
+		MessageBox("收藏专线成功！","收藏专线");
+	} else {
+		MessageBox(result.c_str(),"收藏专线失败");
+	}
+}
+void CTabSpecialLineDlg::RemoveFavorite(const TabSpecialLineRecord& content)
+{
+	//SuspendThread(hThread);
+	string result = svrIO->delFavoriteSpecialLine(content.recordID);
+	//ResumeThread(hThread);
+	if (result == "TRUE") {
+		MessageBox("取消收藏成功！","取消专线收藏");
+	} else {
+		MessageBox(result.c_str(),"取消收藏失败");
+	}
+
+	// 更新显示数据
+	setData(curType);
+}
+void CTabSpecialLineDlg::ShowDetail(const TabSpecialLineRecord& content)
+{
+	CSpecLineDetailDlg dlg(&content, this);
+	dlg.DoModal();
 }
