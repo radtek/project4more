@@ -209,4 +209,8 @@ private:
 	
 public:
 	afx_msg void OnPaint();
+	void DeleteSpecLine(const TabSpecialLineRecord& content);
+	void AddFavorite(const TabSpecialLineRecord& content);
+	void RemoveFavorite(const TabSpecialLineRecord& content);
+	void ShowDetail(const TabSpecialLineRecord& content);
 };
