@@ -36,6 +36,12 @@ END_MESSAGE_MAP()
 
 BOOL CHoverButton::LoadBitmap(UINT bitmapid)
 {
+	if( m_bitmapId == bitmapid )
+	{
+		return TRUE;
+	}
+
+	mybitmap.Detach();
 	m_bitmapId = bitmapid;
     // 载入图片：用一张包含按钮的三种状态(鼠标移开，鼠标在按钮上，鼠标单击)的位图来绘制按钮
     mybitmap.Attach(::LoadImage(::AfxGetInstanceHandle(),MAKEINTRESOURCE(bitmapid),

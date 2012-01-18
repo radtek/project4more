@@ -68,13 +68,12 @@ public:
     // set grid content font
     int setCridContentFont(SettingFont& font);
     // 设置显示电话开关
-    int setIfShowPhone(bool ifShow) {
+    int setIfShowPhone(bool ifShow) 
+	{
         ifShowPhone = ifShow;
-		//return setGrid();
 		return setData(curType, curInput.curpage);
-
-       
-    };
+    }
+	
     /*设置数据
         type  0:货源；
               1:零担；
@@ -221,6 +220,11 @@ public:
 		m_nSearchType = nType;
 	}
 
+	void SetLongTimeFlag(bool bLongTime)
+	{
+		m_bLongTimeInfo = bLongTime;
+	}
+
 
 private:
 	void ShowDetailInfo(const TabNewInfRecord* pContent);
@@ -254,6 +258,9 @@ private:
 	string		  m_sDestCity;
 	string		  m_sDestCounty;
 	int			  m_nSearchType;
+
+	bool		  m_bLongTimeInfo;
+	bool		  m_bAutoRefresh;
 public:
 	afx_msg void OnBnClickedButtonPubWayOne();
 	afx_msg void OnBnClickedButtonPubWayTwo();

@@ -106,6 +106,9 @@ public:
 	//是否收费用户
 	string ServerIO::check_charge_user (string login_name);
 
+	string setGoodsStatus(const string& recordID, const string& sStatus);
+	string setCarsStatus(const string& recordID, const string& sStatus);
+
 public:
     UserInfo userInf; // 用户信息
     

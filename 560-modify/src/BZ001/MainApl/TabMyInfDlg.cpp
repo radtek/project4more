@@ -7,6 +7,7 @@
 #include "header.h"
 #include "NewInfoDetailDlg.h"
 #include "SendPhoneMsgDlg.h"
+#include "PublishWayOneDlg.h"
 
 // CTabMyInfDlg 对话框
 int nmyhy=0;
@@ -583,7 +584,7 @@ void CTabMyInfDlg::OnGridRClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
         return;
     }
 
-	const TabMyInfRecord& content = contentData.at(curSelRow);
+	TabMyInfRecord& content = contentData.at(curSelRow);
 
 	// 设置弹出菜单
 	CPoint   point; 
@@ -604,7 +605,7 @@ void CTabMyInfDlg::OnGridRClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
 	}
 	else if( nRetId == 1001 )
 	{
-		
+		ModifyAndPub(content);
 	}
 	else if( nRetId == 1002 )
 	{
@@ -614,9 +615,17 @@ void CTabMyInfDlg::OnGridRClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
 	{
 		Delete();
 	}
-	else if( nRetId == 1004 )
+	else if( nRetId == 1004 && content.state != "已成交")
 	{
-
+		string sResult = curType == 0?svrIO->setGoodsStatus(content.recordID, "已成交"):svrIO->setCarsStatus(content.recordID, "已成交");
+		if( sResult != "TRUE" )
+		{
+			AfxMessageBox(sResult.c_str());
+		}
+		else
+		{
+			content.state = "已成交";
+		}
 	}
 }
 void CTabMyInfDlg::OnGridDBLClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
@@ -878,4 +887,54 @@ void CTabMyInfDlg::Delete()
 
 	// 更新数据
 	setData(curType);
+}
+
+void CTabMyInfDlg::ModifyAndPub(const TabMyInfRecord& content)
+{
+	CPublishWayOneDlg dlg;
+	dlg.userInfo = user;
+	dlg.preview = content.record.c_str();
+	dlg.m_strProvinceFrom = content.startProv.c_str();
+	dlg.m_strCityFrom = content.startCity.c_str();
+	dlg.m_strCountyFrom = content.startCounty.c_str();
+	dlg.m_strProvinceTo = content.endProv.c_str();
+	dlg.m_strCityTo = content.endCity.c_str();
+	dlg.m_strCountyTo = content.endCounty.c_str();
+	dlg.publishKind = curType==0?0:1;
+	if( dlg.DoModal() == IDOK )
+	{
+		string result;
+		try                                                   
+		{
+			if ( dlg.publishKind == 0 )
+			{
+				result = svrIO->setPubGoodsInf(dlg.pubInf);
+			}
+			else
+			{
+				result = svrIO->setPubCarsInf(dlg.pubInf);        
+			}
+		}
+		catch(...)                                            
+		{                                                     
+			//goto HH;                                          
+		}
+		if ("TRUE" !=  result)
+		{                          
+			MessageBox(result.c_str());                   
+		} 
+		else 
+		{
+			curType == 0?svrIO->setGoodsStatus(content.recordID, "已成交"):svrIO->setCarsStatus(content.recordID, "已成交");
+			if ( dlg.publishKind == 0 )
+			{
+				MessageBox("货源发布成功！");
+			}
+			else
+			{
+				MessageBox("车源发布成功！");                                                                    
+			}
+			
+		}
+	}
 }

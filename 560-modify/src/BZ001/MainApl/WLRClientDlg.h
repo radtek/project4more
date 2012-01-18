@@ -78,6 +78,8 @@ public:
     CTabNewInfDlg    newGoodsInf;    // 最新货源
     CTabCustomInfDlg customGoodsInf; // 定制信息
     CTabMyInfDlg     myGoodsInf;     // 我的货源
+	CTabNewInfDlg    longGoodsInf;    // 长期货源
+
 	CDlgService service;
     // 设置货源信息
     int setGoodsInf(int tabIndex = 0);
@@ -96,6 +98,7 @@ public:
     CTabNewInfDlg    newCarsInf;     // 最新车源
     CTabCustomInfDlg customCarsInf;  // 定制信息 
     CTabMyInfDlg     myCarsInf;      // 我的车源
+	CTabNewInfDlg    longCarsInf;     // 长期车源
     // 设置车源信息
     int setCarsInf(int tabIndex = 0);
     // 设置点击搜索信息

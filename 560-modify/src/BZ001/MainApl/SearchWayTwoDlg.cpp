@@ -475,6 +475,10 @@ void CSearchWayTwoDlg::OnBnClickedButtonSw2Del()
 
 		m_listCriteria.DeleteString(nSel);
 	}
+	else
+	{
+		MessageBox("请选择要删除的目的地", "系统提示", MB_OK);
+	}
 }
 
 void CSearchWayTwoDlg::OnBnClickedButtonSw2Clean()

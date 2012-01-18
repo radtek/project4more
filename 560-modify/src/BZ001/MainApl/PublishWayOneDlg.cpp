@@ -146,7 +146,7 @@ void CPublishWayOneDlg::initControlValue()
 {
 	msgType.AddString("发布货源");
 	msgType.AddString("发布车源");
-	msgType.SetCurSel(0);
+	msgType.SetCurSel(publishKind==0?0:1);
 
 	unsigned int n;
 
@@ -286,6 +286,14 @@ void CPublishWayOneDlg::OnBnClickedButtonCarNum()
 	CNumberDlg dlgNumber(this, IDC_EDIT_CAR_NUM);
 	dlgNumber.DoModal();
 }
+
+
+void CPublishWayOneDlg::OnBnClickedButtonPriaceNum()
+{
+	CNumberDlg dlgNumber(this, IDC_EDIT_PRICE_NUM);
+	dlgNumber.DoModal();
+}
+
 
 void CPublishWayOneDlg::OnBnClickedButtonPw1History()
 {
@@ -855,12 +863,4 @@ BOOL CPublishWayOneDlg::PublishTruckInfo()
 	pubInf = (LPTSTR)(LPCTSTR)tmp; 
 
 	return TRUE;
-}
-
-
-void CPublishWayOneDlg::OnBnClickedButtonPriaceNum()
-{
-	// TODO: Add your control notification handler code here
-	CNumberDlg dlgNumber(this, IDC_EDIT_PRICE_NUM);
-	dlgNumber.DoModal();
 }

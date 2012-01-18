@@ -108,6 +108,8 @@ private:
 	
 	void Delete();
 
+	void ModifyAndPub(const TabMyInfRecord& content);
+
 public:
 	afx_msg void OnBnClickedTabMyTop();
 	afx_msg void OnBnClickedTabMyBottom();
