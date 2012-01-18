@@ -363,6 +363,10 @@ void CSearchWayThreeDlg::OnBnClickedButtonSw3Del()
 		}
 		m_lstFromAddr.DeleteString(nSel);		
 	}
+	else
+	{
+		MessageBox("请选择要删除的始发地", "系统提示", MB_OK);
+	}
 }
 
 void CSearchWayThreeDlg::OnBnClickedButtonSw3Clean()

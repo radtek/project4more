@@ -11,7 +11,7 @@
 #endif
 #include "soapH.h"
 
-SOAP_SOURCE_STAMP("@(#) soapClient.cpp ver 2.7.17 2012-01-14 11:19:04 GMT")
+SOAP_SOURCE_STAMP("@(#) soapClient.cpp ver 2.7.17 2012-01-18 11:01:39 GMT")
 
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getNewBulkGoodsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getNewBulkGoodsInf *ns2__getNewBulkGoodsInf_, ns2__getNewBulkGoodsInfResponse *ns2__getNewBulkGoodsInfResponse_)
@@ -320,6 +320,57 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__sendPhoneMessage(struct soap *soap, c
 	return soap_closesock(soap);
 }
 
+SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__setCarsStatus(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__setCarsStatus *ns2__setCarsStatus_, ns2__setCarsStatusResponse *ns2__setCarsStatusResponse_)
+{	struct __ns1__setCarsStatus soap_tmp___ns1__setCarsStatus;
+	if (!soap_endpoint)
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
+	if (!soap_action)
+		soap_action = "";
+	soap->encodingStyle = NULL;
+	soap_tmp___ns1__setCarsStatus.ns2__setCarsStatus_ = ns2__setCarsStatus_;
+	soap_begin(soap);
+	soap_serializeheader(soap);
+	soap_serialize___ns1__setCarsStatus(soap, &soap_tmp___ns1__setCarsStatus);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put___ns1__setCarsStatus(soap, &soap_tmp___ns1__setCarsStatus, "-ns1:setCarsStatus", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	}
+	if (soap_end_count(soap))
+		return soap->error;
+	if (soap_connect(soap, soap_endpoint, soap_action)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put___ns1__setCarsStatus(soap, &soap_tmp___ns1__setCarsStatus, "-ns1:setCarsStatus", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap_closesock(soap);
+	if (!ns2__setCarsStatusResponse_)
+		return soap_closesock(soap);
+	ns2__setCarsStatusResponse_->soap_default(soap);
+	if (soap_begin_recv(soap)
+	 || soap_envelope_begin_in(soap)
+	 || soap_recv_header(soap)
+	 || soap_body_begin_in(soap))
+		return soap_closesock(soap);
+	ns2__setCarsStatusResponse_->soap_get(soap, "ns2:setCarsStatusResponse", "ns2:setCarsStatusResponse");
+	if (soap->error)
+		return soap_recv_fault(soap, 0);
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap_closesock(soap);
+	return soap_closesock(soap);
+}
+
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getClickServiceStationInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getClickServiceStationInf *ns2__getClickServiceStationInf_, ns2__getClickServiceStationInfResponse *ns2__getClickServiceStationInfResponse_)
 {	struct __ns1__getClickServiceStationInf soap_tmp___ns1__getClickServiceStationInf;
 	if (!soap_endpoint)
@@ -464,6 +515,57 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getCustomCarsInf(struct soap *soap, c
 	 || soap_body_begin_in(soap))
 		return soap_closesock(soap);
 	ns2__getCustomCarsInfResponse_->soap_get(soap, "ns2:getCustomCarsInfResponse", "ns2:getCustomCarsInfResponse");
+	if (soap->error)
+		return soap_recv_fault(soap, 0);
+	if (soap_body_end_in(soap)
+	 || soap_envelope_end_in(soap)
+	 || soap_end_recv(soap))
+		return soap_closesock(soap);
+	return soap_closesock(soap);
+}
+
+SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__setGoodsStatus(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__setGoodsStatus *ns2__setGoodsStatus_, ns2__setGoodsStatusResponse *ns2__setGoodsStatusResponse_)
+{	struct __ns1__setGoodsStatus soap_tmp___ns1__setGoodsStatus;
+	if (!soap_endpoint)
+		soap_endpoint = "http://www.566560.com:8603/fmp/service/fmpserver";
+	if (!soap_action)
+		soap_action = "";
+	soap->encodingStyle = NULL;
+	soap_tmp___ns1__setGoodsStatus.ns2__setGoodsStatus_ = ns2__setGoodsStatus_;
+	soap_begin(soap);
+	soap_serializeheader(soap);
+	soap_serialize___ns1__setGoodsStatus(soap, &soap_tmp___ns1__setGoodsStatus);
+	if (soap_begin_count(soap))
+		return soap->error;
+	if (soap->mode & SOAP_IO_LENGTH)
+	{	if (soap_envelope_begin_out(soap)
+		 || soap_putheader(soap)
+		 || soap_body_begin_out(soap)
+		 || soap_put___ns1__setGoodsStatus(soap, &soap_tmp___ns1__setGoodsStatus, "-ns1:setGoodsStatus", NULL)
+		 || soap_body_end_out(soap)
+		 || soap_envelope_end_out(soap))
+			 return soap->error;
+	}
+	if (soap_end_count(soap))
+		return soap->error;
+	if (soap_connect(soap, soap_endpoint, soap_action)
+	 || soap_envelope_begin_out(soap)
+	 || soap_putheader(soap)
+	 || soap_body_begin_out(soap)
+	 || soap_put___ns1__setGoodsStatus(soap, &soap_tmp___ns1__setGoodsStatus, "-ns1:setGoodsStatus", NULL)
+	 || soap_body_end_out(soap)
+	 || soap_envelope_end_out(soap)
+	 || soap_end_send(soap))
+		return soap_closesock(soap);
+	if (!ns2__setGoodsStatusResponse_)
+		return soap_closesock(soap);
+	ns2__setGoodsStatusResponse_->soap_default(soap);
+	if (soap_begin_recv(soap)
+	 || soap_envelope_begin_in(soap)
+	 || soap_recv_header(soap)
+	 || soap_body_begin_in(soap))
+		return soap_closesock(soap);
+	ns2__setGoodsStatusResponse_->soap_get(soap, "ns2:setGoodsStatusResponse", "ns2:setGoodsStatusResponse");
 	if (soap->error)
 		return soap_recv_fault(soap, 0);
 	if (soap_body_end_in(soap)

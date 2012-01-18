@@ -189,6 +189,8 @@ public:
 private:
 	CHoverButton btnPrev;
 	CHoverButton btnNext;
+	CHoverButton m_btnFirstPage;
+	CHoverButton m_btnLastPage;
 	
 	CHoverButton m_btnLocal;
 	CHoverButton m_btnCancelSearch;
@@ -206,6 +208,7 @@ private:
 	string		  m_sDestProvince;
 	string		  m_sDestCity;
 	string		  m_sDestCounty;
+	bool		  m_bAutoRefresh;
 	
 public:
 	afx_msg void OnPaint();
@@ -213,4 +216,8 @@ public:
 	void AddFavorite(const TabSpecialLineRecord& content);
 	void RemoveFavorite(const TabSpecialLineRecord& content);
 	void ShowDetail(const TabSpecialLineRecord& content);
+	afx_msg void OnBnClickedTabSpecialLineFirst();
+	afx_msg void OnBnClickedTabSpecialLineLast();
+private:
+	
 };

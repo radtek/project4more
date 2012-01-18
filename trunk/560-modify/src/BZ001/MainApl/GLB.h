@@ -76,6 +76,7 @@ struct TabNewInfRecord {
 	string pubAddress;  //
 	string dateTime;    //
 	string state;		//
+	bool   bLongTime;
 };
     
 // 定制信息（货源、零担、车源）
@@ -110,6 +111,12 @@ struct TabMyInfRecord {
 	string pubAddress;  //
 	string dateTime;    //
 	string state;		//
+	string startProv;
+	string startCity;
+	string startCounty;
+	string endProv;
+	string endCity;
+	string endCounty;
 };
     
 // 专线信息（最新专线、我的专线、我收藏的专线）

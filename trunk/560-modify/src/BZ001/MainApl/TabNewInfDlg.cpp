@@ -56,6 +56,9 @@ CTabNewInfDlg::CTabNewInfDlg(CWnd* pParent /*=NULL*/)
     contentFont.lfStrikeOut=FALSE; 
     contentFont.lfCharSet=GB2312_CHARSET; //以上参数好像一个都不能少
 
+	m_bLongTimeInfo = false;
+	m_bAutoRefresh = true;
+
     // 初始化标题内容
     //titleData.startPlace = "浙江省杭州市";
     //titleData.endPlace = "江苏省南京市";
@@ -165,8 +168,7 @@ BOOL CTabNewInfDlg::OnInitDialog()
 
 	m_btnPubWayOne.LoadBitmap(IDB_PUBLISH_ONE);
 	m_btnPubWayTwo.LoadBitmap(IDB_PUBLISH_TWO);
-
-
+	
 	m_btnSearch.LoadBitmap(IDB_SEARCH);//
 	m_btnStopRefresh.LoadBitmap(IDB_STOP_REFRESH);
 	m_btnHidePhoneNum.LoadBitmap(IDB_HIDE_PHONE_NUM);
@@ -342,6 +344,13 @@ int CTabNewInfDlg::setData(int type, int curpage)
 		GetDlgItem(IDC_STATIC_SEARCH_TITLE)->ShowWindow(false);
 	}
 
+	if( m_bLongTimeInfo )
+	{
+		m_btnPubWayOne.ShowWindow(false);
+		m_btnPubWayTwo.ShowWindow(false);
+		m_btnSearch.ShowWindow(false);
+	}
+
 	//EnterCriticalSection(&csPrint);
     curType = type;
     if (-1 != curpage) { // -1: 保留当前curpage
@@ -390,7 +399,10 @@ int CTabNewInfDlg::setData(int type, int curpage)
 						if (contentDataHY[i].recordID != "")
 						{
 							//pcontentData->push_back(contentDataHY[i]);
-							contentData.push_back(contentDataHY[i]);
+							if( !m_bLongTimeInfo || contentDataHY[i].bLongTime )
+							{
+								contentData.push_back(contentDataHY[i]);
+							}
 						}
 
 					}
@@ -423,7 +435,10 @@ int CTabNewInfDlg::setData(int type, int curpage)
 						if (contentDataHY[i].recordID != "")
 						{
 							//pcontentData->push_back(contentDataHY[i]);
-							contentData.push_back(contentDataHY[i]);
+							if( !m_bLongTimeInfo || contentDataHY[i].bLongTime )
+							{
+								contentData.push_back(contentDataHY[i]);
+							}
 						}
 
 					}
@@ -502,7 +517,10 @@ int CTabNewInfDlg::setData(int type, int curpage)
 						if (contentDataCY[i].recordID != "")
 						{
 						//	pcontentData->push_back(contentDataCY[i]);
-							contentData.push_back(contentDataCY[i]);
+							if( !m_bLongTimeInfo || contentDataHY[i].bLongTime )
+							{
+								contentData.push_back(contentDataHY[i]);
+							}
 						}
 					}
 				}
@@ -536,7 +554,10 @@ int CTabNewInfDlg::setData(int type, int curpage)
 						//	pcontentData->push_back(contentDataCY[i]);
 							//TRACE(contentDataCY[i].recordID.c_str());
 							//TRACE("\n");
-							contentData.push_back(contentDataCY[i]);
+							if( !m_bLongTimeInfo || contentDataHY[i].bLongTime )
+							{
+								contentData.push_back(contentDataHY[i]);
+							}
 						}
 
 					}
@@ -1266,11 +1287,15 @@ void CTabNewInfDlg::OnBnClickedButtonSearch()
 
 void CTabNewInfDlg::OnBnClickedButtonStopRefresh()
 {
+	m_bAutoRefresh = !m_bAutoRefresh;
+	m_btnStopRefresh.LoadBitmap(m_bAutoRefresh?IDB_STOP_REFRESH:IDB_AUTOREFRESH);
 	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_STOP_REFRESH);
 }
 
 void CTabNewInfDlg::OnBnClickedButtonHidePhoneNum()
 {
+	ifShowPhone = !ifShowPhone;
+	m_btnHidePhoneNum.LoadBitmap(ifShowPhone?IDB_HIDE_PHONE_NUM:IDB_SHOWPHONE);
 	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_SECRECY);
 }
 

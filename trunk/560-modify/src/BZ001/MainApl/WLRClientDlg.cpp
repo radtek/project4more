@@ -105,9 +105,11 @@ enum MSG_Type
 	NewGood = 0,
 	CustomGood,
 	MyGood,
+	LongGood,
 	NewCar,
 	CustomCar,
 	MyCar,
+	LongCar,
 	NewBulkGood,
 	MyBulkGood,
 	NewSpecial,
@@ -837,6 +839,8 @@ int CWLRClientDlg::initTabCtrl()
     newGoodsInf.Create(IDD_TAB_NEW_INF, GetDlgItem(IDC_TAB_Main));
     customGoodsInf.Create(IDD_TAB_CUSTOM_INF, GetDlgItem(IDC_TAB_Main));
     myGoodsInf.Create(IDD_TAB_MY_INF, GetDlgItem(IDC_TAB_Main));  
+	longGoodsInf.Create(IDD_TAB_NEW_INF, GetDlgItem(IDC_TAB_Main));  
+	longGoodsInf.SetLongTimeFlag(true);
 
     //关联对话框,并且将IDC_TAB_Main控件设为父窗口：零担
     newBulkGoodsInf.Create(IDD_TAB_NEW_INF, GetDlgItem(IDC_TAB_Main));
@@ -846,6 +850,8 @@ int CWLRClientDlg::initTabCtrl()
     newCarsInf.Create(IDD_TAB_NEW_INF, GetDlgItem(IDC_TAB_Main));
     customCarsInf.Create(IDD_TAB_CUSTOM_INF, GetDlgItem(IDC_TAB_Main));
     myCarsInf.Create(IDD_TAB_MY_INF, GetDlgItem(IDC_TAB_Main));
+	longCarsInf.Create(IDD_TAB_NEW_INF, GetDlgItem(IDC_TAB_Main));
+	longCarsInf.SetLongTimeFlag(true);
 
     //关联对话框,并且将IDC_TAB_Main控件设为父窗口：专线
     allspecialLine.Create(IDD_TAB_SPECIAL_LINE, GetDlgItem(IDC_TAB_Main));
@@ -1268,6 +1274,7 @@ int CWLRClientDlg::hideAllWindows() {
     newGoodsInf.ShowWindow(false);
     customGoodsInf.ShowWindow(false);
     myGoodsInf.ShowWindow(false); 
+	longGoodsInf.ShowWindow(false);
 
     // 零担
     newBulkGoodsInf.ShowWindow(false);
@@ -1277,6 +1284,7 @@ int CWLRClientDlg::hideAllWindows() {
     newCarsInf.ShowWindow(false);
     customCarsInf.ShowWindow(false);
     myCarsInf.ShowWindow(false);
+	longCarsInf.ShowWindow(false);
 
     // 专线
     allspecialLine.ShowWindow(false);
@@ -1311,6 +1319,8 @@ int CWLRClientDlg::ShowTabDlgs()
         case 2:
             pMainTab = &myGoodsInf;
             break;
+		case 3:
+			pMainTab = &longGoodsInf;
         default:
             break;
         }
@@ -1340,6 +1350,9 @@ int CWLRClientDlg::ShowTabDlgs()
         case 2:
             pMainTab = &myCarsInf;
             break;
+		case 3:
+			pMainTab = &longCarsInf;
+			break;
         default:
             break;
         }
@@ -1648,13 +1661,15 @@ void CWLRClientDlg::OnBnClickedBtnPayservice()
 void CWLRClientDlg::OnBnClickedBtnAutoupdate()
 {
     // TODO: 在此添加控件通知处理程序代码
-    if (ifAutoRefresh) {
-	//	autoRefresh.LoadBitmap(IDB_AUTOREFRESH);
-        stopTimer();
+    if (ifAutoRefresh) 
+	{
+	    stopTimer();
       //  autoRefresh.SetWindowTextA("自动刷新");
         //ifAutoRefresh = false;
         //MessageBox("自动刷新已关闭！", "自动刷新");
-    } else {
+    } 
+	else
+	{
 		//autoRefresh.LoadBitmap(IDB_NOREFRESH);
         startTimer();
        // autoRefresh.SetWindowTextA("停止刷新");
@@ -1688,6 +1703,9 @@ void CWLRClientDlg::OnBnClickedBtnHidetel()
         case 2:
             myGoodsInf.setIfShowPhone(switchShowPhone());
             break; 
+		case 3:
+			longGoodsInf.setIfShowPhone(switchShowPhone());
+			break;
         default: 
             break;
         }
@@ -1719,6 +1737,9 @@ void CWLRClientDlg::OnBnClickedBtnHidetel()
         case 2:
             myCarsInf.setIfShowPhone(switchShowPhone());
             break; 
+		case 3:
+			longCarsInf.setIfShowPhone(switchShowPhone());
+			break;
         default: 
             break;
         }
@@ -1808,6 +1829,7 @@ int CWLRClientDlg::setGoodsInf(int tabIndex)
     mTabMain.InsertItem(0,"最新货源");
     mTabMain.InsertItem(1,"定制信息");
     mTabMain.InsertItem(2,"我的货源");
+	mTabMain.InsertItem(3, "长期货源");
     
     //获得IDC_TABTEST客户区大小
     CRect rect;
@@ -1818,7 +1840,8 @@ int CWLRClientDlg::setGoodsInf(int tabIndex)
     rect.left+=1; 
     rect.right-=2;
     
-    if (0 == tabIndex) { // 最新货源    
+    if (0 == tabIndex)
+	{ // 最新货源    
         //设置子对话框尺寸并移动到指定位置
 		showtype = NewGood;
 // 		KillTimer(AUTO_REFRESH_TIMER_ID);
@@ -1844,7 +1867,8 @@ int CWLRClientDlg::setGoodsInf(int tabIndex)
 
         newGoodsInf.setIfShowPhone(ifShowPhone); 
         newGoodsInf.setData(0);
-    } else if (1 == tabIndex) { // 定制信息
+    } 
+	else if (1 == tabIndex) { // 定制信息
 		showtype = CustomGood;
 		index = 0;
 		SetTimer(AUTO_REFRESH_TIMER_ID, 1500, NULL);
@@ -1857,7 +1881,9 @@ int CWLRClientDlg::setGoodsInf(int tabIndex)
 		customGoodsInf.svrIONew = &svrIOCustom;
         customGoodsInf.setIfShowPhone(ifShowPhone); 
         customGoodsInf.setGoods();
-    } else { // 我的货源
+    }
+	else if( 2 == tabIndex)
+	{ // 我的货源
         //设置子对话框尺寸并移动到指定位置
 		//ResumeThread(hThread);
 		showtype = MyGood;
@@ -1883,7 +1909,17 @@ int CWLRClientDlg::setGoodsInf(int tabIndex)
 		myGoodsInf.svrIONew = &svrIOMy;
         myGoodsInf.setIfShowPhone(ifShowPhone); 
         myGoodsInf.setData(0);
-    }    
+    }
+	else if( 3 == tabIndex )
+	{
+		showtype = LongGood;
+		longGoodsInf.svrIONew = &svrIONew; 
+		longGoodsInf.svrIO = &svrIOMore;
+		longGoodsInf.SetLongTimeFlag( true );
+
+		longGoodsInf.setIfShowPhone(ifShowPhone); 
+		longGoodsInf.setData(0);
+	}
 
     //设置默认的选项卡
     mTabMain.SetCurSel(tabIndex);
@@ -1955,6 +1991,7 @@ int CWLRClientDlg::setCarsInf(int tabIndex)
     mTabMain.InsertItem(0,"最新车源");
     mTabMain.InsertItem(1,"定制信息");
     mTabMain.InsertItem(2,"我的车源");
+	mTabMain.InsertItem(3,"长期车源");
     
     //获得IDC_TABTEST客户区大小
     CRect rect;
@@ -2005,9 +2042,9 @@ int CWLRClientDlg::setCarsInf(int tabIndex)
 		customCarsInf.svrIONew = &svrIOCustom;
         customCarsInf.setIfShowPhone(ifShowPhone); 
         customCarsInf.setCars();
-    } else { // 我的车源
-        //设置子对话框尺寸并移动到指定位置
-		//ResumeThread(hThread);
+    } 
+	else if( 2 == tabIndex )
+	{ 
 		showtype = MyCar;
         //myCarsInf.MoveWindow(&rect);
         //分别设置隐藏和显示
@@ -2017,7 +2054,14 @@ int CWLRClientDlg::setCarsInf(int tabIndex)
 		myCarsInf.svrIONew = &svrIOMy;
         myCarsInf.setIfShowPhone(ifShowPhone); 
         myCarsInf.setData(2);
-    }    
+    }
+	else
+	{
+		longCarsInf.svrIO = &svrIOMore;
+		longCarsInf.svrIONew = &svrIONew;
+		longCarsInf.setIfShowPhone(ifShowPhone); 
+		longCarsInf.setData(2);
+	}
 
     //设置默认的选项卡
     mTabMain.SetCurSel(tabIndex);
@@ -2770,6 +2814,9 @@ void CWLRClientDlg::refreshShow()
 		case 2:
 			myGoodsInf.setData(0, -1);
 			break; 
+		case 3:
+			longGoodsInf.setData(0, -1);
+			break;
 		default: 
 			break;
 			}
@@ -2798,6 +2845,9 @@ void CWLRClientDlg::refreshShow()
 		case 2:
 			myCarsInf.setData(2, -1);
 			break; 
+		case 3:
+			longCarsInf.setData(2, -1);
+			break;
 		default: 
 			break;
 			}
@@ -3193,7 +3243,7 @@ DWORD CWLRClientDlg::Proc(LPVOID lpVoid)
 						sort(zoneInfHY.begin(),zoneInfHY.end(),greatermark);
 						sort(zoneInfCY.begin(),zoneInfCY.end(),greatermark);
 
-						if(showtype == NewGood)
+						if(showtype == NewGood || showtype == LongGood)
 						::SendMessage(pDlg->GetSafeHwnd(),WM_SENDFRESH,0,0);
 						break;
 					}
@@ -3964,7 +4014,7 @@ LRESULT CWLRClientDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 		search(wParam, lParam);
 		break;
 	case WM_TNI_STOP_REFRESH:
-		stopTimer();
+		OnBnClickedBtnAutoupdate();
 		break;
 	case WM_TNI_SECRECY:
 		OnBnClickedBtnHidetel();

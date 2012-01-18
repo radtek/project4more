@@ -14,7 +14,7 @@ class CSearchCriteria
 public:
 	CSearchCriteria()
 	{
-		m_bMatchAll = false;
+		m_bMatchAll = true;
 	}
 	virtual void Clean()
 	{

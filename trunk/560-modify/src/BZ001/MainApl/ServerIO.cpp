@@ -435,11 +435,20 @@ int ServerIO::getNewGoodsInf(vector<TabNewInfRecord> &inf, inputParam& input)
 				}
 				tmp.pubUID = tokens.at(15);
 
-				if( tokens.size() ==  20 )
+				if( tokens.size() >=  20 )
 				{
 					tmp.pubAddress = tokens.at(17);
 					tmp.dateTime = tokens.at(18);
 					tmp.state = tokens.at(19);
+					if( tokens.size() > 20 )
+					{
+						tmp.bLongTime = tokens.at(20) == "长期"?true:false;
+					}
+					else
+					{
+						tmp.bLongTime = true;
+					}
+
 				}
 				inf.push_back(tmp);                
 			}
@@ -660,17 +669,18 @@ int ServerIO::getMyGoodsInf(vector<TabMyInfRecord> &inf, inputParam& input)
 				tmp.totalNum = tokens.at(1);
 				tmp.returnNum = tokens.at(2);
 				tmp.recordID = tokens.at(3);
-				tmp.startPlace = tokens.at(4) + tokens.at(5);
+
+				tmp.startPlace = (tmp.startProv = tokens.at(4)) + (tmp.startCity = tokens.at(5));
 				if (tokens.at(6) != "NULL")
 				{
-					tmp.startPlace +=  tokens.at(6);
+					tmp.startPlace +=  (tmp.startCounty = tokens.at(6));
 				}
 
-				tmp.endPlace = tokens.at(7) + tokens.at(8);
+				tmp.endPlace = (tmp.endProv = tokens.at(7)) + (tmp.endCity = tokens.at(8));
 
 				if (tokens.at(9) != "NULL")
 				{
-					tmp.endPlace +=  tokens.at(9);
+					tmp.endPlace += tmp.endCounty = tokens.at(9);
 				}
 
 				tmp.record = tokens.at(13) + "(" + (tmp.pubTime = tokens.at(14)) + ")。";
@@ -1053,12 +1063,20 @@ int ServerIO::getNewCarsInf(vector<TabNewInfRecord> &inf, inputParam& input)
 				}
 				tmp.pubUID = tokens.at(21);
 
-				if( tokens.size() == 26)
+				if( tokens.size() >= 26)
 				{
 					//tmp.pubURL = tokens.at(22); not used
 					tmp.pubAddress = tokens.at(23);
 					tmp.dateTime = tokens.at(24);
 					tmp.state = tokens.at(25);
+					if( tokens.size() > 26 )
+					{
+						tmp.bLongTime = tokens.at(26) == "长期";
+					}
+					else
+					{
+						tmp.bLongTime = true;
+					}
 				}
 				inf.push_back(tmp);                
 			}
@@ -1216,7 +1234,7 @@ int ServerIO::getCustomCarsInf(vector<TabCustomInfRecord> &inf, inputParam& inpu
 				}
 				tmp.pubUID = tokens.at(21);
 
-				if( tokens.size() > 22 && tokens.size() < 26)
+				if( tokens.size() == 26)
 				{
 					//tmp.pubURL = tokens.at(22); //not used
 					tmp.pubAddress = tokens.at(23);
@@ -1303,18 +1321,18 @@ int ServerIO::getMyCarsInf(vector<TabMyInfRecord> &inf, inputParam& input)
 				tmp.returnNum = tokens.at(2);
 				tmp.recordID = tokens.at(3);
 
-				tmp.startPlace = tokens.at(4) + tokens.at(5);
-
+				tmp.startPlace = (tmp.startProv = tokens.at(4)) + (tmp.startCity = tokens.at(5));
+				
 				if (tokens.at(6) != "NULL")
 				{
-					tmp.startPlace +=  tokens.at(6);
+					tmp.startPlace +=  tmp.startCounty = tokens.at(6);
 				}
 
-				tmp.endPlace = tokens.at(7) + tokens.at(8);
+				tmp.endPlace = (tmp.endProv = tokens.at(7)) + (tmp.endCity = tokens.at(8));
 
 				if (tokens.at(9) != "NULL")
 				{
-					tmp.endPlace +=  tokens.at(9);
+					tmp.endPlace +=  tmp.endCounty = tokens.at(9);
 				}
 
 				if (tokens.at(10) != "NULL")
@@ -1356,7 +1374,7 @@ int ServerIO::getMyCarsInf(vector<TabMyInfRecord> &inf, inputParam& input)
 				}
 				tmp.pubUID = tokens.at(21);
 
-				if( tokens.size() > 22 && tokens.size() < 26)
+				if( tokens.size() == 26)
 				{
 				//	tmp.pubURL = tokens.at(22); //not used
 					tmp.pubAddress = tokens.at(23);
@@ -1440,7 +1458,7 @@ int ServerIO::getAllSpecialLineInf(vector<TabSpecialLineRecord> &inf, inputParam
                 }
 				if (tokens.at(13) != "NULL")
 				{
-					tmp.tel += tmp.pubName = tokens.at(13);
+					tmp.tel += tokens.at(13);
 				}
                 tmp.pubUID = tokens.at(15);
 
@@ -1526,7 +1544,7 @@ int ServerIO::getMySpecialLineInf(vector<TabSpecialLineRecord> &inf, inputParam&
                 }
 				if (tokens.at(13) != "NULL")
 				{
-					tmp.tel += tmp.pubName = tokens.at(13);
+					tmp.tel += tokens.at(13);
 				}
                 tmp.pubUID = tokens.at(15);
 
@@ -1613,7 +1631,7 @@ int ServerIO::getFavoriteSpecialLineInf(vector<TabSpecialLineRecord> &inf, input
                 }
 				if (tokens.at(13) != "NULL")
 				{
-					tmp.tel += tmp.pubName = tokens.at(13);
+					tmp.tel += tokens.at(13);
 				}
                 tmp.pubUID = tokens.at(15);
 
@@ -2869,6 +2887,74 @@ string ServerIO::delFavoriteSpecialLine(string recordID)
    }
 #endif
     return "TRUE";
+}
+
+
+string ServerIO::setGoodsStatus(const string& recordID, const string& sStatus)
+{
+#ifdef _OFF_LINE_
+#else
+	ns2__setGoodsStatus inData;
+	std::string id(userInf.id);
+	inData.uid = &id;
+	inData.gid = const_cast<string*>(&recordID);
+
+	std::string UTF8status;
+	MultiByteToUTF8(sStatus, UTF8status);
+	inData.status = const_cast<string*>(&UTF8status);
+
+	ns2__setGoodsStatusResponse outData;
+
+	if ( soap_call___ns1__setGoodsStatus(&mySoap, svrURL.c_str(), NULL, &inData, &outData)== SOAP_OK) {
+		string outTmp("");	
+		vector<string> tokens;
+		UTF8ToMultiByte(*(outData.return_), outTmp);
+		tokenize(outTmp, tokens, "|");
+		if (tokens.at(0) == "FALSE" && tokens.size() >= 2) {
+			return tokens.at(1);       
+		}	
+		destroySoap();
+	}
+	else 
+	{
+		destroySoap();
+		return "连接服务器失败，请检查网络连接。";       
+	}
+#endif
+	return "TRUE";
+}
+string ServerIO::setCarsStatus(const string& recordID, const string& sStatus)
+{
+#ifdef _OFF_LINE_
+#else
+	ns2__setCarsStatus inData;
+	std::string id(userInf.id);
+	inData.uid = &id;
+	inData.cid = const_cast<string*>(&recordID);
+
+	std::string UTF8status;
+	MultiByteToUTF8(sStatus, UTF8status);
+	inData.status = const_cast<string*>(&UTF8status);
+	
+	ns2__setCarsStatusResponse outData;
+
+	if ( soap_call___ns1__setCarsStatus(&mySoap, svrURL.c_str(), NULL, &inData, &outData)== SOAP_OK) {
+		string outTmp("");	
+		vector<string> tokens;
+		UTF8ToMultiByte(*(outData.return_), outTmp);
+		tokenize(outTmp, tokens, "|");
+		if (tokens.at(0) == "FALSE" && tokens.size() >= 2) {
+			return tokens.at(1);       
+		}	
+		destroySoap();
+	}
+	else 
+	{
+		destroySoap();
+		return "连接服务器失败，请检查网络连接。";       
+	}
+#endif
+	return "TRUE";
 }
     
 // Send Phone Message

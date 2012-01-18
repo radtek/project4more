@@ -78,6 +78,8 @@ void CTabSpecialLineDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BUTTON_LINE_CANCEL_SEARCH, m_btnCancelSearch);
 	DDX_Control(pDX, IDC_BUTTON_LINE_SECRECY, m_btnSecrecy);
 	DDX_Control(pDX, IDC_BUTTON_LINE_STOP_REFRESH, m_btnStopRefresh);
+	DDX_Control(pDX, IDC_TAB_SPECIAL_LINE_FIRST, m_btnFirstPage);
+	DDX_Control(pDX, IDC_TAB_SPECIAL_LINE_LAST, m_btnLastPage);
 }
 
 
@@ -98,14 +100,18 @@ BEGIN_MESSAGE_MAP(CTabSpecialLineDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON_LINE_STOP_REFRESH, &CTabSpecialLineDlg::OnBnClickedButtonLineStopRefresh)
 	ON_WM_CTLCOLOR()
 	ON_WM_PAINT()
+	ON_BN_CLICKED(IDC_TAB_SPECIAL_LINE_FIRST, &CTabSpecialLineDlg::OnBnClickedTabSpecialLineFirst)
+	ON_BN_CLICKED(IDC_TAB_SPECIAL_LINE_LAST, &CTabSpecialLineDlg::OnBnClickedTabSpecialLineLast)
 END_MESSAGE_MAP()
 
 // 自动改变控件位置大小
 BEGIN_EASYSIZE_MAP(CTabSpecialLineDlg)
     // EASYSIZE(control,left,top,right,bottom,options)
 	EASYSIZE(IDC_TAB_SPECIAL_LINE_LIST, ES_BORDER, ES_BORDER, ES_BORDER, ES_BORDER, 0)
-    EASYSIZE(IDC_TAB_SPECIAL_LINE_NEXT, ES_KEEPSIZE, ES_BORDER, ES_BORDER, ES_KEEPSIZE, 0)
+	EASYSIZE(IDC_TAB_SPECIAL_LINE_LAST, ES_KEEPSIZE, ES_BORDER, ES_BORDER, ES_KEEPSIZE, 0)
+    EASYSIZE(IDC_TAB_SPECIAL_LINE_NEXT, ES_KEEPSIZE, ES_BORDER, IDC_TAB_SPECIAL_LINE_LAST, ES_KEEPSIZE, 0)
     EASYSIZE(IDC_TAB_SPECIAL_LINE_PREV, ES_KEEPSIZE, ES_BORDER, IDC_TAB_SPECIAL_LINE_NEXT, ES_KEEPSIZE, 0)
+	EASYSIZE(IDC_TAB_SPECIAL_LINE_FIRST, ES_KEEPSIZE, ES_BORDER, IDC_TAB_SPECIAL_LINE_PREV, ES_KEEPSIZE, 0)
 END_EASYSIZE_MAP
 
 // CTabSpecialLineDlg 消息处理程序
@@ -123,6 +129,8 @@ BOOL CTabSpecialLineDlg::OnInitDialog()
     // 初始化按钮
     btnPrev.LoadBitmap(IDB_PREVPAGE);
     btnNext.LoadBitmap(IDB_NEXTPAGE);
+	m_btnFirstPage.LoadBitmap(IDB_FIRST_PAGE);
+	m_btnLastPage.LoadBitmap(IDB_LAST_PAGE);
 
 	//btnPrev.ShowWindow(SW_HIDE);
 	//btnNext.ShowWindow(SW_HIDE);
@@ -607,7 +615,7 @@ int CTabSpecialLineDlg::setThisGridContent(int m_nCols,vector<TabSpecialLineReco
                         //item[i].strText = (*iter).record.c_str();
                         item[i].strText += (*iter).tel.c_str();
                     } else {
-                        item[i].strText = (*iter).pubName.c_str();            
+                        item[i].strText = ("联系方式：" + (*iter).pubName).c_str();            
                     }                    
                     break;
                 case 7: // 保留列
@@ -856,6 +864,30 @@ void CTabSpecialLineDlg::OnBnClickedTabSpecialLineNext()
     curInput.curpage += 1;
     setData(curType, curInput.curpage);
 }
+
+
+void CTabSpecialLineDlg::OnBnClickedTabSpecialLineFirst()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	if(curInput.curpage <= 1) {
+		return;
+	}
+
+	curInput.curpage = 1;
+	setData(curType, curInput.curpage);
+}
+
+void CTabSpecialLineDlg::OnBnClickedTabSpecialLineLast()
+{
+	if(curInput.curpage == maxPageNum) {
+		return;
+	}
+
+	curInput.curpage = maxPageNum;
+	setData(curType, curInput.curpage);
+}
+
+
 //搜索处理线程
 DWORD CTabSpecialLineDlg::ThreadFuncZX(LPVOID p)
 {
@@ -1006,14 +1038,17 @@ void CTabSpecialLineDlg::OnBnClickedButtonLineCancelSearch()
 
 void CTabSpecialLineDlg::OnBnClickedButtonLineSecrecy()
 {
+	ifShowPhone = !ifShowPhone;
+	m_btnSecrecy.LoadBitmap(ifShowPhone?IDB_HIDE_PHONE_NUM:IDB_SHOWPHONE);
 	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_SECRECY);
 }
 
 void CTabSpecialLineDlg::OnBnClickedButtonLineStopRefresh()
 {
+	m_bAutoRefresh = !m_bAutoRefresh;
+	m_btnStopRefresh.LoadBitmap(m_bAutoRefresh?IDB_STOP_REFRESH:IDB_AUTOREFRESH);
 	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_STOP_REFRESH);
 }
-
 
 LRESULT CTabSpecialLineDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
