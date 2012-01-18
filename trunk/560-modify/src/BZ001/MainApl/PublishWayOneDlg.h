@@ -139,4 +139,6 @@ private:
 	void SetComboSection(CComboBox& b, string k);
 
 	void SetListSection(CListBox& b, string k);
+public:
+	afx_msg void OnBnClickedButtonPriaceNum();
 };

@@ -94,6 +94,9 @@ void CPubGoodsDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_PUB_GOODS_CUBAGE, cubage);
 	DDV_MaxChars(pDX, preview, 100);
 	DDX_Control(pDX, IDC_PUB_GOODS_PREVIEW_EDIT, m_msgedit);
+	DDV_MaxChars(pDX, weight, 8);
+	DDV_MaxChars(pDX, cubage, 8);
+	DDV_MaxChars(pDX, price, 8);
 }
 
 
@@ -112,6 +115,10 @@ END_MESSAGE_MAP()
 BOOL CPubGoodsDlg::OnInitDialog()
 {
     CDialog::OnInitDialog();
+
+	((CEdit*)GetDlgItem(IDC_PUB_GOODS_WEIGHT))->SetLimitText(8);
+	((CEdit*)GetDlgItem(IDC_PUB_GOODS_CUBAGE))->SetLimitText(8);
+	((CEdit*)GetDlgItem(IDC_PUB_GOODS_PRICE))->SetLimitText(8);
 
 	m_msgedit.LimitText(100);
     // TODO:  在此添加额外的初始化
