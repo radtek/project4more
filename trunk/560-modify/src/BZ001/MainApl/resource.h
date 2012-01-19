@@ -104,6 +104,7 @@
 #define IDB_BITMAP6                     252
 #define IDD_DIALOG_DETAIL_INFO          253
 #define IDD_SPECIAL_LINE_DETAIL         254
+#define IDB_BITMAP_CLOSE                255
 #define IDC_BTN_MainPage                1000
 #define IDC_COLOR_NAME                  1000
 #define IDC_CONFIG_SET_SYSBKCLR         1000
@@ -573,6 +574,7 @@
 #define IDC_STATIC_GOAL_GROUP           1343
 #define IDC_STATIC_GROUP_CONTACT        1344
 #define IDC_STATIC_SEARCH_TITLE         1345
+#define IDC_BUTTON_SEARCH_CLOSE         1346
 #define ID_32771                        32771
 #define ID_MENU_SENDMSG_SENDMSG         32772
 #define ID_32775                        32775
@@ -587,9 +589,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        255
+#define _APS_NEXT_RESOURCE_VALUE        256
 #define _APS_NEXT_COMMAND_VALUE         32783
-#define _APS_NEXT_CONTROL_VALUE         1346
+#define _APS_NEXT_CONTROL_VALUE         1347
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

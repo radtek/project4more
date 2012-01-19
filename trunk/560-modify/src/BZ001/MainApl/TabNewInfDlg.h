@@ -224,6 +224,10 @@ public:
 	{
 		m_bLongTimeInfo = bLongTime;
 	}
+	void SetSearchTabFlag(bool bSearchTab)
+	{
+		m_bSearchTab = bSearchTab;
+	}
 
 
 private:
@@ -241,6 +245,7 @@ private:
 	CHoverButton m_btnHidePhoneNum;
 	CHoverButton m_btnPubWayOne;
 	CHoverButton m_btnPubWayTwo;
+	CHoverButton m_btnClose;
 	//CPictureEx m_Picture;
 	CPictureEx m_Picture;
 
@@ -261,9 +266,11 @@ private:
 
 	bool		  m_bLongTimeInfo;
 	bool		  m_bAutoRefresh;
+	bool		  m_bSearchTab;
 public:
 	afx_msg void OnBnClickedButtonPubWayOne();
 	afx_msg void OnBnClickedButtonPubWayTwo();
 	afx_msg void OnBnClickedTabNewUptop();
 	afx_msg void OnBnClickedTabNewBottomDown();
+	afx_msg void OnBnClickedButtonSearchClose();
 };

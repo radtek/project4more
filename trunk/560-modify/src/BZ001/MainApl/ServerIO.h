@@ -28,18 +28,18 @@ public:
     int getCustomGoodsInf(vector<TabCustomInfRecord> &inf, inputParam& input);
     // Get my goods information
     int getMyGoodsInf(vector<TabMyInfRecord> &inf, inputParam& input);
+	
+	int getPersisGoodsInfo(vector<TabNewInfRecord> &inf, inputParam& input);
 
-    // Get new bulkGoods information
-    int getNewBulkGoodsInf(vector<TabNewInfRecord> &inf, inputParam& input);
-    // Get my BulkGoods information
-    int getMyBulkGoodsInf(vector<TabMyInfRecord> &inf, inputParam& input);
-       
+
     // Get new cars information
     int getNewCarsInf(vector<TabNewInfRecord> &inf, inputParam& input);     
     // Get custom cars information
     int getCustomCarsInf(vector<TabCustomInfRecord> &inf, inputParam& input);
     // Get my cars information
     int getMyCarsInf(vector<TabMyInfRecord> &inf, inputParam& input);
+
+	int getPersisCarsInfo(vector<TabNewInfRecord> &inf, inputParam& input);
 
     // Get all special line information
     int getAllSpecialLineInf(vector<TabSpecialLineRecord> &inf, inputParam& input);
@@ -49,6 +49,12 @@ public:
     int getFavoriteSpecialLineInf(vector<TabSpecialLineRecord> &inf, inputParam& input);
     // Collect special Line
     string collectSpecialLine(string recordID);
+
+	// Get new bulkGoods information
+	int getNewBulkGoodsInf(vector<TabNewInfRecord> &inf, inputParam& input);
+	// Get my BulkGoods information
+	int getMyBulkGoodsInf(vector<TabMyInfRecord> &inf, inputParam& input);
+
 
     // Get search goods result
     int getSearchGoodsInf(const InSearchGoods& keyword, vector<TabNewInfRecord> &inf, inputParam& input);

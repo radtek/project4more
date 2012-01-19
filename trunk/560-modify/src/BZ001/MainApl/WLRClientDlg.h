@@ -56,6 +56,7 @@ public:
 public:
     // tab控件显示数据类型
     enum TabType {
+		TabType_UNKNOWN = -1,
         GOODS,     // 货源
         BULKGOODS, // 零担 
         CARS,      // 车源

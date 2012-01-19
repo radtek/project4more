@@ -19,6 +19,7 @@ struct ServiceData//服务站的信息
 #define WM_TNI_CANCEL_SEARCH	(WM_USER+1001)
 #define WM_TNI_STOP_REFRESH		(WM_USER+1002)
 #define WM_TNI_SECRECY			(WM_USER+1003)
+#define WM_TNI_CLOSE_SEARCH_TAB	(WM_USER+1004)
 
 //最新信息（货源、零担、车源）
 extern vector<TabNewInfRecord> contentDataHY;
@@ -27,6 +28,8 @@ extern vector<TabNewInfRecord> contentDataCY;
 extern vector<TabMyInfRecord> contentDataMYHY;
 extern vector<TabMyInfRecord> contentDataMYLD;
 extern vector<TabMyInfRecord> contentDataMYCY;
+extern vector<TabNewInfRecord> contentDataPHY;
+extern vector<TabNewInfRecord> contentDataPCY;
 //专线
 extern vector<TabSpecialLineRecord> contentDataALL;//所有专线
 extern vector<TabSpecialLineRecord> contentDataMY;//我的专线

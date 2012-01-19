@@ -96,6 +96,7 @@ void CTabNewInfDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BUTTON_HIDE_PHONE_NUM, m_btnHidePhoneNum);
 	DDX_Control(pDX, IDC_BUTTON_PUB_WAY_ONE, m_btnPubWayOne);
 	DDX_Control(pDX, IDC_BUTTON_PUB_WAY_TWO, m_btnPubWayTwo);
+	DDX_Control(pDX, IDC_BUTTON_SEARCH_CLOSE, m_btnClose);
 }
 
 
@@ -125,13 +126,25 @@ BEGIN_MESSAGE_MAP(CTabNewInfDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON_PUB_WAY_TWO, &CTabNewInfDlg::OnBnClickedButtonPubWayTwo)
 	ON_BN_CLICKED(IDC_TAB_NEW_UPTOP, &CTabNewInfDlg::OnBnClickedTabNewUptop)
 	ON_BN_CLICKED(IDC_TAB_NEW_BOTTOM_DOWN, &CTabNewInfDlg::OnBnClickedTabNewBottomDown)
+	ON_BN_CLICKED(IDC_BUTTON_SEARCH_CLOSE, &CTabNewInfDlg::OnBnClickedButtonSearchClose)
 END_MESSAGE_MAP()
 
 // 自动改变控件位置大小
 BEGIN_EASYSIZE_MAP(CTabNewInfDlg)
     // EASYSIZE(control,left,top,right,bottom,options)
 	EASYSIZE(IDC_TAB_NEW_INF_LIST, ES_BORDER, ES_BORDER, ES_BORDER, ES_BORDER, 0)
-	EASYSIZE(IDC_TAB_NEW_BOTTOM_DOWN, ES_KEEPSIZE, ES_BORDER, ES_BORDER, ES_KEEPSIZE, 0)
+	if( m_bSearchTab )
+	{
+		EASYSIZE(IDC_BUTTON_SEARCH_CLOSE, ES_KEEPSIZE, ES_BORDER, ES_BORDER, ES_KEEPSIZE, 0)
+	}
+	else
+	{
+		CRect rc;
+		m_btnClose.GetWindowRect(&rc);
+		ScreenToClient(&rc);
+		m_btnClose.MoveWindow(rc.right, rc.top, 0, rc.Height());
+	}
+	EASYSIZE(IDC_TAB_NEW_BOTTOM_DOWN, ES_KEEPSIZE, ES_BORDER, IDC_BUTTON_SEARCH_CLOSE, ES_KEEPSIZE, 0)
 	EASYSIZE(IDC_TAB_NEW_NEXT, ES_KEEPSIZE, ES_BORDER, IDC_TAB_NEW_BOTTOM_DOWN, ES_KEEPSIZE, 0)
 	EASYSIZE(IDC_TAB_NEW_PREV, ES_KEEPSIZE, ES_BORDER, IDC_TAB_NEW_NEXT, ES_KEEPSIZE, 0)
 	EASYSIZE(IDC_TAB_NEW_UPTOP, ES_KEEPSIZE, ES_BORDER, IDC_TAB_NEW_PREV, ES_KEEPSIZE, 0)
@@ -165,6 +178,21 @@ BOOL CTabNewInfDlg::OnInitDialog()
     btnNext.LoadBitmap(IDB_NEXTPAGE);
 	m_btnTopPage.LoadBitmap(IDB_FIRST_PAGE);
 	m_btnBottomPage.LoadBitmap(IDB_LAST_PAGE);
+	m_btnClose.LoadBitmap(IDB_BITMAP_CLOSE);
+
+	if( !m_bSearchTab )
+	{
+		m_btnClose.ShowWindow(SW_HIDE);
+		m_btnBottomPage.MoveWindow(786, 0, 23, 21);
+	}
+	
+	CRect rc;
+	m_btnBottomPage.GetWindowRect(&rc);
+	ScreenToClient(&rc);
+//	m_btnBottomPage.MoveWindow(&rc);
+
+	btnNext.GetWindowRect(&rc);
+	ScreenToClient(&rc);
 
 	m_btnPubWayOne.LoadBitmap(IDB_PUBLISH_ONE);
 	m_btnPubWayTwo.LoadBitmap(IDB_PUBLISH_TWO);
@@ -382,68 +410,64 @@ int CTabNewInfDlg::setData(int type, int curpage)
 	
     switch (curType) {
         case 0: // 货源
-			
-		//	m_editStartAddr.SetWindowText(_T(""));
-		//	m_editDestAddr.SetWindowText(_T(""));
-
-			title.record = "最新货源信息";
-			//svrIO->getNewGoodsInf(contentData, curInput);
-			
-			if (contentDataHY.size() != 0)
 			{
-				int len = contentDataHY.size();
-				if (len < curInput.record)
+
+				//	m_editStartAddr.SetWindowText(_T(""));
+				//	m_editDestAddr.SetWindowText(_T(""));
+
+				title.record = !m_bLongTimeInfo?"最新货源信息":"长期货源信息";
+				//svrIO->getNewGoodsInf(contentData, curInput);
+
+				vector<TabNewInfRecord>& contentDataTemp = m_bLongTimeInfo?contentDataPHY:contentDataHY;
+
+				if (contentDataTemp.size() != 0)
 				{
-					for (int i=0;i<len;i++)
+					int len = contentDataTemp.size();
+					if (len < curInput.record)
 					{
-						if (contentDataHY[i].recordID != "")
+						for (int i=0;i<len;i++)
 						{
-							//pcontentData->push_back(contentDataHY[i]);
-							if( !m_bLongTimeInfo || contentDataHY[i].bLongTime )
+							if (contentDataTemp[i].recordID != "")
 							{
-								contentData.push_back(contentDataHY[i]);
+								contentData.push_back(contentDataTemp[i]);
 							}
 						}
-
 					}
-				}
-				else
-				{
-					for (int i=(curInput.curpage-1)*curInput.record;i<curInput.curpage*curInput.record;i++)
+					else
 					{
-
-						if (i == len && len < curInput.curpage*curInput.record && len > (curInput.curpage-1)*curInput.record)
-						{
-							break;
-						}
-						if (curInput.curpage*curInput.record > RECORD_NUM|| (curInput.curpage-1)*curInput.record > RECORD_NUM)
+						for (int i=(curInput.curpage-1)*curInput.record;i<curInput.curpage*curInput.record;i++)
 						{
 
-							//pcontentData->clear();
-							//svrIO->getNewGoodsInf(contentData, curInput);
-							TRACE("ok0  =  %d\n");
-							nSSset = 10;
-							DWORD PID;
-							HANDLE Main_Thread;
-							Main_Thread=CreateThread(NULL,0,ProcMore,this,0,&PID);
-							//LeaveCriticalSection(&csPrintMore);
-							//LeaveCriticalSection(&csPrint);
-							CloseHandle(Main_Thread);
-							return 0;
-							break;
-						}
-						if (contentDataHY[i].recordID != "")
-						{
-							//pcontentData->push_back(contentDataHY[i]);
-							if( !m_bLongTimeInfo || contentDataHY[i].bLongTime )
+							if (i == len && len < curInput.curpage*curInput.record && len > (curInput.curpage-1)*curInput.record)
 							{
-								contentData.push_back(contentDataHY[i]);
+								break;
 							}
-						}
+							if (curInput.curpage*curInput.record > RECORD_NUM|| (curInput.curpage-1)*curInput.record > RECORD_NUM)
+							{
 
+								//pcontentData->clear();
+								//svrIO->getNewGoodsInf(contentData, curInput);
+								TRACE("ok0  =  %d\n");
+								nSSset = 10;
+								DWORD PID;
+								HANDLE Main_Thread;
+								Main_Thread=CreateThread(NULL,0,ProcMore,this,0,&PID);
+								//LeaveCriticalSection(&csPrintMore);
+								//LeaveCriticalSection(&csPrint);
+								CloseHandle(Main_Thread);
+								return 0;
+								break;
+							}
+							if (contentDataTemp[i].recordID != "")
+							{
+								contentData.push_back(contentDataTemp[i]);
+							}
+
+						}
 					}
 				}
 			}
+
 			break;
         case 1: // 零担
             title.record = "最新零担信息";
@@ -503,63 +527,55 @@ int CTabNewInfDlg::setData(int type, int curpage)
         case 2: // 车源
 		//	m_editStartAddr.SetWindowText(_T(""));
 		//	m_editDestAddr.SetWindowText(_T(""));
-
-            title.record = "最新车源信息";
-			//contentData.clear();
-			//pcontentData->clear();
-			if (contentDataCY.size() != 0)
 			{
-				int len = contentDataCY.size();
-				if (len < curInput.record)
+				title.record = !m_bLongTimeInfo?"最新车源信息":"长期车源信息";
+				vector<TabNewInfRecord>& contentDataTemp = m_bLongTimeInfo?contentDataPCY:contentDataCY;
+				//contentData.clear();
+				//pcontentData->clear();
+				if (contentDataCY.size() != 0)
 				{
-					for (int i=0;i<len;i++)
+					int len = contentDataTemp.size();
+					if (len < curInput.record)
 					{
-						if (contentDataCY[i].recordID != "")
+						for (int i=0;i<len;i++)
 						{
-						//	pcontentData->push_back(contentDataCY[i]);
-							if( !m_bLongTimeInfo || contentDataHY[i].bLongTime )
+							if (contentDataTemp[i].recordID != "")
 							{
 								contentData.push_back(contentDataHY[i]);
 							}
 						}
 					}
-				}
-				else
-				{
-					for (int i=(curInput.curpage-1)*curInput.record;i<curInput.curpage*curInput.record;i++)
+					else
 					{
-						if (i == len && len < curInput.curpage*curInput.record && len > (curInput.curpage-1)*curInput.record)
+						for (int i=(curInput.curpage-1)*curInput.record;i<curInput.curpage*curInput.record;i++)
 						{
-							break;
-						}
-						if (curInput.curpage*curInput.record > RECORD_NUM|| (curInput.curpage-1)*curInput.record > RECORD_NUM)
-						{
-							//SuspendThread(hThread);
-
-							//Sleep(100);
-							//pcontentData->clear();
-							//svrIO->getNewGoodsInf(contentData, curInput);
-							TRACE("ok0  =  %d\n");
-							nSSset = 12;
-							m_bStart = TRUE;
-							DWORD PID;
-							HANDLE Main_Thread;
-							Main_Thread=CreateThread(NULL,0,ProcMore,this,0,&PID);
-							CloseHandle(Main_Thread);
-							//LeaveCriticalSection(&csPrint);
-							return 0;
-						}
-						if (contentDataCY[i].recordID != "")
-						{
-						//	pcontentData->push_back(contentDataCY[i]);
-							//TRACE(contentDataCY[i].recordID.c_str());
-							//TRACE("\n");
-							if( !m_bLongTimeInfo || contentDataHY[i].bLongTime )
+							if (i == len && len < curInput.curpage*curInput.record && len > (curInput.curpage-1)*curInput.record)
 							{
-								contentData.push_back(contentDataHY[i]);
+								break;
 							}
-						}
+							if (curInput.curpage*curInput.record > RECORD_NUM|| (curInput.curpage-1)*curInput.record > RECORD_NUM)
+							{
+								//SuspendThread(hThread);
 
+								//Sleep(100);
+								//pcontentData->clear();
+								//svrIO->getNewGoodsInf(contentData, curInput);
+								TRACE("ok0  =  %d\n");
+								nSSset = 12;
+								m_bStart = TRUE;
+								DWORD PID;
+								HANDLE Main_Thread;
+								Main_Thread=CreateThread(NULL,0,ProcMore,this,0,&PID);
+								CloseHandle(Main_Thread);
+								//LeaveCriticalSection(&csPrint);
+								return 0;
+							}
+							if (contentDataTemp[i].recordID != "")
+							{
+								contentData.push_back(contentDataTemp[i]);
+							}
+
+						}
 					}
 				}
 			}
@@ -1081,13 +1097,13 @@ DWORD CTabNewInfDlg::ProcMore(LPVOID p)
 		switch (nSSset)
 		{
 		case 10:
-			nstat = dlg->svrIO->getNewGoodsInf(*pcontentData, dlg->curInput);
+			nstat = !dlg->m_bLongTimeInfo?dlg->svrIO->getNewGoodsInf(*pcontentData, dlg->curInput):dlg->svrIO->getPersisGoodsInfo(*pcontentData, dlg->curInput);
 			break;
 		case 11:
 			nstat = dlg->svrIO->getNewBulkGoodsInf(*pcontentData, dlg->curInput);
 			break;
 		case 12:
-			nstat = dlg->svrIO->getNewCarsInf(*pcontentData, dlg->curInput);
+			nstat = !dlg->m_bLongTimeInfo?dlg->svrIO->getNewCarsInf(*pcontentData, dlg->curInput):dlg->svrIO->getPersisCarsInfo(*pcontentData, dlg->curInput);
 			break;
 		case 20:
 			string result = dlg->svrIO->sendPhoneMessage(dlg->sphonenum,dlg->sphonetext);
@@ -1316,4 +1332,8 @@ void CTabNewInfDlg::ShowDetailInfo(const TabNewInfRecord* pContent)
 {
 	CNewInfoDetailDlg dlg(pContent, (curType==0||curType==3)?CNewInfoDetailDlg::eInfoType_Goods:CNewInfoDetailDlg::eInfoType_Cars, this);
 	dlg.DoModal();
+}
+void CTabNewInfDlg::OnBnClickedButtonSearchClose()
+{
+	((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->PostMessage(WM_TNI_CLOSE_SEARCH_TAB);
 }

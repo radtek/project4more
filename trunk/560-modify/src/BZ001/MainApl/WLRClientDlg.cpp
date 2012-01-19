@@ -55,6 +55,8 @@
 vector<TabNewInfRecord> contentDataHY;
 vector<TabNewInfRecord> contentDataLD;
 vector<TabNewInfRecord> contentDataCY;
+vector<TabNewInfRecord> contentDataPHY;//长期货源
+vector<TabNewInfRecord> contentDataPCY;//长期货源
 //我的信息（货源、零担、车源）
 vector<TabMyInfRecord> contentDataMYHY;
 vector<TabMyInfRecord> contentDataMYLD;
@@ -176,6 +178,7 @@ CWLRClientDlg::CWLRClientDlg(CWnd* pParent /*=NULL*/)
 	OnShemaChanged(0);
 	//OnShemaChanged
 	InitExceptionCatch();
+	m_curSearchType = TabType_UNKNOWN;
 
 }
 
@@ -836,6 +839,7 @@ int CWLRClientDlg::initTabCtrl()
 	CEnTabCtrl::EnableCustomLook(dwFlags | 1, dwFlags);
 */
     //关联对话框,并且将IDC_TAB_Main控件设为父窗口：货源
+	newGoodsInf.SetSearchTabFlag(false);
     newGoodsInf.Create(IDD_TAB_NEW_INF, GetDlgItem(IDC_TAB_Main));
     customGoodsInf.Create(IDD_TAB_CUSTOM_INF, GetDlgItem(IDC_TAB_Main));
     myGoodsInf.Create(IDD_TAB_MY_INF, GetDlgItem(IDC_TAB_Main));  
@@ -847,6 +851,7 @@ int CWLRClientDlg::initTabCtrl()
     myBulkGoodsInf.Create(IDD_TAB_MY_INF, GetDlgItem(IDC_TAB_Main)); 
 
     //关联对话框,并且将IDC_TAB_Main控件设为父窗口：车源
+	newCarsInf.SetSearchTabFlag(false);
     newCarsInf.Create(IDD_TAB_NEW_INF, GetDlgItem(IDC_TAB_Main));
     customCarsInf.Create(IDD_TAB_CUSTOM_INF, GetDlgItem(IDC_TAB_Main));
     myCarsInf.Create(IDD_TAB_MY_INF, GetDlgItem(IDC_TAB_Main));
@@ -859,10 +864,13 @@ int CWLRClientDlg::initTabCtrl()
     favoriteSpecialLine.Create(IDD_TAB_SPECIAL_LINE, GetDlgItem(IDC_TAB_Main));
 
     //关联对话框,并且将IDC_TAB_Main控件设为父窗口：搜索
+	searchGoodsInf.SetSearchTabFlag(true);
+	searchCarsInf.SetSearchTabFlag(true);
     searchGoodsInf.Create(IDD_TAB_NEW_INF, GetDlgItem(IDC_TAB_Main));
     searchBulkGoodsInf.Create(IDD_TAB_NEW_INF, GetDlgItem(IDC_TAB_Main));
     searchCarsInf.Create(IDD_TAB_NEW_INF, GetDlgItem(IDC_TAB_Main));
     searchSpecialLine.Create(IDD_TAB_SPECIAL_LINE, GetDlgItem(IDC_TAB_Main)); 
+
 
     ifInit = true;
     m_curTabIndex = 0;
@@ -1409,7 +1417,9 @@ int CWLRClientDlg::ShowTabDlgs()
 
     if (pMainTab)
     {
-        if (pSearchTab)
+        if ( ((pSearchTab == &searchGoodsInf) && (pMainTab == &newGoodsInf )) || 
+			((pSearchTab == &searchCarsInf)&&(pMainTab == &newCarsInf) )
+			)
         {
             pMainTab->MoveWindow(rect.left, rect.top, rect.Width(), rect.Height() / 2);
             pSearchTab->MoveWindow(rect.left, rect.top + rect.Height() / 2, rect.Width(), rect.Height() / 2);
@@ -1417,7 +1427,11 @@ int CWLRClientDlg::ShowTabDlgs()
             pSearchTab->ShowWindow(true);
         }
         else
-            pMainTab->MoveWindow(rect);
+		{
+			pMainTab->MoveWindow(rect);
+			searchGoodsInf.ShowWindow(SW_HIDE);
+			searchCarsInf.ShowWindow(SW_HIDE);
+		}
 
         pMainTab->ShowWindow(true);
     }
@@ -1692,10 +1706,15 @@ void CWLRClientDlg::OnBnClickedBtnHidetel()
 		// showPhone.LoadBitmap(IDB_SHOWPHONE);
 	}
 	i++;
-    if (m_curTabType == GOODS) { // 货源 
+    if (m_curTabType == GOODS)
+	{ // 货源 
         switch(m_curTabIndex) { 
         case 0:
             newGoodsInf.setIfShowPhone(switchShowPhone());
+			if( m_curSearchType == SEARCH_GOODS )
+			{
+				searchGoodsInf.setIfShowPhone(ifShowPhone);
+			}
             break;
         case 1:
             customGoodsInf.setIfShowPhone(switchShowPhone());
@@ -1730,6 +1749,10 @@ void CWLRClientDlg::OnBnClickedBtnHidetel()
         switch(m_curTabIndex) { 
         case 0:
             newCarsInf.setIfShowPhone(switchShowPhone());
+			if( m_curSearchType == SEARCH_CARS )
+			{
+				searchCarsInf.setIfShowPhone(ifShowPhone);
+			}
             break;
         case 1:
             customCarsInf.setIfShowPhone(switchShowPhone());
@@ -3244,7 +3267,9 @@ DWORD CWLRClientDlg::Proc(LPVOID lpVoid)
 						sort(zoneInfCY.begin(),zoneInfCY.end(),greatermark);
 
 						if(showtype == NewGood || showtype == LongGood)
-						::SendMessage(pDlg->GetSafeHwnd(),WM_SENDFRESH,0,0);
+						{
+							::SendMessage(pDlg->GetSafeHwnd(),WM_SENDFRESH,0,0);
+						}
 						break;
 					}
 					if (i == -1)//网络断线
@@ -3390,9 +3415,6 @@ start1:
 		}
 		LeaveCriticalSection(&csPrint);
 
-
-
-
 		EnterCriticalSection(&csPrint);//最新零担
 		while(1)
 		{
@@ -3435,6 +3457,8 @@ start1:
 			}
 		}
 		LeaveCriticalSection(&csPrint);
+
+
 		EnterCriticalSection(&csPrint);//最新车源
 		while(1)
 		{
@@ -3479,6 +3503,95 @@ start1:
 		}
 		LeaveCriticalSection(&csPrint);
 
+		EnterCriticalSection(&csPrint);//长期车源
+		while(1)
+		{
+
+			int i = 90;//初始化大小，用于判断是否收取完全或者断线
+			try 
+			{
+				inputParam curInput;
+				curInput.curpage =1;
+				curInput.record = RECORD_NUM;
+				curInput.customid = "0";
+				i = pDlg->svrIO.getPersisCarsInfo(contentDataPCY, curInput);
+				while (1)
+				{
+					if (i==0)//数据接收完全
+					{
+						if(showtype == LongCar)
+							::SendMessage(pDlg->GetSafeHwnd(),WM_SENDFRESH,0,0);
+						break;
+					}
+					if (i == -1)//网络断线
+					{
+						//重新登陆
+						string result = pDlg->svrIO.usrLogin(user.loginName, user.passWord);
+						if (result != "TRUE") {//登陆不成功继续登陆
+							if (pDlg->m_break)//关闭时跳出死循环
+							{
+								break;
+							}
+
+						} else {//登陆成功跳出死循环
+							break;
+						}
+					}
+					Sleep(100);
+				}
+				break;
+			}
+			catch (...)
+			{
+			}
+		}
+		LeaveCriticalSection(&csPrint);
+
+		EnterCriticalSection(&csPrint);//长期货源
+		while(1)
+		{
+
+			int i = 90;//初始化大小，用于判断是否收取完全或者断线
+			try 
+			{
+				inputParam curInput;
+				curInput.curpage =1;
+				curInput.record = RECORD_NUM;
+				curInput.customid = "0";
+				i = pDlg->svrIO.getPersisGoodsInfo(contentDataPHY, curInput);
+				while (1)
+				{
+					if (i==0)//数据接收完全
+					{
+						if(showtype == LongGood)
+							::SendMessage(pDlg->GetSafeHwnd(),WM_SENDFRESH,0,0);
+						break;
+					}
+					if (i == -1)//网络断线
+					{
+						//重新登陆
+						string result = pDlg->svrIO.usrLogin(user.loginName, user.passWord);
+						if (result != "TRUE") {//登陆不成功继续登陆
+							if (pDlg->m_break)//关闭时跳出死循环
+							{
+								break;
+							}
+
+						} else {//登陆成功跳出死循环
+							break;
+						}
+					}
+					Sleep(100);
+				}
+				break;
+			}
+			catch (...)
+			{
+			}
+		}
+		LeaveCriticalSection(&csPrint);
+
+
 		EnterCriticalSection(&csPrint);//我的货源
 		while(1)
 		{
@@ -3518,6 +3631,8 @@ start1:
 			}
 		}
 		LeaveCriticalSection(&csPrint);
+
+
 		EnterCriticalSection(&csPrint);//我的零担
 		while(1)
 		{
@@ -3557,6 +3672,8 @@ start1:
 			}
 		}
 		LeaveCriticalSection(&csPrint);
+
+
 		EnterCriticalSection(&csPrint);//我的车源
 		while(1)
 		{
@@ -3595,6 +3712,9 @@ start1:
 			}
 		}
 		LeaveCriticalSection(&csPrint);
+
+
+
 		EnterCriticalSection(&csPrint);//所有专线
 		while(1)
 		{
@@ -4018,6 +4138,10 @@ LRESULT CWLRClientDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_TNI_SECRECY:
 		OnBnClickedBtnHidetel();
+		break;
+	case WM_TNI_CLOSE_SEARCH_TAB:
+		m_curSearchType = TabType_UNKNOWN;
+		ShowTabDlgs();
 		break;
 	default:
 		break;

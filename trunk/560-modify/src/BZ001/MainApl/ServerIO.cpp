@@ -440,15 +440,6 @@ int ServerIO::getNewGoodsInf(vector<TabNewInfRecord> &inf, inputParam& input)
 					tmp.pubAddress = tokens.at(17);
 					tmp.dateTime = tokens.at(18);
 					tmp.state = tokens.at(19);
-					if( tokens.size() > 20 )
-					{
-						tmp.bLongTime = tokens.at(20) == "长期"?true:false;
-					}
-					else
-					{
-						tmp.bLongTime = true;
-					}
-
 				}
 				inf.push_back(tmp);                
 			}
@@ -725,6 +716,136 @@ int ServerIO::getMyGoodsInf(vector<TabMyInfRecord> &inf, inputParam& input)
 #endif
 
     return 0;    
+}
+
+int ServerIO::getPersisGoodsInfo(vector<TabNewInfRecord> &inf, inputParam& input)
+{
+
+
+#ifdef _OFF_LINE_
+	inf.clear();
+
+	for (int i=0; i<input.record; ++i) {
+		TabMyInfRecord tmp;
+		tmp.recordID = "296";
+		tmp.startPlace = "北京市";
+		tmp.endPlace = "上海市";
+		tmp.record = "有货20吨，求10米长车。";
+		tmp.tel = "联系电话:13966666666";
+		inf.push_back(tmp);
+	}
+#else
+	// 调用
+	ns2__getPersisGoodsInfo inData;
+	std::string id(userInf.id);
+	inData.uid = &id;
+	inData.record = input.record;
+	inData.curpage = input.curpage;
+
+	ns2__getPersisGoodsInfoResponse outData;
+
+	if ( soap_call___ns1__getPersisGoodsInfo(&mySoap, svrURL.c_str(), NULL, &inData, &outData)== SOAP_OK) {
+		inf.clear();
+		vector<string>::iterator iter = outData.return_.begin();
+		while (iter != outData.return_.end()) {
+			string outTmp("");	
+			vector<string> tokens;
+			TabNewInfRecord tmp;
+			UTF8ToMultiByte(*iter, outTmp);            
+			tokenize(outTmp, tokens, "|");
+
+#ifdef _NEWCODE_
+			if (tokens.at(0) == "TRUE" && tokens.size() >= 14) {
+				tmp.totalNum = tokens.at(1);
+				tmp.returnNum = tokens.at(2);
+				tmp.recordID = tokens.at(3);
+				tmp.startPlace = tokens.at(4) + tokens.at(5);
+				tmp.endPlace = tokens.at(6) + tokens.at(7);
+				tmp.record = tokens.at(11) + "(" + tokens.at(12) + ")。";
+				tmp.tel = " ";
+				if (tokens.at(8) != "NULL") {
+					tmp.tel +=  tokens.at(8);
+					tmp.tel += " ";
+				} else {
+					if (tokens.at(9) != "NULL") {
+						tmp.tel +=  tokens.at(9);
+						tmp.tel += " ";
+					}
+				}
+				tmp.tel += tokens.at(10);                
+				tmp.pubUID = tokens.at(13);
+				inf.push_back(tmp);                
+			}
+#else
+			if (tokens.at(0) == "TRUE" && tokens.size() >= 16) {
+				tmp.totalNum = tokens.at(1);
+				tmp.returnNum = tokens.at(2);
+				tmp.recordID = tokens.at(3);
+
+				tmp.startPlace = tokens.at(4) + tokens.at(5);
+				if (tokens.at(6) != "NULL")
+				{
+					tmp.startPlace +=  tokens.at(6);
+				}
+
+				tmp.endPlace = tokens.at(7) + tokens.at(8);
+
+				if (tokens.at(9) != "NULL")
+				{
+					tmp.endPlace += tokens.at(9);
+				}
+
+				tmp.record = tokens.at(13) + "(" + (tmp.pubTime = tokens.at(14)) + ")。";
+				tmp.tel = " ";
+				if (tokens.at(10) != "NULL") {
+					tmp.tel +=  tmp.pubName = tokens.at(10);
+					tmp.tel += " ";
+				} else {
+					if (tokens.at(11) != "NULL") {
+						tmp.tel +=  tmp.pubName = tokens.at(11);
+						tmp.tel += " ";
+					}
+				}
+				//tmp.tel += tokens.at(12);
+				if (tokens.at(12) != "NULL")
+				{
+					tmp.tel += tokens.at(12);
+				}
+				tmp.pubUID = tokens.at(15);
+
+				if( tokens.size() >=  20 )
+				{
+					//	tmp.pubURL = tokens.at(16); not used
+					tmp.pubAddress = tokens.at(17);
+					tmp.dateTime = tokens.at(18);
+					tmp.state = tokens.at(19);
+					if( tokens.size() > 20 )
+					{
+						tmp.bLongTime = tokens.at(20) == "长期"?true:false;
+					}
+					else
+					{
+						tmp.bLongTime = true;
+					}
+					
+				}
+				inf.push_back(tmp);                
+			}
+#endif
+
+
+			++iter;
+		}	   
+		destroySoap();
+	} else {
+		destroySoap();
+		return -1;
+		//std::cout << "fail" << std::endl;       
+	}
+
+#endif
+
+	return 0;    
 }
        
 // Get new bulkGoods information 最新零担
@@ -1399,6 +1520,156 @@ int ServerIO::getMyCarsInf(vector<TabMyInfRecord> &inf, inputParam& input)
 #endif
 
     return 0;
+}
+
+int ServerIO::getPersisCarsInfo(vector<TabNewInfRecord> &inf, inputParam& input)
+{
+#ifdef _OFF_LINE_
+	inf.clear();
+
+	for (int i=0; i<input.record; ++i) {
+		TabNewInfRecord tmp;
+		tmp.recordID = "296";
+		tmp.startPlace = "浙江省杭州市市辖区";
+		tmp.endPlace = "湖北省武汉市市辖区";
+		tmp.record = "有6.2米敞篷车1辆, 载重:5吨,求货:冻品。(重货) (06-23 12:32)。";
+		tmp.tel = "江西卓越物流公司. 联系电话: 0571-9999999";
+		inf.push_back(tmp);
+	} 
+#else
+	// 调用
+	ns2__getPersisCarsInfo inData;
+	std::string id(userInf.id);
+	inData.uid = &id;
+	inData.record = input.record;
+	inData.curpage = input.curpage;
+
+	ns2__getPersisCarsInfoResponse outData;
+
+	if ( soap_call___ns1__getPersisCarsInfo(&mySoap, svrURL.c_str(), NULL, &inData, &outData)== SOAP_OK) {
+		inf.clear();
+		vector<string>::iterator iter = outData.return_.begin();
+		while (iter != outData.return_.end()) {
+			string outTmp("");	
+			vector<string> tokens;
+			TabNewInfRecord tmp;
+			UTF8ToMultiByte(*iter, outTmp);            
+			tokenize(outTmp, tokens, "|");
+
+#ifdef _NEWCODE_
+			if (tokens.at(0) == "TRUE" && tokens.size() >= 14) {
+				tmp.totalNum = tokens.at(1);
+				tmp.returnNum = tokens.at(2);
+				tmp.recordID = tokens.at(3);
+				tmp.startPlace = tokens.at(4) + tokens.at(5);
+				tmp.endPlace = tokens.at(6) + tokens.at(7);
+				tmp.record = tokens.at(11) + "(" + tokens.at(12) + ")。";
+				tmp.tel = " ";
+				if (tokens.at(8) != "NULL") {
+					tmp.tel +=  tokens.at(8);
+					tmp.tel += " ";
+				} else {
+					if (tokens.at(9) != "NULL") {
+						tmp.tel +=  tokens.at(9);
+						tmp.tel += " ";
+					}
+				}
+				tmp.tel += tokens.at(10);
+				tmp.pubUID = tokens.at(13);
+				inf.push_back(tmp);                
+			}
+#else
+			if (tokens.at(0) == "TRUE" && tokens.size() >= 22) {
+				tmp.totalNum = tokens.at(1);
+				tmp.returnNum = tokens.at(2);
+				tmp.recordID = tokens.at(3);
+
+				tmp.startPlace = (tokens.at(4)) + (tokens.at(5));
+
+				if (tokens.at(6) != "NULL")
+				{
+					tmp.startPlace += tokens.at(6);
+				}
+
+				tmp.endPlace = (tokens.at(7)) + (tokens.at(8));
+
+				if (tokens.at(9) != "NULL")
+				{
+					tmp.endPlace +=  tokens.at(9);
+				}
+
+				if (tokens.at(10) != "NULL")
+				{
+					tmp.endPlace += " ";
+					tmp.endPlace += tokens.at(10);
+					tmp.endPlace += tokens.at(11);
+					if (tokens.at(12) != "NULL")
+					{
+						tmp.endPlace +=  tokens.at(12);
+					}
+				}
+
+				if (tokens.at(13) != "NULL")
+				{
+					tmp.endPlace += " ";
+					tmp.endPlace += tokens.at(13);
+					tmp.endPlace += tokens.at(14);
+					if (tokens.at(15) != "NULL")
+					{
+						tmp.endPlace +=  tokens.at(15);
+					}
+				}
+
+				tmp.record = tokens.at(19) + "(" + (tmp.pubTime = tokens.at(20)) + ")。";
+				tmp.tel = " ";
+				if (tokens.at(16) != "NULL") {
+					tmp.tel +=  tmp.pubName = tokens.at(16);
+					tmp.tel += " ";
+				} else {
+					if (tokens.at(17) != "NULL") {
+						tmp.tel +=  tmp.pubName = tokens.at(17);
+						tmp.tel += " ";
+					}
+				}
+				if (tokens.at(18) != "NULL")
+				{
+					tmp.tel += tokens.at(18);
+				}
+				tmp.pubUID = tokens.at(21);
+
+				if( tokens.size() >= 26)
+				{
+					//	tmp.pubURL = tokens.at(22); //not used
+					tmp.pubAddress = tokens.at(23);
+					tmp.dateTime = tokens.at(24);
+					tmp.state = tokens.at(25);
+					if( tokens.size() > 26 )
+					{
+						tmp.bLongTime = tokens.at(26) == "长期";
+					}
+					else
+					{
+						tmp.bLongTime = true;
+					}
+				}
+
+				inf.push_back(tmp);                
+			}
+#endif
+
+
+			++iter;
+		}		   
+		destroySoap();
+	} else {
+		destroySoap();
+		return -1;
+		//std::cout << "fail" << std::endl;       
+	}
+
+#endif
+
+	return 0;
 }
         
 // Get all special line information 所有专线
