@@ -97,14 +97,18 @@ class FmpServiceImplServiceSoapBinding
 	virtual int __ns1__setPubCarsInf(ns2__setPubCarsInf *ns2__setPubCarsInf_, ns2__setPubCarsInfResponse *ns2__setPubCarsInfResponse_) { return soap ? soap_call___ns1__setPubCarsInf(soap, endpoint, NULL, ns2__setPubCarsInf_, ns2__setPubCarsInfResponse_) : SOAP_EOM; };
 	/// Invoke 'getClickSearchCarsInf' of service 'FmpServiceImplServiceSoapBinding' and return error code (or SOAP_OK)
 	virtual int __ns1__getClickSearchCarsInf(ns2__getClickSearchCarsInf *ns2__getClickSearchCarsInf_, ns2__getClickSearchCarsInfResponse *ns2__getClickSearchCarsInfResponse_) { return soap ? soap_call___ns1__getClickSearchCarsInf(soap, endpoint, NULL, ns2__getClickSearchCarsInf_, ns2__getClickSearchCarsInfResponse_) : SOAP_EOM; };
-	/// Invoke 'browseZoneCars' of service 'FmpServiceImplServiceSoapBinding' and return error code (or SOAP_OK)
-	virtual int __ns1__browseZoneCars(ns2__browseZoneCars *ns2__browseZoneCars_, ns2__browseZoneCarsResponse *ns2__browseZoneCarsResponse_) { return soap ? soap_call___ns1__browseZoneCars(soap, endpoint, NULL, ns2__browseZoneCars_, ns2__browseZoneCarsResponse_) : SOAP_EOM; };
-	/// Invoke 'placeOrder' of service 'FmpServiceImplServiceSoapBinding' and return error code (or SOAP_OK)
-	virtual int __ns1__placeOrder(ns2__placeOrder *ns2__placeOrder_, ns2__placeOrderResponse *ns2__placeOrderResponse_) { return soap ? soap_call___ns1__placeOrder(soap, endpoint, NULL, ns2__placeOrder_, ns2__placeOrderResponse_) : SOAP_EOM; };
 	/// Invoke 'delBulkGoodsInf' of service 'FmpServiceImplServiceSoapBinding' and return error code (or SOAP_OK)
 	virtual int __ns1__delBulkGoodsInf(ns2__delBulkGoodsInf *ns2__delBulkGoodsInf_, ns2__delBulkGoodsInfResponse *ns2__delBulkGoodsInfResponse_) { return soap ? soap_call___ns1__delBulkGoodsInf(soap, endpoint, NULL, ns2__delBulkGoodsInf_, ns2__delBulkGoodsInfResponse_) : SOAP_EOM; };
 	/// Invoke 'usrLogin' of service 'FmpServiceImplServiceSoapBinding' and return error code (or SOAP_OK)
 	virtual int __ns1__usrLogin(ns2__usrLogin *ns2__usrLogin_, ns2__usrLoginResponse *ns2__usrLoginResponse_) { return soap ? soap_call___ns1__usrLogin(soap, endpoint, NULL, ns2__usrLogin_, ns2__usrLoginResponse_) : SOAP_EOM; };
+	/// Invoke 'getPersisGoodsInfo' of service 'FmpServiceImplServiceSoapBinding' and return error code (or SOAP_OK)
+	virtual int __ns1__getPersisGoodsInfo(ns2__getPersisGoodsInfo *ns2__getPersisGoodsInfo_, ns2__getPersisGoodsInfoResponse *ns2__getPersisGoodsInfoResponse_) { return soap ? soap_call___ns1__getPersisGoodsInfo(soap, endpoint, NULL, ns2__getPersisGoodsInfo_, ns2__getPersisGoodsInfoResponse_) : SOAP_EOM; };
+	/// Invoke 'browseZoneCars' of service 'FmpServiceImplServiceSoapBinding' and return error code (or SOAP_OK)
+	virtual int __ns1__browseZoneCars(ns2__browseZoneCars *ns2__browseZoneCars_, ns2__browseZoneCarsResponse *ns2__browseZoneCarsResponse_) { return soap ? soap_call___ns1__browseZoneCars(soap, endpoint, NULL, ns2__browseZoneCars_, ns2__browseZoneCarsResponse_) : SOAP_EOM; };
+	/// Invoke 'placeOrder' of service 'FmpServiceImplServiceSoapBinding' and return error code (or SOAP_OK)
+	virtual int __ns1__placeOrder(ns2__placeOrder *ns2__placeOrder_, ns2__placeOrderResponse *ns2__placeOrderResponse_) { return soap ? soap_call___ns1__placeOrder(soap, endpoint, NULL, ns2__placeOrder_, ns2__placeOrderResponse_) : SOAP_EOM; };
+	/// Invoke 'getPersisCarsInfo' of service 'FmpServiceImplServiceSoapBinding' and return error code (or SOAP_OK)
+	virtual int __ns1__getPersisCarsInfo(ns2__getPersisCarsInfo *ns2__getPersisCarsInfo_, ns2__getPersisCarsInfoResponse *ns2__getPersisCarsInfoResponse_) { return soap ? soap_call___ns1__getPersisCarsInfo(soap, endpoint, NULL, ns2__getPersisCarsInfo_, ns2__getPersisCarsInfoResponse_) : SOAP_EOM; };
 	/// Invoke 'delCarsInf' of service 'FmpServiceImplServiceSoapBinding' and return error code (or SOAP_OK)
 	virtual int __ns1__delCarsInf(ns2__delCarsInf *ns2__delCarsInf_, ns2__delCarsInfResponse *ns2__delCarsInfResponse_) { return soap ? soap_call___ns1__delCarsInf(soap, endpoint, NULL, ns2__delCarsInf_, ns2__delCarsInfResponse_) : SOAP_EOM; };
 	/// Invoke 'getMySpecialLineInf' of service 'FmpServiceImplServiceSoapBinding' and return error code (or SOAP_OK)

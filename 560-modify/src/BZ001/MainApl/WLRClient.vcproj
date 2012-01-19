@@ -1042,6 +1042,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\BTN_CLOSE.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\BTN_COMMON.bmp"
 				>
 			</File>

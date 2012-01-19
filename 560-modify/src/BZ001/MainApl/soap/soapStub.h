@@ -1533,95 +1533,8 @@ public:
 };
 #endif
 
-#ifndef SOAP_TYPE_ns2__placeOrder
-#define SOAP_TYPE_ns2__placeOrder (76)
-/* ns2:placeOrder */
-class SOAP_CMAC ns2__placeOrder
-{
-public:
-	std::string *uid;	/* optional element of type xsd:string */
-	std::string *infID;	/* optional element of type xsd:string */
-	struct soap *soap;	/* transient */
-public:
-	virtual int soap_type() const { return 76; } /* = unique id SOAP_TYPE_ns2__placeOrder */
-	virtual void soap_default(struct soap*);
-	virtual void soap_serialize(struct soap*) const;
-	virtual int soap_put(struct soap*, const char*, const char*) const;
-	virtual int soap_out(struct soap*, const char*, int, const char*) const;
-	virtual void *soap_get(struct soap*, const char*, const char*);
-	virtual void *soap_in(struct soap*, const char*, const char*);
-	         ns2__placeOrder(): uid(NULL), infID(NULL), soap(NULL) { ns2__placeOrder::soap_default(NULL); }
-	virtual ~ns2__placeOrder() { }
-};
-#endif
-
-#ifndef SOAP_TYPE_ns2__placeOrderResponse
-#define SOAP_TYPE_ns2__placeOrderResponse (77)
-/* ns2:placeOrderResponse */
-class SOAP_CMAC ns2__placeOrderResponse
-{
-public:
-	std::string *return_;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
-	struct soap *soap;	/* transient */
-public:
-	virtual int soap_type() const { return 77; } /* = unique id SOAP_TYPE_ns2__placeOrderResponse */
-	virtual void soap_default(struct soap*);
-	virtual void soap_serialize(struct soap*) const;
-	virtual int soap_put(struct soap*, const char*, const char*) const;
-	virtual int soap_out(struct soap*, const char*, int, const char*) const;
-	virtual void *soap_get(struct soap*, const char*, const char*);
-	virtual void *soap_in(struct soap*, const char*, const char*);
-	         ns2__placeOrderResponse(): return_(NULL), soap(NULL) { ns2__placeOrderResponse::soap_default(NULL); }
-	virtual ~ns2__placeOrderResponse() { }
-};
-#endif
-
-#ifndef SOAP_TYPE_ns2__browseZoneCars
-#define SOAP_TYPE_ns2__browseZoneCars (78)
-/* ns2:browseZoneCars */
-class SOAP_CMAC ns2__browseZoneCars
-{
-public:
-	std::string *uid;	/* optional element of type xsd:string */
-	int record;	/* required element of type xsd:int */
-	int curpage;	/* required element of type xsd:int */
-	struct soap *soap;	/* transient */
-public:
-	virtual int soap_type() const { return 78; } /* = unique id SOAP_TYPE_ns2__browseZoneCars */
-	virtual void soap_default(struct soap*);
-	virtual void soap_serialize(struct soap*) const;
-	virtual int soap_put(struct soap*, const char*, const char*) const;
-	virtual int soap_out(struct soap*, const char*, int, const char*) const;
-	virtual void *soap_get(struct soap*, const char*, const char*);
-	virtual void *soap_in(struct soap*, const char*, const char*);
-	         ns2__browseZoneCars(): uid(NULL), soap(NULL) { ns2__browseZoneCars::soap_default(NULL); }
-	virtual ~ns2__browseZoneCars() { }
-};
-#endif
-
-#ifndef SOAP_TYPE_ns2__browseZoneCarsResponse
-#define SOAP_TYPE_ns2__browseZoneCarsResponse (79)
-/* ns2:browseZoneCarsResponse */
-class SOAP_CMAC ns2__browseZoneCarsResponse
-{
-public:
-	std::vector<std::string >return_;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
-	struct soap *soap;	/* transient */
-public:
-	virtual int soap_type() const { return 79; } /* = unique id SOAP_TYPE_ns2__browseZoneCarsResponse */
-	virtual void soap_default(struct soap*);
-	virtual void soap_serialize(struct soap*) const;
-	virtual int soap_put(struct soap*, const char*, const char*) const;
-	virtual int soap_out(struct soap*, const char*, int, const char*) const;
-	virtual void *soap_get(struct soap*, const char*, const char*);
-	virtual void *soap_in(struct soap*, const char*, const char*);
-	         ns2__browseZoneCarsResponse(): soap(NULL) { ns2__browseZoneCarsResponse::soap_default(NULL); }
-	virtual ~ns2__browseZoneCarsResponse() { }
-};
-#endif
-
 #ifndef SOAP_TYPE_ns2__delBulkGoodsInf
-#define SOAP_TYPE_ns2__delBulkGoodsInf (80)
+#define SOAP_TYPE_ns2__delBulkGoodsInf (76)
 /* ns2:delBulkGoodsInf */
 class SOAP_CMAC ns2__delBulkGoodsInf
 {
@@ -1630,7 +1543,7 @@ public:
 	std::string *recordID;	/* optional element of type xsd:string */
 	struct soap *soap;	/* transient */
 public:
-	virtual int soap_type() const { return 80; } /* = unique id SOAP_TYPE_ns2__delBulkGoodsInf */
+	virtual int soap_type() const { return 76; } /* = unique id SOAP_TYPE_ns2__delBulkGoodsInf */
 	virtual void soap_default(struct soap*);
 	virtual void soap_serialize(struct soap*) const;
 	virtual int soap_put(struct soap*, const char*, const char*) const;
@@ -1643,7 +1556,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_ns2__delBulkGoodsInfResponse
-#define SOAP_TYPE_ns2__delBulkGoodsInfResponse (81)
+#define SOAP_TYPE_ns2__delBulkGoodsInfResponse (77)
 /* ns2:delBulkGoodsInfResponse */
 class SOAP_CMAC ns2__delBulkGoodsInfResponse
 {
@@ -1651,7 +1564,7 @@ public:
 	std::string *return_;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
 	struct soap *soap;	/* transient */
 public:
-	virtual int soap_type() const { return 81; } /* = unique id SOAP_TYPE_ns2__delBulkGoodsInfResponse */
+	virtual int soap_type() const { return 77; } /* = unique id SOAP_TYPE_ns2__delBulkGoodsInfResponse */
 	virtual void soap_default(struct soap*);
 	virtual void soap_serialize(struct soap*) const;
 	virtual int soap_put(struct soap*, const char*, const char*) const;
@@ -1664,7 +1577,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_ns2__usrLogin
-#define SOAP_TYPE_ns2__usrLogin (82)
+#define SOAP_TYPE_ns2__usrLogin (78)
 /* ns2:usrLogin */
 class SOAP_CMAC ns2__usrLogin
 {
@@ -1673,7 +1586,7 @@ public:
 	std::string *pwd;	/* optional element of type xsd:string */
 	struct soap *soap;	/* transient */
 public:
-	virtual int soap_type() const { return 82; } /* = unique id SOAP_TYPE_ns2__usrLogin */
+	virtual int soap_type() const { return 78; } /* = unique id SOAP_TYPE_ns2__usrLogin */
 	virtual void soap_default(struct soap*);
 	virtual void soap_serialize(struct soap*) const;
 	virtual int soap_put(struct soap*, const char*, const char*) const;
@@ -1686,7 +1599,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_ns2__usrLoginResponse
-#define SOAP_TYPE_ns2__usrLoginResponse (83)
+#define SOAP_TYPE_ns2__usrLoginResponse (79)
 /* ns2:usrLoginResponse */
 class SOAP_CMAC ns2__usrLoginResponse
 {
@@ -1694,7 +1607,7 @@ public:
 	std::string *return_;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
 	struct soap *soap;	/* transient */
 public:
-	virtual int soap_type() const { return 83; } /* = unique id SOAP_TYPE_ns2__usrLoginResponse */
+	virtual int soap_type() const { return 79; } /* = unique id SOAP_TYPE_ns2__usrLoginResponse */
 	virtual void soap_default(struct soap*);
 	virtual void soap_serialize(struct soap*) const;
 	virtual int soap_put(struct soap*, const char*, const char*) const;
@@ -1706,8 +1619,183 @@ public:
 };
 #endif
 
+#ifndef SOAP_TYPE_ns2__getPersisGoodsInfo
+#define SOAP_TYPE_ns2__getPersisGoodsInfo (80)
+/* ns2:getPersisGoodsInfo */
+class SOAP_CMAC ns2__getPersisGoodsInfo
+{
+public:
+	std::string *uid;	/* optional element of type xsd:string */
+	int record;	/* required element of type xsd:int */
+	int curpage;	/* required element of type xsd:int */
+	struct soap *soap;	/* transient */
+public:
+	virtual int soap_type() const { return 80; } /* = unique id SOAP_TYPE_ns2__getPersisGoodsInfo */
+	virtual void soap_default(struct soap*);
+	virtual void soap_serialize(struct soap*) const;
+	virtual int soap_put(struct soap*, const char*, const char*) const;
+	virtual int soap_out(struct soap*, const char*, int, const char*) const;
+	virtual void *soap_get(struct soap*, const char*, const char*);
+	virtual void *soap_in(struct soap*, const char*, const char*);
+	         ns2__getPersisGoodsInfo(): uid(NULL), soap(NULL) { ns2__getPersisGoodsInfo::soap_default(NULL); }
+	virtual ~ns2__getPersisGoodsInfo() { }
+};
+#endif
+
+#ifndef SOAP_TYPE_ns2__getPersisGoodsInfoResponse
+#define SOAP_TYPE_ns2__getPersisGoodsInfoResponse (81)
+/* ns2:getPersisGoodsInfoResponse */
+class SOAP_CMAC ns2__getPersisGoodsInfoResponse
+{
+public:
+	std::vector<std::string >return_;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
+	struct soap *soap;	/* transient */
+public:
+	virtual int soap_type() const { return 81; } /* = unique id SOAP_TYPE_ns2__getPersisGoodsInfoResponse */
+	virtual void soap_default(struct soap*);
+	virtual void soap_serialize(struct soap*) const;
+	virtual int soap_put(struct soap*, const char*, const char*) const;
+	virtual int soap_out(struct soap*, const char*, int, const char*) const;
+	virtual void *soap_get(struct soap*, const char*, const char*);
+	virtual void *soap_in(struct soap*, const char*, const char*);
+	         ns2__getPersisGoodsInfoResponse(): soap(NULL) { ns2__getPersisGoodsInfoResponse::soap_default(NULL); }
+	virtual ~ns2__getPersisGoodsInfoResponse() { }
+};
+#endif
+
+#ifndef SOAP_TYPE_ns2__placeOrder
+#define SOAP_TYPE_ns2__placeOrder (82)
+/* ns2:placeOrder */
+class SOAP_CMAC ns2__placeOrder
+{
+public:
+	std::string *uid;	/* optional element of type xsd:string */
+	std::string *infID;	/* optional element of type xsd:string */
+	struct soap *soap;	/* transient */
+public:
+	virtual int soap_type() const { return 82; } /* = unique id SOAP_TYPE_ns2__placeOrder */
+	virtual void soap_default(struct soap*);
+	virtual void soap_serialize(struct soap*) const;
+	virtual int soap_put(struct soap*, const char*, const char*) const;
+	virtual int soap_out(struct soap*, const char*, int, const char*) const;
+	virtual void *soap_get(struct soap*, const char*, const char*);
+	virtual void *soap_in(struct soap*, const char*, const char*);
+	         ns2__placeOrder(): uid(NULL), infID(NULL), soap(NULL) { ns2__placeOrder::soap_default(NULL); }
+	virtual ~ns2__placeOrder() { }
+};
+#endif
+
+#ifndef SOAP_TYPE_ns2__placeOrderResponse
+#define SOAP_TYPE_ns2__placeOrderResponse (83)
+/* ns2:placeOrderResponse */
+class SOAP_CMAC ns2__placeOrderResponse
+{
+public:
+	std::string *return_;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
+	struct soap *soap;	/* transient */
+public:
+	virtual int soap_type() const { return 83; } /* = unique id SOAP_TYPE_ns2__placeOrderResponse */
+	virtual void soap_default(struct soap*);
+	virtual void soap_serialize(struct soap*) const;
+	virtual int soap_put(struct soap*, const char*, const char*) const;
+	virtual int soap_out(struct soap*, const char*, int, const char*) const;
+	virtual void *soap_get(struct soap*, const char*, const char*);
+	virtual void *soap_in(struct soap*, const char*, const char*);
+	         ns2__placeOrderResponse(): return_(NULL), soap(NULL) { ns2__placeOrderResponse::soap_default(NULL); }
+	virtual ~ns2__placeOrderResponse() { }
+};
+#endif
+
+#ifndef SOAP_TYPE_ns2__browseZoneCars
+#define SOAP_TYPE_ns2__browseZoneCars (84)
+/* ns2:browseZoneCars */
+class SOAP_CMAC ns2__browseZoneCars
+{
+public:
+	std::string *uid;	/* optional element of type xsd:string */
+	int record;	/* required element of type xsd:int */
+	int curpage;	/* required element of type xsd:int */
+	struct soap *soap;	/* transient */
+public:
+	virtual int soap_type() const { return 84; } /* = unique id SOAP_TYPE_ns2__browseZoneCars */
+	virtual void soap_default(struct soap*);
+	virtual void soap_serialize(struct soap*) const;
+	virtual int soap_put(struct soap*, const char*, const char*) const;
+	virtual int soap_out(struct soap*, const char*, int, const char*) const;
+	virtual void *soap_get(struct soap*, const char*, const char*);
+	virtual void *soap_in(struct soap*, const char*, const char*);
+	         ns2__browseZoneCars(): uid(NULL), soap(NULL) { ns2__browseZoneCars::soap_default(NULL); }
+	virtual ~ns2__browseZoneCars() { }
+};
+#endif
+
+#ifndef SOAP_TYPE_ns2__browseZoneCarsResponse
+#define SOAP_TYPE_ns2__browseZoneCarsResponse (85)
+/* ns2:browseZoneCarsResponse */
+class SOAP_CMAC ns2__browseZoneCarsResponse
+{
+public:
+	std::vector<std::string >return_;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
+	struct soap *soap;	/* transient */
+public:
+	virtual int soap_type() const { return 85; } /* = unique id SOAP_TYPE_ns2__browseZoneCarsResponse */
+	virtual void soap_default(struct soap*);
+	virtual void soap_serialize(struct soap*) const;
+	virtual int soap_put(struct soap*, const char*, const char*) const;
+	virtual int soap_out(struct soap*, const char*, int, const char*) const;
+	virtual void *soap_get(struct soap*, const char*, const char*);
+	virtual void *soap_in(struct soap*, const char*, const char*);
+	         ns2__browseZoneCarsResponse(): soap(NULL) { ns2__browseZoneCarsResponse::soap_default(NULL); }
+	virtual ~ns2__browseZoneCarsResponse() { }
+};
+#endif
+
+#ifndef SOAP_TYPE_ns2__getPersisCarsInfo
+#define SOAP_TYPE_ns2__getPersisCarsInfo (86)
+/* ns2:getPersisCarsInfo */
+class SOAP_CMAC ns2__getPersisCarsInfo
+{
+public:
+	std::string *uid;	/* optional element of type xsd:string */
+	int record;	/* required element of type xsd:int */
+	int curpage;	/* required element of type xsd:int */
+	struct soap *soap;	/* transient */
+public:
+	virtual int soap_type() const { return 86; } /* = unique id SOAP_TYPE_ns2__getPersisCarsInfo */
+	virtual void soap_default(struct soap*);
+	virtual void soap_serialize(struct soap*) const;
+	virtual int soap_put(struct soap*, const char*, const char*) const;
+	virtual int soap_out(struct soap*, const char*, int, const char*) const;
+	virtual void *soap_get(struct soap*, const char*, const char*);
+	virtual void *soap_in(struct soap*, const char*, const char*);
+	         ns2__getPersisCarsInfo(): uid(NULL), soap(NULL) { ns2__getPersisCarsInfo::soap_default(NULL); }
+	virtual ~ns2__getPersisCarsInfo() { }
+};
+#endif
+
+#ifndef SOAP_TYPE_ns2__getPersisCarsInfoResponse
+#define SOAP_TYPE_ns2__getPersisCarsInfoResponse (87)
+/* ns2:getPersisCarsInfoResponse */
+class SOAP_CMAC ns2__getPersisCarsInfoResponse
+{
+public:
+	std::vector<std::string >return_;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
+	struct soap *soap;	/* transient */
+public:
+	virtual int soap_type() const { return 87; } /* = unique id SOAP_TYPE_ns2__getPersisCarsInfoResponse */
+	virtual void soap_default(struct soap*);
+	virtual void soap_serialize(struct soap*) const;
+	virtual int soap_put(struct soap*, const char*, const char*) const;
+	virtual int soap_out(struct soap*, const char*, int, const char*) const;
+	virtual void *soap_get(struct soap*, const char*, const char*);
+	virtual void *soap_in(struct soap*, const char*, const char*);
+	         ns2__getPersisCarsInfoResponse(): soap(NULL) { ns2__getPersisCarsInfoResponse::soap_default(NULL); }
+	virtual ~ns2__getPersisCarsInfoResponse() { }
+};
+#endif
+
 #ifndef SOAP_TYPE_ns2__delCarsInf
-#define SOAP_TYPE_ns2__delCarsInf (84)
+#define SOAP_TYPE_ns2__delCarsInf (88)
 /* ns2:delCarsInf */
 class SOAP_CMAC ns2__delCarsInf
 {
@@ -1716,7 +1804,7 @@ public:
 	std::string *recordID;	/* optional element of type xsd:string */
 	struct soap *soap;	/* transient */
 public:
-	virtual int soap_type() const { return 84; } /* = unique id SOAP_TYPE_ns2__delCarsInf */
+	virtual int soap_type() const { return 88; } /* = unique id SOAP_TYPE_ns2__delCarsInf */
 	virtual void soap_default(struct soap*);
 	virtual void soap_serialize(struct soap*) const;
 	virtual int soap_put(struct soap*, const char*, const char*) const;
@@ -1729,7 +1817,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_ns2__delCarsInfResponse
-#define SOAP_TYPE_ns2__delCarsInfResponse (85)
+#define SOAP_TYPE_ns2__delCarsInfResponse (89)
 /* ns2:delCarsInfResponse */
 class SOAP_CMAC ns2__delCarsInfResponse
 {
@@ -1737,7 +1825,7 @@ public:
 	std::string *return_;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
 	struct soap *soap;	/* transient */
 public:
-	virtual int soap_type() const { return 85; } /* = unique id SOAP_TYPE_ns2__delCarsInfResponse */
+	virtual int soap_type() const { return 89; } /* = unique id SOAP_TYPE_ns2__delCarsInfResponse */
 	virtual void soap_default(struct soap*);
 	virtual void soap_serialize(struct soap*) const;
 	virtual int soap_put(struct soap*, const char*, const char*) const;
@@ -1750,7 +1838,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_ns2__setPubSpecialLineInf
-#define SOAP_TYPE_ns2__setPubSpecialLineInf (86)
+#define SOAP_TYPE_ns2__setPubSpecialLineInf (90)
 /* ns2:setPubSpecialLineInf */
 class SOAP_CMAC ns2__setPubSpecialLineInf
 {
@@ -1759,7 +1847,7 @@ public:
 	std::string *input;	/* optional element of type xsd:string */
 	struct soap *soap;	/* transient */
 public:
-	virtual int soap_type() const { return 86; } /* = unique id SOAP_TYPE_ns2__setPubSpecialLineInf */
+	virtual int soap_type() const { return 90; } /* = unique id SOAP_TYPE_ns2__setPubSpecialLineInf */
 	virtual void soap_default(struct soap*);
 	virtual void soap_serialize(struct soap*) const;
 	virtual int soap_put(struct soap*, const char*, const char*) const;
@@ -1772,7 +1860,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_ns2__setPubSpecialLineInfResponse
-#define SOAP_TYPE_ns2__setPubSpecialLineInfResponse (87)
+#define SOAP_TYPE_ns2__setPubSpecialLineInfResponse (91)
 /* ns2:setPubSpecialLineInfResponse */
 class SOAP_CMAC ns2__setPubSpecialLineInfResponse
 {
@@ -1780,7 +1868,7 @@ public:
 	std::string *return_;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
 	struct soap *soap;	/* transient */
 public:
-	virtual int soap_type() const { return 87; } /* = unique id SOAP_TYPE_ns2__setPubSpecialLineInfResponse */
+	virtual int soap_type() const { return 91; } /* = unique id SOAP_TYPE_ns2__setPubSpecialLineInfResponse */
 	virtual void soap_default(struct soap*);
 	virtual void soap_serialize(struct soap*) const;
 	virtual int soap_put(struct soap*, const char*, const char*) const;
@@ -1793,7 +1881,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_ns2__getMySpecialLineInf
-#define SOAP_TYPE_ns2__getMySpecialLineInf (88)
+#define SOAP_TYPE_ns2__getMySpecialLineInf (92)
 /* ns2:getMySpecialLineInf */
 class SOAP_CMAC ns2__getMySpecialLineInf
 {
@@ -1803,7 +1891,7 @@ public:
 	int curpage;	/* required element of type xsd:int */
 	struct soap *soap;	/* transient */
 public:
-	virtual int soap_type() const { return 88; } /* = unique id SOAP_TYPE_ns2__getMySpecialLineInf */
+	virtual int soap_type() const { return 92; } /* = unique id SOAP_TYPE_ns2__getMySpecialLineInf */
 	virtual void soap_default(struct soap*);
 	virtual void soap_serialize(struct soap*) const;
 	virtual int soap_put(struct soap*, const char*, const char*) const;
@@ -1816,7 +1904,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_ns2__getMySpecialLineInfResponse
-#define SOAP_TYPE_ns2__getMySpecialLineInfResponse (89)
+#define SOAP_TYPE_ns2__getMySpecialLineInfResponse (93)
 /* ns2:getMySpecialLineInfResponse */
 class SOAP_CMAC ns2__getMySpecialLineInfResponse
 {
@@ -1824,7 +1912,7 @@ public:
 	std::vector<std::string >return_;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
 	struct soap *soap;	/* transient */
 public:
-	virtual int soap_type() const { return 89; } /* = unique id SOAP_TYPE_ns2__getMySpecialLineInfResponse */
+	virtual int soap_type() const { return 93; } /* = unique id SOAP_TYPE_ns2__getMySpecialLineInfResponse */
 	virtual void soap_default(struct soap*);
 	virtual void soap_serialize(struct soap*) const;
 	virtual int soap_put(struct soap*, const char*, const char*) const;
@@ -1837,7 +1925,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_ns2__getNewGoodsInf
-#define SOAP_TYPE_ns2__getNewGoodsInf (90)
+#define SOAP_TYPE_ns2__getNewGoodsInf (94)
 /* ns2:getNewGoodsInf */
 class SOAP_CMAC ns2__getNewGoodsInf
 {
@@ -1847,7 +1935,7 @@ public:
 	int curpage;	/* required element of type xsd:int */
 	struct soap *soap;	/* transient */
 public:
-	virtual int soap_type() const { return 90; } /* = unique id SOAP_TYPE_ns2__getNewGoodsInf */
+	virtual int soap_type() const { return 94; } /* = unique id SOAP_TYPE_ns2__getNewGoodsInf */
 	virtual void soap_default(struct soap*);
 	virtual void soap_serialize(struct soap*) const;
 	virtual int soap_put(struct soap*, const char*, const char*) const;
@@ -1860,7 +1948,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_ns2__getNewGoodsInfResponse
-#define SOAP_TYPE_ns2__getNewGoodsInfResponse (91)
+#define SOAP_TYPE_ns2__getNewGoodsInfResponse (95)
 /* ns2:getNewGoodsInfResponse */
 class SOAP_CMAC ns2__getNewGoodsInfResponse
 {
@@ -1868,7 +1956,7 @@ public:
 	std::vector<std::string >return_;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
 	struct soap *soap;	/* transient */
 public:
-	virtual int soap_type() const { return 91; } /* = unique id SOAP_TYPE_ns2__getNewGoodsInfResponse */
+	virtual int soap_type() const { return 95; } /* = unique id SOAP_TYPE_ns2__getNewGoodsInfResponse */
 	virtual void soap_default(struct soap*);
 	virtual void soap_serialize(struct soap*) const;
 	virtual int soap_put(struct soap*, const char*, const char*) const;
@@ -1881,7 +1969,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_ns2__delFavoriteSpecialLine
-#define SOAP_TYPE_ns2__delFavoriteSpecialLine (92)
+#define SOAP_TYPE_ns2__delFavoriteSpecialLine (96)
 /* ns2:delFavoriteSpecialLine */
 class SOAP_CMAC ns2__delFavoriteSpecialLine
 {
@@ -1890,7 +1978,7 @@ public:
 	std::string *recordID;	/* optional element of type xsd:string */
 	struct soap *soap;	/* transient */
 public:
-	virtual int soap_type() const { return 92; } /* = unique id SOAP_TYPE_ns2__delFavoriteSpecialLine */
+	virtual int soap_type() const { return 96; } /* = unique id SOAP_TYPE_ns2__delFavoriteSpecialLine */
 	virtual void soap_default(struct soap*);
 	virtual void soap_serialize(struct soap*) const;
 	virtual int soap_put(struct soap*, const char*, const char*) const;
@@ -1903,7 +1991,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_ns2__delFavoriteSpecialLineResponse
-#define SOAP_TYPE_ns2__delFavoriteSpecialLineResponse (93)
+#define SOAP_TYPE_ns2__delFavoriteSpecialLineResponse (97)
 /* ns2:delFavoriteSpecialLineResponse */
 class SOAP_CMAC ns2__delFavoriteSpecialLineResponse
 {
@@ -1911,7 +1999,7 @@ public:
 	std::string *return_;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
 	struct soap *soap;	/* transient */
 public:
-	virtual int soap_type() const { return 93; } /* = unique id SOAP_TYPE_ns2__delFavoriteSpecialLineResponse */
+	virtual int soap_type() const { return 97; } /* = unique id SOAP_TYPE_ns2__delFavoriteSpecialLineResponse */
 	virtual void soap_default(struct soap*);
 	virtual void soap_serialize(struct soap*) const;
 	virtual int soap_put(struct soap*, const char*, const char*) const;
@@ -1924,7 +2012,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_ns2__getSearchCarsInfNew
-#define SOAP_TYPE_ns2__getSearchCarsInfNew (94)
+#define SOAP_TYPE_ns2__getSearchCarsInfNew (98)
 /* ns2:getSearchCarsInfNew */
 class SOAP_CMAC ns2__getSearchCarsInfNew
 {
@@ -1935,7 +2023,7 @@ public:
 	int curpage;	/* required element of type xsd:int */
 	struct soap *soap;	/* transient */
 public:
-	virtual int soap_type() const { return 94; } /* = unique id SOAP_TYPE_ns2__getSearchCarsInfNew */
+	virtual int soap_type() const { return 98; } /* = unique id SOAP_TYPE_ns2__getSearchCarsInfNew */
 	virtual void soap_default(struct soap*);
 	virtual void soap_serialize(struct soap*) const;
 	virtual int soap_put(struct soap*, const char*, const char*) const;
@@ -1948,7 +2036,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_ns2__getSearchCarsInfNewResponse
-#define SOAP_TYPE_ns2__getSearchCarsInfNewResponse (95)
+#define SOAP_TYPE_ns2__getSearchCarsInfNewResponse (99)
 /* ns2:getSearchCarsInfNewResponse */
 class SOAP_CMAC ns2__getSearchCarsInfNewResponse
 {
@@ -1956,7 +2044,7 @@ public:
 	std::vector<std::string >return_;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
 	struct soap *soap;	/* transient */
 public:
-	virtual int soap_type() const { return 95; } /* = unique id SOAP_TYPE_ns2__getSearchCarsInfNewResponse */
+	virtual int soap_type() const { return 99; } /* = unique id SOAP_TYPE_ns2__getSearchCarsInfNewResponse */
 	virtual void soap_default(struct soap*);
 	virtual void soap_serialize(struct soap*) const;
 	virtual int soap_put(struct soap*, const char*, const char*) const;
@@ -1969,7 +2057,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_ns2__getAgentPopAd
-#define SOAP_TYPE_ns2__getAgentPopAd (96)
+#define SOAP_TYPE_ns2__getAgentPopAd (100)
 /* ns2:getAgentPopAd */
 class SOAP_CMAC ns2__getAgentPopAd
 {
@@ -1978,7 +2066,7 @@ public:
 	std::string *msgid;	/* optional element of type xsd:string */
 	struct soap *soap;	/* transient */
 public:
-	virtual int soap_type() const { return 96; } /* = unique id SOAP_TYPE_ns2__getAgentPopAd */
+	virtual int soap_type() const { return 100; } /* = unique id SOAP_TYPE_ns2__getAgentPopAd */
 	virtual void soap_default(struct soap*);
 	virtual void soap_serialize(struct soap*) const;
 	virtual int soap_put(struct soap*, const char*, const char*) const;
@@ -1991,7 +2079,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_ns2__getAgentPopAdResponse
-#define SOAP_TYPE_ns2__getAgentPopAdResponse (97)
+#define SOAP_TYPE_ns2__getAgentPopAdResponse (101)
 /* ns2:getAgentPopAdResponse */
 class SOAP_CMAC ns2__getAgentPopAdResponse
 {
@@ -1999,7 +2087,7 @@ public:
 	std::string *return_;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
 	struct soap *soap;	/* transient */
 public:
-	virtual int soap_type() const { return 97; } /* = unique id SOAP_TYPE_ns2__getAgentPopAdResponse */
+	virtual int soap_type() const { return 101; } /* = unique id SOAP_TYPE_ns2__getAgentPopAdResponse */
 	virtual void soap_default(struct soap*);
 	virtual void soap_serialize(struct soap*) const;
 	virtual int soap_put(struct soap*, const char*, const char*) const;
@@ -2012,7 +2100,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_ns2__getSearchCarsInf
-#define SOAP_TYPE_ns2__getSearchCarsInf (98)
+#define SOAP_TYPE_ns2__getSearchCarsInf (102)
 /* ns2:getSearchCarsInf */
 class SOAP_CMAC ns2__getSearchCarsInf
 {
@@ -2023,7 +2111,7 @@ public:
 	int curpage;	/* required element of type xsd:int */
 	struct soap *soap;	/* transient */
 public:
-	virtual int soap_type() const { return 98; } /* = unique id SOAP_TYPE_ns2__getSearchCarsInf */
+	virtual int soap_type() const { return 102; } /* = unique id SOAP_TYPE_ns2__getSearchCarsInf */
 	virtual void soap_default(struct soap*);
 	virtual void soap_serialize(struct soap*) const;
 	virtual int soap_put(struct soap*, const char*, const char*) const;
@@ -2036,7 +2124,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_ns2__getSearchCarsInfResponse
-#define SOAP_TYPE_ns2__getSearchCarsInfResponse (99)
+#define SOAP_TYPE_ns2__getSearchCarsInfResponse (103)
 /* ns2:getSearchCarsInfResponse */
 class SOAP_CMAC ns2__getSearchCarsInfResponse
 {
@@ -2044,7 +2132,7 @@ public:
 	std::vector<std::string >return_;	/* SOAP 1.2 RPC return element (when namespace qualified) */	/* optional element of type xsd:string */
 	struct soap *soap;	/* transient */
 public:
-	virtual int soap_type() const { return 99; } /* = unique id SOAP_TYPE_ns2__getSearchCarsInfResponse */
+	virtual int soap_type() const { return 103; } /* = unique id SOAP_TYPE_ns2__getSearchCarsInfResponse */
 	virtual void soap_default(struct soap*);
 	virtual void soap_serialize(struct soap*) const;
 	virtual int soap_put(struct soap*, const char*, const char*) const;
@@ -2057,7 +2145,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getNewBulkGoodsInf
-#define SOAP_TYPE___ns1__getNewBulkGoodsInf (107)
+#define SOAP_TYPE___ns1__getNewBulkGoodsInf (111)
 /* Operation wrapper: */
 struct __ns1__getNewBulkGoodsInf
 {
@@ -2067,7 +2155,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__collectSpecialLine
-#define SOAP_TYPE___ns1__collectSpecialLine (111)
+#define SOAP_TYPE___ns1__collectSpecialLine (115)
 /* Operation wrapper: */
 struct __ns1__collectSpecialLine
 {
@@ -2077,7 +2165,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getFavoriteSpecialLineInf
-#define SOAP_TYPE___ns1__getFavoriteSpecialLineInf (115)
+#define SOAP_TYPE___ns1__getFavoriteSpecialLineInf (119)
 /* Operation wrapper: */
 struct __ns1__getFavoriteSpecialLineInf
 {
@@ -2087,7 +2175,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getUserCustomInf
-#define SOAP_TYPE___ns1__getUserCustomInf (119)
+#define SOAP_TYPE___ns1__getUserCustomInf (123)
 /* Operation wrapper: */
 struct __ns1__getUserCustomInf
 {
@@ -2097,7 +2185,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getMyCarsInf
-#define SOAP_TYPE___ns1__getMyCarsInf (123)
+#define SOAP_TYPE___ns1__getMyCarsInf (127)
 /* Operation wrapper: */
 struct __ns1__getMyCarsInf
 {
@@ -2107,7 +2195,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__sendPhoneMessage
-#define SOAP_TYPE___ns1__sendPhoneMessage (127)
+#define SOAP_TYPE___ns1__sendPhoneMessage (131)
 /* Operation wrapper: */
 struct __ns1__sendPhoneMessage
 {
@@ -2117,7 +2205,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__setCarsStatus
-#define SOAP_TYPE___ns1__setCarsStatus (131)
+#define SOAP_TYPE___ns1__setCarsStatus (135)
 /* Operation wrapper: */
 struct __ns1__setCarsStatus
 {
@@ -2127,7 +2215,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getClickServiceStationInf
-#define SOAP_TYPE___ns1__getClickServiceStationInf (135)
+#define SOAP_TYPE___ns1__getClickServiceStationInf (139)
 /* Operation wrapper: */
 struct __ns1__getClickServiceStationInf
 {
@@ -2137,7 +2225,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getSearchSpecialLineInf
-#define SOAP_TYPE___ns1__getSearchSpecialLineInf (139)
+#define SOAP_TYPE___ns1__getSearchSpecialLineInf (143)
 /* Operation wrapper: */
 struct __ns1__getSearchSpecialLineInf
 {
@@ -2147,7 +2235,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getCustomCarsInf
-#define SOAP_TYPE___ns1__getCustomCarsInf (143)
+#define SOAP_TYPE___ns1__getCustomCarsInf (147)
 /* Operation wrapper: */
 struct __ns1__getCustomCarsInf
 {
@@ -2157,7 +2245,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__setGoodsStatus
-#define SOAP_TYPE___ns1__setGoodsStatus (147)
+#define SOAP_TYPE___ns1__setGoodsStatus (151)
 /* Operation wrapper: */
 struct __ns1__setGoodsStatus
 {
@@ -2167,7 +2255,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__delGoodsInf
-#define SOAP_TYPE___ns1__delGoodsInf (151)
+#define SOAP_TYPE___ns1__delGoodsInf (155)
 /* Operation wrapper: */
 struct __ns1__delGoodsInf
 {
@@ -2177,7 +2265,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getSearchGoodsInf
-#define SOAP_TYPE___ns1__getSearchGoodsInf (155)
+#define SOAP_TYPE___ns1__getSearchGoodsInf (159)
 /* Operation wrapper: */
 struct __ns1__getSearchGoodsInf
 {
@@ -2187,7 +2275,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getSearchGoodsInfNew
-#define SOAP_TYPE___ns1__getSearchGoodsInfNew (159)
+#define SOAP_TYPE___ns1__getSearchGoodsInfNew (163)
 /* Operation wrapper: */
 struct __ns1__getSearchGoodsInfNew
 {
@@ -2197,7 +2285,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getMyGoodsInf
-#define SOAP_TYPE___ns1__getMyGoodsInf (163)
+#define SOAP_TYPE___ns1__getMyGoodsInf (167)
 /* Operation wrapper: */
 struct __ns1__getMyGoodsInf
 {
@@ -2207,7 +2295,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getSystemScrollAd
-#define SOAP_TYPE___ns1__getSystemScrollAd (167)
+#define SOAP_TYPE___ns1__getSystemScrollAd (171)
 /* Operation wrapper: */
 struct __ns1__getSystemScrollAd
 {
@@ -2217,7 +2305,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getAgentScrollAd
-#define SOAP_TYPE___ns1__getAgentScrollAd (171)
+#define SOAP_TYPE___ns1__getAgentScrollAd (175)
 /* Operation wrapper: */
 struct __ns1__getAgentScrollAd
 {
@@ -2227,7 +2315,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getCustomGoodsInf
-#define SOAP_TYPE___ns1__getCustomGoodsInf (175)
+#define SOAP_TYPE___ns1__getCustomGoodsInf (179)
 /* Operation wrapper: */
 struct __ns1__getCustomGoodsInf
 {
@@ -2237,7 +2325,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getClickSearchBulkGoodsInf
-#define SOAP_TYPE___ns1__getClickSearchBulkGoodsInf (179)
+#define SOAP_TYPE___ns1__getClickSearchBulkGoodsInf (183)
 /* Operation wrapper: */
 struct __ns1__getClickSearchBulkGoodsInf
 {
@@ -2247,7 +2335,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__checkChargeUser
-#define SOAP_TYPE___ns1__checkChargeUser (183)
+#define SOAP_TYPE___ns1__checkChargeUser (187)
 /* Operation wrapper: */
 struct __ns1__checkChargeUser
 {
@@ -2257,7 +2345,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__deleteUserCustomInf
-#define SOAP_TYPE___ns1__deleteUserCustomInf (187)
+#define SOAP_TYPE___ns1__deleteUserCustomInf (191)
 /* Operation wrapper: */
 struct __ns1__deleteUserCustomInf
 {
@@ -2267,7 +2355,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__setServiceStationInf
-#define SOAP_TYPE___ns1__setServiceStationInf (191)
+#define SOAP_TYPE___ns1__setServiceStationInf (195)
 /* Operation wrapper: */
 struct __ns1__setServiceStationInf
 {
@@ -2277,7 +2365,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getAllSpecialLineInf
-#define SOAP_TYPE___ns1__getAllSpecialLineInf (195)
+#define SOAP_TYPE___ns1__getAllSpecialLineInf (199)
 /* Operation wrapper: */
 struct __ns1__getAllSpecialLineInf
 {
@@ -2287,7 +2375,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getClickSearchSpecialLineInf
-#define SOAP_TYPE___ns1__getClickSearchSpecialLineInf (199)
+#define SOAP_TYPE___ns1__getClickSearchSpecialLineInf (203)
 /* Operation wrapper: */
 struct __ns1__getClickSearchSpecialLineInf
 {
@@ -2297,7 +2385,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__delSpecialLineInf
-#define SOAP_TYPE___ns1__delSpecialLineInf (203)
+#define SOAP_TYPE___ns1__delSpecialLineInf (207)
 /* Operation wrapper: */
 struct __ns1__delSpecialLineInf
 {
@@ -2307,7 +2395,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getMyBulkGoodsInf
-#define SOAP_TYPE___ns1__getMyBulkGoodsInf (207)
+#define SOAP_TYPE___ns1__getMyBulkGoodsInf (211)
 /* Operation wrapper: */
 struct __ns1__getMyBulkGoodsInf
 {
@@ -2317,7 +2405,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__addUserCustomInf
-#define SOAP_TYPE___ns1__addUserCustomInf (211)
+#define SOAP_TYPE___ns1__addUserCustomInf (215)
 /* Operation wrapper: */
 struct __ns1__addUserCustomInf
 {
@@ -2327,7 +2415,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getClickSearchGoodsInf
-#define SOAP_TYPE___ns1__getClickSearchGoodsInf (215)
+#define SOAP_TYPE___ns1__getClickSearchGoodsInf (219)
 /* Operation wrapper: */
 struct __ns1__getClickSearchGoodsInf
 {
@@ -2337,7 +2425,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__setPubGoodsInf
-#define SOAP_TYPE___ns1__setPubGoodsInf (219)
+#define SOAP_TYPE___ns1__setPubGoodsInf (223)
 /* Operation wrapper: */
 struct __ns1__setPubGoodsInf
 {
@@ -2347,7 +2435,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getNewCarsInf
-#define SOAP_TYPE___ns1__getNewCarsInf (223)
+#define SOAP_TYPE___ns1__getNewCarsInf (227)
 /* Operation wrapper: */
 struct __ns1__getNewCarsInf
 {
@@ -2357,7 +2445,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getSearchBulkGoodsInf
-#define SOAP_TYPE___ns1__getSearchBulkGoodsInf (227)
+#define SOAP_TYPE___ns1__getSearchBulkGoodsInf (231)
 /* Operation wrapper: */
 struct __ns1__getSearchBulkGoodsInf
 {
@@ -2367,7 +2455,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__setPubBulkGoodsInf
-#define SOAP_TYPE___ns1__setPubBulkGoodsInf (231)
+#define SOAP_TYPE___ns1__setPubBulkGoodsInf (235)
 /* Operation wrapper: */
 struct __ns1__setPubBulkGoodsInf
 {
@@ -2377,7 +2465,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__setPubCarsInf
-#define SOAP_TYPE___ns1__setPubCarsInf (235)
+#define SOAP_TYPE___ns1__setPubCarsInf (239)
 /* Operation wrapper: */
 struct __ns1__setPubCarsInf
 {
@@ -2387,7 +2475,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getClickSearchCarsInf
-#define SOAP_TYPE___ns1__getClickSearchCarsInf (239)
+#define SOAP_TYPE___ns1__getClickSearchCarsInf (243)
 /* Operation wrapper: */
 struct __ns1__getClickSearchCarsInf
 {
@@ -2396,28 +2484,8 @@ public:
 };
 #endif
 
-#ifndef SOAP_TYPE___ns1__browseZoneCars
-#define SOAP_TYPE___ns1__browseZoneCars (243)
-/* Operation wrapper: */
-struct __ns1__browseZoneCars
-{
-public:
-	ns2__browseZoneCars *ns2__browseZoneCars_;	/* optional element of type ns2:browseZoneCars */
-};
-#endif
-
-#ifndef SOAP_TYPE___ns1__placeOrder
-#define SOAP_TYPE___ns1__placeOrder (247)
-/* Operation wrapper: */
-struct __ns1__placeOrder
-{
-public:
-	ns2__placeOrder *ns2__placeOrder_;	/* optional element of type ns2:placeOrder */
-};
-#endif
-
 #ifndef SOAP_TYPE___ns1__delBulkGoodsInf
-#define SOAP_TYPE___ns1__delBulkGoodsInf (251)
+#define SOAP_TYPE___ns1__delBulkGoodsInf (247)
 /* Operation wrapper: */
 struct __ns1__delBulkGoodsInf
 {
@@ -2427,7 +2495,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__usrLogin
-#define SOAP_TYPE___ns1__usrLogin (255)
+#define SOAP_TYPE___ns1__usrLogin (251)
 /* Operation wrapper: */
 struct __ns1__usrLogin
 {
@@ -2436,8 +2504,48 @@ public:
 };
 #endif
 
+#ifndef SOAP_TYPE___ns1__getPersisGoodsInfo
+#define SOAP_TYPE___ns1__getPersisGoodsInfo (255)
+/* Operation wrapper: */
+struct __ns1__getPersisGoodsInfo
+{
+public:
+	ns2__getPersisGoodsInfo *ns2__getPersisGoodsInfo_;	/* optional element of type ns2:getPersisGoodsInfo */
+};
+#endif
+
+#ifndef SOAP_TYPE___ns1__browseZoneCars
+#define SOAP_TYPE___ns1__browseZoneCars (259)
+/* Operation wrapper: */
+struct __ns1__browseZoneCars
+{
+public:
+	ns2__browseZoneCars *ns2__browseZoneCars_;	/* optional element of type ns2:browseZoneCars */
+};
+#endif
+
+#ifndef SOAP_TYPE___ns1__placeOrder
+#define SOAP_TYPE___ns1__placeOrder (263)
+/* Operation wrapper: */
+struct __ns1__placeOrder
+{
+public:
+	ns2__placeOrder *ns2__placeOrder_;	/* optional element of type ns2:placeOrder */
+};
+#endif
+
+#ifndef SOAP_TYPE___ns1__getPersisCarsInfo
+#define SOAP_TYPE___ns1__getPersisCarsInfo (267)
+/* Operation wrapper: */
+struct __ns1__getPersisCarsInfo
+{
+public:
+	ns2__getPersisCarsInfo *ns2__getPersisCarsInfo_;	/* optional element of type ns2:getPersisCarsInfo */
+};
+#endif
+
 #ifndef SOAP_TYPE___ns1__delCarsInf
-#define SOAP_TYPE___ns1__delCarsInf (259)
+#define SOAP_TYPE___ns1__delCarsInf (271)
 /* Operation wrapper: */
 struct __ns1__delCarsInf
 {
@@ -2447,7 +2555,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getMySpecialLineInf
-#define SOAP_TYPE___ns1__getMySpecialLineInf (263)
+#define SOAP_TYPE___ns1__getMySpecialLineInf (275)
 /* Operation wrapper: */
 struct __ns1__getMySpecialLineInf
 {
@@ -2457,7 +2565,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__setPubSpecialLineInf
-#define SOAP_TYPE___ns1__setPubSpecialLineInf (267)
+#define SOAP_TYPE___ns1__setPubSpecialLineInf (279)
 /* Operation wrapper: */
 struct __ns1__setPubSpecialLineInf
 {
@@ -2467,7 +2575,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getNewGoodsInf
-#define SOAP_TYPE___ns1__getNewGoodsInf (271)
+#define SOAP_TYPE___ns1__getNewGoodsInf (283)
 /* Operation wrapper: */
 struct __ns1__getNewGoodsInf
 {
@@ -2477,7 +2585,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__delFavoriteSpecialLine
-#define SOAP_TYPE___ns1__delFavoriteSpecialLine (275)
+#define SOAP_TYPE___ns1__delFavoriteSpecialLine (287)
 /* Operation wrapper: */
 struct __ns1__delFavoriteSpecialLine
 {
@@ -2487,7 +2595,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getSearchCarsInfNew
-#define SOAP_TYPE___ns1__getSearchCarsInfNew (279)
+#define SOAP_TYPE___ns1__getSearchCarsInfNew (291)
 /* Operation wrapper: */
 struct __ns1__getSearchCarsInfNew
 {
@@ -2497,7 +2605,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getAgentPopAd
-#define SOAP_TYPE___ns1__getAgentPopAd (283)
+#define SOAP_TYPE___ns1__getAgentPopAd (295)
 /* Operation wrapper: */
 struct __ns1__getAgentPopAd
 {
@@ -2507,7 +2615,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__getSearchCarsInf
-#define SOAP_TYPE___ns1__getSearchCarsInf (287)
+#define SOAP_TYPE___ns1__getSearchCarsInf (299)
 /* Operation wrapper: */
 struct __ns1__getSearchCarsInf
 {
@@ -2517,7 +2625,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_SOAP_ENV__Header
-#define SOAP_TYPE_SOAP_ENV__Header (288)
+#define SOAP_TYPE_SOAP_ENV__Header (300)
 /* SOAP Header: */
 struct SOAP_ENV__Header
 {
@@ -2529,7 +2637,7 @@ private:
 #endif
 
 #ifndef SOAP_TYPE_SOAP_ENV__Code
-#define SOAP_TYPE_SOAP_ENV__Code (289)
+#define SOAP_TYPE_SOAP_ENV__Code (301)
 /* SOAP Fault Code: */
 struct SOAP_ENV__Code
 {
@@ -2540,7 +2648,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_SOAP_ENV__Detail
-#define SOAP_TYPE_SOAP_ENV__Detail (291)
+#define SOAP_TYPE_SOAP_ENV__Detail (303)
 /* SOAP-ENV:Detail */
 struct SOAP_ENV__Detail
 {
@@ -2552,7 +2660,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_SOAP_ENV__Reason
-#define SOAP_TYPE_SOAP_ENV__Reason (294)
+#define SOAP_TYPE_SOAP_ENV__Reason (306)
 /* SOAP-ENV:Reason */
 struct SOAP_ENV__Reason
 {
@@ -2562,7 +2670,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_SOAP_ENV__Fault
-#define SOAP_TYPE_SOAP_ENV__Fault (295)
+#define SOAP_TYPE_SOAP_ENV__Fault (307)
 /* SOAP Fault: */
 struct SOAP_ENV__Fault
 {
@@ -2678,13 +2786,17 @@ SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__setPubCarsInf(struct soap *soap, cons
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getClickSearchCarsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getClickSearchCarsInf *ns2__getClickSearchCarsInf_, ns2__getClickSearchCarsInfResponse *ns2__getClickSearchCarsInfResponse_);
 
+SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__delBulkGoodsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__delBulkGoodsInf *ns2__delBulkGoodsInf_, ns2__delBulkGoodsInfResponse *ns2__delBulkGoodsInfResponse_);
+
+SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__usrLogin(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__usrLogin *ns2__usrLogin_, ns2__usrLoginResponse *ns2__usrLoginResponse_);
+
+SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getPersisGoodsInfo(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getPersisGoodsInfo *ns2__getPersisGoodsInfo_, ns2__getPersisGoodsInfoResponse *ns2__getPersisGoodsInfoResponse_);
+
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__browseZoneCars(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__browseZoneCars *ns2__browseZoneCars_, ns2__browseZoneCarsResponse *ns2__browseZoneCarsResponse_);
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__placeOrder(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__placeOrder *ns2__placeOrder_, ns2__placeOrderResponse *ns2__placeOrderResponse_);
 
-SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__delBulkGoodsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__delBulkGoodsInf *ns2__delBulkGoodsInf_, ns2__delBulkGoodsInfResponse *ns2__delBulkGoodsInfResponse_);
-
-SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__usrLogin(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__usrLogin *ns2__usrLogin_, ns2__usrLoginResponse *ns2__usrLoginResponse_);
+SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__getPersisCarsInfo(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__getPersisCarsInfo *ns2__getPersisCarsInfo_, ns2__getPersisCarsInfoResponse *ns2__getPersisCarsInfoResponse_);
 
 SOAP_FMAC5 int SOAP_FMAC6 soap_call___ns1__delCarsInf(struct soap *soap, const char *soap_endpoint, const char *soap_action, ns2__delCarsInf *ns2__delCarsInf_, ns2__delCarsInfResponse *ns2__delCarsInfResponse_);
 

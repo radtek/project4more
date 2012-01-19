@@ -92,5 +92,6 @@ else if(t==ES_KEEPSIZE) { __ES__CalcBottomRight(this,TRUE,bottom,top,id,b,id##_e
 } else { GetDlgItem(t)->GetWindowRect(rect2); ScreenToClient(rect2); top = rect2.bottom + id##_es_t; }\
 if(t != ES_KEEPSIZE) __ES__CalcBottomRight(this,TRUE,bottom,top,id,b,id##_es_b,rect,client.bottom);}\
 GetDlgItem(id)->MoveWindow(left,top,right-left,bottom-top);\
+	TRACE("l=%d, r=%d t = %d, b = %d\r\n", left, right, top, bottom);\
 }
 #endif //__EASYSIZE_H_

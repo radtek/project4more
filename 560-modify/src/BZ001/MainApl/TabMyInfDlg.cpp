@@ -625,6 +625,7 @@ void CTabMyInfDlg::OnGridRClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
 		else
 		{
 			content.state = "已成交";
+			MessageBox("状态已改为“已成交”", "系统提示");
 		}
 	}
 }
