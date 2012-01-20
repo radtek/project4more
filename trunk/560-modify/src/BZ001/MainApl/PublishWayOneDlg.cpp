@@ -286,22 +286,37 @@ void CPublishWayOneDlg::OnBnClickedButtonW1ToCounty()
 void CPublishWayOneDlg::OnBnClickedButtonGoodsNum()
 {
 	// TODO: Add your control notification handler code here
-	CNumberDlg dlgNumber(this, IDC_EDIT_GOODS_NUM);
-	dlgNumber.DoModal();
+	CNumberDlg *pDdlgNumber = new CNumberDlg(this, IDC_EDIT_GOODS_NUM);
+
+	if (pDdlgNumber && pDdlgNumber->Create(IDD_DIALOG_NUMBER, this))
+	{
+		pDdlgNumber->ShowWindow(SW_SHOW);
+		pDdlgNumber->BringWindowToTop();
+	}
 }
 
 void CPublishWayOneDlg::OnBnClickedButtonCarNum()
 {
 	// TODO: Add your control notification handler code here
-	CNumberDlg dlgNumber(this, IDC_EDIT_CAR_NUM);
-	dlgNumber.DoModal();
+	CNumberDlg *pDdlgNumber = new CNumberDlg(this, IDC_EDIT_CAR_NUM);
+
+	if (pDdlgNumber && pDdlgNumber->Create(IDD_DIALOG_NUMBER, this))
+	{
+		pDdlgNumber->ShowWindow(SW_SHOW);
+		pDdlgNumber->BringWindowToTop();
+	}
 }
 
 
 void CPublishWayOneDlg::OnBnClickedButtonPriaceNum()
 {
-	CNumberDlg dlgNumber(this, IDC_EDIT_PRICE_NUM);
-	dlgNumber.DoModal();
+	CNumberDlg *pDdlgNumber = new CNumberDlg(this, IDC_EDIT_PRICE_NUM);
+
+	if (pDdlgNumber && pDdlgNumber->Create(IDD_DIALOG_NUMBER, this))
+	{
+		pDdlgNumber->ShowWindow(SW_SHOW);
+		pDdlgNumber->BringWindowToTop();
+	}
 }
 
 
