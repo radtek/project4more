@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "WLRClient.h"
 #include "PubGoodsDlg.h"
+#include "CommDef.h"
 
 
 // CPubGoodsDlg 对话框
@@ -120,12 +121,18 @@ BOOL CPubGoodsDlg::OnInitDialog()
 	((CEdit*)GetDlgItem(IDC_PUB_GOODS_CUBAGE))->SetLimitText(8);
 	((CEdit*)GetDlgItem(IDC_PUB_GOODS_PRICE))->SetLimitText(8);
 
+	int n = 0;
 	m_msgedit.LimitText(100);
     // TODO:  在此添加额外的初始化
     // 初始化货物名称
 	combName.AddString("请选择");	
 	//--------------------------
-	combName.AddString("机械设备");
+	for ( n = 0; n < g_goodsType.size(); n++ )
+	{
+		combName.AddString(g_goodsType[n]);
+	}
+
+	/*combName.AddString("机械设备");
 	combName.AddString("电子产品");
 	combName.AddString("日用百货");
 	combName.AddString("衣料布匹");
@@ -136,7 +143,7 @@ BOOL CPubGoodsDlg::OnInitDialog()
 	combName.AddString("建材");
 	combName.AddString("冻品");
 	combName.AddString("煤");
-	combName.AddString("其他");
+	combName.AddString("其他");*/
 	combName.SetCurSel(0); 
 
 	// 货物单位
@@ -157,7 +164,13 @@ BOOL CPubGoodsDlg::OnInitDialog()
 	combType.SetCurSel(0);
 
 	// 价格单位
-	combPriceUnit.AddString("元/吨");
+	for ( n = 0; n < g_priceType.size(); n++ )
+	{
+		combPriceUnit.AddString(g_priceType[n]);
+	}
+	combPriceUnit.SetCurSel(0);
+
+	/*combPriceUnit.AddString("元/吨");
 	combPriceUnit.AddString("元/方");
 	combPriceUnit.AddString("元");
 	combPriceUnit.AddString("元/车");
@@ -166,7 +179,7 @@ BOOL CPubGoodsDlg::OnInitDialog()
 	combPriceUnit.AddString("面议");
 	combPriceUnit.AddString("高价急走");
 	combPriceUnit.AddString("价格好说");
-	combPriceUnit.AddString("给钱就走");
+	combPriceUnit.AddString("给钱就走");*/
 	//combPriceUnit.SetCurSel(0);
 
 	// 车长	
@@ -198,22 +211,26 @@ BOOL CPubGoodsDlg::OnInitDialog()
 
 	// 车类型
 	combCarType.AddString("请选择");
-	combCarType.AddString("前四后十");
-	combCarType.AddString("前四后八");
-	combCarType.AddString("前四后四");
-	combCarType.AddString("半封闭车");
-	combCarType.AddString("敞篷车");
-	combCarType.AddString("平板车");
-	combCarType.AddString("高栏车");
-	combCarType.AddString("集装箱");
-	combCarType.AddString("冷藏车");
-	combCarType.AddString("后八轮");
-	combCarType.AddString("单桥车");
-	combCarType.AddString("自卸车");
-	combCarType.AddString("半挂车");
-	combCarType.AddString("保温车");
-	combCarType.AddString("双桥车");
-	combCarType.AddString("高低板");
+	for ( n = 0; n < g_truckType.size(); n++ )
+	{
+		combCarType.AddString(g_truckType[n]);
+	}
+	//combCarType.AddString("前四后十");
+	//combCarType.AddString("前四后八");
+	//combCarType.AddString("前四后四");
+	//combCarType.AddString("半封闭车");
+	//combCarType.AddString("敞篷车");
+	//combCarType.AddString("平板车");
+	//combCarType.AddString("高栏车");
+	//combCarType.AddString("集装箱");
+	//combCarType.AddString("冷藏车");
+	//combCarType.AddString("后八轮");
+	//combCarType.AddString("单桥车");
+	//combCarType.AddString("自卸车");
+	//combCarType.AddString("半挂车");
+	//combCarType.AddString("保温车");
+	//combCarType.AddString("双桥车");
+	//combCarType.AddString("高低板");
 	combCarType.SetCurSel(0);
 
 	// 装货时间

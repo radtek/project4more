@@ -561,7 +561,7 @@ int ServerIO::getCustomGoodsInf(vector<TabCustomInfRecord> &inf, inputParam& inp
 					tmp.tel += " ";
 				} else {
 					if (tokens.at(11) != "NULL") {
-						tmp.tel +=  tokens.at(11);
+						tmp.tel +=  tmp.pubName = tokens.at(11);
 						tmp.tel += " ";
 					}
 				}
@@ -572,7 +572,7 @@ int ServerIO::getCustomGoodsInf(vector<TabCustomInfRecord> &inf, inputParam& inp
 				}
 				tmp.pubUID = tokens.at(15);
 
-				if( tokens.size() ==  20 )
+				if( tokens.size() >=  20 )
 				{
 					//tmp.pubURL = tokens.at(16);//not used
 					tmp.pubAddress = tokens.at(17);
@@ -692,7 +692,7 @@ int ServerIO::getMyGoodsInf(vector<TabMyInfRecord> &inf, inputParam& input)
 				}
 				tmp.pubUID = tokens.at(15);
 
-				if( tokens.size() ==  20 )
+				if( tokens.size() >=  20 )
 				{
 				//	tmp.pubURL = tokens.at(16); not used
 					tmp.pubAddress = tokens.at(17);
@@ -720,8 +720,6 @@ int ServerIO::getMyGoodsInf(vector<TabMyInfRecord> &inf, inputParam& input)
 
 int ServerIO::getPersisGoodsInfo(vector<TabNewInfRecord> &inf, inputParam& input)
 {
-
-
 #ifdef _OFF_LINE_
 	inf.clear();
 
@@ -819,15 +817,7 @@ int ServerIO::getPersisGoodsInfo(vector<TabNewInfRecord> &inf, inputParam& input
 					tmp.pubAddress = tokens.at(17);
 					tmp.dateTime = tokens.at(18);
 					tmp.state = tokens.at(19);
-					if( tokens.size() > 20 )
-					{
-						tmp.bLongTime = tokens.at(20) == "长期"?true:false;
-					}
-					else
-					{
-						tmp.bLongTime = true;
-					}
-					
+					tmp.bLongTime = true;
 				}
 				inf.push_back(tmp);                
 			}
@@ -1190,14 +1180,6 @@ int ServerIO::getNewCarsInf(vector<TabNewInfRecord> &inf, inputParam& input)
 					tmp.pubAddress = tokens.at(23);
 					tmp.dateTime = tokens.at(24);
 					tmp.state = tokens.at(25);
-					if( tokens.size() > 26 )
-					{
-						tmp.bLongTime = tokens.at(26) == "长期";
-					}
-					else
-					{
-						tmp.bLongTime = true;
-					}
 				}
 				inf.push_back(tmp);                
 			}
@@ -1355,7 +1337,7 @@ int ServerIO::getCustomCarsInf(vector<TabCustomInfRecord> &inf, inputParam& inpu
 				}
 				tmp.pubUID = tokens.at(21);
 
-				if( tokens.size() == 26)
+				if( tokens.size() >= 26)
 				{
 					//tmp.pubURL = tokens.at(22); //not used
 					tmp.pubAddress = tokens.at(23);
@@ -1495,7 +1477,7 @@ int ServerIO::getMyCarsInf(vector<TabMyInfRecord> &inf, inputParam& input)
 				}
 				tmp.pubUID = tokens.at(21);
 
-				if( tokens.size() == 26)
+				if( tokens.size() >= 26)
 				{
 				//	tmp.pubURL = tokens.at(22); //not used
 					tmp.pubAddress = tokens.at(23);
@@ -1643,14 +1625,7 @@ int ServerIO::getPersisCarsInfo(vector<TabNewInfRecord> &inf, inputParam& input)
 					tmp.pubAddress = tokens.at(23);
 					tmp.dateTime = tokens.at(24);
 					tmp.state = tokens.at(25);
-					if( tokens.size() > 26 )
-					{
-						tmp.bLongTime = tokens.at(26) == "长期";
-					}
-					else
-					{
-						tmp.bLongTime = true;
-					}
+					tmp.bLongTime = true;
 				}
 
 				inf.push_back(tmp);                
