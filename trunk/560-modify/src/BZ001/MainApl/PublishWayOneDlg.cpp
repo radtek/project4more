@@ -148,6 +148,8 @@ void CPublishWayOneDlg::initControlValue()
 	msgType.AddString("发布车源");
 	msgType.SetCurSel(publishKind==0?0:1);
 
+	withMobile = TRUE;
+
 	unsigned int n;
 
 	goodsList.SetColumnWidth(100);
@@ -198,6 +200,14 @@ void CPublishWayOneDlg::initControlValue()
 	repubSetting.SetCurSel(0);
 
 	mobile = userInfo.tel.c_str();
+
+	m_strProvinceFrom = userInfo.province.c_str();
+	m_strCityFrom = userInfo.city.c_str();
+
+	truckCountValue = "1";
+	goodsList.SetCurSel(5);
+
+	UpdateData(FALSE);
 }
 
 
