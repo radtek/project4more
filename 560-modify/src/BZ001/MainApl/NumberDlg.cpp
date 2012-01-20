@@ -18,10 +18,13 @@ CNumberDlg::~CNumberDlg()
 {	
 }
 
-BOOL CNumberDlg::OnInitDialog()
-{
-	CDialog::OnInitDialog();
 
+int CNumberDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+	if (CDialog::OnCreate(lpCreateStruct) == -1)
+		return -1;
+
+	// TODO:  Add your specialized creation code here
 	CRect rc, rcEdit;
 
 	if (m_pEditCtrl = (CEdit *)((CDialog *)GetParent())->GetDlgItem(m_nEditCtrlID))
@@ -31,7 +34,16 @@ BOOL CNumberDlg::OnInitDialog()
 
 		MoveWindow(rcEdit.left, rcEdit.bottom + 2, rc.Width(), rc.Height());
 	}
-	return TRUE;
+	return 0;
+}
+
+void CNumberDlg::OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized)
+{
+	CDialog::OnActivate(nState, pWndOther, bMinimized);
+
+	// TODO: Add your message handler code here
+	if (nState == WA_INACTIVE)
+		CDialog::OnCancel();
 }
 
 void CNumberDlg::DoDataExchange(CDataExchange* pDX)
@@ -41,6 +53,8 @@ void CNumberDlg::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CNumberDlg, CDialog)
+	ON_WM_CREATE()
+	ON_WM_ACTIVATE()
 	ON_BN_CLICKED(IDC_BUTTON_KB_NUM_ZEOR1, &CNumberDlg::OnBnClickedButtonKbNumZero)
 	ON_BN_CLICKED(IDC_BUTTON_KB_NUM_DOT, &CNumberDlg::OnBnClickedButtonKbNumDot)
 	ON_BN_CLICKED(IDC_BUTTON_KB_NUM_ZERO2, &CNumberDlg::OnBnClickedButtonKbNumZero)
@@ -168,15 +182,17 @@ void CNumberDlg::AppendEditCtrlText(CString num)
 		CString text;
 
 		m_pEditCtrl->GetWindowText(text);
-
-		if (num == ".")
+		if (text.GetLength() < 8)
 		{
-			if (text.Find(num) == -1)
+			if (num == ".")
+			{
+				if (text.Find(num) == -1)
+					text += num;
+			}
+			else
 				text += num;
+
+			m_pEditCtrl->SetWindowText(text);
 		}
-		else
-			text += num;
-		
-		m_pEditCtrl->SetWindowText(text);
 	}
 }
