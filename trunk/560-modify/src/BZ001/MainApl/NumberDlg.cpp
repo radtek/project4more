@@ -42,8 +42,11 @@ void CNumberDlg::OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized)
 	CDialog::OnActivate(nState, pWndOther, bMinimized);
 
 	// TODO: Add your message handler code here
-	if (nState == WA_INACTIVE)
-		CDialog::OnCancel();
+	if (nState == WA_INACTIVE && m_pEditCtrl != NULL)
+	{
+		OnCancel();
+		//GetParent()->PostMessage(WM_NUMBER_DLG_CLOSE, (WPARAM)this);
+	}
 }
 
 void CNumberDlg::DoDataExchange(CDataExchange* pDX)
@@ -171,7 +174,7 @@ void CNumberDlg::OnBnClickedButtonKbNumClean()
 void CNumberDlg::OnBnClickedButtonKbNumSeven4()
 {
 	// TODO: Add your control notification handler code here
-	CDialog::OnCancel();
+	DestroyWindow();
 }
 
 // Private functions.
@@ -195,4 +198,19 @@ void CNumberDlg::AppendEditCtrlText(CString num)
 			m_pEditCtrl->SetWindowText(text);
 		}
 	}
+}
+
+void CNumberDlg::PostNcDestroy()
+{
+	// TODO: 在此添加专用代码和/或调用基类
+
+	CDialog::PostNcDestroy();
+}
+
+BOOL CNumberDlg::DestroyWindow()
+{
+	// TODO: 在此添加专用代码和/或调用基类
+
+	return CDialog::DestroyWindow();
+	delete this;
 }

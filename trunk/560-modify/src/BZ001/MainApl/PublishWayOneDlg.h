@@ -141,4 +141,6 @@ private:
 	void SetListSection(CListBox& b, string k);
 public:
 	afx_msg void OnBnClickedButtonPriaceNum();
+protected:
+	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 };
