@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// 中文(中华人民共和国) resources
+// Chinese (P.R.C.) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
 #ifdef _WIN32
@@ -915,11 +915,11 @@ CAPTION "历史记录"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     CONTROL         "",IDC_LIST_PUB_HISTORY,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,2,2,341,204
-    PUSHBUTTON      "修改",IDC_BUTTON_MODIFY,119,210,42,14
-    PUSHBUTTON      "自动重发",IDC_BUTTON_AUTO_REPUB,162,210,42,14
+    PUSHBUTTON      "修改",IDC_BUTTON_MODIFY,162,210,42,14
+    PUSHBUTTON      "自动重发",IDC_BUTTON_AUTO_REPUB,76,210,42,14,NOT WS_VISIBLE
     PUSHBUTTON      "删除",IDC_BUTTON_DELETE,205,210,42,14
     PUSHBUTTON      "关闭",IDC_BUTTON_CLOSE,248,210,42,14
-    PUSHBUTTON      "发送",IDC_BUTTON_PUBLISH,76,210,42,14
+    PUSHBUTTON      "发送",IDC_BUTTON_PUBLISH,119,210,42,14
 END
 
 IDD_DIALOG_NUMBER DIALOGEX 0, 0, 111, 89
@@ -1488,7 +1488,7 @@ BEGIN
     IDS_ABOUTBOX            "关于560(&A)..."
 END
 
-#endif    // 中文(中华人民共和国) resources
+#endif    // Chinese (P.R.C.) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
