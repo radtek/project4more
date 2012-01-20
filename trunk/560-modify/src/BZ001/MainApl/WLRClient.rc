@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// Chinese (P.R.C.) resources
+// 中文(中华人民共和国) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
 #ifdef _WIN32
@@ -951,7 +951,7 @@ FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     CTEXT           "选择",IDC_STATIC_TITLE,2,1,28,14,SS_CENTERIMAGE
     PUSHBUTTON      "×",IDC_BUTTON_CLOSE,30,1,14,14,BS_CENTER | BS_VCENTER
-    LISTBOX         IDC_LIST_CONTENT,0,18,310,159,LBS_SORT | LBS_NOINTEGRALHEIGHT | LBS_MULTICOLUMN | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_LIST_CONTENT,0,18,310,159,LBS_NOINTEGRALHEIGHT | LBS_MULTICOLUMN | WS_VSCROLL | WS_TABSTOP
 END
 
 IDD_DIALOG_ADDR_SEL DIALOGEX 0, 0, 329, 235
@@ -1488,7 +1488,7 @@ BEGIN
     IDS_ABOUTBOX            "关于560(&A)..."
 END
 
-#endif    // Chinese (P.R.C.) resources
+#endif    // 中文(中华人民共和国) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

@@ -39,7 +39,14 @@ BOOL CContentDlg::OnInitDialog()
 	vector<CString>::const_iterator it = m_pVecItems->begin(), end = m_pVecItems->end();
 	for(it; it != end; ++it, ++i)
 	{
-		m_listContent.AddString(*it);
+		if( *it != NO_LIMIT_STRING )
+		{
+			m_listContent.AddString(*it);
+		}
+		else
+		{
+			m_listContent.InsertString(0, *it);
+		}
 		nCount++;
 	}
 

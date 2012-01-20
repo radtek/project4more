@@ -73,9 +73,18 @@ int CountryRegion::addCity(string& name, string& id, string& proId)
 	tmpCity.name = name;
 
 	vector<Province>::iterator iter = govProvince.begin();
-    while (iter != govProvince.end()) {
-		if((*iter).id == proId) {
-			(*iter).govCity.push_back(tmpCity);
+    while (iter != govProvince.end()) 
+	{
+		if((*iter).id == proId) 
+		{
+			if( name != "不限" )
+			{
+				(*iter).govCity.push_back(tmpCity);
+			}
+			else
+			{
+				(*iter).govCity.insert((*iter).govCity.begin(), tmpCity);
+			}
 			break;
 		}
         ++iter;
@@ -95,9 +104,18 @@ int CountryRegion::addCounty(string& name, string& id, string& cityId)
     while (iter != govProvince.end()) {
 		//cout << (*iter).id << "	" << (*iter).name << "	" << (*iter).upId << endl;
 		vector<City>::iterator iter2 = (*iter).govCity.begin();
-		while (iter2 != (*iter).govCity.end()) {
-			if((*iter2).id == cityId ) {
-				(*iter2).govCounty.push_back(tmpCounty);
+		while (iter2 != (*iter).govCity.end()) 
+		{
+			if((*iter2).id == cityId ) 
+			{
+				if( name != "不限" )
+				{
+					(*iter2).govCounty.push_back(tmpCounty);
+				}
+				else
+				{
+					(*iter2).govCounty.insert((*iter2).govCounty.begin(), tmpCounty);
+				}
 				break;
 			}
 			++iter2;

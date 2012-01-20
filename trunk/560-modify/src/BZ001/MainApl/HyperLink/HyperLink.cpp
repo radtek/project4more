@@ -188,7 +188,7 @@ void CHyperLink::SetLinkUrl(const TCHAR* lpUrl)
 	else
 		m_lpLinkUrl = NULL;
 
-	m_pToolTip->UpdateTipText(m_lpLinkUrl,this);
+	//m_pToolTip->UpdateTipText(m_lpLinkUrl,this);
 }
 
 void CHyperLink::LockInPosition( BOOL bLockInPosition /*= FALSE*/ )
