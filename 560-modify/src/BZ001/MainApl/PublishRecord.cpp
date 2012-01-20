@@ -24,7 +24,7 @@ string	CPublishRecord::toString()
 		result += (*iter).first;
 		result += "^";
 		result += (*iter).second;
-		result += "|";
+		result += "&";
 	}
 	return result;
 }
@@ -36,7 +36,7 @@ void CPublishRecord::fromString(const string& str)
 
 	b = 0;
 	m = 0;
-	e = str.find('|');
+	e = str.find('&');
 
 	while ( e != -1 )
 	{
@@ -48,7 +48,7 @@ void CPublishRecord::fromString(const string& str)
 			paras[k] = v;
 		}
 		b = e+1;
-		e = str.find('|', b);
+		e = str.find('&', b);
 	}
 }
 

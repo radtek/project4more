@@ -173,13 +173,22 @@ void CPublishWayTwoDlg::initControlValue()
 	repubSetting.SetCurSel(0);
 
 	mobile = userInfo.tel.c_str();
+	
+	withMobile = TRUE;
 
-	goodsValue = "¶³»õ";
+	goodsValue = "";
 	goodsCountValue = "";
 	truckLengthValue = "";
 	truckTypeValue = "";
 	truckCountValue = "";
 	priceListValue = "";
+
+	m_strProvinceFrom = userInfo.province.c_str();
+	m_strCityFrom = userInfo.city.c_str();
+
+	truckCountValue = "1";
+
+	UpdateData(FALSE);
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonW1FromProvince()
