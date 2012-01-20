@@ -4,6 +4,8 @@
 
 // CNumberDlg dialog
 
+#define WM_NUMBER_DLG_CLOSE (WM_USER+3000)
+
 class CNumberDlg : public CDialog
 {
 	DECLARE_DYNAMIC(CNumberDlg)
@@ -38,10 +40,17 @@ public:
 	afx_msg void OnBnClickedButtonKbNumClean();
 	afx_msg void OnBnClickedButtonKbNumSeven4();
 
+	void SetDeleteFlag(bool bDelete)
+	{
+		m_pEditCtrl = NULL;
+	}
 private:
 	void AppendEditCtrlText(CString num);
-
 private:
 	int m_nEditCtrlID;
 	CEdit *m_pEditCtrl;
+protected:
+	virtual void PostNcDestroy();
+public:
+	virtual BOOL DestroyWindow();
 };

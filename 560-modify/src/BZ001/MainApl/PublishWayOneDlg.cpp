@@ -889,3 +889,16 @@ BOOL CPublishWayOneDlg::PublishTruckInfo()
 
 	return TRUE;
 }
+
+LRESULT CPublishWayOneDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch(message)
+	{
+	case WM_NUMBER_DLG_CLOSE:
+		/*CNumberDlg *pNumDlg = (CNumberDlg*)wParam;
+		pNumDlg->SetDeleteFlag(true);
+		delete pNumDlg;*/
+		break;
+	}
+	return CDialog::WindowProc(message, wParam, lParam);
+}
