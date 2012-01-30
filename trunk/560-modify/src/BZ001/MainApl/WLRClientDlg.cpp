@@ -1417,8 +1417,8 @@ int CWLRClientDlg::ShowTabDlgs()
 
     if (pMainTab)
     {
-        if ( ((pSearchTab == &searchGoodsInf) && (pMainTab == &newGoodsInf )) || 
-			((pSearchTab == &searchCarsInf)&&(pMainTab == &newCarsInf) )
+        if ( ((pSearchTab == &searchGoodsInf) && (pMainTab == &newGoodsInf || pMainTab == &newCarsInf)) || 
+			((pSearchTab == &searchCarsInf)&&(pMainTab == &newGoodsInf || pMainTab == &newCarsInf) )
 			)
         {
             pMainTab->MoveWindow(rect.left, rect.top, rect.Width(), rect.Height() / 2);

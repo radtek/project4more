@@ -227,7 +227,7 @@ int CTabSpecialLineDlg::initGrid()
         // 设置是否可以通过鼠标将行的高度压缩为0
         m_Grid.EnableRowHide(false);
         // 设置单元格是否可选
-        m_Grid.EnableSelection(false);
+        m_Grid.EnableSelection(true);
 
         // 设置成列表模式
         m_Grid.SetListMode();
@@ -693,6 +693,9 @@ void CTabSpecialLineDlg::OnGridRClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/
     if (curSelRow <= 0) {
         return;
     }
+
+	SetFocus();
+
     // 设置弹出菜单
     CPoint   point; 
     ::GetCursorPos(&point);     			

@@ -770,6 +770,7 @@ BOOL CPublishWayOneDlg::PublishGoodsInfo()
 	CString tt = truckTypeValue;
 	CString tc = truckCountValue;
 	CString ct = m_strCountyTo;
+	CString cf = m_strCountyFrom;
 
 	if ( w == "" )
 		w = "NULL";
@@ -786,7 +787,10 @@ BOOL CPublishWayOneDlg::PublishGoodsInfo()
 	if ( ct == "" )
 		ct = "不限";
 
-	CString tmp = m_strProvinceFrom + "|" + m_strCityFrom + "|" + m_strCountyFrom
+	if ( cf == "" )
+		cf = "不限";
+
+	CString tmp = m_strProvinceFrom + "|" + m_strCityFrom + "|" + cf
 		+ "|" + m_strProvinceTo + "|" + m_strCityTo + "|" + ct
 		+ "|" + goodsValue + "|" + goodsCountValue + "|" + "NULL"
 		+ "|" + "普货" + "|" + p + "|" + pu + "|NULL|" + tl + "|" + tt + "|"
@@ -837,6 +841,7 @@ BOOL CPublishWayOneDlg::PublishTruckInfo()
 	CString tl = truckLengthValue;
 	CString tt = truckTypeValue;
 	CString ct = m_strCountyTo;
+	CString cf = m_strCountyFrom;
 
 	if ( tc == "" )
 		tc = "NULL";
@@ -853,7 +858,10 @@ BOOL CPublishWayOneDlg::PublishTruckInfo()
 	if ( ct == "" )
 		ct = "不限";
 
-	CString tmp = m_strProvinceFrom + "|" + m_strCityFrom + "|" + m_strCountyFrom
+	if ( cf == "" )
+		cf = "不限";
+
+	CString tmp = m_strProvinceFrom + "|" + m_strCityFrom + "|" + cf
 		+ "|" + m_strProvinceTo + "|" + m_strCityTo + "|" + ct
 		+ "|||||||"
 		+ tc + "|" + w + "|NULL|" + tl + "|" + tt 

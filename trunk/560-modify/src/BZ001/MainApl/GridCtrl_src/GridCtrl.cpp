@@ -583,6 +583,7 @@ BEGIN_MESSAGE_MAP(CGridCtrl, CWnd)
     ON_WM_SETCURSOR()
 #endif
 #ifndef _WIN32_WCE
+	ON_WM_RBUTTONDOWN()
     ON_WM_RBUTTONUP()
     ON_WM_SYSCOLORCHANGE()
     ON_WM_CAPTURECHANGED()
@@ -6497,6 +6498,12 @@ void CGridCtrl::OnRButtonDown(UINT nFlags, CPoint point)
 {
     CWnd::OnRButtonDown(nFlags, point);
 	m_bRMouseButtonDown = TRUE;
+
+	CCellID FocusCell;
+	FocusCell = GetCellFromPt(point);
+
+	m_MouseMode = m_bListMode? MOUSE_SELECT_ROW : MOUSE_SELECT_CELLS;
+	OnSelecting(FocusCell);
 
 #ifdef GRIDCONTROL_USE_TITLETIPS
 	TRACE0("Hiding TitleTip\n");
