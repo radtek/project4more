@@ -634,18 +634,13 @@ BOOL CPublishWayOneDlg::CheckGoodsInfo()
 
 	if (m_strProvinceTo == "")
 	{
-		MessageBox("目的地：一级地址不能为空", "发布车源");
+		MessageBox("目的地：一级地址不能为空", "发布货源");
 		return FALSE;
 	}
 
 	if( m_strCityTo == "" )
 	{
-		MessageBox("目的地：二级地址不能为空", "发布车源");
-		return FALSE;
-	}
-	if( m_strCountyTo == "" )
-	{
-		MessageBox("目的地：三级地址不能为空", "发布车源");
+		MessageBox("目的地：二级地址不能为空", "发布货源");
 		return FALSE;
 	}
 
@@ -711,11 +706,6 @@ BOOL CPublishWayOneDlg::CheckTruckInfo()
 		MessageBox("目的地：二级地址不能为空", "发布车源");
 		return FALSE;
 	}
-	if( m_strCountyTo == "" )
-	{
-		MessageBox("目的地：三级地址不能为空", "发布车源");
-		return FALSE;
-	}
 
 	if ( truckLengthValue == "" )
 	{
@@ -779,6 +769,7 @@ BOOL CPublishWayOneDlg::PublishGoodsInfo()
 	CString tl = truckLengthValue;
 	CString tt = truckTypeValue;
 	CString tc = truckCountValue;
+	CString ct = m_strCountyTo;
 
 	if ( w == "" )
 		w = "NULL";
@@ -792,8 +783,11 @@ BOOL CPublishWayOneDlg::PublishGoodsInfo()
 	if ( tc == "" )
 		tc = "NULL";
 
+	if ( ct == "" )
+		ct = "不限";
+
 	CString tmp = m_strProvinceFrom + "|" + m_strCityFrom + "|" + m_strCountyFrom
-		+ "|" + m_strProvinceTo + "|" + m_strCityTo + "|" + m_strCountyTo
+		+ "|" + m_strProvinceTo + "|" + m_strCityTo + "|" + ct
 		+ "|" + goodsValue + "|" + goodsCountValue + "|" + "NULL"
 		+ "|" + "普货" + "|" + p + "|" + pu + "|NULL|" + tl + "|" + tt + "|"
 		+ tc + "|" + mobile + "|" + shipTimeValue + "|" + repubSettingValue;
@@ -842,6 +836,7 @@ BOOL CPublishWayOneDlg::PublishTruckInfo()
 	CString w = goodsCountValue;
 	CString tl = truckLengthValue;
 	CString tt = truckTypeValue;
+	CString ct = m_strCountyTo;
 
 	if ( tc == "" )
 		tc = "NULL";
@@ -855,8 +850,11 @@ BOOL CPublishWayOneDlg::PublishTruckInfo()
 	if ( tt == "" )
 		tt = "NULL";
 
+	if ( ct == "" )
+		ct = "不限";
+
 	CString tmp = m_strProvinceFrom + "|" + m_strCityFrom + "|" + m_strCountyFrom
-		+ "|" + m_strProvinceTo + "|" + m_strCityTo + "|" + m_strCountyTo
+		+ "|" + m_strProvinceTo + "|" + m_strCityTo + "|" + ct
 		+ "|||||||"
 		+ tc + "|" + w + "|NULL|" + tl + "|" + tt 
 		+ "|" + goodsValue + "|普货|" + mobile + "|" + shipTimeValue + "|" + repubSettingValue;
