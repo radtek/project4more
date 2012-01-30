@@ -194,7 +194,7 @@ int CTabMyInfDlg::initGrid() {
         // 设置是否可以通过鼠标将行的高度压缩为0
         m_Grid.EnableRowHide(false);
         // 设置单元格是否可选
-        m_Grid.EnableSelection(false);
+        m_Grid.EnableSelection(true);
 
         // 设置成列表模式
         m_Grid.SetListMode();
@@ -584,8 +584,9 @@ void CTabMyInfDlg::OnGridRClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
         return;
     }
 
-	TabMyInfRecord& content = contentData.at(curSelRow);
+	SetFocus();
 
+	TabMyInfRecord& content = contentData.at(curSelRow);
 	// 设置弹出菜单
 	CPoint   point; 
 	::GetCursorPos(&point);     			
@@ -596,7 +597,7 @@ void CTabMyInfDlg::OnGridRClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
 	menu.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "修改并发布");
 	menu.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "发送短信");
 	menu.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "删除");
-	menu.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION, nMenuId++, "已成交");
+	menu.InsertMenu(nMenuId, MF_STRING|MF_BYPOSITION|(content.state=="已成交"?MF_GRAYED:MF_ENABLED), nMenuId++, "已成交");
 
 	int nRetId = menu.TrackPopupMenu(TPM_LEFTALIGN |TPM_RIGHTBUTTON|TPM_RETURNCMD,point.x,point.y,this,NULL);
 	if( nRetId == 1000 )
@@ -625,7 +626,8 @@ void CTabMyInfDlg::OnGridRClick(NMHDR *pNotifyStruct, LRESULT* /*pResult*/)
 		else
 		{
 			content.state = "已成交";
-			MessageBox("状态已改为“已成交”", "系统提示");
+			string sMsg = (curType == 0?"货源[":"车源[")+ content.recordID + "]状态已改为“已成交”"; 
+			MessageBox(sMsg.c_str(), "系统提示");
 		}
 	}
 }
