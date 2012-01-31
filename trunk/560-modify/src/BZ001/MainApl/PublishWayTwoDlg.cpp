@@ -654,11 +654,25 @@ BOOL CPublishWayTwoDlg::PublishGoodsInfo()
 		return FALSE;
 	}
 
+	if (m_strProvinceTo == "")
+	{
+		MessageBox("目的地：一级地址不能为空", "发布货源");
+		return FALSE;
+	}
+
+	if( m_strCityTo == "" )
+	{
+		MessageBox("目的地：二级地址不能为空", "发布货源");
+		return FALSE;
+	}
+
 	CString w = goodsCountValue;
 	CString tl = truckLengthValue;
 	CString tt = truckTypeValue;
 	CString tc = truckCountValue;
 	CString pu = priceListValue;
+	CString ct = m_strCountyTo;
+	CString cf = m_strCountyFrom;
 
 	if ( w == "" )
 		w = "NULL";
@@ -675,8 +689,14 @@ BOOL CPublishWayTwoDlg::PublishGoodsInfo()
 	if ( pu == "" )
 		pu = "NULL";
 
-	CString tmp = m_strProvinceFrom + "|" + m_strCityFrom + "|" + m_strCountyFrom
-		+ "|" + m_strProvinceTo + "|" + m_strCityTo + "|" + m_strCountyTo
+	if ( ct == "" )
+		ct = "不限";
+
+	if ( cf == "" )
+		cf = "不限";
+
+	CString tmp = m_strProvinceFrom + "|" + m_strCityFrom + "|" + cf
+		+ "|" + m_strProvinceTo + "|" + m_strCityTo + "|" + ct
 		+ "|" + goodsValue + "|" + "1" + "|" + "NULL"
 		+ "|" + "普货" + "|" + "1" + "|" + pu + "|NULL|" + tl + "|" + tt + "|"
 		+ "1" + "|" + mobile + "|" + shipTimeValue + "|" + repubSettingValue;
@@ -728,10 +748,24 @@ BOOL CPublishWayTwoDlg::PublishTruckInfo()
 		return FALSE;
 	}
 
+	if( m_strCityTo == "" )
+	{
+		MessageBox("目的地：二级地址不能为空", "发布车源");
+		return FALSE;
+	}
+
+	if ( truckLengthValue == "" )
+	{
+		MessageBox("请选择车辆长度", "发布车源");
+		return FALSE;
+	}
+
 	CString	tc = truckCountValue;
 	CString w = goodsCountValue;
 	CString tl = truckLengthValue;
 	CString tt = truckTypeValue;
+	CString ct = m_strCountyTo;
+	CString cf = m_strCountyFrom;
 
 	if ( tc == "" )
 		tc = "NULL";
@@ -745,8 +779,14 @@ BOOL CPublishWayTwoDlg::PublishTruckInfo()
 	if ( tt == "" )
 		tt = "NULL";
 
-	CString tmp = m_strProvinceFrom + "|" + m_strCityFrom + "|" + m_strCountyFrom
-		+ "|" + m_strProvinceTo + "|" + m_strCityTo + "|" + m_strCountyTo
+	if ( ct == "" )
+		ct = "不限";
+
+	if ( cf == "" )
+		cf = "不限";
+
+	CString tmp = m_strProvinceFrom + "|" + m_strCityFrom + "|" + cf
+		+ "|" + m_strProvinceTo + "|" + m_strCityTo + "|" + ct
 		+ "|||||||"
 		+ tc + "|" + w + "|NULL|" + tl + "|" + tt 
 		+ "|" + goodsValue + "|普货|" + mobile + "|" + shipTimeValue + "|" + repubSettingValue;
