@@ -89,7 +89,7 @@ public:		// value variables
 	BOOL withMobile;
 	BOOL withName;
 	CString mobile;
-	CString name;
+	CString mobile2;
 
 	CString goodsValue;
 	CString goodsCountValue;

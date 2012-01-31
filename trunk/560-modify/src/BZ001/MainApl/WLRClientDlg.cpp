@@ -1426,14 +1426,22 @@ int CWLRClientDlg::ShowTabDlgs()
 
             pSearchTab->ShowWindow(true);
         }
-        else
+        else if( pSearchTab == &searchSpecialLine )
 		{
-			pMainTab->MoveWindow(rect);
+			//pMainTab->MoveWindow(rect);
+			pMainTab->ShowWindow(SW_HIDE);
 			searchGoodsInf.ShowWindow(SW_HIDE);
 			searchCarsInf.ShowWindow(SW_HIDE);
+			pSearchTab->ShowWindow(SW_SHOW);
 		}
-
-        pMainTab->ShowWindow(true);
+		else
+		{
+			pMainTab->MoveWindow(rect);
+			pMainTab->ShowWindow(true);
+			searchGoodsInf.ShowWindow(SW_HIDE);
+			searchCarsInf.ShowWindow(SW_HIDE);
+			searchSpecialLine.ShowWindow(SW_HIDE);
+		}
     }
     else
     {
@@ -1507,6 +1515,7 @@ void CWLRClientDlg::OnBnClickedBtnLine()
     // TODO: 在此添加控件通知处理程序代码
 	EnterCriticalSection(&csClick);
 	m_curTabIndex = 0;
+	m_curSearchType = TabType_UNKNOWN;
     setSpecialLineInf();
 	LeaveCriticalSection(&csClick);
 }
