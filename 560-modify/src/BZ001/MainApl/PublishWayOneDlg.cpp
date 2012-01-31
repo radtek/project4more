@@ -21,7 +21,7 @@ CPublishWayOneDlg::CPublishWayOneDlg(CWnd* pParent /*=NULL*/)
 	, withMobile(FALSE)
 	, withName(FALSE)
 	, mobile(_T(""))
-	, name(_T(""))
+	, mobile2(_T(""))
 	, goodsValue(_T(""))
 	, goodsCountValue(_T(""))
 	, goodsUnitValue(_T(""))
@@ -69,7 +69,7 @@ void CPublishWayOneDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_PW1_CONTACT_NAME, withMobile);
 	DDX_Check(pDX, IDC_CHECK_PW1_CONTACT_PHONE, withName);
 	DDX_Text(pDX, IDC_EDIT_PW1_CONTACT_NAME, mobile);
-	DDX_Text(pDX, IDC_EDIT_PW1_CONTACT_PHONE, name);
+	DDX_Text(pDX, IDC_EDIT_PW1_CONTACT_PHONE, mobile2);
 	DDX_Control(pDX, IDC_STATIC_GP_GOODS, firstPanel);
 	DDX_Control(pDX, IDC_STATIC_GP_CAR, secondPanel);
 	DDX_Control(pDX, IDC_LIST_GOODS, goodsList);
@@ -794,7 +794,7 @@ BOOL CPublishWayOneDlg::PublishGoodsInfo()
 		+ "|" + m_strProvinceTo + "|" + m_strCityTo + "|" + ct
 		+ "|" + goodsValue + "|" + goodsCountValue + "|" + "NULL"
 		+ "|" + "ÆÕ»õ" + "|" + p + "|" + pu + "|NULL|" + tl + "|" + tt + "|"
-		+ tc + "|" + mobile + "|" + shipTimeValue + "|" + repubSettingValue;
+		+ tc + "|" + mobile + (mobile2.IsEmpty()?"":(" "+mobile2)) + "|" + shipTimeValue + "|" + repubSettingValue;
 
 	if (rememberRepubSetting)
 	{

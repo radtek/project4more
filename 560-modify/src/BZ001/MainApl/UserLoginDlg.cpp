@@ -80,11 +80,12 @@ BOOL CUserLoginDlg::OnInitDialog()
 	m_btnLogin.SetTextColor(m_textColor);
 	m_btnCancel.SetTextColor(m_textColor);
 
+	GetDlgItem(IDC_USER_LOGIN_USERNAME)->SetFocus();
 	//MoveWindow(0, 0, 340, 247);
 	CenterWindow();
 	/*btnRemUserName.SetTextColor(m_textColor);
 	btnRemPassWord.SetTextColor(m_textColor);*/
-    return TRUE;  // return TRUE unless you set the focus to a control
+    return FALSE;  // return TRUE unless you set the focus to a control
     // 异常: OCX 属性页应返回 FALSE
 }
 

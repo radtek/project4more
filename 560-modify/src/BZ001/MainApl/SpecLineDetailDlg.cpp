@@ -105,7 +105,7 @@ void CSpecLineDetailDlg::InitSpecialLineDetail()
 	GetDlgItem(IDC_STATIC_SPEC_LIGHT_PRICE)->SetWindowText(("泡货价 ："+m_pSpecLineDetail->lightPrice + "元/方").c_str());
 	GetDlgItem(IDC_STATIC_SPEC_SCHEDULE)->SetWindowText(("发车班次："+m_pSpecLineDetail->schedules).c_str());
 	GetDlgItem(IDC_STATIC_SPEC_NEED_TIME)->SetWindowText(("途中时间："+m_pSpecLineDetail->needTime).c_str());
-	GetDlgItem(IDC_STATIC_SPEC_PUBLISHER_INFO)->SetWindowText(m_pSpecLineDetail->tel.c_str());
+	GetDlgItem(IDC_STATIC_SPEC_PUBLISHER_INFO)->SetWindowText(m_pSpecLineDetail->pubName.c_str());
 
 	if( m_pSpecLineDetail->startAddr != "NULL" )
 	{
