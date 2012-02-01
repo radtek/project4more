@@ -136,6 +136,10 @@ BOOL CPublishWayOneDlg::OnInitDialog()
 	((CEdit*)GetDlgItem(IDC_EDIT_CAR_NUM))->SetLimitText(8);
 	((CEdit*)GetDlgItem(IDC_EDIT_PRICE_NUM))->SetLimitText(8);
 
+	((CEdit*)GetDlgItem(IDC_EDIT_PW1_PREVIEW))->SetLimitText(256);
+	((CEdit*)GetDlgItem(IDC_EDIT_PW1_CONTACT_NAME))->SetLimitText(32);
+	((CEdit*)GetDlgItem(IDC_EDIT_PW1_CONTACT_PHONE))->SetLimitText(32);
+
 	initControlValue();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -644,6 +648,18 @@ BOOL CPublishWayOneDlg::CheckGoodsInfo()
 		return FALSE;
 	}
 
+	if (m_strProvinceFrom == "")
+	{
+		MessageBox("始发地：一级地址不能为空", "发布货源");
+		return FALSE;
+	}
+
+	if( m_strCityFrom == "" )
+	{
+		MessageBox("始发地：二级地址不能为空", "发布货源");
+		return FALSE;
+	}
+
 	if (m_strProvinceTo == "")
 	{
 		MessageBox("目的地：一级地址不能为空", "发布货源");
@@ -704,6 +720,19 @@ BOOL CPublishWayOneDlg::CheckTruckInfo()
 	if ( goodsValue == "" )
 	{
 		MessageBox("请选择货物种类", "发布车源");
+		return FALSE;
+	}
+
+
+	if (m_strProvinceFrom == "")
+	{
+		MessageBox("始发地：一级地址不能为空", "发布车源");
+		return FALSE;
+	}
+
+	if( m_strCityFrom == "" )
+	{
+		MessageBox("始发地：二级地址不能为空", "发布车源");
 		return FALSE;
 	}
 
