@@ -32,7 +32,6 @@ BEGIN_MESSAGE_MAP(CSearchMainDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON_OK, &CSearchMainDlg::OnBnClickedButtonOk)
 	ON_BN_CLICKED(IDC_BUTTON_CLEAN, &CSearchMainDlg::OnBnClickedButtonClean)
 	ON_BN_CLICKED(IDC_BUTTON_ADD_FAVORITE, &CSearchMainDlg::OnBnClickedButtonAddFavorite)
-	ON_BN_CLICKED(IDC_BUTTON_SAVE, &CSearchMainDlg::OnBnClickedButtonSave)
 	ON_BN_CLICKED(IDC_BUTTON_CLOSE, &CSearchMainDlg::OnBnClickedButtonClose)
 END_MESSAGE_MAP()
 
@@ -151,13 +150,10 @@ void CSearchMainDlg::OnBnClickedButtonAddFavorite()
 	{
 		m_pCurSearch->Confirm();
 		CHistoryManager::getInstance()->addSearchFav(m_pCurSearch);
+		MessageBox("收藏成功", "信息提示", MB_OK);
 	}
 }
 
-void CSearchMainDlg::OnBnClickedButtonSave()
-{
-	// TODO: Add your control notification handler code here
-}
 
 LRESULT CSearchMainDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 {

@@ -530,7 +530,8 @@ void CSearchWayTwoDlg::Clean()
 {
 	CSearchCriteria::Clean();
 	m_listCriteria.ResetContent();
-	
+	m_comboxKWPN.SetWindowText("");
+	m_sKeyword = "";
 }
 
 

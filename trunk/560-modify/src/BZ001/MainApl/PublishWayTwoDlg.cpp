@@ -190,7 +190,18 @@ void CPublishWayTwoDlg::initControlValue()
 	priceListValue = "";
 
 	m_strProvinceFrom = userInfo.province.c_str();
-	m_strCityFrom = userInfo.city.c_str();
+	if( IsSpecialProvince(m_strProvinceFrom) )
+	{
+		m_strCityFrom = m_strProvinceFrom;
+	}
+	if( userInfo.province != userInfo.city )
+	{
+		m_strCountyFrom = userInfo.city.c_str();
+	}
+	else
+	{
+		m_strCountyFrom = NO_LIMIT_STRING;
+	}
 
 	truckCountValue = "1";
 
@@ -216,7 +227,10 @@ void CPublishWayTwoDlg::OnBnClickedButtonW1FromCity()
 	GetCitiesNameByProvince(vecItems, m_strProvinceFrom);
 
 	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_FROM_CITY), &vecItems, &m_strCityFrom);
-	dlgContent.DoModal();
+	if( dlgContent.DoModal() == IDOK && !m_strCityFrom.IsEmpty())
+	{
+		m_strCountyFrom = NO_LIMIT_STRING;
+	}
 
 	UpdateData(FALSE);
 }
@@ -252,12 +266,15 @@ void CPublishWayTwoDlg::OnBnClickedButtonW1ToCity()
 	GetCitiesNameByProvince(vecItems, m_strProvinceTo);
 
 	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_TO_CITY), &vecItems, &m_strCityTo);
-	dlgContent.DoModal();
+	if( dlgContent.DoModal() == IDOK && !m_strCityTo.IsEmpty())
+	{
+		m_strCountyTo = NO_LIMIT_STRING;
+	}
 
-	if ( m_strCityTo == "不限" )
+	/*if ( m_strCityTo == "不限" )
 	{
 		m_strCountyTo = "";
-	}
+	}*/
 
 	UpdateData(FALSE);
 }
@@ -495,6 +512,10 @@ void CPublishWayTwoDlg::OnBnClickedButtonBackspace()
 {
 	// TODO: Add your control notification handler code here
 	int		l = preview.GetLength();
+	if( l == 0 )
+	{
+		return ;
+	}
 	wchar_t *pwszPreview = NULL;
 	int nWideCharLen = ::MultiByteToWideChar(CP_ACP, 0, preview, l+1, NULL, 0);
 	pwszPreview = new wchar_t[nWideCharLen+1];
@@ -677,6 +698,12 @@ BOOL CPublishWayTwoDlg::PublishGoodsInfo()
 		return FALSE;
 	}
 
+	if( CheckAddress(m_strProvinceFrom, m_strCityFrom, m_strCountyFrom) != 0 )
+	{
+		MessageBox("始发地：地址信息不合法", "发布货源");
+		return FALSE;
+	}
+
 	if (m_strProvinceTo == "")
 	{
 		MessageBox("目的地：一级地址不能为空", "发布货源");
@@ -686,6 +713,12 @@ BOOL CPublishWayTwoDlg::PublishGoodsInfo()
 	if( m_strCityTo == "" )
 	{
 		MessageBox("目的地：二级地址不能为空", "发布货源");
+		return FALSE;
+	}
+
+	if( CheckAddress(m_strProvinceTo, m_strCityTo, m_strCountyTo) != 0 )
+	{
+		MessageBox("目的地：地址信息不合法", "发布货源");
 		return FALSE;
 	}
 
@@ -783,6 +816,12 @@ BOOL CPublishWayTwoDlg::PublishTruckInfo()
 		return FALSE;
 	}
 
+	if( CheckAddress(m_strProvinceFrom, m_strCityFrom, m_strCountyFrom) != 0 )
+	{
+		MessageBox("始发地：地址信息不合法", "发布车源");
+		return FALSE;
+	}
+
 	if (m_strProvinceTo == "")
 	{
 		MessageBox("目的地：一级地址不能为空", "发布车源");
@@ -792,6 +831,12 @@ BOOL CPublishWayTwoDlg::PublishTruckInfo()
 	if( m_strCityTo == "" )
 	{
 		MessageBox("目的地：二级地址不能为空", "发布车源");
+		return FALSE;
+	}
+
+	if( CheckAddress(m_strProvinceTo, m_strCityTo, m_strCountyTo) != 0 )
+	{
+		MessageBox("目的地：地址信息不合法", "发布车源");
 		return FALSE;
 	}
 

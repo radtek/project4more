@@ -49,7 +49,7 @@ void CSearchFavoriteDlg::InitFavoriteListBox()
 	for(it; it != end; ++it, ++i)
 	{
 		CSearchFavorite* pSearchFav = *it;
-		sIndex.Format(" %d ", i);
+		sIndex.Format(" %d ", i+1);
 		m_listCtrlFavorite.InsertItem(i, "");
 		m_listCtrlFavorite.SetItemText(i, 1, sIndex);
 		m_listCtrlFavorite.SetItemText(i, 2, pSearchFav->GetName().c_str());

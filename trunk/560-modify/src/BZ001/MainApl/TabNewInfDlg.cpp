@@ -143,6 +143,7 @@ BEGIN_EASYSIZE_MAP(CTabNewInfDlg)
 		m_btnClose.GetWindowRect(&rc);
 		ScreenToClient(&rc);
 		m_btnClose.MoveWindow(rc.right, rc.top, 0, rc.Height());
+		EASYSIZE(IDC_BUTTON_SEARCH_CLOSE, ES_KEEPSIZE, ES_BORDER, ES_BORDER, ES_KEEPSIZE, 0)
 	}
 	EASYSIZE(IDC_TAB_NEW_BOTTOM_DOWN, ES_KEEPSIZE, ES_BORDER, IDC_BUTTON_SEARCH_CLOSE, ES_KEEPSIZE, 0)
 	EASYSIZE(IDC_TAB_NEW_NEXT, ES_KEEPSIZE, ES_BORDER, IDC_TAB_NEW_BOTTOM_DOWN, ES_KEEPSIZE, 0)
@@ -640,6 +641,12 @@ int CTabNewInfDlg::setData(int type, int curpage)
 			Main_Thread=CreateThread(NULL,0,ThreadFuncSS,this,0,&PID);
 			CloseHandle(Main_Thread);
             break;
+		case 9:
+			title.record = "搜索到的货源和车源信息";
+			nSSset = 6;
+			Main_Thread=CreateThread(NULL,0,ThreadFuncSS,this,0,&PID);
+			CloseHandle(Main_Thread);
+			break;
         default:
             break;
     }
@@ -1010,6 +1017,13 @@ DWORD CTabNewInfDlg::ThreadFuncSS(LPVOID p)
 			break;
 		case 5:
 			nstat = dlg->svrIONew->getClickSearchCarsInf(dlg->clickKeyWord, *pcontentData, dlg->curInput);
+			break;
+		case 6:
+			if( dlg->sSearchCriteria.empty() )
+			{
+				FormatGoodsSearchString(dlg->goodsKeyword, dlg->sSearchCriteria);
+			}
+			nstat = dlg->svrIONew->getSearchGoodsAndCarsInfo(dlg->sSearchCriteria, *pcontentData, dlg->curInput);
 			break;
 		}
 		if (nstat == 0)

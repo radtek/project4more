@@ -127,6 +127,8 @@ public:
 	int setSearchGoods(const string& sSearchCriteria, UINT8 nOption); // 搜索货源
 	int setSearchCars(const CSearchCriteria* pSearchCriteria, UINT8 nOption); // 搜索车源
 	int setSearchCars(const string& sSearchCriteria, UINT8 nOption); // 搜索车源
+	int setSearchGoodsAndCars(const CSearchCriteria* pSearchCriteria, UINT8 nOption); // 搜索货源和车源
+	int setSearchGoodsAndCars(const string& sSearchCriteria, UINT8 nOption); // 搜索货源和车源
 	int setSearchSpecail(const InSearchSpecail& input, UINT8 nOption); // 搜索专线    
     int setSearchBulkGoods(const InSearchBulkGoods& input, UINT8 nOption); // 搜索零担
     
