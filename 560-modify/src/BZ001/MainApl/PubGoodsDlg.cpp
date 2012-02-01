@@ -121,6 +121,8 @@ BOOL CPubGoodsDlg::OnInitDialog()
 	((CEdit*)GetDlgItem(IDC_PUB_GOODS_CUBAGE))->SetLimitText(8);
 	((CEdit*)GetDlgItem(IDC_PUB_GOODS_PRICE))->SetLimitText(8);
 
+	((CEdit*)GetDlgItem(IDC_PUB_GOODS_CARNUM))->SetLimitText(8);
+
 	int n = 0;
 	m_msgedit.LimitText(100);
     // TODO:  在此添加额外的初始化

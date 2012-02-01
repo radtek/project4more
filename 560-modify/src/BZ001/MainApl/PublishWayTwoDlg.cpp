@@ -254,6 +254,11 @@ void CPublishWayTwoDlg::OnBnClickedButtonW1ToCity()
 	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_TO_CITY), &vecItems, &m_strCityTo);
 	dlgContent.DoModal();
 
+	if ( m_strCityTo == "²»ÏÞ" )
+	{
+		m_strCountyTo = "";
+	}
+
 	UpdateData(FALSE);
 }
 
