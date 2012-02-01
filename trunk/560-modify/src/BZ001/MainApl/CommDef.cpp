@@ -133,7 +133,7 @@ static void InitSearchGoodsType()
 {
 	g_vecSearchGoodsType.push_back("整车");
 	g_vecSearchGoodsType.push_back("零担");
-	g_vecSearchGoodsType.push_back("抛货");
+	g_vecSearchGoodsType.push_back("漂货");
 	g_vecSearchGoodsType.push_back("泡货");
 	g_vecSearchGoodsType.push_back("重货");
 	g_vecSearchGoodsType.push_back("普货");
@@ -655,7 +655,7 @@ void InitCommData()
 	g_goodsType.push_back("零担");
 	g_goodsType.push_back("重货");
 	g_goodsType.push_back("泡货");
-	g_goodsType.push_back("飘货");
+	g_goodsType.push_back("漂货");
 	g_goodsType.push_back("普货");
 	g_goodsType.push_back("化工");
 	g_goodsType.push_back("设备");
