@@ -275,6 +275,11 @@ void CPublishWayOneDlg::OnBnClickedButtonW1ToCity()
 	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_TO_CITY), &vecItems, &m_strCityTo);
 	dlgContent.DoModal();
 
+	if ( m_strCityTo == "²»ÏÞ" )
+	{
+		m_strCountyTo = "";
+	}
+
 	UpdateData(FALSE);
 }
 
@@ -570,6 +575,20 @@ void CPublishWayOneDlg::FromHistory()
 
 void CPublishWayOneDlg::OnBnClickedButtonPw1Clean()
 {
+	m_strProvinceFrom="";
+	m_strCityFrom="";
+	m_strCountyFrom="";
+	m_strProvinceTo="";
+	m_strCityTo="";
+	m_strCountyTo="";
+
+	rememberRepubSetting = FALSE;
+	longTimeAvailable = FALSE;
+
+	goodsCountValue="";
+	truckCountValue="";
+	priceCountValue="";
+
 	preview.Empty();
 	UpdateData(FALSE);
 }
