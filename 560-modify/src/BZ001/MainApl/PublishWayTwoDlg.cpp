@@ -143,6 +143,9 @@ BOOL CPublishWayTwoDlg::OnInitDialog()
 	m_btnToCity.LoadBitmap(IDB_BITMAP_COMMON_BTN);
 	m_btnToCounty.LoadBitmap(IDB_BITMAP_COMMON_BTN);
 
+
+	((CEdit*)GetDlgItem(IDC_EDIT_PW2_PREVIEW))->SetLimitText(256);
+
 	initControlValue();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -657,6 +660,18 @@ BOOL CPublishWayTwoDlg::PublishGoodsInfo()
 		return FALSE;
 	}
 
+	if (m_strProvinceFrom == "")
+	{
+		MessageBox("始发地：一级地址不能为空", "发布货源");
+		return FALSE;
+	}
+
+	if( m_strCityFrom == "" )
+	{
+		MessageBox("始发地：二级地址不能为空", "发布货源");
+		return FALSE;
+	}
+
 	if (m_strProvinceTo == "")
 	{
 		MessageBox("目的地：一级地址不能为空", "发布货源");
@@ -748,6 +763,24 @@ BOOL CPublishWayTwoDlg::PublishTruckInfo()
 
 	if (mobile == "") {
 		MessageBox("联系电话不能为空", "发布车源");
+		return FALSE;
+	}
+
+	if (m_strProvinceFrom == "")
+	{
+		MessageBox("始发地：一级地址不能为空", "发布车源");
+		return FALSE;
+	}
+
+	if( m_strCityFrom == "" )
+	{
+		MessageBox("始发地：二级地址不能为空", "发布车源");
+		return FALSE;
+	}
+
+	if (m_strProvinceTo == "")
+	{
+		MessageBox("目的地：一级地址不能为空", "发布车源");
 		return FALSE;
 	}
 
