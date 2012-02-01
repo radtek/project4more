@@ -12,7 +12,7 @@
 
 #include "soapH.h"
 
-SOAP_SOURCE_STAMP("@(#) soapC.cpp ver 2.7.17 2012-01-19 14:07:59 GMT")
+SOAP_SOURCE_STAMP("@(#) soapC.cpp ver 2.7.17 2012-02-01 11:21:34 GMT")
 
 
 #ifndef WITH_NOGLOBAL
@@ -343,6 +343,10 @@ SOAP_FMAC3 void * SOAP_FMAC4 soap_getelement(struct soap *soap, int *type)
 		return soap_in_ns2__sendPhoneMessageResponse(soap, NULL, NULL, "ns2:sendPhoneMessageResponse");
 	case SOAP_TYPE_ns2__sendPhoneMessage:
 		return soap_in_ns2__sendPhoneMessage(soap, NULL, NULL, "ns2:sendPhoneMessage");
+	case SOAP_TYPE_ns2__getGoodsAndCarsInfNewResponse:
+		return soap_in_ns2__getGoodsAndCarsInfNewResponse(soap, NULL, NULL, "ns2:getGoodsAndCarsInfNewResponse");
+	case SOAP_TYPE_ns2__getGoodsAndCarsInfNew:
+		return soap_in_ns2__getGoodsAndCarsInfNew(soap, NULL, NULL, "ns2:getGoodsAndCarsInfNew");
 	case SOAP_TYPE_ns2__getMyCarsInfResponse:
 		return soap_in_ns2__getMyCarsInfResponse(soap, NULL, NULL, "ns2:getMyCarsInfResponse");
 	case SOAP_TYPE_ns2__getMyCarsInf:
@@ -535,6 +539,10 @@ SOAP_FMAC3 void * SOAP_FMAC4 soap_getelement(struct soap *soap, int *type)
 		return soap_in_PointerTons2__sendPhoneMessageResponse(soap, NULL, NULL, "ns2:sendPhoneMessageResponse");
 	case SOAP_TYPE_PointerTons2__sendPhoneMessage:
 		return soap_in_PointerTons2__sendPhoneMessage(soap, NULL, NULL, "ns2:sendPhoneMessage");
+	case SOAP_TYPE_PointerTons2__getGoodsAndCarsInfNewResponse:
+		return soap_in_PointerTons2__getGoodsAndCarsInfNewResponse(soap, NULL, NULL, "ns2:getGoodsAndCarsInfNewResponse");
+	case SOAP_TYPE_PointerTons2__getGoodsAndCarsInfNew:
+		return soap_in_PointerTons2__getGoodsAndCarsInfNew(soap, NULL, NULL, "ns2:getGoodsAndCarsInfNew");
 	case SOAP_TYPE_PointerTons2__getMyCarsInfResponse:
 		return soap_in_PointerTons2__getMyCarsInfResponse(soap, NULL, NULL, "ns2:getMyCarsInfResponse");
 	case SOAP_TYPE_PointerTons2__getMyCarsInf:
@@ -919,6 +927,14 @@ SOAP_FMAC3 void * SOAP_FMAC4 soap_getelement(struct soap *soap, int *type)
 		{	*type = SOAP_TYPE_ns2__sendPhoneMessage;
 			return soap_in_ns2__sendPhoneMessage(soap, NULL, NULL, NULL);
 		}
+		if (!soap_match_tag(soap, t, "ns2:getGoodsAndCarsInfNewResponse"))
+		{	*type = SOAP_TYPE_ns2__getGoodsAndCarsInfNewResponse;
+			return soap_in_ns2__getGoodsAndCarsInfNewResponse(soap, NULL, NULL, NULL);
+		}
+		if (!soap_match_tag(soap, t, "ns2:getGoodsAndCarsInfNew"))
+		{	*type = SOAP_TYPE_ns2__getGoodsAndCarsInfNew;
+			return soap_in_ns2__getGoodsAndCarsInfNew(soap, NULL, NULL, NULL);
+		}
 		if (!soap_match_tag(soap, t, "ns2:getMyCarsInfResponse"))
 		{	*type = SOAP_TYPE_ns2__getMyCarsInfResponse;
 			return soap_in_ns2__getMyCarsInfResponse(soap, NULL, NULL, NULL);
@@ -1223,6 +1239,10 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_putelement(struct soap *soap, const void *ptr, co
 		return ((ns2__sendPhoneMessageResponse *)ptr)->soap_out(soap, tag, id, "ns2:sendPhoneMessageResponse");
 	case SOAP_TYPE_ns2__sendPhoneMessage:
 		return ((ns2__sendPhoneMessage *)ptr)->soap_out(soap, tag, id, "ns2:sendPhoneMessage");
+	case SOAP_TYPE_ns2__getGoodsAndCarsInfNewResponse:
+		return ((ns2__getGoodsAndCarsInfNewResponse *)ptr)->soap_out(soap, tag, id, "ns2:getGoodsAndCarsInfNewResponse");
+	case SOAP_TYPE_ns2__getGoodsAndCarsInfNew:
+		return ((ns2__getGoodsAndCarsInfNew *)ptr)->soap_out(soap, tag, id, "ns2:getGoodsAndCarsInfNew");
 	case SOAP_TYPE_ns2__getMyCarsInfResponse:
 		return ((ns2__getMyCarsInfResponse *)ptr)->soap_out(soap, tag, id, "ns2:getMyCarsInfResponse");
 	case SOAP_TYPE_ns2__getMyCarsInf:
@@ -1415,6 +1435,10 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_putelement(struct soap *soap, const void *ptr, co
 		return soap_out_PointerTons2__sendPhoneMessageResponse(soap, tag, id, (ns2__sendPhoneMessageResponse *const*)ptr, "ns2:sendPhoneMessageResponse");
 	case SOAP_TYPE_PointerTons2__sendPhoneMessage:
 		return soap_out_PointerTons2__sendPhoneMessage(soap, tag, id, (ns2__sendPhoneMessage *const*)ptr, "ns2:sendPhoneMessage");
+	case SOAP_TYPE_PointerTons2__getGoodsAndCarsInfNewResponse:
+		return soap_out_PointerTons2__getGoodsAndCarsInfNewResponse(soap, tag, id, (ns2__getGoodsAndCarsInfNewResponse *const*)ptr, "ns2:getGoodsAndCarsInfNewResponse");
+	case SOAP_TYPE_PointerTons2__getGoodsAndCarsInfNew:
+		return soap_out_PointerTons2__getGoodsAndCarsInfNew(soap, tag, id, (ns2__getGoodsAndCarsInfNew *const*)ptr, "ns2:getGoodsAndCarsInfNew");
 	case SOAP_TYPE_PointerTons2__getMyCarsInfResponse:
 		return soap_out_PointerTons2__getMyCarsInfResponse(soap, tag, id, (ns2__getMyCarsInfResponse *const*)ptr, "ns2:getMyCarsInfResponse");
 	case SOAP_TYPE_PointerTons2__getMyCarsInf:
@@ -1721,6 +1745,12 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_markelement(struct soap *soap, const void *ptr, 
 	case SOAP_TYPE_ns2__sendPhoneMessage:
 		((ns2__sendPhoneMessage *)ptr)->soap_serialize(soap);
 		break;
+	case SOAP_TYPE_ns2__getGoodsAndCarsInfNewResponse:
+		((ns2__getGoodsAndCarsInfNewResponse *)ptr)->soap_serialize(soap);
+		break;
+	case SOAP_TYPE_ns2__getGoodsAndCarsInfNew:
+		((ns2__getGoodsAndCarsInfNew *)ptr)->soap_serialize(soap);
+		break;
 	case SOAP_TYPE_ns2__getMyCarsInfResponse:
 		((ns2__getMyCarsInfResponse *)ptr)->soap_serialize(soap);
 		break;
@@ -1879,6 +1909,9 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_markelement(struct soap *soap, const void *ptr, 
 		break;
 	case SOAP_TYPE___ns1__sendPhoneMessage:
 		soap_serialize___ns1__sendPhoneMessage(soap, (const struct __ns1__sendPhoneMessage *)ptr);
+		break;
+	case SOAP_TYPE___ns1__getGoodsAndCarsInfNew:
+		soap_serialize___ns1__getGoodsAndCarsInfNew(soap, (const struct __ns1__getGoodsAndCarsInfNew *)ptr);
 		break;
 	case SOAP_TYPE___ns1__getMyCarsInf:
 		soap_serialize___ns1__getMyCarsInf(soap, (const struct __ns1__getMyCarsInf *)ptr);
@@ -2153,6 +2186,12 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_markelement(struct soap *soap, const void *ptr, 
 	case SOAP_TYPE_PointerTons2__sendPhoneMessage:
 		soap_serialize_PointerTons2__sendPhoneMessage(soap, (ns2__sendPhoneMessage *const*)ptr);
 		break;
+	case SOAP_TYPE_PointerTons2__getGoodsAndCarsInfNewResponse:
+		soap_serialize_PointerTons2__getGoodsAndCarsInfNewResponse(soap, (ns2__getGoodsAndCarsInfNewResponse *const*)ptr);
+		break;
+	case SOAP_TYPE_PointerTons2__getGoodsAndCarsInfNew:
+		soap_serialize_PointerTons2__getGoodsAndCarsInfNew(soap, (ns2__getGoodsAndCarsInfNew *const*)ptr);
+		break;
 	case SOAP_TYPE_PointerTons2__getMyCarsInfResponse:
 		soap_serialize_PointerTons2__getMyCarsInfResponse(soap, (ns2__getMyCarsInfResponse *const*)ptr);
 		break;
@@ -2226,6 +2265,10 @@ SOAP_FMAC3 void * SOAP_FMAC4 soap_instantiate(struct soap *soap, int t, const ch
 		return (void*)soap_instantiate_ns2__getMyCarsInf(soap, -1, type, arrayType, n);
 	case SOAP_TYPE_ns2__getMyCarsInfResponse:
 		return (void*)soap_instantiate_ns2__getMyCarsInfResponse(soap, -1, type, arrayType, n);
+	case SOAP_TYPE_ns2__getGoodsAndCarsInfNew:
+		return (void*)soap_instantiate_ns2__getGoodsAndCarsInfNew(soap, -1, type, arrayType, n);
+	case SOAP_TYPE_ns2__getGoodsAndCarsInfNewResponse:
+		return (void*)soap_instantiate_ns2__getGoodsAndCarsInfNewResponse(soap, -1, type, arrayType, n);
 	case SOAP_TYPE_ns2__sendPhoneMessage:
 		return (void*)soap_instantiate_ns2__sendPhoneMessage(soap, -1, type, arrayType, n);
 	case SOAP_TYPE_ns2__sendPhoneMessageResponse:
@@ -2408,6 +2451,8 @@ SOAP_FMAC3 void * SOAP_FMAC4 soap_instantiate(struct soap *soap, int t, const ch
 		return (void*)soap_instantiate___ns1__getUserCustomInf(soap, -1, type, arrayType, n);
 	case SOAP_TYPE___ns1__getMyCarsInf:
 		return (void*)soap_instantiate___ns1__getMyCarsInf(soap, -1, type, arrayType, n);
+	case SOAP_TYPE___ns1__getGoodsAndCarsInfNew:
+		return (void*)soap_instantiate___ns1__getGoodsAndCarsInfNew(soap, -1, type, arrayType, n);
 	case SOAP_TYPE___ns1__sendPhoneMessage:
 		return (void*)soap_instantiate___ns1__sendPhoneMessage(soap, -1, type, arrayType, n);
 	case SOAP_TYPE___ns1__setCarsStatus:
@@ -2588,6 +2633,18 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_fdelete(struct soap_clist *p)
 			SOAP_DELETE((ns2__getMyCarsInfResponse*)p->ptr);
 		else
 			SOAP_DELETE_ARRAY((ns2__getMyCarsInfResponse*)p->ptr);
+		break;
+	case SOAP_TYPE_ns2__getGoodsAndCarsInfNew:
+		if (p->size < 0)
+			SOAP_DELETE((ns2__getGoodsAndCarsInfNew*)p->ptr);
+		else
+			SOAP_DELETE_ARRAY((ns2__getGoodsAndCarsInfNew*)p->ptr);
+		break;
+	case SOAP_TYPE_ns2__getGoodsAndCarsInfNewResponse:
+		if (p->size < 0)
+			SOAP_DELETE((ns2__getGoodsAndCarsInfNewResponse*)p->ptr);
+		else
+			SOAP_DELETE_ARRAY((ns2__getGoodsAndCarsInfNewResponse*)p->ptr);
 		break;
 	case SOAP_TYPE_ns2__sendPhoneMessage:
 		if (p->size < 0)
@@ -3134,6 +3191,12 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_fdelete(struct soap_clist *p)
 			SOAP_DELETE((struct __ns1__getMyCarsInf*)p->ptr);
 		else
 			SOAP_DELETE_ARRAY((struct __ns1__getMyCarsInf*)p->ptr);
+		break;
+	case SOAP_TYPE___ns1__getGoodsAndCarsInfNew:
+		if (p->size < 0)
+			SOAP_DELETE((struct __ns1__getGoodsAndCarsInfNew*)p->ptr);
+		else
+			SOAP_DELETE_ARRAY((struct __ns1__getGoodsAndCarsInfNew*)p->ptr);
 		break;
 	case SOAP_TYPE___ns1__sendPhoneMessage:
 		if (p->size < 0)
@@ -15937,6 +16000,303 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy_ns2__sendPhoneMessage(struct soap *soap, in
 	*(ns2__sendPhoneMessage*)p = *(ns2__sendPhoneMessage*)q;
 }
 
+void ns2__getGoodsAndCarsInfNewResponse::soap_default(struct soap *soap)
+{
+	this->soap = soap;
+	soap_default_std__vectorTemplateOfstd__string(soap, &this->ns2__getGoodsAndCarsInfNewResponse::return_);
+	/* transient soap skipped */
+}
+
+void ns2__getGoodsAndCarsInfNewResponse::soap_serialize(struct soap *soap) const
+{
+	(void)soap; /* appease -Wall -Werror */
+	soap_serialize_std__vectorTemplateOfstd__string(soap, &this->ns2__getGoodsAndCarsInfNewResponse::return_);
+	/* transient soap skipped */
+}
+
+int ns2__getGoodsAndCarsInfNewResponse::soap_out(struct soap *soap, const char *tag, int id, const char *type) const
+{
+	return soap_out_ns2__getGoodsAndCarsInfNewResponse(soap, tag, id, this, type);
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_ns2__getGoodsAndCarsInfNewResponse(struct soap *soap, const char *tag, int id, const ns2__getGoodsAndCarsInfNewResponse *a, const char *type)
+{
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE_ns2__getGoodsAndCarsInfNewResponse), type))
+		return soap->error;
+	if (soap_out_std__vectorTemplateOfstd__string(soap, "return", -1, &(a->ns2__getGoodsAndCarsInfNewResponse::return_), ""))
+		return soap->error;
+	/* transient soap skipped */
+	return soap_element_end_out(soap, tag);
+}
+
+void *ns2__getGoodsAndCarsInfNewResponse::soap_in(struct soap *soap, const char *tag, const char *type)
+{	return soap_in_ns2__getGoodsAndCarsInfNewResponse(soap, tag, this, type);
+}
+
+SOAP_FMAC3 ns2__getGoodsAndCarsInfNewResponse * SOAP_FMAC4 soap_in_ns2__getGoodsAndCarsInfNewResponse(struct soap *soap, const char *tag, ns2__getGoodsAndCarsInfNewResponse *a, const char *type)
+{
+	(void)type; /* appease -Wall -Werror */
+	if (soap_element_begin_in(soap, tag, 0, NULL))
+		return NULL;
+	a = (ns2__getGoodsAndCarsInfNewResponse *)soap_class_id_enter(soap, soap->id, a, SOAP_TYPE_ns2__getGoodsAndCarsInfNewResponse, sizeof(ns2__getGoodsAndCarsInfNewResponse), soap->type, soap->arrayType);
+	if (!a)
+		return NULL;
+	if (soap->alloced)
+	{	a->soap_default(soap);
+		if (soap->clist->type != SOAP_TYPE_ns2__getGoodsAndCarsInfNewResponse)
+		{	soap_revert(soap);
+			*soap->id = '\0';
+			return (ns2__getGoodsAndCarsInfNewResponse *)a->soap_in(soap, tag, type);
+		}
+	}
+	if (soap->body && !*soap->href)
+	{
+		for (;;)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap->error == SOAP_TAG_MISMATCH)
+				if (soap_in_std__vectorTemplateOfstd__string(soap, "return", &(a->ns2__getGoodsAndCarsInfNewResponse::return_), "xsd:string"))
+					continue;
+			/* transient soap skipped */
+			if (soap->error == SOAP_TAG_MISMATCH)
+				soap->error = soap_ignore_element(soap);
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (ns2__getGoodsAndCarsInfNewResponse *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_ns2__getGoodsAndCarsInfNewResponse, 0, sizeof(ns2__getGoodsAndCarsInfNewResponse), 0, soap_copy_ns2__getGoodsAndCarsInfNewResponse);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	return a;
+}
+
+int ns2__getGoodsAndCarsInfNewResponse::soap_put(struct soap *soap, const char *tag, const  char *type) const
+{
+	register int id = soap_embed(soap, (void*)this, NULL, 0, tag, SOAP_TYPE_ns2__getGoodsAndCarsInfNewResponse);
+	if (this->soap_out(soap, tag?tag:"ns2:getGoodsAndCarsInfNewResponse", id, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+void *ns2__getGoodsAndCarsInfNewResponse::soap_get(struct soap *soap, const char *tag, const char *type)
+{
+	return soap_get_ns2__getGoodsAndCarsInfNewResponse(soap, this, tag, type);
+}
+
+SOAP_FMAC3 ns2__getGoodsAndCarsInfNewResponse * SOAP_FMAC4 soap_get_ns2__getGoodsAndCarsInfNewResponse(struct soap *soap, ns2__getGoodsAndCarsInfNewResponse *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_ns2__getGoodsAndCarsInfNewResponse(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC1 ns2__getGoodsAndCarsInfNewResponse * SOAP_FMAC2 soap_instantiate_ns2__getGoodsAndCarsInfNewResponse(struct soap *soap, int n, const char *type, const char *arrayType, size_t *size)
+{
+	(void)type; (void)arrayType; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "soap_instantiate_ns2__getGoodsAndCarsInfNewResponse(%d, %s, %s)\n", n, type?type:"", arrayType?arrayType:""));
+	struct soap_clist *cp = soap_link(soap, NULL, SOAP_TYPE_ns2__getGoodsAndCarsInfNewResponse, n, soap_fdelete);
+	if (!cp)
+		return NULL;
+	if (n < 0)
+	{	cp->ptr = (void*)SOAP_NEW(ns2__getGoodsAndCarsInfNewResponse);
+		if (size)
+			*size = sizeof(ns2__getGoodsAndCarsInfNewResponse);
+		((ns2__getGoodsAndCarsInfNewResponse*)cp->ptr)->soap = soap;
+	}
+	else
+	{	cp->ptr = (void*)SOAP_NEW(ns2__getGoodsAndCarsInfNewResponse[n]);
+		if (!cp->ptr)
+		{	soap->error = SOAP_EOM;
+			return NULL;
+		}
+		if (size)
+			*size = n * sizeof(ns2__getGoodsAndCarsInfNewResponse);
+		for (int i = 0; i < n; i++)
+			((ns2__getGoodsAndCarsInfNewResponse*)cp->ptr)[i].soap = soap;
+	}
+		DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Instantiated location=%p\n", cp->ptr));
+	return (ns2__getGoodsAndCarsInfNewResponse*)cp->ptr;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_ns2__getGoodsAndCarsInfNewResponse(struct soap *soap, int st, int tt, void *p, size_t len, const void *q, size_t n)
+{
+	(void)soap; (void)st; (void)len; (void)n; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copying ns2__getGoodsAndCarsInfNewResponse %p -> %p\n", q, p));
+	*(ns2__getGoodsAndCarsInfNewResponse*)p = *(ns2__getGoodsAndCarsInfNewResponse*)q;
+}
+
+void ns2__getGoodsAndCarsInfNew::soap_default(struct soap *soap)
+{
+	this->soap = soap;
+	this->ns2__getGoodsAndCarsInfNew::uid = NULL;
+	this->ns2__getGoodsAndCarsInfNew::input = NULL;
+	soap_default_int(soap, &this->ns2__getGoodsAndCarsInfNew::record);
+	soap_default_int(soap, &this->ns2__getGoodsAndCarsInfNew::curpage);
+	/* transient soap skipped */
+}
+
+void ns2__getGoodsAndCarsInfNew::soap_serialize(struct soap *soap) const
+{
+	(void)soap; /* appease -Wall -Werror */
+	soap_serialize_PointerTostd__string(soap, &this->ns2__getGoodsAndCarsInfNew::uid);
+	soap_serialize_PointerTostd__string(soap, &this->ns2__getGoodsAndCarsInfNew::input);
+	/* transient soap skipped */
+}
+
+int ns2__getGoodsAndCarsInfNew::soap_out(struct soap *soap, const char *tag, int id, const char *type) const
+{
+	return soap_out_ns2__getGoodsAndCarsInfNew(soap, tag, id, this, type);
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_ns2__getGoodsAndCarsInfNew(struct soap *soap, const char *tag, int id, const ns2__getGoodsAndCarsInfNew *a, const char *type)
+{
+	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE_ns2__getGoodsAndCarsInfNew), type))
+		return soap->error;
+	if (soap_out_PointerTostd__string(soap, "uid", -1, &(a->ns2__getGoodsAndCarsInfNew::uid), ""))
+		return soap->error;
+	if (soap_out_PointerTostd__string(soap, "input", -1, &(a->ns2__getGoodsAndCarsInfNew::input), ""))
+		return soap->error;
+	if (soap_out_int(soap, "record", -1, &(a->ns2__getGoodsAndCarsInfNew::record), ""))
+		return soap->error;
+	if (soap_out_int(soap, "curpage", -1, &(a->ns2__getGoodsAndCarsInfNew::curpage), ""))
+		return soap->error;
+	/* transient soap skipped */
+	return soap_element_end_out(soap, tag);
+}
+
+void *ns2__getGoodsAndCarsInfNew::soap_in(struct soap *soap, const char *tag, const char *type)
+{	return soap_in_ns2__getGoodsAndCarsInfNew(soap, tag, this, type);
+}
+
+SOAP_FMAC3 ns2__getGoodsAndCarsInfNew * SOAP_FMAC4 soap_in_ns2__getGoodsAndCarsInfNew(struct soap *soap, const char *tag, ns2__getGoodsAndCarsInfNew *a, const char *type)
+{
+	(void)type; /* appease -Wall -Werror */
+	if (soap_element_begin_in(soap, tag, 0, NULL))
+		return NULL;
+	a = (ns2__getGoodsAndCarsInfNew *)soap_class_id_enter(soap, soap->id, a, SOAP_TYPE_ns2__getGoodsAndCarsInfNew, sizeof(ns2__getGoodsAndCarsInfNew), soap->type, soap->arrayType);
+	if (!a)
+		return NULL;
+	if (soap->alloced)
+	{	a->soap_default(soap);
+		if (soap->clist->type != SOAP_TYPE_ns2__getGoodsAndCarsInfNew)
+		{	soap_revert(soap);
+			*soap->id = '\0';
+			return (ns2__getGoodsAndCarsInfNew *)a->soap_in(soap, tag, type);
+		}
+	}
+	size_t soap_flag_uid1 = 1;
+	size_t soap_flag_input1 = 1;
+	size_t soap_flag_record1 = 1;
+	size_t soap_flag_curpage1 = 1;
+	if (soap->body && !*soap->href)
+	{
+		for (;;)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap_flag_uid1 && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_PointerTostd__string(soap, "uid", &(a->ns2__getGoodsAndCarsInfNew::uid), "xsd:string"))
+				{	soap_flag_uid1--;
+					continue;
+				}
+			if (soap_flag_input1 && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_PointerTostd__string(soap, "input", &(a->ns2__getGoodsAndCarsInfNew::input), "xsd:string"))
+				{	soap_flag_input1--;
+					continue;
+				}
+			if (soap_flag_record1 && soap->error == SOAP_TAG_MISMATCH)
+				if (soap_in_int(soap, "record", &(a->ns2__getGoodsAndCarsInfNew::record), "xsd:int"))
+				{	soap_flag_record1--;
+					continue;
+				}
+			if (soap_flag_curpage1 && soap->error == SOAP_TAG_MISMATCH)
+				if (soap_in_int(soap, "curpage", &(a->ns2__getGoodsAndCarsInfNew::curpage), "xsd:int"))
+				{	soap_flag_curpage1--;
+					continue;
+				}
+			/* transient soap skipped */
+			if (soap->error == SOAP_TAG_MISMATCH)
+				soap->error = soap_ignore_element(soap);
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+		if (soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	else
+	{	a = (ns2__getGoodsAndCarsInfNew *)soap_id_forward(soap, soap->href, (void*)a, 0, SOAP_TYPE_ns2__getGoodsAndCarsInfNew, 0, sizeof(ns2__getGoodsAndCarsInfNew), 0, soap_copy_ns2__getGoodsAndCarsInfNew);
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	if ((soap->mode & SOAP_XML_STRICT) && (soap_flag_record1 > 0 || soap_flag_curpage1 > 0))
+	{	soap->error = SOAP_OCCURS;
+		return NULL;
+	}
+	return a;
+}
+
+int ns2__getGoodsAndCarsInfNew::soap_put(struct soap *soap, const char *tag, const  char *type) const
+{
+	register int id = soap_embed(soap, (void*)this, NULL, 0, tag, SOAP_TYPE_ns2__getGoodsAndCarsInfNew);
+	if (this->soap_out(soap, tag?tag:"ns2:getGoodsAndCarsInfNew", id, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+void *ns2__getGoodsAndCarsInfNew::soap_get(struct soap *soap, const char *tag, const char *type)
+{
+	return soap_get_ns2__getGoodsAndCarsInfNew(soap, this, tag, type);
+}
+
+SOAP_FMAC3 ns2__getGoodsAndCarsInfNew * SOAP_FMAC4 soap_get_ns2__getGoodsAndCarsInfNew(struct soap *soap, ns2__getGoodsAndCarsInfNew *p, const char *tag, const char *type)
+{
+	if ((p = soap_in_ns2__getGoodsAndCarsInfNew(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC1 ns2__getGoodsAndCarsInfNew * SOAP_FMAC2 soap_instantiate_ns2__getGoodsAndCarsInfNew(struct soap *soap, int n, const char *type, const char *arrayType, size_t *size)
+{
+	(void)type; (void)arrayType; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "soap_instantiate_ns2__getGoodsAndCarsInfNew(%d, %s, %s)\n", n, type?type:"", arrayType?arrayType:""));
+	struct soap_clist *cp = soap_link(soap, NULL, SOAP_TYPE_ns2__getGoodsAndCarsInfNew, n, soap_fdelete);
+	if (!cp)
+		return NULL;
+	if (n < 0)
+	{	cp->ptr = (void*)SOAP_NEW(ns2__getGoodsAndCarsInfNew);
+		if (size)
+			*size = sizeof(ns2__getGoodsAndCarsInfNew);
+		((ns2__getGoodsAndCarsInfNew*)cp->ptr)->soap = soap;
+	}
+	else
+	{	cp->ptr = (void*)SOAP_NEW(ns2__getGoodsAndCarsInfNew[n]);
+		if (!cp->ptr)
+		{	soap->error = SOAP_EOM;
+			return NULL;
+		}
+		if (size)
+			*size = n * sizeof(ns2__getGoodsAndCarsInfNew);
+		for (int i = 0; i < n; i++)
+			((ns2__getGoodsAndCarsInfNew*)cp->ptr)[i].soap = soap;
+	}
+		DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Instantiated location=%p\n", cp->ptr));
+	return (ns2__getGoodsAndCarsInfNew*)cp->ptr;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy_ns2__getGoodsAndCarsInfNew(struct soap *soap, int st, int tt, void *p, size_t len, const void *q, size_t n)
+{
+	(void)soap; (void)st; (void)len; (void)n; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copying ns2__getGoodsAndCarsInfNew %p -> %p\n", q, p));
+	*(ns2__getGoodsAndCarsInfNew*)p = *(ns2__getGoodsAndCarsInfNew*)q;
+}
+
 void ns2__getMyCarsInfResponse::soap_default(struct soap *soap)
 {
 	this->soap = soap;
@@ -22064,6 +22424,101 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy___ns1__sendPhoneMessage(struct soap *soap, 
 	*(struct __ns1__sendPhoneMessage*)p = *(struct __ns1__sendPhoneMessage*)q;
 }
 
+SOAP_FMAC3 void SOAP_FMAC4 soap_default___ns1__getGoodsAndCarsInfNew(struct soap *soap, struct __ns1__getGoodsAndCarsInfNew *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	a->ns2__getGoodsAndCarsInfNew_ = NULL;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize___ns1__getGoodsAndCarsInfNew(struct soap *soap, const struct __ns1__getGoodsAndCarsInfNew *a)
+{
+	(void)soap; (void)a; /* appease -Wall -Werror */
+	soap_serialize_PointerTons2__getGoodsAndCarsInfNew(soap, &a->ns2__getGoodsAndCarsInfNew_);
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out___ns1__getGoodsAndCarsInfNew(struct soap *soap, const char *tag, int id, const struct __ns1__getGoodsAndCarsInfNew *a, const char *type)
+{
+	if (soap_out_PointerTons2__getGoodsAndCarsInfNew(soap, "ns2:getGoodsAndCarsInfNew", -1, &a->ns2__getGoodsAndCarsInfNew_, ""))
+		return soap->error;
+	return SOAP_OK;
+}
+
+SOAP_FMAC3 struct __ns1__getGoodsAndCarsInfNew * SOAP_FMAC4 soap_in___ns1__getGoodsAndCarsInfNew(struct soap *soap, const char *tag, struct __ns1__getGoodsAndCarsInfNew *a, const char *type)
+{
+	size_t soap_flag_ns2__getGoodsAndCarsInfNew_ = 1;
+	short soap_flag;
+	a = (struct __ns1__getGoodsAndCarsInfNew *)soap_id_enter(soap, "", a, SOAP_TYPE___ns1__getGoodsAndCarsInfNew, sizeof(struct __ns1__getGoodsAndCarsInfNew), 0, NULL, NULL, NULL);
+	if (!a)
+		return NULL;
+	soap_default___ns1__getGoodsAndCarsInfNew(soap, a);
+		for (soap_flag = 0;; soap_flag = 1)
+		{	soap->error = SOAP_TAG_MISMATCH;
+			if (soap_flag_ns2__getGoodsAndCarsInfNew_ && soap->error == SOAP_TAG_MISMATCH)
+				if (soap_in_PointerTons2__getGoodsAndCarsInfNew(soap, "ns2:getGoodsAndCarsInfNew", &a->ns2__getGoodsAndCarsInfNew_, "ns2:getGoodsAndCarsInfNew"))
+				{	soap_flag_ns2__getGoodsAndCarsInfNew_--;
+					continue;
+				}
+			if (soap->error == SOAP_TAG_MISMATCH)
+				if (soap_flag)
+				{	soap->error = SOAP_OK;
+					break;
+				}
+			if (soap->error == SOAP_NO_TAG)
+				break;
+			if (soap->error)
+				return NULL;
+		}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put___ns1__getGoodsAndCarsInfNew(struct soap *soap, const struct __ns1__getGoodsAndCarsInfNew *a, const char *tag, const char *type)
+{
+	register int id = 0;
+	if (soap_out___ns1__getGoodsAndCarsInfNew(soap, tag?tag:"-ns1:getGoodsAndCarsInfNew", id, a, type))
+		return soap->error;
+	return SOAP_OK;
+}
+
+SOAP_FMAC3 struct __ns1__getGoodsAndCarsInfNew * SOAP_FMAC4 soap_get___ns1__getGoodsAndCarsInfNew(struct soap *soap, struct __ns1__getGoodsAndCarsInfNew *p, const char *tag, const char *type)
+{
+	if ((p = soap_in___ns1__getGoodsAndCarsInfNew(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC1 struct __ns1__getGoodsAndCarsInfNew * SOAP_FMAC2 soap_instantiate___ns1__getGoodsAndCarsInfNew(struct soap *soap, int n, const char *type, const char *arrayType, size_t *size)
+{
+	(void)type; (void)arrayType; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "soap_instantiate___ns1__getGoodsAndCarsInfNew(%d, %s, %s)\n", n, type?type:"", arrayType?arrayType:""));
+	struct soap_clist *cp = soap_link(soap, NULL, SOAP_TYPE___ns1__getGoodsAndCarsInfNew, n, soap_fdelete);
+	if (!cp)
+		return NULL;
+	if (n < 0)
+	{	cp->ptr = (void*)SOAP_NEW(struct __ns1__getGoodsAndCarsInfNew);
+		if (size)
+			*size = sizeof(struct __ns1__getGoodsAndCarsInfNew);
+	}
+	else
+	{	cp->ptr = (void*)SOAP_NEW(struct __ns1__getGoodsAndCarsInfNew[n]);
+		if (!cp->ptr)
+		{	soap->error = SOAP_EOM;
+			return NULL;
+		}
+		if (size)
+			*size = n * sizeof(struct __ns1__getGoodsAndCarsInfNew);
+	}
+		DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Instantiated location=%p\n", cp->ptr));
+	return (struct __ns1__getGoodsAndCarsInfNew*)cp->ptr;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_copy___ns1__getGoodsAndCarsInfNew(struct soap *soap, int st, int tt, void *p, size_t len, const void *q, size_t n)
+{
+	(void)soap; (void)st; (void)len; (void)n; /* appease -Wall -Werror */
+	DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Copying struct __ns1__getGoodsAndCarsInfNew %p -> %p\n", q, p));
+	*(struct __ns1__getGoodsAndCarsInfNew*)p = *(struct __ns1__getGoodsAndCarsInfNew*)q;
+}
+
 SOAP_FMAC3 void SOAP_FMAC4 soap_default___ns1__getMyCarsInf(struct soap *soap, struct __ns1__getMyCarsInf *a)
 {
 	(void)soap; (void)a; /* appease -Wall -Werror */
@@ -27429,6 +27884,116 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTons2__sendPhoneMessage(struct soap *s
 SOAP_FMAC3 ns2__sendPhoneMessage ** SOAP_FMAC4 soap_get_PointerTons2__sendPhoneMessage(struct soap *soap, ns2__sendPhoneMessage **p, const char *tag, const char *type)
 {
 	if ((p = soap_in_PointerTons2__sendPhoneMessage(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTons2__getGoodsAndCarsInfNewResponse(struct soap *soap, ns2__getGoodsAndCarsInfNewResponse *const*a)
+{
+	if (!soap_reference(soap, *a, SOAP_TYPE_ns2__getGoodsAndCarsInfNewResponse))
+		(*a)->soap_serialize(soap);
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTons2__getGoodsAndCarsInfNewResponse(struct soap *soap, const char *tag, int id, ns2__getGoodsAndCarsInfNewResponse *const*a, const char *type)
+{
+	id = soap_element_id(soap, tag, id, *a, NULL, 0, type, SOAP_TYPE_ns2__getGoodsAndCarsInfNewResponse);
+	if (id < 0)
+		return soap->error;
+	return (*a)->soap_out(soap, tag, id, type);
+}
+
+SOAP_FMAC3 ns2__getGoodsAndCarsInfNewResponse ** SOAP_FMAC4 soap_in_PointerTons2__getGoodsAndCarsInfNewResponse(struct soap *soap, const char *tag, ns2__getGoodsAndCarsInfNewResponse **a, const char *type)
+{
+	if (soap_element_begin_in(soap, tag, 1, NULL))
+		return NULL;
+	if (!a)
+		if (!(a = (ns2__getGoodsAndCarsInfNewResponse **)soap_malloc(soap, sizeof(ns2__getGoodsAndCarsInfNewResponse *))))
+			return NULL;
+	*a = NULL;
+	if (!soap->null && *soap->href != '#')
+	{	soap_revert(soap);
+		if (!(*a = (ns2__getGoodsAndCarsInfNewResponse *)soap_instantiate_ns2__getGoodsAndCarsInfNewResponse(soap, -1, soap->type, soap->arrayType, NULL)))
+			return NULL;
+		(*a)->soap_default(soap);
+		if (!(*a)->soap_in(soap, tag, NULL))
+			return NULL;
+	}
+	else
+	{	ns2__getGoodsAndCarsInfNewResponse ** p = (ns2__getGoodsAndCarsInfNewResponse **)soap_id_lookup(soap, soap->href, (void**)a, SOAP_TYPE_ns2__getGoodsAndCarsInfNewResponse, sizeof(ns2__getGoodsAndCarsInfNewResponse), 0);
+		a = p;
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTons2__getGoodsAndCarsInfNewResponse(struct soap *soap, ns2__getGoodsAndCarsInfNewResponse *const*a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_PointerTons2__getGoodsAndCarsInfNewResponse);
+	if (soap_out_PointerTons2__getGoodsAndCarsInfNewResponse(soap, tag?tag:"ns2:getGoodsAndCarsInfNewResponse", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 ns2__getGoodsAndCarsInfNewResponse ** SOAP_FMAC4 soap_get_PointerTons2__getGoodsAndCarsInfNewResponse(struct soap *soap, ns2__getGoodsAndCarsInfNewResponse **p, const char *tag, const char *type)
+{
+	if ((p = soap_in_PointerTons2__getGoodsAndCarsInfNewResponse(soap, tag, p, type)))
+		if (soap_getindependent(soap))
+			return NULL;
+	return p;
+}
+
+SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTons2__getGoodsAndCarsInfNew(struct soap *soap, ns2__getGoodsAndCarsInfNew *const*a)
+{
+	if (!soap_reference(soap, *a, SOAP_TYPE_ns2__getGoodsAndCarsInfNew))
+		(*a)->soap_serialize(soap);
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTons2__getGoodsAndCarsInfNew(struct soap *soap, const char *tag, int id, ns2__getGoodsAndCarsInfNew *const*a, const char *type)
+{
+	id = soap_element_id(soap, tag, id, *a, NULL, 0, type, SOAP_TYPE_ns2__getGoodsAndCarsInfNew);
+	if (id < 0)
+		return soap->error;
+	return (*a)->soap_out(soap, tag, id, type);
+}
+
+SOAP_FMAC3 ns2__getGoodsAndCarsInfNew ** SOAP_FMAC4 soap_in_PointerTons2__getGoodsAndCarsInfNew(struct soap *soap, const char *tag, ns2__getGoodsAndCarsInfNew **a, const char *type)
+{
+	if (soap_element_begin_in(soap, tag, 1, NULL))
+		return NULL;
+	if (!a)
+		if (!(a = (ns2__getGoodsAndCarsInfNew **)soap_malloc(soap, sizeof(ns2__getGoodsAndCarsInfNew *))))
+			return NULL;
+	*a = NULL;
+	if (!soap->null && *soap->href != '#')
+	{	soap_revert(soap);
+		if (!(*a = (ns2__getGoodsAndCarsInfNew *)soap_instantiate_ns2__getGoodsAndCarsInfNew(soap, -1, soap->type, soap->arrayType, NULL)))
+			return NULL;
+		(*a)->soap_default(soap);
+		if (!(*a)->soap_in(soap, tag, NULL))
+			return NULL;
+	}
+	else
+	{	ns2__getGoodsAndCarsInfNew ** p = (ns2__getGoodsAndCarsInfNew **)soap_id_lookup(soap, soap->href, (void**)a, SOAP_TYPE_ns2__getGoodsAndCarsInfNew, sizeof(ns2__getGoodsAndCarsInfNew), 0);
+		a = p;
+		if (soap->body && soap_element_end_in(soap, tag))
+			return NULL;
+	}
+	return a;
+}
+
+SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTons2__getGoodsAndCarsInfNew(struct soap *soap, ns2__getGoodsAndCarsInfNew *const*a, const char *tag, const char *type)
+{
+	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_PointerTons2__getGoodsAndCarsInfNew);
+	if (soap_out_PointerTons2__getGoodsAndCarsInfNew(soap, tag?tag:"ns2:getGoodsAndCarsInfNew", id, a, type))
+		return soap->error;
+	return soap_putindependent(soap);
+}
+
+SOAP_FMAC3 ns2__getGoodsAndCarsInfNew ** SOAP_FMAC4 soap_get_PointerTons2__getGoodsAndCarsInfNew(struct soap *soap, ns2__getGoodsAndCarsInfNew **p, const char *tag, const char *type)
+{
+	if ((p = soap_in_PointerTons2__getGoodsAndCarsInfNew(soap, tag, p, type)))
 		if (soap_getindependent(soap))
 			return NULL;
 	return p;

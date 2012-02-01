@@ -87,7 +87,7 @@ public:		// value variables
 	BOOL rememberRepubSetting;
 	BOOL longTimeAvailable;
 	BOOL withMobile;
-	BOOL withName;
+	BOOL withMobile2;
 	CString mobile;
 	CString mobile2;
 

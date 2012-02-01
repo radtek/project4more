@@ -1312,7 +1312,7 @@ int CWLRClientDlg::hideAllWindows() {
 int CWLRClientDlg::ShowTabDlgs() 
 {
     CDialog *pMainTab = NULL, *pSearchTab = NULL;
-
+	bool bShowSpecLineSearchTab = false;
     switch (m_curTabType)
     {
     case GOODS:
@@ -1366,6 +1366,7 @@ int CWLRClientDlg::ShowTabDlgs()
         }
         break;
     case LINES:
+		bShowSpecLineSearchTab = true;
         switch (m_curTabIndex)
         {
         case 0:
@@ -1421,17 +1422,19 @@ int CWLRClientDlg::ShowTabDlgs()
 			((pSearchTab == &searchCarsInf)&&(pMainTab == &newGoodsInf || pMainTab == &newCarsInf) )
 			)
         {
+			pMainTab->ShowWindow(SW_SHOW);
             pMainTab->MoveWindow(rect.left, rect.top, rect.Width(), rect.Height() / 2);
             pSearchTab->MoveWindow(rect.left, rect.top + rect.Height() / 2, rect.Width(), rect.Height() / 2);
 
             pSearchTab->ShowWindow(true);
         }
-        else if( pSearchTab == &searchSpecialLine )
+        else if( pSearchTab == &searchSpecialLine && bShowSpecLineSearchTab)
 		{
 			//pMainTab->MoveWindow(rect);
 			pMainTab->ShowWindow(SW_HIDE);
 			searchGoodsInf.ShowWindow(SW_HIDE);
 			searchCarsInf.ShowWindow(SW_HIDE);
+			pSearchTab->MoveWindow(rect);
 			pSearchTab->ShowWindow(SW_SHOW);
 		}
 		else
@@ -1485,6 +1488,10 @@ void CWLRClientDlg::OnBnClickedBtnGoods()
     // TODO: 在此添加控件通知处理程序代码
 	EnterCriticalSection(&csClick);
 	m_curTabIndex = 0;
+	if( m_curSearchType == SEARCH_SPECIAL)
+	{
+		m_curSearchType = TabType_UNKNOWN;
+	}
     setGoodsInf();
 	LeaveCriticalSection(&csClick);
 }
@@ -1505,6 +1512,10 @@ void CWLRClientDlg::OnBnClickedBtnCars()
     // TODO: 在此添加控件通知处理程序代码
 	EnterCriticalSection(&csClick);
 	m_curTabIndex = 0;
+	if( m_curSearchType == SEARCH_SPECIAL)
+	{
+		m_curSearchType = TabType_UNKNOWN;
+	}
     setCarsInf();
 	LeaveCriticalSection(&csClick);
 }
@@ -2171,19 +2182,24 @@ void CWLRClientDlg::search(UINT8 nType, UINT8 nOption/* = 1*/)
 	switch (nType) 
 	{
 	case eSearchType_Goods: // 搜索货源 
+	case eSearchType_Car:	// 搜索车源
 		{
 			CSearchMainDlg dlg;
-			dlg.SetSearchType(eSearchType_Goods);
+			dlg.SetSearchType(nType);
 			if (dlg.DoModal() == IDOK)
 			{
 				const CSearchCriteria* pSearchCriteria = dlg.GetCurSearchCriteria();
 				if( pSearchCriteria != NULL )
 				{
-					if( (pSearchCriteria->GetSearchType()&eSearchType_Goods) == eSearchType_Goods )
+					if( pSearchCriteria->GetSearchType() == (eSearchType_Goods|eSearchType_Car) )
+					{
+						setSearchGoodsAndCars(pSearchCriteria, pSearchCriteria->GetSearchType());
+					}
+					else if( (pSearchCriteria->GetSearchType()&eSearchType_Goods) == eSearchType_Goods )
 					{
 						setSearchGoods(pSearchCriteria, pSearchCriteria->GetSearchType());
 					}
-					if( (pSearchCriteria->GetSearchType()&eSearchType_Car) == eSearchType_Car )
+					else if( (pSearchCriteria->GetSearchType()&eSearchType_Car) == eSearchType_Car )
 					{
 						setSearchCars(pSearchCriteria, pSearchCriteria->GetSearchType());
 					}
@@ -2193,11 +2209,15 @@ void CWLRClientDlg::search(UINT8 nType, UINT8 nOption/* = 1*/)
 					const CSearchFavorite* pFavorite = dlg.GetUsedSearchFavorite();
 					if( pFavorite != NULL ) 
 					{
-						if( (pFavorite->GetSearchType()&eSearchType_Goods) == eSearchType_Goods )
+						if(pFavorite->GetSearchType() == (eSearchType_Goods|eSearchType_Car) )
+						{
+							setSearchGoodsAndCars(pFavorite->GetSearchCriteria(), pFavorite->GetSearchType());
+						}
+						else if( (pFavorite->GetSearchType()&eSearchType_Goods) == eSearchType_Goods )
 						{
 							setSearchGoods(pFavorite->GetSearchCriteria(), pFavorite->GetSearchType());
 						}
-						if( (pFavorite->GetSearchType()&eSearchType_Car) == eSearchType_Car )
+						else if( (pFavorite->GetSearchType()&eSearchType_Car) == eSearchType_Car )
 						{
 							setSearchCars(pFavorite->GetSearchCriteria(), pFavorite->GetSearchType());
 						}
@@ -2208,43 +2228,51 @@ void CWLRClientDlg::search(UINT8 nType, UINT8 nOption/* = 1*/)
 
 			break;
 		}
-	case eSearchType_Car:	// 搜索车源
-		{                
-			CSearchMainDlg dlg;
-			dlg.SetSearchType(eSearchType_Car);
-			if (dlg.DoModal() == IDOK)
-			{
-				const CSearchCriteria* pSearchCriteria = dlg.GetCurSearchCriteria();
-				if( pSearchCriteria != NULL )
-				{
-					if( (pSearchCriteria->GetSearchType()&eSearchType_Goods) == eSearchType_Goods )
-					{
-						setSearchGoods(pSearchCriteria, pSearchCriteria->GetSearchType());
-					}
-					if( (pSearchCriteria->GetSearchType()&eSearchType_Car) == eSearchType_Car )
-					{
-						setSearchCars(pSearchCriteria, pSearchCriteria->GetSearchType());
-					}
-				}
-				else if(  dlg.ShouldUseSearchFavorite() )
-				{
-					const CSearchFavorite* pFavorite = dlg.GetUsedSearchFavorite();
-					if( pFavorite != NULL ) 
-					{
-						if( (pSearchCriteria->GetSearchType()&eSearchType_Goods) == eSearchType_Goods )
-						{
-							setSearchGoods(pFavorite->GetSearchCriteria(), pFavorite->GetSearchType());
-						}
-						if( (pSearchCriteria->GetSearchType()&eSearchType_Car) == eSearchType_Car )
-						{
-							setSearchCars(pFavorite->GetSearchCriteria(), pFavorite->GetSearchType());
-						}
-					}
-				}
+	//case eSearchType_Car:	// 搜索车源
+	//	{                
+	//		CSearchMainDlg dlg;
+	//		dlg.SetSearchType(eSearchType_Car);
+	//		if (dlg.DoModal() == IDOK)
+	//		{
+	//			const CSearchCriteria* pSearchCriteria = dlg.GetCurSearchCriteria();
+	//			if( pSearchCriteria != NULL )
+	//			{
+	//				if( pSearchCriteria->GetSearchType() == (eSearchType_Goods|eSearchType_Car) )
+	//				{
+	//					setSearchGoodsAndCars(pSearchCriteria, pSearchCriteria->GetSearchType());
+	//				}
+	//				else if( (pSearchCriteria->GetSearchType()&eSearchType_Goods) == eSearchType_Goods )
+	//				{
+	//					setSearchGoods(pSearchCriteria, pSearchCriteria->GetSearchType());
+	//				}
+	//				if( (pSearchCriteria->GetSearchType()&eSearchType_Car) == eSearchType_Car )
+	//				{
+	//					setSearchCars(pSearchCriteria, pSearchCriteria->GetSearchType());
+	//				}
+	//			}
+	//			else if(  dlg.ShouldUseSearchFavorite() )
+	//			{
+	//				const CSearchFavorite* pFavorite = dlg.GetUsedSearchFavorite();
+	//				if( pFavorite != NULL ) 
+	//				{
+	//					if( pSearchCriteria->GetSearchType() == (eSearchType_Goods|eSearchType_Car) )
+	//					{
+	//						setSearchGoodsAndCars(pFavorite->GetSearchCriteria(), pFavorite->GetSearchType());
+	//					}
+	//					else if( (pFavorite->GetSearchType()&eSearchType_Goods) == eSearchType_Goods )
+	//					{
+	//						setSearchGoods(pFavorite->GetSearchCriteria(), pFavorite->GetSearchType());
+	//					}
+	//					if( (pFavorite->GetSearchType()&eSearchType_Car) == eSearchType_Car )
+	//					{
+	//						setSearchCars(pFavorite->GetSearchCriteria(), pFavorite->GetSearchType());
+	//					}
+	//				}
+	//			}
 
-			}
-			break;
-		}
+	//		}
+	//		break;
+	//	}
 	case eSearchType_SpecialLine:	// 搜索专线
 		{
 
@@ -2464,6 +2492,55 @@ int CWLRClientDlg::setSearchCars(const string& sSearchCriteria, UINT8 nOption)
     return 0;
 }
     
+int CWLRClientDlg::setSearchGoodsAndCars(const CSearchCriteria* pSearchCriteria, UINT8 nOption) // 搜索货源和车源
+{
+	string sSearchCriteria;
+	pSearchCriteria->FormatSearchString(sSearchCriteria);
+	return setSearchGoodsAndCars(sSearchCriteria, nOption);
+}
+int CWLRClientDlg::setSearchGoodsAndCars(const string& sSearchCriteria, UINT8 nOption) // 搜索货源和车源
+{
+	m_curSearchType = SEARCH_GOODS;
+    hideAllWindows();
+
+    //mTabMain.DeleteAllItems();
+    //mTabMain.InsertItem(0,nOption == eSearchType_Goods?"搜索货源结果":"搜索全部信息结果");
+    
+    //获得IDC_TABTEST客户区大小
+    CRect rect;
+    mTabMain.GetClientRect(&rect);
+
+    //调整子对话框在父窗口中的位置
+    rect.top+=20; 
+    rect.left+=1; 
+    rect.right-=2;    
+  
+    //设置子对话框尺寸并移动到指定位置
+    //searchGoodsInf.MoveWindow(&rect);
+    //分别设置隐藏和显示
+    //searchGoodsInf.ShowWindow(true);
+    // 显示数据
+    searchGoodsInf.svrIO = &svrIO; 
+    searchGoodsInf.svrIONew = &svrIONew; 
+	//searchGoodsInf.goodsKeyword = input;
+	searchGoodsInf.sSearchCriteria = sSearchCriteria;
+	//FillGoodsSearchCriteria(pSearchCriteria, searchGoodsInf.goodsKeyword);
+    searchGoodsInf.setIfShowPhone(ifShowPhone); 
+	searchGoodsInf.SetSearchType(nOption);
+    searchGoodsInf.setData(9);
+	
+
+	//option:0，本地；1，取消；2，正常搜索
+	/*searchGoodsInf.SetStartAddr(input.startProvince, input.startCity, input.startCounty, true);
+	searchGoodsInf.SetDestAddr(input.endProvince, input.endCity, input.endCounty, nOption==2?true:false);
+
+	newGoodsInf.SetStartAddr(input.startProvince, input.startCity, input.startCounty, true);
+	newGoodsInf.SetDestAddr(input.endProvince, input.endCity, input.endCounty, nOption==2?true:false);*/
+
+    ShowTabDlgs();
+
+    return 0;
+}
 // 搜索专线
 int CWLRClientDlg::setSearchSpecail(const InSearchSpecail& input, UINT8 nOption)
 {
@@ -2530,6 +2607,7 @@ int CWLRClientDlg::clickSearchGoods(InClickSearch input)
 	searchGoodsInf.svrIONew = &svrIONew;
     searchGoodsInf.setIfShowPhone(ifShowPhone); 
     searchGoodsInf.clickKeyWord = input;
+	searchGoodsInf.SetSearchType(eSearchType_Goods);
     searchGoodsInf.setData(6);
 
     //设置默认的选项卡
@@ -2602,6 +2680,7 @@ int CWLRClientDlg::clickSearchCars(InClickSearch input)
 	searchCarsInf.svrIONew = &svrIONew;
     searchCarsInf.setIfShowPhone(ifShowPhone); 
     searchCarsInf.clickKeyWord = input;
+	searchCarsInf.SetSearchType(eSearchType_Car);
     searchCarsInf.setData(8);
 
     //设置默认的选项卡

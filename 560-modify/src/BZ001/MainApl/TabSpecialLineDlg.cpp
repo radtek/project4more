@@ -282,7 +282,7 @@ int CTabSpecialLineDlg::setData(int type, int curpage)
 	//ZeroMemory(pcontentData,sizeof vector<TabSpecialLineRecord>);
     TabSpecialLineRecord title;
     title.startPlace = "出发地";
-    title.endPlace = "到达地";
+    title.endPlace = "目的地";
     title.weightPrice = "重货价";
     title.lightPrice = "泡货价";
     title.schedules = "发车班次";

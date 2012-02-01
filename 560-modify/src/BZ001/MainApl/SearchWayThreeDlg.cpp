@@ -383,8 +383,30 @@ void CSearchWayThreeDlg::OnBnClickedButtonSw3Backspace()
 {
 	CString sKeyword;
 	m_comboxKeyword.GetWindowText(sKeyword);
-	sKeyword.Delete(sKeyword.GetLength()-1);
+
+	if( sKeyword.IsEmpty() )
+	{
+		return ;
+	}
+	int	length = sKeyword.GetLength();
+	wchar_t *pwszKeyword = NULL;
+	int nWideCharLen = ::MultiByteToWideChar(CP_ACP, 0, sKeyword, length+1, NULL, 0);
+	pwszKeyword = new wchar_t[nWideCharLen+1];
+	::MultiByteToWideChar(CP_ACP, 0, sKeyword, length+1, pwszKeyword, nWideCharLen+1);
+	int nLength = wcslen(pwszKeyword);
+	pwszKeyword[nLength-1] = L'\0';
+
+	int nMultiByteLen = nWideCharLen*2+2;
+	char *pszKeyword = new char[nMultiByteLen];
+	memset(pszKeyword, 0, nMultiByteLen);
+	WideCharToMultiByte(CP_ACP, 0, pwszKeyword, nWideCharLen-1, pszKeyword, nMultiByteLen, NULL, NULL);
+
+	sKeyword = pszKeyword;
+	delete []pwszKeyword;
+	delete []pszKeyword;
+
 	m_comboxKeyword.SetWindowText(sKeyword);
+
 }
 
 //void CSearchWayThreeDlg::OnBnClickedButtonSw3Addr()
@@ -474,6 +496,8 @@ void CSearchWayThreeDlg::Clean()
 {
 	CSearchCriteria::Clean();
 	m_lstFromAddr.ResetContent();
+	m_comboxKeyword.SetWindowText("");
+	m_sKeyword = "";
 }
 
 void CSearchWayThreeDlg::Confirm()

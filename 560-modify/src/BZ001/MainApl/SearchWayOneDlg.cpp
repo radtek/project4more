@@ -64,7 +64,23 @@ BOOL CSearchWayOneDlg::OnInitDialog()
 	((CButton*)GetDlgItem(IDC_RADIO_MATCH_ANY))->SetCheck(BST_CHECKED);
 	((CButton*)GetDlgItem(IDC_RADIO_MATCH_ALL))->SetCheck(BST_UNCHECKED);
 
-	AddStartAddr(user.province.c_str(), user.city.c_str(), NO_LIMIT_STRING);
+	CString sProvinceFrom = user.province.c_str();
+	CString sCityFrom, sCountyFrom;
+	if( IsSpecialProvince(sProvinceFrom) )
+	{
+		sCityFrom = sProvinceFrom;
+	}
+	if( user.province != user.city )
+	{
+		sCountyFrom = user.city.c_str();
+	}
+	else
+	{
+		sCountyFrom = NO_LIMIT_STRING;
+	}
+
+
+	AddStartAddr(sProvinceFrom, sCityFrom, sCountyFrom);
 
 	InitSearchTypeRadio();
 

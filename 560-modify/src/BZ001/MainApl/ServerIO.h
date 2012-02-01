@@ -67,6 +67,8 @@ public:
     // Get search special line result
     int getSearchSpecialLineInf(const InSearchSpecail& keyword, vector<TabSpecialLineRecord> &inf, inputParam& input);
 
+	int getSearchGoodsAndCarsInfo(const string& sSearchKeyword, vector<TabNewInfRecord> &inf, inputParam& input);
+
     // Get click search goods information
     int getClickSearchGoodsInf(const InClickSearch& keyword, vector<TabNewInfRecord> &inf, inputParam& input);
     // Get click search bulkGoods information

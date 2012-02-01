@@ -19,7 +19,7 @@ CPublishWayOneDlg::CPublishWayOneDlg(CWnd* pParent /*=NULL*/)
 	, rememberRepubSetting(FALSE)
 	, longTimeAvailable(FALSE)
 	, withMobile(FALSE)
-	, withName(FALSE)
+	, withMobile2(FALSE)
 	, mobile(_T(""))
 	, mobile2(_T(""))
 	, goodsValue(_T(""))
@@ -67,7 +67,7 @@ void CPublishWayOneDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK_PW1_REM_REPUB_SETTING, rememberRepubSetting);
 	DDX_Check(pDX, IDC_CHECK_PW1_LONGTIME, longTimeAvailable);
 	DDX_Check(pDX, IDC_CHECK_PW1_CONTACT_NAME, withMobile);
-	DDX_Check(pDX, IDC_CHECK_PW1_CONTACT_PHONE, withName);
+	DDX_Check(pDX, IDC_CHECK_PW1_CONTACT_PHONE, withMobile2);
 	DDX_Text(pDX, IDC_EDIT_PW1_CONTACT_NAME, mobile);
 	DDX_Text(pDX, IDC_EDIT_PW1_CONTACT_PHONE, mobile2);
 	DDX_Control(pDX, IDC_STATIC_GP_GOODS, firstPanel);
@@ -136,7 +136,7 @@ BOOL CPublishWayOneDlg::OnInitDialog()
 	((CEdit*)GetDlgItem(IDC_EDIT_CAR_NUM))->SetLimitText(8);
 	((CEdit*)GetDlgItem(IDC_EDIT_PRICE_NUM))->SetLimitText(8);
 
-	((CEdit*)GetDlgItem(IDC_EDIT_PW1_PREVIEW))->SetLimitText(256);
+	((CEdit*)GetDlgItem(IDC_EDIT_PW1_PREVIEW))->SetLimitText(100);
 	((CEdit*)GetDlgItem(IDC_EDIT_PW1_CONTACT_NAME))->SetLimitText(32);
 	((CEdit*)GetDlgItem(IDC_EDIT_PW1_CONTACT_PHONE))->SetLimitText(32);
 
@@ -209,7 +209,18 @@ void CPublishWayOneDlg::initControlValue()
 	mobile = userInfo.tel.c_str();
 
 	m_strProvinceFrom = userInfo.province.c_str();
-	m_strCityFrom = userInfo.city.c_str();
+	if( IsSpecialProvince(m_strProvinceFrom) )
+	{
+		m_strCityFrom = m_strProvinceFrom;
+	}
+	if( userInfo.province != userInfo.city )
+	{
+		m_strCountyFrom = userInfo.city.c_str();
+	}
+	else
+	{
+		m_strCountyFrom = NO_LIMIT_STRING;
+	}
 
 	truckCountValue = "1";
 	goodsList.SetCurSel(5);
@@ -237,7 +248,10 @@ void CPublishWayOneDlg::OnBnClickedButtonPw1FromCity()
 	GetCitiesNameByProvince(vecItems, m_strProvinceFrom);
 
 	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_FROM_CITY), &vecItems, &m_strCityFrom);
-	dlgContent.DoModal();
+	if( dlgContent.DoModal() == IDOK && !m_strCityFrom.IsEmpty())
+	{
+		m_strCountyFrom = _T("不限");
+	}
 
 	UpdateData(FALSE);
 }
@@ -273,11 +287,9 @@ void CPublishWayOneDlg::OnBnClickedButtonW1ToCity()
 	GetCitiesNameByProvince(vecItems, m_strProvinceTo);
 
 	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_TO_CITY), &vecItems, &m_strCityTo);
-	dlgContent.DoModal();
-
-	if ( m_strCityTo == "不限" )
+	if( dlgContent.DoModal() == IDOK && !m_strCityTo.IsEmpty() )
 	{
-		m_strCountyTo = "";
+		m_strCountyTo = NO_LIMIT_STRING;
 	}
 
 	UpdateData(FALSE);
@@ -590,6 +602,9 @@ void CPublishWayOneDlg::OnBnClickedButtonPw1Clean()
 	priceCountValue="";
 
 	preview.Empty();
+
+	repubSetting.SetWindowText("");
+	shipTime.SetWindowText("");
 	UpdateData(FALSE);
 }
 
@@ -679,6 +694,12 @@ BOOL CPublishWayOneDlg::CheckGoodsInfo()
 		return FALSE;
 	}
 
+	if( CheckAddress(m_strProvinceFrom, m_strCityFrom, m_strCountyFrom) != 0 )
+	{
+		MessageBox("始发地：地址信息不合法", "发布货源");
+		return FALSE;
+	}
+
 	if (m_strProvinceTo == "")
 	{
 		MessageBox("目的地：一级地址不能为空", "发布货源");
@@ -691,11 +712,18 @@ BOOL CPublishWayOneDlg::CheckGoodsInfo()
 		return FALSE;
 	}
 
+	if( CheckAddress(m_strProvinceTo, m_strCityTo, m_strCountyTo) != 0 )
+	{
+		MessageBox("目的地：地址信息不合法", "发布货源");
+		return FALSE;
+	}
+
 	return TRUE;
 }
 
 void CPublishWayOneDlg::BuildGoodsPreview()
 {
+	UpdateData();
 	if ( CheckGoodsInfo() == FALSE )
 	{
 		return;
@@ -755,6 +783,12 @@ BOOL CPublishWayOneDlg::CheckTruckInfo()
 		return FALSE;
 	}
 
+	if( CheckAddress(m_strProvinceFrom, m_strCityFrom, m_strCountyFrom) != 0 )
+	{
+		MessageBox("始发地：地址信息不合法", "发布车源");
+		return FALSE;
+	}
+
 	if (m_strProvinceTo == "")
 	{
 		MessageBox("目的地：一级地址不能为空", "发布车源");
@@ -764,6 +798,12 @@ BOOL CPublishWayOneDlg::CheckTruckInfo()
 	if( m_strCityTo == "" )
 	{
 		MessageBox("目的地：二级地址不能为空", "发布车源");
+		return FALSE;
+	}
+
+	if( CheckAddress(m_strProvinceTo, m_strCityTo, m_strCountyTo) != 0 )
+	{
+		MessageBox("目的地：地址信息不合法", "发布车源");
 		return FALSE;
 	}
 
@@ -803,17 +843,32 @@ void CPublishWayOneDlg::BuildTruckPreview()
 
 BOOL CPublishWayOneDlg::PublishGoodsInfo()
 {
+	UpdateData();
+
 	if (CheckGoodsInfo() == FALSE)
 	{
 		return FALSE;
 	}
 
-	if (mobile == "") {
+	if ( (withMobile && mobile == "" ) ) 
+	{
+		MessageBox("联系电话1不能为空", "发布货源");
+		return FALSE;
+	}
+
+	if ( (withMobile2 && mobile2 == "" ) ) 
+	{
+		MessageBox("联系电话2不能为空", "发布货源");
+		return FALSE;
+	}
+
+	if( mobile == "" && mobile2 == "" )
+	{
 		MessageBox("联系电话不能为空", "发布货源");
 		return FALSE;
 	}
 
-	CString		p, pu;
+	CString	p, pu;
 
 	if ( priceCountValue == "" && priceListValue == "" )
 	{
@@ -854,7 +909,7 @@ BOOL CPublishWayOneDlg::PublishGoodsInfo()
 		+ "|" + m_strProvinceTo + "|" + m_strCityTo + "|" + ct
 		+ "|" + goodsValue + "|" + goodsCountValue + "|" + "NULL"
 		+ "|" + "普货" + "|" + p + "|" + pu + "|NULL|" + tl + "|" + tt + "|"
-		+ tc + "|" + mobile + (mobile2.IsEmpty()?"":(" "+mobile2)) + "|" + shipTimeValue + "|" + repubSettingValue;
+		+ tc + "|" + (withMobile?mobile:"") + ((withMobile2&&!mobile2.IsEmpty())?(" "+mobile2):"") + "|" + shipTimeValue + "|" + repubSettingValue;
 
 	if (rememberRepubSetting)
 	{

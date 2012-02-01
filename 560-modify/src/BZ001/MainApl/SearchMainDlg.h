@@ -56,7 +56,6 @@ public:
 	afx_msg void OnBnClickedButtonOk();
 	afx_msg void OnBnClickedButtonClean();
 	afx_msg void OnBnClickedButtonAddFavorite();
-	afx_msg void OnBnClickedButtonSave();
 	afx_msg void OnBnClickedButtonClose();
 
 private:

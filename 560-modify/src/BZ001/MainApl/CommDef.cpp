@@ -129,6 +129,53 @@ const void GetCountiesNameByProvinceAndCity(vector<CString> &vecCountiesName, co
 	}
 }
 
+int CheckAddress(const CString& sProvince, const CString& sCity, const CString& sCounty)
+{
+	if( sProvince.IsEmpty() )
+	{
+		return -1;
+	}
+	if( sCity.IsEmpty() )
+	{
+		return -2;
+	}
+	//if( sCounty.IsEmpty() )
+	//{
+	//	return -3;
+	//}
+
+	vector<CString> vecCity;
+	GetCitiesNameByProvince(vecCity, sProvince);
+	if( find(vecCity.begin(), vecCity.end(), sCity) == vecCity.end() )
+	{
+		return -4;
+	}
+
+	vector<CString> vecCountiesName;
+	GetCountiesNameByProvinceAndCity(vecCountiesName, sProvince, sCity);
+	
+	if( sCounty.IsEmpty() )
+	{
+		return 0;
+	}
+
+	bool bFind = false;
+	vector<CString>::iterator it = vecCountiesName.begin(), end = vecCountiesName.end();
+	for(it; it != end; ++it)
+	{
+		if( (*it).Find(sCounty) != -1 )
+		{
+			return 0;
+		}
+	}
+	return -5;
+}
+
+bool IsSpecialProvince(const CString& sProvince)
+{
+	return sProvince == "上海" || sProvince == "北京" || sProvince == "天津" || sProvince == "深圳" || sProvince == "重庆";
+}
+
 static void InitSearchGoodsType()
 {
 	g_vecSearchGoodsType.push_back("整车");

@@ -77,6 +77,8 @@ const string& GetCity(const CString& sProvince, int nCityIndex);
 
 const void GetProvincesName(vector<CString> &vecProvincesName);
 const void GetCitiesNameByProvince(vector<CString> &vecCitiesName, const CString &strProvince);
+int CheckAddress(const CString& sProvince, const CString& sCity, const CString& sCounty);
+bool IsSpecialProvince(const CString& sProvince);
 
 const void GetCountiesNameByProvinceAndCity(vector<CString> &vecCountiesName, const CString &strProvince, const CString &strCity);
 

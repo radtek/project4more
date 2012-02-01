@@ -122,9 +122,11 @@ BOOL CPubGoodsDlg::OnInitDialog()
 	((CEdit*)GetDlgItem(IDC_PUB_GOODS_PRICE))->SetLimitText(8);
 
 	((CEdit*)GetDlgItem(IDC_PUB_GOODS_CARNUM))->SetLimitText(8);
+	((CEdit*)GetDlgItem(IDC_PUB_GOODS_PREVIEW_EDIT))->SetLimitText(100);
+
 
 	int n = 0;
-	m_msgedit.LimitText(100);
+	m_msgedit.SetLimitText(100);
     // TODO:  在此添加额外的初始化
     // 初始化货物名称
 	combName.AddString("请选择");	

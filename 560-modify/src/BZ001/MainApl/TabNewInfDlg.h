@@ -71,6 +71,7 @@ public:
     int setIfShowPhone(bool ifShow) 
 	{
         ifShowPhone = ifShow;
+		m_btnHidePhoneNum.LoadBitmap(ifShowPhone?IDB_HIDE_PHONE_NUM:IDB_SHOWPHONE);
 		return setData(curType, curInput.curpage);
     }
 	
