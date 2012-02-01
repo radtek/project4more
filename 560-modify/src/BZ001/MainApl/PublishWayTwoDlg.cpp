@@ -151,6 +151,9 @@ BOOL CPublishWayTwoDlg::OnInitDialog()
 
 void CPublishWayTwoDlg::initControlValue()
 {
+	pRecord = NULL;
+	pPublishRecord = NULL;
+
 	msgType.AddString("发布货源");
 	msgType.AddString("发布车源");
 	msgType.SetCurSel(0);
@@ -896,53 +899,62 @@ void CPublishWayTwoDlg::SetListSection(CListBox& b, string k)
 
 void CPublishWayTwoDlg::ToHistory()
 {
-	CPublishRecord*		pRecord = new CPublishRecord();
+	pPublishRecord = new CPublishRecord();
 	CString				v;
 
 	// publish type
 	v.Format("%d", msgType.GetCurSel());
-	pRecord->set("msgType", v);
+	pPublishRecord->set("msgType", v);
 
 	// from to
-	pRecord->set("strProvinceFrom", m_strProvinceFrom);
-	pRecord->set("strCityFrom", m_strCityFrom);
-	pRecord->set("strCountyFrom", m_strCountyFrom);
-	pRecord->set("strProvinceTo", m_strProvinceTo);
-	pRecord->set("strCityTo", m_strCityTo);
-	pRecord->set("strCountyTo", m_strCountyTo);
+	pPublishRecord->set("strProvinceFrom", m_strProvinceFrom);
+	pPublishRecord->set("strCityFrom", m_strCityFrom);
+	pPublishRecord->set("strCountyFrom", m_strCountyFrom);
+	pPublishRecord->set("strProvinceTo", m_strProvinceTo);
+	pPublishRecord->set("strCityTo", m_strCityTo);
+	pPublishRecord->set("strCountyTo", m_strCountyTo);
 
 	// goods info
-	pRecord->set("goodsValue", goodsValue);
-	pRecord->set("goodsCountValue", goodsCountValue);
+	pPublishRecord->set("goodsValue", goodsValue);
+	pPublishRecord->set("goodsCountValue", goodsCountValue);
 
 	// truck info
-	pRecord->set("truckLengthValue", truckLengthValue);
-	pRecord->set("truckTypeValue", truckTypeValue);
-	pRecord->set("truckCountValue", truckCountValue);
+	pPublishRecord->set("truckLengthValue", truckLengthValue);
+	pPublishRecord->set("truckTypeValue", truckTypeValue);
+	pPublishRecord->set("truckCountValue", truckCountValue);
 
 	// price info
-	pRecord->set("priceListValue", priceListValue);
+	pPublishRecord->set("priceListValue", priceListValue);
 
 	// preview
-	pRecord->set("preview", preview);
+	pPublishRecord->set("preview", preview);
 
 	// others
 	v.Format("%d", shipTime.GetCurSel());
-	pRecord->set("shipTime", v);
+	pPublishRecord->set("shipTime", v);
 
 	v.Format("%d", repubSetting.GetCurSel());
-	pRecord->set("repubSetting", v);
+	pPublishRecord->set("repubSetting", v);
 
 	v.Format("%d", rememberRepubSetting);
-	pRecord->set("rememberRepubSetting", v);
+	pPublishRecord->set("rememberRepubSetting", v);
 
 	v.Format("%d", longTimeAvailable);
-	pRecord->set("longTimeAvailable", v);
+	pPublishRecord->set("longTimeAvailable", v);
 
 	// publish string
-	pRecord->set("pubInf", pubInf.c_str());
+	pPublishRecord->set("pubInf", pubInf.c_str());
 
-	CHistoryManager::getInstance()->addPublish(pRecord);
+	//CHistoryManager::getInstance()->addPublish(pPublishRecord);
+}
+
+void CPublishWayTwoDlg::SaveHistory()
+{
+	if ( pPublishRecord == NULL )
+	{
+		return;
+	}
+	CHistoryManager::getInstance()->addPublish(pPublishRecord);
 }
 
 void CPublishWayTwoDlg::FromHistory()

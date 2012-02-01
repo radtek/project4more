@@ -131,6 +131,8 @@ public:
 private:
 	CPublishRecord*		pRecord;
 
+	CPublishRecord*		pPublishRecord;
+
 	void appendToPreview(CString str);
 
 	void initControlValue();
@@ -153,4 +155,6 @@ public:
 	afx_msg void OnBnClickedButtonPw2Clean();
 	afx_msg void OnBnClickedButtonPw2Close();
 	afx_msg void OnCbnSelchangeComboInfoType();
+
+	void SaveHistory();
 };

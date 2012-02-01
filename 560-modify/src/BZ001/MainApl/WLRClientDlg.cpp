@@ -4211,6 +4211,7 @@ void CWLRClientDlg::OnBnClickedButtonPubWayOne()
 
 				}                                                                 
 			}
+			dlg.SaveHistory();
 		}
 	}
 }
@@ -4268,6 +4269,7 @@ void CWLRClientDlg::OnBnClickedButtonPubWayTwo()
 
 				}                                                                 
 			}
+			dlg.SaveHistory();
 		}
 	}
 }

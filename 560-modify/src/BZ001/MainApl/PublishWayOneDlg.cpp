@@ -144,6 +144,9 @@ BOOL CPublishWayOneDlg::OnInitDialog()
 
 void CPublishWayOneDlg::initControlValue()
 {
+	pRecord = NULL;
+	pPublishRecord = NULL;
+
 	msgType.AddString("发布货源");
 	msgType.AddString("发布车源");
 	msgType.SetCurSel(publishKind==0?0:1);
@@ -388,65 +391,74 @@ void CPublishWayOneDlg::OnBnClickedButtonPw1Pub()
 
 void CPublishWayOneDlg::ToHistory()
 {
-	CPublishRecord*		pRecord = new CPublishRecord();
+	pPublishRecord = new CPublishRecord();
 	CString				v;
 
 	// publish type
 	v.Format("%d", msgType.GetCurSel());
-	pRecord->set("msgType", v);
+	pPublishRecord->set("msgType", v);
 
 	// from to
-	pRecord->set("strProvinceFrom", m_strProvinceFrom);
-	pRecord->set("strCityFrom", m_strCityFrom);
-	pRecord->set("strCountyFrom", m_strCountyFrom);
-	pRecord->set("strProvinceTo", m_strProvinceTo);
-	pRecord->set("strCityTo", m_strCityTo);
-	pRecord->set("strCountyTo", m_strCountyTo);
+	pPublishRecord->set("strProvinceFrom", m_strProvinceFrom);
+	pPublishRecord->set("strCityFrom", m_strCityFrom);
+	pPublishRecord->set("strCountyFrom", m_strCountyFrom);
+	pPublishRecord->set("strProvinceTo", m_strProvinceTo);
+	pPublishRecord->set("strCityTo", m_strCityTo);
+	pPublishRecord->set("strCountyTo", m_strCountyTo);
 
 	// goods info
 	v.Format("%d", goodsList.GetCurSel());
-	pRecord->set("goodsList", v);
+	pPublishRecord->set("goodsList", v);
 
-	pRecord->set("goodsCountValue", goodsCountValue);
+	pPublishRecord->set("goodsCountValue", goodsCountValue);
 
 	v.Format("%d", goodsUnit.GetCurSel());
-	pRecord->set("goodsUnit", v);
+	pPublishRecord->set("goodsUnit", v);
 
 	// truck info
 	v.Format("%d", truckLength.GetCurSel());
-	pRecord->set("truckLength", v);
+	pPublishRecord->set("truckLength", v);
 
 	v.Format("%d", truckType.GetCurSel());
-	pRecord->set("truckType", v);
+	pPublishRecord->set("truckType", v);
 
-	pRecord->set("truckCountValue", truckCountValue);
+	pPublishRecord->set("truckCountValue", truckCountValue);
 
 	// price info
-	pRecord->set("priceCountValue", priceCountValue);
+	pPublishRecord->set("priceCountValue", priceCountValue);
 
 	v.Format("%d", priceList.GetCurSel());
-	pRecord->set("priceList", v);
+	pPublishRecord->set("priceList", v);
 
 	// preview
-	pRecord->set("preview", preview);
+	pPublishRecord->set("preview", preview);
 
 	// others
 	v.Format("%d", shipTime.GetCurSel());
-	pRecord->set("shipTime", v);
+	pPublishRecord->set("shipTime", v);
 
 	v.Format("%d", repubSetting.GetCurSel());
-	pRecord->set("repubSetting", v);
+	pPublishRecord->set("repubSetting", v);
 
 	v.Format("%d", rememberRepubSetting);
-	pRecord->set("rememberRepubSetting", v);
+	pPublishRecord->set("rememberRepubSetting", v);
 
 	v.Format("%d", longTimeAvailable);
-	pRecord->set("longTimeAvailable", v);
+	pPublishRecord->set("longTimeAvailable", v);
 
 	// publish string
-	pRecord->set("pubInf", pubInf.c_str());
+	pPublishRecord->set("pubInf", pubInf.c_str());
 
-	CHistoryManager::getInstance()->addPublish(pRecord);
+	//CHistoryManager::getInstance()->addPublish(pPublishRecord);
+}
+
+void CPublishWayOneDlg::SaveHistory()
+{
+	if ( pPublishRecord == NULL )
+	{
+		return;
+	}
+	CHistoryManager::getInstance()->addPublish(pPublishRecord);
 }
 
 void CPublishWayOneDlg::SetComboSection(CComboBox& b, string k)
