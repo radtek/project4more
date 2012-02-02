@@ -93,11 +93,11 @@ void CPubGoodsDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_PUB_GOODS_IFLONGTIME, ifLongTime);
 	//DDX_Check(pDX, IDC_PUB_GOODS_IFUP, ifUp);
 	DDX_Text(pDX, IDC_PUB_GOODS_CUBAGE, cubage);
-	DDV_MaxChars(pDX, preview, 100);
+	//DDV_MaxChars(pDX, preview, 100);
 	DDX_Control(pDX, IDC_PUB_GOODS_PREVIEW_EDIT, m_msgedit);
-	DDV_MaxChars(pDX, weight, 8);
-	DDV_MaxChars(pDX, cubage, 8);
-	DDV_MaxChars(pDX, price, 8);
+	//DDV_MaxChars(pDX, weight, 8);
+	//DDV_MaxChars(pDX, cubage, 8);
+	//DDV_MaxChars(pDX, price, 8);
 }
 
 
@@ -711,14 +711,14 @@ void CPubGoodsDlg::OnBnClickedOk()
     }
 	if (cprice == "" && price != "")
 	{
-		MessageBox("请选择价格类型", "发布货源");
+		MessageBox("请选择价格类型");//, "发布货源");
 		ifOK = false;
 		return;
 	}
 
 	if (cprice != "" && price == "")
 	{
-		MessageBox("价格不能为空", "发布货源");
+		MessageBox("价格不能为空");//, "发布货源");
 		ifOK = false;
 		return;
 	}

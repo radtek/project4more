@@ -365,7 +365,7 @@ void CSearchWayThreeDlg::OnBnClickedButtonSw3Del()
 	}
 	else
 	{
-		MessageBox("请选择要删除的始发地", "系统提示", MB_OK);
+		MessageBox("请选择要删除的始发地");//, "系统提示", MB_OK);
 	}
 }
 

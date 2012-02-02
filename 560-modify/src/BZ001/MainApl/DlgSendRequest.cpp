@@ -49,7 +49,7 @@ void CDlgSendRequest::OnBnClickedButton1()
 
 	if (m_strmsg == "")
 	{
-		MessageBox("发送消息不能为空！","560");
+		MessageBox("发送消息不能为空！");//,"560");
 	} 
 	else
 	{

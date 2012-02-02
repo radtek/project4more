@@ -611,11 +611,12 @@ int CTabSpecialLineDlg::setThisGridContent(int m_nCols,vector<TabSpecialLineReco
                     break;
                 case 6: // 信息内容
                     //item[i].strText = (*iter).record.c_str();
-                    if (ifShowPhone) { 
+                    if (ifShowPhone)
+					{ 
                         //item[i].strText = (*iter).record.c_str();
                         item[i].strText = (*iter).tel.c_str();
                     } else {
-                        item[i].strText = ("联系方式：" + (*iter).pubName).c_str();            
+                        item[i].strText = "";/*("联系方式：" + (*iter).pubName).c_str();*/   
                     }                    
                     break;
                 case 7: // 保留列

@@ -83,7 +83,7 @@ void CPubHistoryDlg::OnBnClickedButtonPublish()
 
 	if ( pos == -1 )
 	{
-		MessageBox("请选择要发布的记录", "历史记录");
+		MessageBox("请选择要发布的记录");//, "历史记录");
 		return;
 	}
 
@@ -100,7 +100,7 @@ void CPubHistoryDlg::OnBnClickedButtonModify()
 
 	if ( pos == -1 )
 	{
-		MessageBox("请选择要修改的记录", "历史记录");
+		MessageBox("请选择要修改的记录");//, "历史记录");
 		return;
 	}
 
@@ -117,7 +117,7 @@ void CPubHistoryDlg::OnBnClickedButtonDelete()
 
 	if ( pos == -1 )
 	{
-		MessageBox("请选择要删除的记录", "历史记录");
+		MessageBox("请选择要删除的记录");//, "历史记录");
 		return;
 	}
 

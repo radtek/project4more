@@ -477,7 +477,7 @@ void CSearchWayTwoDlg::OnBnClickedButtonSw2Del()
 	}
 	else
 	{
-		MessageBox("请选择要删除的目的地", "系统提示", MB_OK);
+		MessageBox("请选择要删除的目的地");//, "系统提示", MB_OK);
 	}
 }
 

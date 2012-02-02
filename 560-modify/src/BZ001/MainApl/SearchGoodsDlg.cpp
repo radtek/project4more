@@ -271,7 +271,7 @@ void CSearchGoodsDlg::OnBnClickedOk()
 
     // 判断必填字段
     if (strStartProvince == "" && strEndProvince == "") {
-        MessageBox("出发地和到达地至少填写一项", "搜索货源");
+        MessageBox("出发地和到达地至少填写一项");//, "搜索货源");
         ifOK = false;
         return;
     }
