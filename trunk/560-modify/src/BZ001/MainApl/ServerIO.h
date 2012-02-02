@@ -33,7 +33,7 @@ public:
 
 
     // Get new cars information
-    int getNewCarsInf(vector<TabNewInfRecord> &inf, inputParam& input);     
+    int getNewCarsInf(vector<TabNewInfRecord> &inf, inputParam& input);
     // Get custom cars information
     int getCustomCarsInf(vector<TabCustomInfRecord> &inf, inputParam& input);
     // Get my cars information
@@ -147,6 +147,8 @@ private:
     int initSoap();
     // –∂‘ÿsoap
     int destroySoap();
+	void FillNewCarsInfo(const vector<string>& tokens, TabNewInfRecord& record);
+	void FillNewGoodsInfo(const vector<string>& tokens, TabNewInfRecord& record);
 private:
     // WebService µÿ÷∑
     string svrURL;

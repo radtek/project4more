@@ -151,13 +151,13 @@ int CheckAddress(const CString& sProvince, const CString& sCity, const CString& 
 		return -4;
 	}
 
-	vector<CString> vecCountiesName;
-	GetCountiesNameByProvinceAndCity(vecCountiesName, sProvince, sCity);
-	
-	if( sCounty.IsEmpty() )
+	if( sCounty.IsEmpty() || sCounty == NO_LIMIT_STRING )
 	{
 		return 0;
 	}
+
+	vector<CString> vecCountiesName;
+	GetCountiesNameByProvinceAndCity(vecCountiesName, sProvince, sCity);
 
 	bool bFind = false;
 	vector<CString>::iterator it = vecCountiesName.begin(), end = vecCountiesName.end();

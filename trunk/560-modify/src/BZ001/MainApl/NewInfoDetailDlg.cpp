@@ -44,6 +44,8 @@ BOOL CNewInfoDetailDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
+	m_publisher.SetBackgroundColor(RGB(235,242,251));
+
 	if( m_nInfoType == eInfoType_Goods || m_nInfoType == eInfoType_Cars )
 	{
 		InitNewInfoDetail((const TabNewInfRecord*)m_pInfoDetail);
@@ -87,7 +89,7 @@ HBRUSH CNewInfoDetailDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
 	if( nCtlColor == CTLCOLOR_DLG )
 	{
-		return (HBRUSH)CreateSolidBrush(RGB(235,242,251));; 
+		return (HBRUSH)CreateSolidBrush(RGB(235,242,251));
 	}
 	if( nCtlColor == CTLCOLOR_STATIC )
 	{

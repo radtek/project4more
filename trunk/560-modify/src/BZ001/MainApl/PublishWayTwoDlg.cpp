@@ -6,6 +6,8 @@
 #include "CommDef.h"
 #include "ContentDlg.h"
 
+extern int g_repubOption;
+
 // CPublishWayTwoDlg dialog
 
 IMPLEMENT_DYNAMIC(CPublishWayTwoDlg, CDialog)
@@ -20,13 +22,13 @@ CPublishWayTwoDlg::CPublishWayTwoDlg(CWnd* pParent /*=NULL*/)
 	, m_strCountyTo(_T(""))
 	, preview(_T(""))
 	, mobile(_T(""))
-	, name(_T(""))
+	, mobile2(_T(""))
 	, shipTimeValue(_T(""))
 	, repubSettingValue(_T(""))
 	, autoClose(FALSE)
 	, withoutFrom(FALSE)
 	, withMobile(FALSE)
-	, withName(FALSE)
+	, withMobile2(FALSE)
 	, longTimeAvailable(FALSE)
 	, rememberRepubSetting(FALSE)
 {
@@ -57,13 +59,13 @@ void CPublishWayTwoDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_PW1_TO_COUNTY, m_strCountyTo);
 	DDX_Text(pDX, IDC_EDIT_PW2_PREVIEW, preview);
 	DDX_Text(pDX, IDC_EDIT_PW2_CONTACT_NAME, mobile);
-	DDX_Text(pDX, IDC_EDIT_PW2_CONTACT_PHONE, name);
+	DDX_Text(pDX, IDC_EDIT_PW2_CONTACT_PHONE, mobile2);
 	DDX_CBString(pDX, IDC_COMBO_PW2_LDGOODS_DT, shipTimeValue);
 	DDX_CBString(pDX, IDC_COMBO_PW2_REPUB_SETTING, repubSettingValue);
 	DDX_Check(pDX, IDC_CHECK_CLOSE, autoClose);
 	DDX_Check(pDX, IDC_CHECK_NO_FROM_ADDR, withoutFrom);
 	DDX_Check(pDX, IDC_CHECK_PW2_CONTACT_NAME, withMobile);
-	DDX_Check(pDX, IDC_CHECK_PW2_CONTACT_PHONE, withName);
+	DDX_Check(pDX, IDC_CHECK_PW2_CONTACT_PHONE, withMobile2);
 	DDX_Check(pDX, IDC_CHECK_PW2_LONGTIME, longTimeAvailable);
 	DDX_Check(pDX, IDC_CHECK_PW2_REM_REPUB_SETTING, rememberRepubSetting);
 }
@@ -161,23 +163,6 @@ void CPublishWayTwoDlg::initControlValue()
 	msgType.AddString("发布车源");
 	msgType.SetCurSel(0);
 
-	shipTime.AddString("随时");
-	CString str;
-	//获取系统时间
-	CTime tm = CTime::GetCurrentTime();
-	for(int i=0; i<15; ++i) {
-		CTime t2 = tm + CTimeSpan( i, 0, 0, 0 );
-		str=t2.Format("%Y-%m-%d");
-		shipTime.AddString(str);
-	}
-	shipTime.SetCurSel(0);
-
-	repubSetting.AddString("不自动重发");
-	repubSetting.AddString("10分钟2次");
-	repubSetting.AddString("30分钟5次");
-	repubSetting.AddString("2小时10次");
-	repubSetting.SetCurSel(0);
-
 	mobile = userInfo.tel.c_str();
 	
 	withMobile = TRUE;
@@ -206,16 +191,37 @@ void CPublishWayTwoDlg::initControlValue()
 	truckCountValue = "1";
 
 	UpdateData(FALSE);
+
+	shipTime.AddString("随时");
+	CString str;
+	//获取系统时间
+	CTime tm = CTime::GetCurrentTime();
+	for(int i=0; i<15; ++i) {
+		CTime t2 = tm + CTimeSpan( i, 0, 0, 0 );
+		str=t2.Format("%Y-%m-%d");
+		shipTime.AddString(str);
+	}
+	shipTime.SetCurSel(0);
+
+	repubSetting.AddString("不自动重发");
+	repubSetting.AddString("10分钟2次");
+	repubSetting.AddString("30分钟5次");
+	repubSetting.AddString("2小时10次");
+	repubSetting.SetCurSel(g_repubOption);
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonW1FromProvince()
 {
 	// TODO: Add your control notification handler code here
+	UpdateData();
 	vector<CString> vecItems;
 	GetProvincesName(vecItems);
 
 	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_FROM_PROVINCE), &vecItems, &m_strProvinceFrom);
-	dlgContent.DoModal();
+	if( dlgContent.DoModal() == IDOK && !m_strProvinceFrom.IsEmpty() )
+	{
+		m_strCityFrom = m_strCountyFrom = NO_LIMIT_STRING;
+	}
 
 	UpdateData(FALSE);
 }
@@ -223,6 +229,7 @@ void CPublishWayTwoDlg::OnBnClickedButtonW1FromProvince()
 void CPublishWayTwoDlg::OnBnClickedButtonW1FromCity()
 {
 	// TODO: Add your control notification handler code here
+	UpdateData();
 	vector<CString> vecItems;
 	GetCitiesNameByProvince(vecItems, m_strProvinceFrom);
 
@@ -238,6 +245,7 @@ void CPublishWayTwoDlg::OnBnClickedButtonW1FromCity()
 void CPublishWayTwoDlg::OnBnClickedButtonW1FromCounty()
 {
 	// TODO: Add your control notification handler code here
+	UpdateData();
 	vector<CString> vecItems;
 	GetCountiesNameByProvinceAndCity(vecItems, m_strProvinceFrom, m_strCityFrom);
 
@@ -250,11 +258,15 @@ void CPublishWayTwoDlg::OnBnClickedButtonW1FromCounty()
 void CPublishWayTwoDlg::OnBnClickedButtonW1ToProvince()
 {
 	// TODO: Add your control notification handler code here
+	UpdateData();
 	vector<CString> vecItems;
 	GetProvincesName(vecItems);
 
 	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_TO_PROVINCE), &vecItems, &m_strProvinceTo);
-	dlgContent.DoModal();
+	if( dlgContent.DoModal() == IDOK && !m_strProvinceTo.IsEmpty() )
+	{
+		m_strCityTo = m_strCountyTo = NO_LIMIT_STRING;
+	}
 
 	UpdateData(FALSE);
 }
@@ -262,6 +274,7 @@ void CPublishWayTwoDlg::OnBnClickedButtonW1ToProvince()
 void CPublishWayTwoDlg::OnBnClickedButtonW1ToCity()
 {
 	// TODO: Add your control notification handler code here
+	UpdateData();
 	vector<CString> vecItems;
 	GetCitiesNameByProvince(vecItems, m_strProvinceTo);
 
@@ -282,6 +295,7 @@ void CPublishWayTwoDlg::OnBnClickedButtonW1ToCity()
 void CPublishWayTwoDlg::OnBnClickedButtonW1ToCounty()
 {
 	// TODO: Add your control notification handler code here
+	UpdateData();
 	vector<CString> vecItems;
 	GetCountiesNameByProvinceAndCity(vecItems, m_strProvinceTo, m_strCityTo);
 
@@ -669,56 +683,69 @@ void CPublishWayTwoDlg::OnBnClickedButtonPw2History()
 
 BOOL CPublishWayTwoDlg::PublishGoodsInfo()
 {
-	if ( goodsValue == "" )
+	//if ( goodsValue == "" )
+	//{
+	//	MessageBox("请选择货物种类");//, "发布货源");
+	//	return FALSE;
+	//}
+
+	//if ( preview == "" )
+	//{
+	//	MessageBox("请先生成预览");//, "发布货源");
+	//	return FALSE;
+	//}
+
+	if ( withMobile && mobile.IsEmpty() ) 
 	{
-		MessageBox("请选择货物种类", "发布货源");
+		MessageBox("联系电话1不能为空");//, "发布货源");
 		return FALSE;
 	}
 
-	if ( preview == "" )
+	if ( withMobile2 && mobile2.IsEmpty() ) 
 	{
-		MessageBox("请先生成预览", "发布货源");
+		MessageBox("联系电话2不能为空");//, "发布货源");
 		return FALSE;
 	}
 
-	if (mobile == "") {
-		MessageBox("联系电话不能为空", "发布货源");
+	if( mobile.IsEmpty() && mobile2.IsEmpty() )
+	{
+		MessageBox("联系电话不能为空");//, "发布货源");
 		return FALSE;
 	}
 
 	if (m_strProvinceFrom == "")
 	{
-		MessageBox("始发地：一级地址不能为空", "发布货源");
+		MessageBox("始发地：一级地址不能为空");//, "发布货源");
 		return FALSE;
 	}
 
 	if( m_strCityFrom == "" )
 	{
-		MessageBox("始发地：二级地址不能为空", "发布货源");
+		MessageBox("始发地：二级地址不能为空");//, "发布货源");
 		return FALSE;
 	}
 
 	if( CheckAddress(m_strProvinceFrom, m_strCityFrom, m_strCountyFrom) != 0 )
 	{
-		MessageBox("始发地：地址信息不合法", "发布货源");
+		MessageBox("始发地：地址信息不合法");//, "发布货源");
 		return FALSE;
 	}
 
 	if (m_strProvinceTo == "")
 	{
-		MessageBox("目的地：一级地址不能为空", "发布货源");
+		MessageBox("目的地：一级地址不能为空");//, "发布货源");
 		return FALSE;
 	}
 
 	if( m_strCityTo == "" )
 	{
-		MessageBox("目的地：二级地址不能为空", "发布货源");
+		MessageBox("目的地：二级地址不能为空");//, "发布货源");
 		return FALSE;
 	}
 
 	if( CheckAddress(m_strProvinceTo, m_strCityTo, m_strCountyTo) != 0 )
 	{
-		MessageBox("目的地：地址信息不合法", "发布货源");
+		MessageBox("目的地：地址信息不合法");//, "发布货源");
 		return FALSE;
 	}
 
@@ -755,15 +782,17 @@ BOOL CPublishWayTwoDlg::PublishGoodsInfo()
 		+ "|" + m_strProvinceTo + "|" + m_strCityTo + "|" + ct
 		+ "|" + goodsValue + "|" + "1" + "|" + "NULL"
 		+ "|" + "普货" + "|" + "1" + "|" + pu + "|NULL|" + tl + "|" + tt + "|"
-		+ "1" + "|" + mobile + "|" + shipTimeValue + "|" + repubSettingValue;
+		+ "1" + "|" + (withMobile?mobile:"") + ((withMobile2&&!mobile2.IsEmpty())?(" "+mobile2):"") + "|" + shipTimeValue + "|" + repubSettingValue;
 
 	if (rememberRepubSetting)
 	{
 		tmp = tmp + "|" + "1"; 
+		g_repubOption = repubSetting.GetCurSel();
 	}
 	else
 	{
 		tmp = tmp + "|" + "0";
+		g_repubOption = 0;
 	}
 
 	if (longTimeAvailable)
@@ -787,64 +816,77 @@ BOOL CPublishWayTwoDlg::PublishGoodsInfo()
 
 BOOL CPublishWayTwoDlg::PublishTruckInfo()
 {
-	if ( goodsValue == "" )
-	{
-		MessageBox("请选择货物种类", "发布车源");
-		return FALSE;
-	}
+	//if ( goodsValue == "" )
+	//{
+	//	MessageBox("请选择货物种类");//, "发布车源");
+	//	return FALSE;
+	//}
 
 	if ( preview == "" )
 	{
-		MessageBox("请先生成预览", "发布车源");
+		MessageBox("请先生成预览");//, "发布车源");
 		return FALSE;
 	}
 
-	if (mobile == "") {
-		MessageBox("联系电话不能为空", "发布车源");
+	if ( withMobile && mobile.IsEmpty() ) 
+	{
+		MessageBox("联系电话1不能为空");//, "发布车源");
+		return FALSE;
+	}
+
+	if ( withMobile2 && mobile2.IsEmpty() ) 
+	{
+		MessageBox("联系电话2不能为空");//, "发布车源");
+		return FALSE;
+	}
+
+	if( mobile.IsEmpty() && mobile2.IsEmpty() )
+	{
+		MessageBox("联系电话不能为空");//, "发布车源");
 		return FALSE;
 	}
 
 	if (m_strProvinceFrom == "")
 	{
-		MessageBox("始发地：一级地址不能为空", "发布车源");
+		MessageBox("始发地：一级地址不能为空");//, "发布车源");
 		return FALSE;
 	}
 
 	if( m_strCityFrom == "" )
 	{
-		MessageBox("始发地：二级地址不能为空", "发布车源");
+		MessageBox("始发地：二级地址不能为空");//, "发布车源");
 		return FALSE;
 	}
 
 	if( CheckAddress(m_strProvinceFrom, m_strCityFrom, m_strCountyFrom) != 0 )
 	{
-		MessageBox("始发地：地址信息不合法", "发布车源");
+		MessageBox("始发地：地址信息不合法");//, "发布车源");
 		return FALSE;
 	}
 
 	if (m_strProvinceTo == "")
 	{
-		MessageBox("目的地：一级地址不能为空", "发布车源");
+		MessageBox("目的地：一级地址不能为空");//, "发布车源");
 		return FALSE;
 	}
 
 	if( m_strCityTo == "" )
 	{
-		MessageBox("目的地：二级地址不能为空", "发布车源");
+		MessageBox("目的地：二级地址不能为空");//, "发布车源");
 		return FALSE;
 	}
 
 	if( CheckAddress(m_strProvinceTo, m_strCityTo, m_strCountyTo) != 0 )
 	{
-		MessageBox("目的地：地址信息不合法", "发布车源");
+		MessageBox("目的地：地址信息不合法");//, "发布车源");
 		return FALSE;
 	}
 
-	if ( truckLengthValue == "" )
-	{
-		MessageBox("请选择车辆长度", "发布车源");
-		return FALSE;
-	}
+	//if ( truckLengthValue == "" )
+	//{
+	//	MessageBox("请选择车辆长度");//, "发布车源");
+	//	return FALSE;
+	//}
 
 	CString	tc = truckCountValue;
 	CString w = goodsCountValue;
@@ -875,15 +917,17 @@ BOOL CPublishWayTwoDlg::PublishTruckInfo()
 		+ "|" + m_strProvinceTo + "|" + m_strCityTo + "|" + ct
 		+ "|||||||"
 		+ tc + "|" + w + "|NULL|" + tl + "|" + tt 
-		+ "|" + goodsValue + "|普货|" + mobile + "|" + shipTimeValue + "|" + repubSettingValue;
+		+ "|" + goodsValue + "|普货|" + (withMobile?mobile:"") + ((withMobile2&&!mobile2.IsEmpty())?(" "+mobile2):"") + "|" + shipTimeValue + "|" + repubSettingValue;
 
 	if (rememberRepubSetting)
 	{
 		tmp = tmp + "|" + "1"; 
+		g_repubOption = repubSetting.GetCurSel();
 	}
 	else
 	{
 		tmp = tmp + "|" + "0";
+		g_repubOption = 0;
 	}
 
 	if (longTimeAvailable)
@@ -1076,9 +1120,6 @@ void CPublishWayTwoDlg::FromHistory()
 
 	preview = pRecord->get("preview");
 
-	SetComboSection(shipTime, "shipTime");
-	SetComboSection(repubSetting, "repubSetting");
-
 	CString	v;
 
 	v = pRecord->get("rememberRepubSetting");
@@ -1106,4 +1147,10 @@ void CPublishWayTwoDlg::FromHistory()
 	v.ReleaseBuffer();
 
 	UpdateData(FALSE);
+
+
+	SetComboSection(shipTime, "shipTime");
+	SetComboSection(repubSetting, "repubSetting");
+
+	UpdateData();
 }

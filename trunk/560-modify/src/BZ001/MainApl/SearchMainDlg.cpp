@@ -150,7 +150,7 @@ void CSearchMainDlg::OnBnClickedButtonAddFavorite()
 	{
 		m_pCurSearch->Confirm();
 		CHistoryManager::getInstance()->addSearchFav(m_pCurSearch);
-		MessageBox("收藏成功", "信息提示", MB_OK);
+		MessageBox("收藏成功");//, "信息提示", MB_OK);
 	}
 }
 

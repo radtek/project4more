@@ -102,13 +102,13 @@ public:
 	CString m_strCountyTo;
 	CString preview;
 	CString mobile;
-	CString name;
+	CString mobile2;
 	CString shipTimeValue;
 	CString repubSettingValue;
 	BOOL autoClose;
 	BOOL withoutFrom;
 	BOOL withMobile;
-	BOOL withName;
+	BOOL withMobile2;
 	BOOL longTimeAvailable;
 	BOOL rememberRepubSetting;
 

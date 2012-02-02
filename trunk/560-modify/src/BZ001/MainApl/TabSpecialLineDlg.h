@@ -42,13 +42,15 @@ public:
     // set grid content font
     int setCridContentFont(SettingFont& font);
     // 设置显示电话开关
-    int setIfShowPhone(bool ifShow) {
+    int setIfShowPhone(bool ifShow) 
+	{
         ifShowPhone = ifShow;
-		//try
+		try
 		{
+			m_btnSecrecy.LoadBitmap(ifShowPhone?IDB_HIDE_PHONE_NUM:IDB_SHOWPHONE);
 			return setData(curType, curInput.curpage);;
 		}
-		//catch (...)
+		catch (...)
 		{
 
 		}

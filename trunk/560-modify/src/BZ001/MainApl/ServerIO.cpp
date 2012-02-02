@@ -401,46 +401,7 @@ int ServerIO::getNewGoodsInf(vector<TabNewInfRecord> &inf, inputParam& input)
 #else
 			if (tokens.at(0) == "TRUE" && tokens.size() >= 16)
 			{
-				tmp.totalNum = tokens.at(1);
-				tmp.returnNum = tokens.at(2);
-				tmp.recordID = tokens.at(3);
-				tmp.startPlace = tokens.at(4) + tokens.at(5);
-				if (tokens.at(6) != "NULL")
-				{
-					tmp.startPlace +=  tokens.at(6);
-				}
-
-				tmp.endPlace = tokens.at(7) + tokens.at(8);
-
-				if (tokens.at(9) != "NULL")
-				{
-					tmp.endPlace +=  tokens.at(9);
-				}
-
-				tmp.record = tokens.at(13) + "(" + (tmp.pubTime = tokens.at(14)) + ")。";
-				tmp.tel = " ";
-				if (tokens.at(10) != "NULL") {
-					tmp.tel +=  tmp.pubName = tokens.at(10);
-					tmp.tel += " ";
-				} else {
-					if (tokens.at(11) != "NULL") {
-						tmp.tel +=  tmp.pubName = tokens.at(11);
-						tmp.tel += " ";
-					}
-				}
-				//tmp.tel += tokens.at(12);
-				if (tokens.at(12) != "NULL")
-				{
-					tmp.tel += tokens.at(12);
-				}
-				tmp.pubUID = tokens.at(15);
-
-				if( tokens.size() >=  20 )
-				{
-					tmp.pubAddress = tokens.at(17);
-					tmp.dateTime = tokens.at(18);
-					tmp.state = tokens.at(19);
-				}
+				FillNewGoodsInfo(tokens, tmp);
 				inf.push_back(tmp);                
 			}
 #endif
@@ -1116,71 +1077,9 @@ int ServerIO::getNewCarsInf(vector<TabNewInfRecord> &inf, inputParam& input)
 				infTemp.push_back(tmp);                
 			}
 #else
-			if (tokens.at(0) == "TRUE" && tokens.size() >= 22) {
-				tmp.totalNum = tokens.at(1);
-				tmp.returnNum = tokens.at(2);
-				tmp.recordID = tokens.at(3);
-
-				tmp.startPlace = tokens.at(4) + tokens.at(5);
-
-				if (tokens.at(6) != "NULL")
-				{
-					tmp.startPlace +=  tokens.at(6);
-				}
-
-				tmp.endPlace = tokens.at(7) + tokens.at(8);
-
-				if (tokens.at(9) != "NULL")
-				{
-					tmp.endPlace +=  tokens.at(9);
-				}
-
-				if (tokens.at(10) != "NULL")
-				{
-					tmp.endPlace += " ";
-					tmp.endPlace += tokens.at(10);
-					tmp.endPlace += tokens.at(11);
-					if (tokens.at(12) != "NULL")
-					{
-						tmp.endPlace +=  tokens.at(12);
-					}
-				}
-
-				if (tokens.at(13) != "NULL")
-				{
-					tmp.endPlace += " ";
-					tmp.endPlace += tokens.at(13);
-					tmp.endPlace += tokens.at(14);
-					if (tokens.at(15) != "NULL")
-					{
-						tmp.endPlace +=  tokens.at(15);
-					}
-				}
-
-				tmp.record = tokens.at(19) + "(" + (tmp.pubTime = tokens.at(20)) + ")。";
-				tmp.tel = " ";
-				if (tokens.at(16) != "NULL") {
-					tmp.tel +=  tmp.pubName = tokens.at(16);
-					tmp.tel += " ";
-				} else {
-					if (tokens.at(17) != "NULL") {
-						tmp.tel +=  tmp.pubName = tokens.at(17);
-						tmp.tel += " ";
-					}
-				}
-				if (tokens.at(18) != "NULL")
-				{
-					tmp.tel += tokens.at(18);
-				}
-				tmp.pubUID = tokens.at(21);
-
-				if( tokens.size() >= 26)
-				{
-					//tmp.pubURL = tokens.at(22); not used
-					tmp.pubAddress = tokens.at(23);
-					tmp.dateTime = tokens.at(24);
-					tmp.state = tokens.at(25);
-				}
+			if (tokens.at(0) == "TRUE" && tokens.size() >= 22)
+			{
+				FillNewCarsInfo(tokens, tmp);
 				inf.push_back(tmp);                
 			}
 #endif
@@ -2020,40 +1919,9 @@ int ServerIO::getSearchGoodsInf(const string& sKeyword, vector<TabNewInfRecord> 
 				inf.push_back(tmp);                
 			}
 #else
-			if (tokens.at(0) == "TRUE" && tokens.size() >= 16) {
-				tmp.totalNum = tokens.at(1);
-				tmp.returnNum = tokens.at(2);
-				tmp.recordID = tokens.at(3);
-				tmp.startPlace = tokens.at(4) + tokens.at(5);
-				if (tokens.at(6) != "NULL")
-				{
-					tmp.startPlace +=  tokens.at(6);
-				}
-
-				tmp.endPlace = tokens.at(7) + tokens.at(8);
-
-				if (tokens.at(9) != "NULL")
-				{
-					tmp.endPlace +=  tokens.at(9);
-				}
-
-				tmp.record = tokens.at(13) + "(" + tokens.at(14) + ")。";
-				tmp.tel = " ";
-				if (tokens.at(10) != "NULL") {
-					tmp.tel +=  tokens.at(10);
-					tmp.tel += " ";
-				} else {
-					if (tokens.at(11) != "NULL") {
-						tmp.tel +=  tokens.at(11);
-						tmp.tel += " ";
-					}
-				}
-				//tmp.tel += tokens.at(12);
-				if (tokens.at(12) != "NULL")
-				{
-					tmp.tel += tokens.at(12);
-				}
-				tmp.pubUID = tokens.at(15);
+			if (tokens.at(0) == "TRUE" && tokens.size() >= 16) 
+			{
+				FillNewGoodsInfo(tokens, tmp);
 				inf.push_back(tmp);                
 			}
 #endif
@@ -2155,64 +2023,9 @@ int ServerIO::getSearchCarsInf(const string& sKeyword, vector<TabNewInfRecord> &
 				inf.push_back(tmp);                
 			}
 #else
-			if (tokens.at(0) == "TRUE" && tokens.size() >= 22) {
-				tmp.totalNum = tokens.at(1);
-				tmp.returnNum = tokens.at(2);
-				tmp.recordID = tokens.at(3);
-
-				tmp.startPlace = tokens.at(4) + tokens.at(5);
-
-				if (tokens.at(6) != "NULL")
-				{
-					tmp.startPlace +=  tokens.at(6);
-				}
-
-				tmp.endPlace = tokens.at(7) + tokens.at(8);
-
-				if (tokens.at(9) != "NULL")
-				{
-					tmp.endPlace +=  tokens.at(9);
-				}
-
-				if (tokens.at(10) != "NULL")
-				{
-					tmp.endPlace += " ";
-					tmp.endPlace += tokens.at(10);
-					tmp.endPlace += tokens.at(11);
-					if (tokens.at(12) != "NULL")
-					{
-						tmp.endPlace +=  tokens.at(12);
-					}
-				}
-
-				if (tokens.at(13) != "NULL")
-				{
-					tmp.endPlace += " ";
-					tmp.endPlace += tokens.at(13);
-					tmp.endPlace += tokens.at(14);
-					if (tokens.at(15) != "NULL")
-					{
-						tmp.endPlace +=  tokens.at(15);
-					}
-				}
-
-				tmp.record = tokens.at(19) + "(" + tokens.at(20) + ")。";
-				tmp.tel = " ";
-				if (tokens.at(16) != "NULL") {
-					tmp.tel +=  tokens.at(16);
-					tmp.tel += " ";
-				} else {
-					if (tokens.at(17) != "NULL") {
-						tmp.tel +=  tokens.at(17);
-						tmp.tel += " ";
-					}
-				}
-				//tmp.tel += tokens.at(18);
-				if (tokens.at(18) != "NULL")
-				{
-					tmp.tel += tokens.at(18);
-				}
-				tmp.pubUID = tokens.at(21);
+			if (tokens.at(0) == "TRUE" && tokens.size() >= 22) 
+			{
+				FillNewCarsInfo(tokens,tmp);
 				inf.push_back(tmp);                
 			}
 #endif
@@ -2290,68 +2103,19 @@ int ServerIO::getSearchGoodsAndCarsInfo(const string& sSearchKeyword, vector<Tab
 				inf.push_back(tmp);                
 			}
 #else
-			if (tokens.at(0) == "TRUE" && tokens.size() >= 22) {
-				tmp.totalNum = tokens.at(1);
-				tmp.returnNum = tokens.at(2);
-				tmp.recordID = tokens.at(3);
-
-				tmp.startPlace = tokens.at(4) + tokens.at(5);
-
-				if (tokens.at(6) != "NULL")
+			if (tokens.at(0) == "TRUE") 
+			{
+				if( tokens.at(tokens.size()-1) == "0")
 				{
-					tmp.startPlace +=  tokens.at(6);
+					FillNewGoodsInfo(tokens, tmp);
 				}
-
-				tmp.endPlace = tokens.at(7) + tokens.at(8);
-
-				if (tokens.at(9) != "NULL")
+				else
 				{
-					tmp.endPlace +=  tokens.at(9);
+					FillNewCarsInfo(tokens, tmp);
 				}
-
-				if (tokens.at(10) != "NULL")
-				{
-					tmp.endPlace += " ";
-					tmp.endPlace += tokens.at(10);
-					tmp.endPlace += tokens.at(11);
-					if (tokens.at(12) != "NULL")
-					{
-						tmp.endPlace +=  tokens.at(12);
-					}
-				}
-
-				if (tokens.at(13) != "NULL")
-				{
-					tmp.endPlace += " ";
-					tmp.endPlace += tokens.at(13);
-					tmp.endPlace += tokens.at(14);
-					if (tokens.at(15) != "NULL")
-					{
-						tmp.endPlace +=  tokens.at(15);
-					}
-				}
-
-				tmp.record = tokens.at(19) + "(" + tokens.at(20) + ")。";
-				tmp.tel = " ";
-				if (tokens.at(16) != "NULL") {
-					tmp.tel +=  tokens.at(16);
-					tmp.tel += " ";
-				} else {
-					if (tokens.at(17) != "NULL") {
-						tmp.tel +=  tokens.at(17);
-						tmp.tel += " ";
-					}
-				}
-				//tmp.tel += tokens.at(18);
-				if (tokens.at(18) != "NULL")
-				{
-					tmp.tel += tokens.at(18);
-				}
-				tmp.pubUID = tokens.at(21);
 				inf.push_back(tmp);                
 			}
 #endif
-
 
 			++iter;
 		}	   
@@ -2421,13 +2185,27 @@ int ServerIO::getSearchSpecialLineInf(const InSearchSpecail& keyword, vector<Tab
                 tmp.needTime = tokens.at(11);
                 tmp.record = "(" + tokens.at(14) + ")";
 
-                tmp.tel = " 联系方式：";
-                if (tokens.at(12) != "NULL") {
-                    tmp.tel +=  tokens.at(12);
-                    tmp.tel += " ";
-                }
-                tmp.tel += tokens.at(13);
+				tmp.tel = " 联系方式：";
+				if (tokens.at(12) != "NULL") {
+					tmp.tel +=  tmp.pubName = tokens.at(12);
+					tmp.tel += " ";
+				}
+				if (tokens.at(13) != "NULL")
+				{
+					tmp.tel += tokens.at(13);
+				}
+
                 tmp.pubUID = tokens.at(15);
+
+				if( tokens.size() == 22)
+				{
+					tmp.startAddr = tokens.at(16);
+					tmp.startContact = tokens.at(17);
+					tmp.startPhone = tokens.at(18);
+					tmp.destAddr = tokens.at(19);
+					tmp.destContact = tokens.at(20);
+					tmp.destPhone = tokens.at(21);
+				}
                 inf.push_back(tmp);                
             }
 
@@ -2946,7 +2724,8 @@ int ServerIO::getClickSearchBulkGoodsInf(const InClickSearch& keyword, vector<Ta
 				inf.push_back(tmp);                
 			}
 #else
-			if (tokens.at(0) == "TRUE" && tokens.size() >= 16) {
+			if (tokens.at(0) == "TRUE" && tokens.size() >= 16) 
+			{
 				tmp.totalNum = tokens.at(1);
 				tmp.returnNum = tokens.at(2);
 				tmp.recordID = tokens.at(3);
@@ -3748,4 +3527,122 @@ string ServerIO::check_charge_user (string login_name)
 	}
 #endif
 	return retval;
+}
+
+
+void ServerIO::FillNewCarsInfo(const vector<string>& tokens, TabNewInfRecord& record)
+{
+	if (tokens.at(0) == "TRUE" && tokens.size() >= 22)
+	{
+		record.totalNum = tokens.at(1);
+		record.returnNum = tokens.at(2);
+		record.recordID = tokens.at(3);
+
+		record.startPlace = tokens.at(4) + tokens.at(5);
+
+		if (tokens.at(6) != "NULL")
+		{
+			record.startPlace +=  tokens.at(6);
+		}
+
+		record.endPlace = tokens.at(7) + tokens.at(8);
+
+		if (tokens.at(9) != "NULL")
+		{
+			record.endPlace +=  tokens.at(9);
+		}
+
+		if (tokens.at(10) != "NULL")
+		{
+			record.endPlace += " ";
+			record.endPlace += tokens.at(10);
+			record.endPlace += tokens.at(11);
+			if (tokens.at(12) != "NULL")
+			{
+				record.endPlace +=  tokens.at(12);
+			}
+		}
+
+		if (tokens.at(13) != "NULL")
+		{
+			record.endPlace += " ";
+			record.endPlace += tokens.at(13);
+			record.endPlace += tokens.at(14);
+			if (tokens.at(15) != "NULL")
+			{
+				record.endPlace +=  tokens.at(15);
+			}
+		}
+
+		record.record = tokens.at(19) + "(" + (record.pubTime = tokens.at(20)) + ")。";
+		record.tel = " ";
+		if (tokens.at(16) != "NULL") {
+			record.tel +=  record.pubName = tokens.at(16);
+			record.tel += " ";
+		} else {
+			if (tokens.at(17) != "NULL") {
+				record.tel +=  record.pubName = tokens.at(17);
+				record.tel += " ";
+			}
+		}
+		if (tokens.at(18) != "NULL")
+		{
+			record.tel += tokens.at(18);
+		}
+		record.pubUID = tokens.at(21);
+
+		if( tokens.size() >= 26)
+		{
+			//record.pubURL = tokens.at(22); not used
+			record.pubAddress = tokens.at(23);
+			record.dateTime = tokens.at(24);
+			record.state = tokens.at(25);
+		}
+	}
+}
+void ServerIO::FillNewGoodsInfo(const vector<string>& tokens, TabNewInfRecord& record)
+{
+	if (tokens.at(0) == "TRUE" && tokens.size() >= 16)
+	{
+		record.totalNum = tokens.at(1);
+		record.returnNum = tokens.at(2);
+		record.recordID = tokens.at(3);
+		record.startPlace = tokens.at(4) + tokens.at(5);
+		if (tokens.at(6) != "NULL")
+		{
+			record.startPlace +=  tokens.at(6);
+		}
+
+		record.endPlace = tokens.at(7) + tokens.at(8);
+
+		if (tokens.at(9) != "NULL")
+		{
+			record.endPlace +=  tokens.at(9);
+		}
+
+		record.record = tokens.at(13) + "(" + (record.pubTime = tokens.at(14)) + ")。";
+		record.tel = " ";
+		if (tokens.at(10) != "NULL") {
+			record.tel +=  record.pubName = tokens.at(10);
+			record.tel += " ";
+		} else {
+			if (tokens.at(11) != "NULL") {
+				record.tel +=  record.pubName = tokens.at(11);
+				record.tel += " ";
+			}
+		}
+		//record.tel += tokens.at(12);
+		if (tokens.at(12) != "NULL")
+		{
+			record.tel += tokens.at(12);
+		}
+		record.pubUID = tokens.at(15);
+
+		if( tokens.size() >=  20 )
+		{
+			record.pubAddress = tokens.at(17);
+			record.dateTime = tokens.at(18);
+			record.state = tokens.at(19);
+		}
+	}
 }

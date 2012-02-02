@@ -7,6 +7,7 @@
 #include "ContentDlg.h"
 #include "NumberDlg.h"
 
+int g_repubOption = 0;
 
 
 // CPublishWayOne dialog
@@ -188,24 +189,6 @@ void CPublishWayOneDlg::initControlValue()
 	{
 		priceList.AddString(g_priceType[n]);
 	}
-
-	shipTime.AddString("随时");
-	CString str;
-	//获取系统时间
-	CTime tm = CTime::GetCurrentTime();
-	for(int i=0; i<15; ++i) {
-		CTime t2 = tm + CTimeSpan( i, 0, 0, 0 );
-		str=t2.Format("%Y-%m-%d");
-		shipTime.AddString(str);
-	}
-	shipTime.SetCurSel(0);
-
-	repubSetting.AddString("不自动重发");
-	repubSetting.AddString("10分钟2次");
-	repubSetting.AddString("30分钟5次");
-	repubSetting.AddString("2小时10次");
-	repubSetting.SetCurSel(0);
-
 	mobile = userInfo.tel.c_str();
 
 	m_strProvinceFrom = userInfo.province.c_str();
@@ -226,17 +209,39 @@ void CPublishWayOneDlg::initControlValue()
 	goodsList.SetCurSel(5);
 
 	UpdateData(FALSE);
+
+	shipTime.AddString("随时");
+	CString str;
+	//获取系统时间
+	CTime tm = CTime::GetCurrentTime();
+	for(int i=0; i<15; ++i) {
+		CTime t2 = tm + CTimeSpan( i, 0, 0, 0 );
+		str=t2.Format("%Y-%m-%d");
+		shipTime.AddString(str);
+	}
+	shipTime.SetCurSel(0);
+
+	repubSetting.AddString("不自动重发");
+	repubSetting.AddString("10分钟2次");
+	repubSetting.AddString("30分钟5次");
+	repubSetting.AddString("2小时10次");
+	repubSetting.SetCurSel(g_repubOption);
 }
 
 
 void CPublishWayOneDlg::OnBnClickedButtonPw1FromProvince()
 {
 	// TODO: Add your control notification handler code here
+	UpdateData();
 	vector<CString> vecItems;
 	GetProvincesName(vecItems);
 
 	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_FROM_PROVINCE), &vecItems, &m_strProvinceFrom);
-	dlgContent.DoModal();
+	if( dlgContent.DoModal() == IDOK && !m_strProvinceFrom.IsEmpty() )
+	{
+		m_strCityFrom = NO_LIMIT_STRING;
+		m_strCountyFrom = NO_LIMIT_STRING;
+	}
 
 	UpdateData(FALSE);
 }
@@ -244,13 +249,14 @@ void CPublishWayOneDlg::OnBnClickedButtonPw1FromProvince()
 void CPublishWayOneDlg::OnBnClickedButtonPw1FromCity()
 {
 	// TODO: Add your control notification handler code here
+	UpdateData();
 	vector<CString> vecItems;
 	GetCitiesNameByProvince(vecItems, m_strProvinceFrom);
 
 	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_FROM_CITY), &vecItems, &m_strCityFrom);
 	if( dlgContent.DoModal() == IDOK && !m_strCityFrom.IsEmpty())
 	{
-		m_strCountyFrom = _T("不限");
+		m_strCountyFrom = NO_LIMIT_STRING;
 	}
 
 	UpdateData(FALSE);
@@ -259,6 +265,7 @@ void CPublishWayOneDlg::OnBnClickedButtonPw1FromCity()
 void CPublishWayOneDlg::OnBnClickedButtonPw1FromCounty()
 {
 	// TODO: Add your control notification handler code here
+	UpdateData();
 	vector<CString> vecItems;
 	GetCountiesNameByProvinceAndCity(vecItems, m_strProvinceFrom, m_strCityFrom);
 
@@ -271,11 +278,15 @@ void CPublishWayOneDlg::OnBnClickedButtonPw1FromCounty()
 void CPublishWayOneDlg::OnBnClickedButtonW1ToProvince()
 {
 	// TODO: Add your control notification handler code here
+	UpdateData();
 	vector<CString> vecItems;
 	GetProvincesName(vecItems);
 
 	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_TO_PROVINCE), &vecItems, &m_strProvinceTo);
-	dlgContent.DoModal();
+	if( dlgContent.DoModal() == IDOK && !m_strProvinceTo.IsEmpty() )
+	{
+		m_strCityTo = m_strCountyTo = NO_LIMIT_STRING;
+	}
 
 	UpdateData(FALSE);
 }
@@ -283,6 +294,7 @@ void CPublishWayOneDlg::OnBnClickedButtonW1ToProvince()
 void CPublishWayOneDlg::OnBnClickedButtonW1ToCity()
 {
 	// TODO: Add your control notification handler code here
+	UpdateData();
 	vector<CString> vecItems;
 	GetCitiesNameByProvince(vecItems, m_strProvinceTo);
 
@@ -298,6 +310,7 @@ void CPublishWayOneDlg::OnBnClickedButtonW1ToCity()
 void CPublishWayOneDlg::OnBnClickedButtonW1ToCounty()
 {
 	// TODO: Add your control notification handler code here
+	UpdateData();
 	vector<CString> vecItems;
 	GetCountiesNameByProvinceAndCity(vecItems, m_strProvinceTo, m_strCityTo);
 
@@ -380,11 +393,11 @@ void CPublishWayOneDlg::OnBnClickedButtonPw1Pub()
 	// TODO: Add your control notification handler code here
 	UpdateData();
 
-	if (!bPreview)
+	/*if (!bPreview)
 	{
 		MessageBox("在发布前请先预览！", "发布");
 		return;
-	}
+	}*/
 	if (preview == "")
 	{
 		MessageBox("预览不能为空！", "发布");
@@ -553,9 +566,6 @@ void CPublishWayOneDlg::FromHistory()
 
 	preview = pRecord->get("preview");
 
-	SetComboSection(shipTime, "shipTime");
-	SetComboSection(repubSetting, "repubSetting");
-
 	CString	v;
 
 	v = pRecord->get("rememberRepubSetting");
@@ -583,6 +593,10 @@ void CPublishWayOneDlg::FromHistory()
 	v.ReleaseBuffer();
 
 	UpdateData(FALSE);
+	SetComboSection(shipTime, "shipTime");
+	SetComboSection(repubSetting, "repubSetting");
+
+	UpdateData();
 }
 
 void CPublishWayOneDlg::OnBnClickedButtonPw1Clean()
@@ -666,55 +680,55 @@ BOOL CPublishWayOneDlg::CheckGoodsInfo()
 {
 	if ( goodsValue == "" )
 	{
-		MessageBox("请选择货物种类", "发布货源");
+		MessageBox("请选择货物种类");//, "发布货源");
 		return FALSE;
 	}
 
 	if (priceListValue == "" && priceCountValue != "")
 	{
-		MessageBox("请选择价格类型", "发布货源");
+		MessageBox("请选择价格类型");//, "发布货源");
 		return FALSE;
 	}
 
 	if (priceListValue != "" && priceCountValue == "")
 	{
-		MessageBox("价格不能为空", "发布货源");
+		MessageBox("价格不能为空");//, "发布货源");
 		return FALSE;
 	}
 
 	if (m_strProvinceFrom == "")
 	{
-		MessageBox("始发地：一级地址不能为空", "发布货源");
+		MessageBox("始发地：一级地址不能为空");//, "发布货源");
 		return FALSE;
 	}
 
 	if( m_strCityFrom == "" )
 	{
-		MessageBox("始发地：二级地址不能为空", "发布货源");
+		MessageBox("始发地：二级地址不能为空");//, "发布货源");
 		return FALSE;
 	}
 
 	if( CheckAddress(m_strProvinceFrom, m_strCityFrom, m_strCountyFrom) != 0 )
 	{
-		MessageBox("始发地：地址信息不合法", "发布货源");
+		MessageBox("始发地：地址信息不合法");//, "发布货源");
 		return FALSE;
 	}
 
 	if (m_strProvinceTo == "")
 	{
-		MessageBox("目的地：一级地址不能为空", "发布货源");
+		MessageBox("目的地：一级地址不能为空");//, "发布货源");
 		return FALSE;
 	}
 
 	if( m_strCityTo == "" )
 	{
-		MessageBox("目的地：二级地址不能为空", "发布货源");
+		MessageBox("目的地：二级地址不能为空");//, "发布货源");
 		return FALSE;
 	}
 
 	if( CheckAddress(m_strProvinceTo, m_strCityTo, m_strCountyTo) != 0 )
 	{
-		MessageBox("目的地：地址信息不合法", "发布货源");
+		MessageBox("目的地：地址信息不合法");//, "发布货源");
 		return FALSE;
 	}
 
@@ -766,50 +780,50 @@ BOOL CPublishWayOneDlg::CheckTruckInfo()
 {
 	if ( goodsValue == "" )
 	{
-		MessageBox("请选择货物种类", "发布车源");
+		MessageBox("请选择货物种类");//, "发布车源");
 		return FALSE;
 	}
 
 
 	if (m_strProvinceFrom == "")
 	{
-		MessageBox("始发地：一级地址不能为空", "发布车源");
+		MessageBox("始发地：一级地址不能为空");//, "发布车源");
 		return FALSE;
 	}
 
 	if( m_strCityFrom == "" )
 	{
-		MessageBox("始发地：二级地址不能为空", "发布车源");
+		MessageBox("始发地：二级地址不能为空");//, "发布车源");
 		return FALSE;
 	}
 
 	if( CheckAddress(m_strProvinceFrom, m_strCityFrom, m_strCountyFrom) != 0 )
 	{
-		MessageBox("始发地：地址信息不合法", "发布车源");
+		MessageBox("始发地：地址信息不合法");//, "发布车源");
 		return FALSE;
 	}
 
 	if (m_strProvinceTo == "")
 	{
-		MessageBox("目的地：一级地址不能为空", "发布车源");
+		MessageBox("目的地：一级地址不能为空");//, "发布车源");
 		return FALSE;
 	}
 
 	if( m_strCityTo == "" )
 	{
-		MessageBox("目的地：二级地址不能为空", "发布车源");
+		MessageBox("目的地：二级地址不能为空");//, "发布车源");
 		return FALSE;
 	}
 
 	if( CheckAddress(m_strProvinceTo, m_strCityTo, m_strCountyTo) != 0 )
 	{
-		MessageBox("目的地：地址信息不合法", "发布车源");
+		MessageBox("目的地：地址信息不合法");//, "发布车源");
 		return FALSE;
 	}
 
 	if ( truckLengthValue == "" )
 	{
-		MessageBox("请选择车辆长度", "发布车源");
+		MessageBox("请选择车辆长度");//, "发布车源");
 		return FALSE;
 	}
 
@@ -850,21 +864,21 @@ BOOL CPublishWayOneDlg::PublishGoodsInfo()
 		return FALSE;
 	}
 
-	if ( (withMobile && mobile == "" ) ) 
+	if ( (withMobile && mobile.IsEmpty() ) ) 
 	{
-		MessageBox("联系电话1不能为空", "发布货源");
+		MessageBox("联系电话1不能为空");//, "发布货源");
 		return FALSE;
 	}
 
-	if ( (withMobile2 && mobile2 == "" ) ) 
+	if ( (withMobile2 && mobile2.IsEmpty() ) ) 
 	{
-		MessageBox("联系电话2不能为空", "发布货源");
+		MessageBox("联系电话2不能为空");//, "发布货源");
 		return FALSE;
 	}
 
-	if( mobile == "" && mobile2 == "" )
+	if( mobile.IsEmpty() && mobile2.IsEmpty() )
 	{
-		MessageBox("联系电话不能为空", "发布货源");
+		MessageBox("联系电话不能为空");//, "发布货源");
 		return FALSE;
 	}
 
@@ -914,10 +928,12 @@ BOOL CPublishWayOneDlg::PublishGoodsInfo()
 	if (rememberRepubSetting)
 	{
 		tmp = tmp + "|" + "1"; 
+		g_repubOption = repubSetting.GetCurSel();
 	}
 	else
 	{
 		tmp = tmp + "|" + "0";
+		g_repubOption = 0;
 	}
 
 	if (longTimeAvailable)
@@ -946,8 +962,21 @@ BOOL CPublishWayOneDlg::PublishTruckInfo()
 		return FALSE;
 	}
 
-	if (mobile == "") {
-		MessageBox("联系电话不能为空", "发布货源");
+	if ( withMobile && mobile.IsEmpty() ) 
+	{
+		MessageBox("联系电话1不能为空");//, "发布车源");
+		return FALSE;
+	}
+
+	if ( withMobile2 && mobile2.IsEmpty()) 
+	{
+		MessageBox("联系电话2不能为空");//, "发布车源");
+		return FALSE;
+	}
+
+	if( mobile.IsEmpty() && mobile2.IsEmpty())
+	{
+		MessageBox("联系电话不能为空");//, "发布车源");
 		return FALSE;
 	}
 
@@ -980,15 +1009,17 @@ BOOL CPublishWayOneDlg::PublishTruckInfo()
 		+ "|" + m_strProvinceTo + "|" + m_strCityTo + "|" + ct
 		+ "|||||||"
 		+ tc + "|" + w + "|NULL|" + tl + "|" + tt 
-		+ "|" + goodsValue + "|普货|" + mobile + "|" + shipTimeValue + "|" + repubSettingValue;
+		+ "|" + goodsValue + "|普货|" + (withMobile?mobile:"") + ((withMobile2&&!mobile2.IsEmpty())?(" "+mobile2):"") + "|" + shipTimeValue + "|" + repubSettingValue;
 	
 	if (rememberRepubSetting)
 	{
 		tmp = tmp + "|" + "1"; 
+		g_repubOption = repubSetting.GetCurSel();
 	}
 	else
 	{
 		tmp = tmp + "|" + "0";
+		g_repubOption = 0;
 	}
 
 	if (longTimeAvailable)

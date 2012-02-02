@@ -2118,6 +2118,7 @@ int CWLRClientDlg::setCarsInf(int tabIndex)
 int CWLRClientDlg::setSpecialLineInf(int tabIndex)
 {
     m_curTabType = LINES;
+	m_curSearchType = TabType_UNKNOWN;
     hideAllWindows();
 
     mTabMain.DeleteAllItems();

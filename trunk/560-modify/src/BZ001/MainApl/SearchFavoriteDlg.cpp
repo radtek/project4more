@@ -105,7 +105,7 @@ void CSearchFavoriteDlg::OnBnClickedButtonUse()
 	int nSelIndex = m_listCtrlFavorite.GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
 	if( nSelIndex == -1 )
 	{
-		MessageBox(_T("请选择要使用的搜索"), _T("系统提示"), MB_OK);
+		MessageBox(_T("请选择要使用的搜索"));//, _T("系统提示"), MB_OK);
 		return;
 	}
 	CString sName;
@@ -119,7 +119,7 @@ void CSearchFavoriteDlg::OnBnClickedButtonDel()
 	int nSelIndex = m_listCtrlFavorite.GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
 	if( nSelIndex == -1 )
 	{
-		MessageBox(_T("请选择要删除的搜索"), _T("系统提示"), MB_OK);
+		MessageBox(_T("请选择要删除的搜索"));//, _T("系统提示"), MB_OK);
 		return;
 	}
 
@@ -143,7 +143,7 @@ void CSearchFavoriteDlg::OnBnClickedButtonRename()
 	int nSelIndex = m_listCtrlFavorite.GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
 	if( nSelIndex == -1 )
 	{
-		MessageBox(_T("请选择要重命名的搜索"), _T("系统提示"), MB_OK);
+		MessageBox(_T("请选择要重命名的搜索"));//, _T("系统提示"), MB_OK);
 		return;
 	}
 	CSearchFavRenameDlg dlg;

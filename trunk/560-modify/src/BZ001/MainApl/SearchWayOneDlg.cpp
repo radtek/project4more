@@ -69,15 +69,21 @@ BOOL CSearchWayOneDlg::OnInitDialog()
 	if( IsSpecialProvince(sProvinceFrom) )
 	{
 		sCityFrom = sProvinceFrom;
-	}
-	if( user.province != user.city )
-	{
-		sCountyFrom = user.city.c_str();
+		if( user.province != user.city )
+		{
+			sCountyFrom = user.city.c_str();
+		}
+		else
+		{
+			sCountyFrom = NO_LIMIT_STRING;
+		}
 	}
 	else
 	{
+		sCityFrom = user.city.c_str();
 		sCountyFrom = NO_LIMIT_STRING;
 	}
+	
 
 
 	AddStartAddr(sProvinceFrom, sCityFrom, sCountyFrom);
