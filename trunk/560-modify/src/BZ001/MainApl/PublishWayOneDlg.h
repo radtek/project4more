@@ -120,6 +120,7 @@ private:
 	void initControlValue();
 
 	void MoveControl(CWnd& control, int dx, int dy);
+	void MoveAllControl();
 
 	void BuildGoodsPreview();
 

@@ -37,4 +37,6 @@ private:
 	CStatic m_staticTitle;
 	CButton m_btnClose;
 	CListBox m_listContent;
+public:
+	afx_msg void OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized);
 };

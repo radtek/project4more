@@ -125,7 +125,13 @@ const void GetCountiesNameByProvinceAndCity(vector<CString> &vecCountiesName, co
 
 		tdVecCounty::const_iterator it = pVecCounties->begin(), end = pVecCounties->end();
 		for(it; it != end; ++it)
+		{
 			vecCountiesName.push_back(it->name.c_str());
+		}
+		if( find(vecCountiesName.begin(), vecCountiesName.end(), NO_LIMIT_STRING) == vecCountiesName.end() )
+		{
+			vecCountiesName.push_back(NO_LIMIT_STRING);
+		}
 	}
 }
 

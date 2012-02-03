@@ -117,6 +117,8 @@ struct TabMyInfRecord {
 	string endProv;
 	string endCity;
 	string endCounty;
+	string preview;
+	string phone;
 };
     
 // 专线信息（最新专线、我的专线、我收藏的专线）
