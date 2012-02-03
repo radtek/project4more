@@ -84,6 +84,7 @@ BOOL CContentDlg::OnInitDialog()
 BEGIN_MESSAGE_MAP(CContentDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON_CLOSE, &CContentDlg::OnBnClickedButtonClose)
 	ON_LBN_SELCHANGE(IDC_LIST_CONTENT, &CContentDlg::OnLbnSelchangeListContent)
+	ON_WM_ACTIVATE()
 END_MESSAGE_MAP()
 
 
@@ -105,5 +106,17 @@ void CContentDlg::OnLbnSelchangeListContent()
 		m_listContent.GetText(nIndex, *m_strOut);
 
 		CDialog::OnOK();
+	}
+}
+
+void CContentDlg::OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized)
+{
+	CDialog::OnActivate(nState, pWndOther, bMinimized);
+
+	// TODO: Add your message handler code here
+	if (nState == WA_INACTIVE && m_pCtrlWnd != NULL)
+	{
+		OnCancel();
+		//GetParent()->PostMessage(WM_NUMBER_DLG_CLOSE, (WPARAM)this);
 	}
 }

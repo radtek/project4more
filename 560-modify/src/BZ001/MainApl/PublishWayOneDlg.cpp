@@ -155,6 +155,10 @@ void CPublishWayOneDlg::initControlValue()
 	msgType.AddString("发布货源");
 	msgType.AddString("发布车源");
 	msgType.SetCurSel(publishKind==0?0:1);
+	if( publishKind == 1 )
+	{
+		MoveAllControl();
+	}
 
 	withMobile = TRUE;
 
@@ -189,7 +193,9 @@ void CPublishWayOneDlg::initControlValue()
 	{
 		priceList.AddString(g_priceType[n]);
 	}
-	mobile = userInfo.tel.c_str();
+	mobile = mobile.IsEmpty()?userInfo.tel.c_str():mobile;
+
+	withMobile2 = mobile2.IsEmpty()?FALSE:TRUE;
 
 	m_strProvinceFrom = userInfo.province.c_str();
 	if( IsSpecialProvince(m_strProvinceFrom) )
@@ -324,7 +330,6 @@ void CPublishWayOneDlg::OnBnClickedButtonGoodsNum()
 {
 	// TODO: Add your control notification handler code here
 	CNumberDlg *pDdlgNumber = new CNumberDlg(this, IDC_EDIT_GOODS_NUM);
-
 	if (pDdlgNumber && pDdlgNumber->Create(IDD_DIALOG_NUMBER, this))
 	{
 		pDdlgNumber->ShowWindow(SW_SHOW);
@@ -483,6 +488,11 @@ void CPublishWayOneDlg::ToHistory()
 	// publish string
 	pPublishRecord->set("pubInf", pubInf.c_str());
 
+	pPublishRecord->set("withMobile1", withMobile?"1":"0");
+	pPublishRecord->set("mobile1", mobile);
+	pPublishRecord->set("withMobile2", withMobile2?"1":"0");
+	pPublishRecord->set("mobile2", mobile2);
+	
 	//CHistoryManager::getInstance()->addPublish(pPublishRecord);
 }
 
@@ -543,6 +553,7 @@ void CPublishWayOneDlg::FromHistory()
 		secondPanel.SetWindowText("求货");
 
 		publishKind = 1;
+		MoveAllControl();
 	}
 
 	m_strProvinceFrom = pRecord->get("strProvinceFrom");
@@ -554,8 +565,7 @@ void CPublishWayOneDlg::FromHistory()
 
 	SetListSection(goodsList, "goodsList");
 	goodsCountValue = pRecord->get("goodsCountValue");
-	SetComboSection(goodsUnit, "goodsUnit");
-
+	
 	SetListSection(truckLength, "truckLength");
 	SetListSection(truckType, "truckType");
 
@@ -592,7 +602,18 @@ void CPublishWayOneDlg::FromHistory()
 	pubInf = v.GetBuffer();
 	v.ReleaseBuffer();
 
+	v = pRecord->get("withMobile1");
+	withMobile = v =="1"?TRUE:FALSE;
+
+	v = pRecord->get("withMobile2");
+	withMobile2 = v =="1"?TRUE:FALSE;
+
+	mobile = pRecord->get("mobile1");
+	mobile2 = pRecord->get("mobile2");
+
 	UpdateData(FALSE);
+
+	SetComboSection(goodsUnit, "goodsUnit");
 	SetComboSection(shipTime, "shipTime");
 	SetComboSection(repubSetting, "repubSetting");
 
@@ -630,6 +651,10 @@ void CPublishWayOneDlg::OnBnClickedButtonPw1Close()
 
 void CPublishWayOneDlg::OnCbnSelchangeComboPw1InfoType()
 {
+	MoveAllControl();
+}
+void CPublishWayOneDlg::MoveAllControl()
+{
 	// TODO: Add your control notification handler code here
 	int		dx = 0;
 
@@ -637,7 +662,7 @@ void CPublishWayOneDlg::OnCbnSelchangeComboPw1InfoType()
 	{
 		firstPanel.SetWindowText("有货");
 		secondPanel.SetWindowText("求车");
-		
+
 		dx = -229;
 		publishKind = 0;
 	}
@@ -864,6 +889,13 @@ BOOL CPublishWayOneDlg::PublishGoodsInfo()
 		return FALSE;
 	}
 
+	if( !withMobile && !withMobile2 )
+	{
+		MessageBox("请至少选择一个联系电话");//, "发布货源");
+		return FALSE;
+	}
+
+
 	if ( (withMobile && mobile.IsEmpty() ) ) 
 	{
 		MessageBox("联系电话1不能为空");//, "发布货源");
@@ -959,6 +991,12 @@ BOOL CPublishWayOneDlg::PublishTruckInfo()
 {
 	if (CheckTruckInfo() == FALSE)
 	{
+		return FALSE;
+	}
+
+	if( !withMobile && !withMobile2 )
+	{
+		MessageBox("请至少选择一个联系电话");//, "发布货源");
 		return FALSE;
 	}
 

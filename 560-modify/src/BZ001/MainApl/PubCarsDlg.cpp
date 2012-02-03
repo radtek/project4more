@@ -124,6 +124,9 @@ BOOL CPubCarsDlg::OnInitDialog()
 {
     CDialog::OnInitDialog();
 	m_msgedit.LimitText(100);
+	((CEdit*)GetDlgItem(IDC_PUB_CARS_CARNUM))->LimitText(8);
+	((CEdit*)GetDlgItem(IDC_PUB_CARS_WEIGHT))->LimitText(8);
+	((CEdit*)GetDlgItem(IDC_PUB_CARS_CUBAGE))->LimitText(8);
     // TODO:  在此添加额外的初始化
     // 初始化货物名称
 	combName.AddString("请选择");

@@ -88,6 +88,17 @@ BOOL CPubSpecialDlg::OnInitDialog()
 
     // TODO:  在此添加额外的初始化
     // 发车方式
+
+	((CEdit*)GetDlgItem(IDC_PUB_SPECIAL_WEIGHT_PRICE))->LimitText(8);
+	((CEdit*)GetDlgItem(IDC_PUB_SPECIAL_LIGHT_PRICE))->LimitText(8);
+	((CEdit*)GetDlgItem(IDC_PUB_SPECIAL_ST_NAME))->LimitText(32);
+	((CEdit*)GetDlgItem(IDC_PUB_SPECIAL_ST_ADDRESS))->LimitText(128);
+	((CEdit*)GetDlgItem(IDC_PUB_SPECIAL_ST_TEL))->LimitText(32);
+	((CEdit*)GetDlgItem(IDC_PUB_SPECIAL_EN_NAME))->LimitText(32);
+	((CEdit*)GetDlgItem(IDC_PUB_SPECIAL_EN_ADDRESS))->LimitText(128);
+	((CEdit*)GetDlgItem(IDC_PUB_SPECIAL_TEL))->LimitText(32);
+	((CEdit*)GetDlgItem(IDC_PUB_SPECIAL_INF))->LimitText(100);
+
 	combSend.AddString("不固定");
 	combSend.AddString("隔1天一班");
 	combSend.AddString("隔2天一班");

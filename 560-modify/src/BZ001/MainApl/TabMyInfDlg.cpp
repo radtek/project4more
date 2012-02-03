@@ -895,8 +895,9 @@ void CTabMyInfDlg::Delete()
 void CTabMyInfDlg::ModifyAndPub(const TabMyInfRecord& content)
 {
 	CPublishWayOneDlg dlg;
+	dlg.publishKind = curType==0?0:1;
 	dlg.userInfo = user;
-	dlg.preview = content.record.c_str();
+	dlg.preview = content.preview.c_str();
 	dlg.m_strProvinceFrom = content.startProv.c_str();
 	dlg.m_strCityFrom = content.startCity.c_str();
 	dlg.m_strCountyFrom = content.startCounty.c_str();
@@ -904,6 +905,17 @@ void CTabMyInfDlg::ModifyAndPub(const TabMyInfRecord& content)
 	dlg.m_strCityTo = content.endCity.c_str();
 	dlg.m_strCountyTo = content.endCounty.c_str();
 	dlg.publishKind = curType==0?0:1;
+
+	int nPos = content.phone.find(" ");
+	if( nPos != string::npos  )
+	{
+		dlg.mobile = content.phone.substr(0, nPos).c_str();
+		dlg.mobile2 = content.phone.substr(nPos+1,-1).c_str();
+	}
+	else
+	{
+		dlg.mobile = content.phone.c_str();
+	}
 	if( dlg.DoModal() == IDOK )
 	{
 		string result;

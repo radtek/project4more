@@ -1788,20 +1788,29 @@ void CWLRClientDlg::OnBnClickedBtnHidetel()
         }
     } 
     
-    if (m_curTabType == LINES) { // 专线
-        switch(m_curTabIndex) { 
-        case 0:
-            allspecialLine.setIfShowPhone(switchShowPhone());
-            break;
-        case 1:
-            mySpecialLine.setIfShowPhone(switchShowPhone());
-            break; 
-        case 2:
-            favoriteSpecialLine.setIfShowPhone(switchShowPhone());
-            break; 
-        default: 
-            break;
-        }
+    if (m_curTabType == LINES) 
+	{ // 专线
+		if( m_curSearchType == SEARCH_SPECIAL )
+		{
+			searchSpecialLine.setIfShowPhone(switchShowPhone());
+		}
+		else
+		{
+			switch(m_curTabIndex) 
+			{ 
+			case 0:
+				allspecialLine.setIfShowPhone(switchShowPhone());
+				break;
+			case 1:
+				mySpecialLine.setIfShowPhone(switchShowPhone());
+				break; 
+			case 2:
+				favoriteSpecialLine.setIfShowPhone(switchShowPhone());
+				break; 
+			default: 
+				break;
+			}
+		}
     } 
 
     if (m_curTabType == SEARCH_GOODS || m_curTabType == CLICK_SEARCH_GOODS) {
@@ -4144,6 +4153,7 @@ void CWLRClientDlg::OpenWebPage(string & url,string &title)
 		dlg->ShowWindow(TRUE);
 		dlg->SetWindowPos(NULL,0,0,nFullWidth,nFullHeight-29,SWP_SHOWWINDOW);
 	}
+	OnClose();
 }
 
 //我的账户
@@ -4240,10 +4250,16 @@ LRESULT CWLRClientDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 void CWLRClientDlg::OnBnClickedButtonPubWayOne()
 {
+	if ( !is_funcs_enabled ) 
+	{
+		AfxMessageBox("只是有收费和试用用户才能够发布货源");
+		return ;
+	}
 	m_curTabIndex = 0;
 	CPublishWayOneDlg dlg;
 	dlg.myCR = &myCR;
 	dlg.userInfo = svrIOPub.userInf;
+	dlg.publishKind = m_curTabType == GOODS?0:1;
 	if( dlg.DoModal() == IDOK )
 	{
 		string result;
@@ -4298,10 +4314,16 @@ void CWLRClientDlg::OnBnClickedButtonPubWayOne()
 
 void CWLRClientDlg::OnBnClickedButtonPubWayTwo()
 {
+	if ( !is_funcs_enabled ) 
+	{
+		AfxMessageBox("只是有收费和试用用户才能够发布货源");
+		return ;
+	}
 	m_curTabIndex = 0;
 	CPublishWayTwoDlg dlg;
 	dlg.myCR = &myCR;
 	dlg.userInfo = svrIOPub.userInf;
+	dlg.publishKind = m_curTabType == GOODS?0:1;
 	if( dlg.DoModal() == IDOK )
 	{
 		string result;

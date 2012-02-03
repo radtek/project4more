@@ -161,7 +161,7 @@ void CPublishWayTwoDlg::initControlValue()
 
 	msgType.AddString("发布货源");
 	msgType.AddString("发布车源");
-	msgType.SetCurSel(0);
+	msgType.SetCurSel(publishKind==0?0:1);
 
 	mobile = userInfo.tel.c_str();
 	
@@ -689,12 +689,17 @@ BOOL CPublishWayTwoDlg::PublishGoodsInfo()
 	//	return FALSE;
 	//}
 
-	//if ( preview == "" )
-	//{
-	//	MessageBox("请先生成预览");//, "发布货源");
-	//	return FALSE;
-	//}
+	if ( preview == "" )
+	{
+		MessageBox("请先生成预览");//, "发布货源");
+		return FALSE;
+	 }
 
+	if( !withMobile && !withMobile2 )
+	{
+		MessageBox("请至少选择一个联系电话");//, "发布货源");
+		return FALSE;
+	}
 	if ( withMobile && mobile.IsEmpty() ) 
 	{
 		MessageBox("联系电话1不能为空");//, "发布货源");
@@ -824,7 +829,13 @@ BOOL CPublishWayTwoDlg::PublishTruckInfo()
 
 	if ( preview == "" )
 	{
-		MessageBox("请先生成预览");//, "发布车源");
+		MessageBox("请先生成预览");//, "发布货源");
+		return FALSE;
+	}
+
+	if( !withMobile && !withMobile2 )
+	{
+		MessageBox("请至少选择一个联系电话");//, "发布货源");
 		return FALSE;
 	}
 
@@ -1072,6 +1083,12 @@ void CPublishWayTwoDlg::ToHistory()
 	// publish string
 	pPublishRecord->set("pubInf", pubInf.c_str());
 
+	pPublishRecord->set("withMobile1", withMobile?"1":"0");
+	pPublishRecord->set("mobile1", mobile);
+	pPublishRecord->set("withMobile2", withMobile2?"1":"0");
+	pPublishRecord->set("mobile2", mobile2);
+
+
 	//CHistoryManager::getInstance()->addPublish(pPublishRecord);
 }
 
@@ -1120,7 +1137,7 @@ void CPublishWayTwoDlg::FromHistory()
 
 	preview = pRecord->get("preview");
 
-	CString	v;
+	CString	v; 
 
 	v = pRecord->get("rememberRepubSetting");
 	if ( v == "0" )
@@ -1145,6 +1162,15 @@ void CPublishWayTwoDlg::FromHistory()
 	v = pRecord->get("pubInf");
 	pubInf = v.GetBuffer();
 	v.ReleaseBuffer();
+
+	v = pRecord->get("withMobile1");
+	withMobile = v =="1"?TRUE:FALSE;
+
+	v = pRecord->get("withMobile2");
+	withMobile2 = v =="1"?TRUE:FALSE;
+
+	mobile = pRecord->get("mobile1");
+	mobile2 = pRecord->get("mobile2");
 
 	UpdateData(FALSE);
 

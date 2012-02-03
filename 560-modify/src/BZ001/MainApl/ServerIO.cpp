@@ -635,13 +635,15 @@ int ServerIO::getMyGoodsInf(vector<TabMyInfRecord> &inf, inputParam& input)
 					tmp.endPlace += tmp.endCounty = tokens.at(9);
 				}
 
-				tmp.record = tokens.at(13) + "(" + (tmp.pubTime = tokens.at(14)) + ")。";
+				tmp.record = (tmp.preview = tokens.at(13)) + "(" + (tmp.pubTime = tokens.at(14)) + ")。";
 				tmp.tel = " ";
-				if (tokens.at(10) != "NULL") {
+				 if (tokens.at(10) != "NULL") 
+				{
 					tmp.tel +=  tmp.pubName = tokens.at(10);
 					tmp.tel += " ";
 				} else {
-					if (tokens.at(11) != "NULL") {
+					if (tokens.at(11) != "NULL") 
+					{
 						tmp.tel +=  tmp.pubName = tokens.at(11);
 						tmp.tel += " ";
 					}
@@ -649,7 +651,7 @@ int ServerIO::getMyGoodsInf(vector<TabMyInfRecord> &inf, inputParam& input)
 				//tmp.tel += tokens.at(12);
 				if (tokens.at(12) != "NULL")
 				{
-					tmp.tel += tokens.at(12);
+					tmp.tel += tmp.phone = tokens.at(12);
 				}
 				tmp.pubUID = tokens.at(15);
 
@@ -1359,20 +1361,23 @@ int ServerIO::getMyCarsInf(vector<TabMyInfRecord> &inf, inputParam& input)
 					}
 				}
 
-				tmp.record = tokens.at(19) + "(" + (tmp.pubTime = tokens.at(20)) + ")。";
+				tmp.record = (tmp.preview = tokens.at(19)) + "(" + (tmp.pubTime = tokens.at(20)) + ")。";
 				tmp.tel = " ";
 				if (tokens.at(16) != "NULL") {
 					tmp.tel +=  tmp.pubName = tokens.at(16);
 					tmp.tel += " ";
-				} else {
-					if (tokens.at(17) != "NULL") {
+				} 
+				else
+				{
+					if (tokens.at(17) != "NULL") 
+					{
 						tmp.tel +=  tmp.pubName = tokens.at(17);
 						tmp.tel += " ";
 					}
 				}
 				if (tokens.at(18) != "NULL")
 				{
-					tmp.tel += tokens.at(18);
+					tmp.tel += tmp.phone = tokens.at(18);
 				}
 				tmp.pubUID = tokens.at(21);
 
