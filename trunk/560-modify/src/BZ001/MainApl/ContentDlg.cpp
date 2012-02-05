@@ -116,7 +116,7 @@ void CContentDlg::OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized)
 	// TODO: Add your message handler code here
 	if (nState == WA_INACTIVE && m_pCtrlWnd != NULL)
 	{
-		OnCancel();
+		///OnCancel();
 		//GetParent()->PostMessage(WM_NUMBER_DLG_CLOSE, (WPARAM)this);
 	}
 }

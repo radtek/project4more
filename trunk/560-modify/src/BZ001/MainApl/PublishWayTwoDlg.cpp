@@ -785,8 +785,8 @@ BOOL CPublishWayTwoDlg::PublishGoodsInfo()
 
 	CString tmp = m_strProvinceFrom + "|" + m_strCityFrom + "|" + cf
 		+ "|" + m_strProvinceTo + "|" + m_strCityTo + "|" + ct
-		+ "|" + goodsValue + "|" + "1" + "|" + "NULL"
-		+ "|" + "普货" + "|" + "1" + "|" + pu + "|NULL|" + tl + "|" + tt + "|"
+		+ "|" + (goodsValue.IsEmpty()?"NULL":goodsValue) + "|" + "1" + "|" + "NULL"
+		+ "|" + "普货" + "|" + "1" + "|" + (pu.IsEmpty()?"NULL":pu) + "|NULL|" + (tl.IsEmpty()?"NULL":tl) + "|" + (tt.IsEmpty()?"NULL":tt) + "|"
 		+ "1" + "|" + (withMobile?mobile:"") + ((withMobile2&&!mobile2.IsEmpty())?(" "+mobile2):"") + "|" + shipTimeValue + "|" + repubSettingValue;
 
 	if (rememberRepubSetting)
@@ -927,8 +927,8 @@ BOOL CPublishWayTwoDlg::PublishTruckInfo()
 	CString tmp = m_strProvinceFrom + "|" + m_strCityFrom + "|" + cf
 		+ "|" + m_strProvinceTo + "|" + m_strCityTo + "|" + ct
 		+ "|||||||"
-		+ tc + "|" + w + "|NULL|" + tl + "|" + tt 
-		+ "|" + goodsValue + "|普货|" + (withMobile?mobile:"") + ((withMobile2&&!mobile2.IsEmpty())?(" "+mobile2):"") + "|" + shipTimeValue + "|" + repubSettingValue;
+		+ (tc.IsEmpty()?"NULL":tc) + "|" + (w.IsEmpty()?"NULL":w) + "|NULL|" + (tl.IsEmpty()?"NULL":tl) + "|" + (tt.IsEmpty()?"NULL":tt) 
+		+ "|" + (goodsValue.IsEmpty()?"NULL":goodsValue) + "|普货|" + (withMobile?mobile:"") + ((withMobile2&&!mobile2.IsEmpty())?(" "+mobile2):"") + "|" + shipTimeValue + "|" + repubSettingValue;
 
 	if (rememberRepubSetting)
 	{
