@@ -905,6 +905,8 @@ void CTabMyInfDlg::ModifyAndPub(const TabMyInfRecord& content)
 	dlg.m_strCityTo = content.endCity.c_str();
 	dlg.m_strCountyTo = content.endCounty.c_str();
 	dlg.publishKind = curType==0?0:1;
+	dlg.truckLengthValue = content.carLength.c_str();
+	
 
 	int nPos = content.phone.find(" ");
 	if( nPos != string::npos  )

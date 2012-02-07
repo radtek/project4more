@@ -1387,6 +1387,10 @@ int ServerIO::getMyCarsInf(vector<TabMyInfRecord> &inf, inputParam& input)
 					tmp.pubAddress = tokens.at(23);
 					tmp.dateTime = tokens.at(24);
 					tmp.state = tokens.at(25);
+					if( tokens.size() > 26 )
+					{
+						tmp.carLength = tokens.at(26);
+					}
 				}
 
 				inf.push_back(tmp);                
