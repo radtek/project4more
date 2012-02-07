@@ -119,6 +119,7 @@ struct TabMyInfRecord {
 	string endCounty;
 	string preview;
 	string phone;
+	string carLength;  
 };
     
 // 专线信息（最新专线、我的专线、我收藏的专线）

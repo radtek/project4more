@@ -4230,7 +4230,7 @@ LRESULT CWLRClientDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 		search(wParam, lParam);
 		break;
 	case WM_TNI_CANCEL_SEARCH:
-		search(wParam, lParam);
+		setSpecialLineInf(m_curTabIndex);
 		break;
 	case WM_TNI_STOP_REFRESH:
 		OnBnClickedBtnAutoupdate();

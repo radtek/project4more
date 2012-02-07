@@ -538,6 +538,7 @@ void CPublishWayOneDlg::FromHistory()
 		return;
 	}
 
+	int nOldSel = msgType.GetCurSel();
 	SetComboSection(msgType, "msgType");
 
 	if ( msgType.GetCurSel() == 0 )
@@ -553,8 +554,12 @@ void CPublishWayOneDlg::FromHistory()
 		secondPanel.SetWindowText("Çó»õ");
 
 		publishKind = 1;
+	}
+	if( nOldSel != msgType.GetCurSel() )
+	{
 		MoveAllControl();
 	}
+
 
 	m_strProvinceFrom = pRecord->get("strProvinceFrom");
 	m_strCityFrom = pRecord->get("strCityFrom");
@@ -651,6 +656,11 @@ void CPublishWayOneDlg::OnBnClickedButtonPw1Close()
 
 void CPublishWayOneDlg::OnCbnSelchangeComboPw1InfoType()
 {
+	if(publishKind==msgType.GetCurSel())
+	{
+		return;
+	}
+
 	MoveAllControl();
 }
 void CPublishWayOneDlg::MoveAllControl()
