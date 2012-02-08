@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "SearchMainDlg.h"
+#include "header.h"
 #include "HistoryManager.h"
 
 
@@ -163,6 +164,14 @@ LRESULT CSearchMainDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 		m_bUseSearchFavorite = true;
 		CDialog::OnOK();
 		return 0;
+	case WM_CLOSE_CONTENT_DLG:
+		if (m_pCurSearch)
+		{
+			CWnd *pSearchWnd = dynamic_cast<CWnd *>(m_pCurSearch);
+			if (pSearchWnd)
+				pSearchWnd->SendMessage(message, wParam, lParam);
+		}
+		break;
 	}
 	return CDialog::WindowProc(message, wParam, lParam);
 }

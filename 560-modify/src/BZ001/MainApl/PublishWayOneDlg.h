@@ -141,9 +141,17 @@ private:
 	void SetComboSection(CComboBox& b, string k);
 
 	void SetListSection(CListBox& b, string k);
+
 public:
 	afx_msg void OnBnClickedButtonPriaceNum();
 	void	SaveHistory();
+
 protected:
 	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
+
+private:
+	void ShowContentDialog(int nCtrlID, const vector<CString> *pVec, CString *pStrOut);
+	void ShowNumberDialog(int nCtrlID);
+
+	vector<CString> m_vecContent;
 };

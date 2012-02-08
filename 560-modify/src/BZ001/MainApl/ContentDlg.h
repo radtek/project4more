@@ -13,30 +13,28 @@ class CContentDlg : public CDialog
 	DECLARE_DYNAMIC(CContentDlg)
 
 public:
-	CContentDlg(CWnd* pParent, CWnd* pCtrlWnd, const vector<CString> *pVecItems, CString *strOut);   // standard constructor
+	CContentDlg(CWnd* pParent, CWnd* pCtrlWnd, const vector<CString> *pVecItems, CString *pStrOut);   // standard constructor
 	virtual ~CContentDlg();
 
 // Dialog Data
 	enum { IDD = IDD_DIALOG_CONTENT_LIST };
 
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
-
 	virtual BOOL OnInitDialog();
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
 	DECLARE_MESSAGE_MAP()
 public:
+	afx_msg void OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized);
 	afx_msg void OnBnClickedButtonClose();
 	afx_msg void OnLbnSelchangeListContent();
 
 private:
 	CWnd *m_pCtrlWnd;
 	const vector<CString> *m_pVecItems;
-	CString *m_strOut;
+	CString *m_pStrOut;
 	
 	CStatic m_staticTitle;
 	CButton m_btnClose;
 	CListBox m_listContent;
-public:
-	afx_msg void OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized);
 };

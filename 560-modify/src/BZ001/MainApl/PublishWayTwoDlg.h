@@ -128,6 +128,8 @@ public:
 
 	CString priceListValue;
 
+	CString previewAppendValue;
+
 private:
 	CPublishRecord*		pRecord;
 
@@ -157,4 +159,12 @@ public:
 	afx_msg void OnCbnSelchangeComboInfoType();
 
 	void SaveHistory();
+
+protected:
+	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
+
+private:
+	void ShowContentDialog(int nCtrlID, const vector<CString> *pVec, CString *pStrOut);
+
+	vector<CString> m_vecContent;
 };
