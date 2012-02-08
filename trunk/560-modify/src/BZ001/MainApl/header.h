@@ -21,6 +21,9 @@ struct ServiceData//服务站的信息
 #define WM_TNI_SECRECY			(WM_USER+1003)
 #define WM_TNI_CLOSE_SEARCH_TAB	(WM_USER+1004)
 
+#define WM_CLOSE_CONTENT_DLG	(WM_USER+3000)
+#define WM_CLOSE_NUMBER_DLG		(WM_USER+3001) 
+
 //最新信息（货源、零担、车源）
 extern vector<TabNewInfRecord> contentDataHY;
 extern vector<TabNewInfRecord> contentDataLD;

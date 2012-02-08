@@ -52,4 +52,12 @@ private:
 	CComboBox m_comboxKeyword;
 
 	CString m_sDestAddr;
+
+protected:
+	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
+
+private:
+	void ShowContentDialog(int nCtrlID, const vector<CString> *pVec, CString *pStrOut);
+
+	CString m_strContentValue;
 };

@@ -5,6 +5,7 @@
 #include "SearchWayOneDlg.h"
 #include "AddrSelDlg.h"
 #include "CommDef.h"
+#include "header.h"
 #include "GLB.h"
 #include "ContentDlg.h"
 #include "HistoryManager.h"
@@ -243,50 +244,22 @@ void CSearchWayOneDlg::OnBnClickedButtonSw1CleanAddr()
 
 void CSearchWayOneDlg::OnBnClickedButtonSw1Goods()
 {
-	CString sGoods;
-	CContentDlg dlg(GetParent(), GetDlgItem(IDC_BUTTON_SW1_GOODS), &g_vecSearchGoods, &sGoods);
-	//CWnd* pCtrl = GetDlgItem(IDC_BUTTON_SW1_GOODS);
-	if( dlg.DoModal() == IDOK )
-	{
-		AddGoods(sGoods);
-		UpdateKeyword(sGoods);
-	}
+	ShowContentDialog(IDC_BUTTON_SW1_GOODS, &g_vecSearchGoods, &m_strContentValue);
 }
-
 
 void CSearchWayOneDlg::OnBnClickedButtonSw1GoodsType()
 {
-	CString sGoodsType;
-	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW1_GOODS_TYPE), &g_vecSearchGoodsType, &sGoodsType);
-	if( dlg.DoModal() == IDOK )
-	{
-		AddGoodsType(sGoodsType);
-		UpdateKeyword(sGoodsType);
-	}
+	ShowContentDialog(IDC_BUTTON_SW1_GOODS_TYPE, &g_vecSearchGoodsType, &m_strContentValue);
 }
-
 
 void CSearchWayOneDlg::OnBnClickedButtonSw1CarType()
 {
-
-	CString sCarType;
-	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW1_CAR_TYPE), &g_vecSearchCarType, &sCarType);
-	if( dlg.DoModal() == IDOK )
-	{
-		AddCarType(sCarType);
-		UpdateKeyword(sCarType);
-	}
+	ShowContentDialog(IDC_BUTTON_SW1_CAR_TYPE, &g_vecSearchCarType, &m_strContentValue);
 }
 
 void CSearchWayOneDlg::OnBnClickedButtonSw1CarSize()
 {
-	CString sCarLength;
-	CContentDlg dlg(this, GetDlgItem(IDC_BUTTON_SW1_CAR_SIZE), &g_vecSearchCarSize, &sCarLength);
-	if( dlg.DoModal() == IDOK )
-	{
-		AddCarLength(sCarLength);
-		UpdateKeyword(sCarLength);
-	}
+	ShowContentDialog(IDC_BUTTON_SW1_CAR_SIZE, &g_vecSearchCarSize, &m_strContentValue);
 }
 
 void CSearchWayOneDlg::OnBnClickedButtonSw1CleanPublisher()
@@ -388,5 +361,58 @@ void CSearchWayOneDlg::Confirm()
 	if( !sPhoneNum.IsEmpty() )
 	{
 		m_lstPhoneNum.push_back(string(sPhoneNum));
+	}
+}
+
+
+LRESULT CSearchWayOneDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+	CDialog *pChildDlg = NULL;
+
+	switch (message)
+	{
+	case WM_CLOSE_CONTENT_DLG:
+		if (pChildDlg = (CDialog *)wParam)
+			delete pChildDlg;
+		switch ((int)lParam)
+		{
+		case IDC_BUTTON_SW1_GOODS:
+			AddGoods(m_strContentValue);
+			UpdateKeyword(m_strContentValue);
+			break;
+		case IDC_BUTTON_SW1_GOODS_TYPE:
+			AddGoodsType(m_strContentValue);
+			UpdateKeyword(m_strContentValue);
+			break;
+		case IDC_BUTTON_SW1_CAR_TYPE:
+			AddCarType(m_strContentValue);
+			UpdateKeyword(m_strContentValue);
+			break;
+		case IDC_BUTTON_SW1_CAR_SIZE:
+			AddCarLength(m_strContentValue);
+			UpdateKeyword(m_strContentValue);
+			break;
+		default:
+			break;
+		}
+		break;
+	default:
+		break;
+	}
+
+	return CDialog::WindowProc(message, wParam, lParam);
+}
+
+void CSearchWayOneDlg::ShowContentDialog(int nCtrlID, const vector<CString> *pVec, CString *pStrOut)
+{
+	if (pVec && !pVec->empty() && pStrOut)
+	{
+		CWnd *pWnd = GetDlgItem(nCtrlID);
+		CContentDlg *pDlgContent = new CContentDlg(this, GetDlgItem(nCtrlID), pVec, pStrOut);
+		if (pDlgContent && pDlgContent->Create(IDD_DIALOG_CONTENT_LIST, this))
+		{
+			pDlgContent->ShowWindow(SW_SHOW);
+			pDlgContent->BringWindowToTop();
+		}
 	}
 }

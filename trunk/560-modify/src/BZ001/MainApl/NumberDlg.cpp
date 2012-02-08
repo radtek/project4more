@@ -3,14 +3,15 @@
 
 #include "stdafx.h"
 #include "NumberDlg.h"
+#include "header.h"
 
 
 // CNumberDlg dialog
 
 IMPLEMENT_DYNAMIC(CNumberDlg, CDialog)
 
-CNumberDlg::CNumberDlg(CWnd* pParent, int nEditCtrlID)
-	: CDialog(CNumberDlg::IDD, pParent), m_pEditCtrl(NULL), m_nEditCtrlID(nEditCtrlID)
+CNumberDlg::CNumberDlg(CWnd* pParent, CWnd* pCtrlWnd)
+	: CDialog(CNumberDlg::IDD, pParent), m_pCtrlWnd(pCtrlWnd)
 {
 }
 
@@ -18,23 +19,20 @@ CNumberDlg::~CNumberDlg()
 {	
 }
 
-
-int CNumberDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
+BOOL CNumberDlg::OnInitDialog()
 {
-	if (CDialog::OnCreate(lpCreateStruct) == -1)
-		return -1;
+	CDialog::OnInitDialog();
 
 	// TODO:  Add your specialized creation code here
 	CRect rc, rcEdit;
 
-	if (m_pEditCtrl = (CEdit *)((CDialog *)GetParent())->GetDlgItem(m_nEditCtrlID))
+	if (m_pCtrlWnd)
 	{
 		GetClientRect(&rc);
-		m_pEditCtrl->GetWindowRect(&rcEdit);
-
+		m_pCtrlWnd->GetWindowRect(&rcEdit);
 		MoveWindow(rcEdit.left, rcEdit.bottom + 2, rc.Width(), rc.Height());
 	}
-	return 0;
+	return TRUE;
 }
 
 void CNumberDlg::OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized)
@@ -42,11 +40,8 @@ void CNumberDlg::OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized)
 	CDialog::OnActivate(nState, pWndOther, bMinimized);
 
 	// TODO: Add your message handler code here
-	if (nState == WA_INACTIVE && m_pEditCtrl != NULL)
-	{
-		OnCancel();
-		//GetParent()->PostMessage(WM_NUMBER_DLG_CLOSE, (WPARAM)this);
-	}
+	if (nState == WA_INACTIVE)
+		GetParent()->PostMessage(WM_CLOSE_NUMBER_DLG, (WPARAM)this);
 }
 
 void CNumberDlg::DoDataExchange(CDataExchange* pDX)
@@ -56,7 +51,6 @@ void CNumberDlg::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CNumberDlg, CDialog)
-	ON_WM_CREATE()
 	ON_WM_ACTIVATE()
 	ON_BN_CLICKED(IDC_BUTTON_KB_NUM_ZEOR1, &CNumberDlg::OnBnClickedButtonKbNumZero)
 	ON_BN_CLICKED(IDC_BUTTON_KB_NUM_DOT, &CNumberDlg::OnBnClickedButtonKbNumDot)
@@ -154,37 +148,37 @@ void CNumberDlg::OnBnClickedButtonKbNumNine()
 void CNumberDlg::OnBnClickedButtonKbNumBackspace()
 {
 	// TODO: Add your control notification handler code here
-	if (m_pEditCtrl)
+	if (m_pCtrlWnd)
 	{
 		CString text;
 
-		m_pEditCtrl->GetWindowText(text);
+		m_pCtrlWnd->GetWindowText(text);
 		text.Delete(text.GetLength() - 1);
-		m_pEditCtrl->SetWindowText(text);
+		m_pCtrlWnd->SetWindowText(text);
 	}
 }
 
 void CNumberDlg::OnBnClickedButtonKbNumClean()
 {
 	// TODO: Add your control notification handler code here
-	if (m_pEditCtrl)
-		m_pEditCtrl->SetWindowText("");
+	if (m_pCtrlWnd)
+		m_pCtrlWnd->SetWindowText("");
 }
 
 void CNumberDlg::OnBnClickedButtonKbNumSeven4()
 {
 	// TODO: Add your control notification handler code here
-	DestroyWindow();
+	GetParent()->PostMessage(WM_CLOSE_NUMBER_DLG, (WPARAM)this);
 }
 
 // Private functions.
 void CNumberDlg::AppendEditCtrlText(CString num)
 {
-	if (m_pEditCtrl)
+	if (m_pCtrlWnd)
 	{
 		CString text;
 
-		m_pEditCtrl->GetWindowText(text);
+		m_pCtrlWnd->GetWindowText(text);
 		if (text.GetLength() < 8)
 		{
 			if (num == ".")
@@ -195,22 +189,7 @@ void CNumberDlg::AppendEditCtrlText(CString num)
 			else
 				text += num;
 
-			m_pEditCtrl->SetWindowText(text);
+			m_pCtrlWnd->SetWindowText(text);
 		}
 	}
-}
-
-void CNumberDlg::PostNcDestroy()
-{
-	// TODO: 在此添加专用代码和/或调用基类
-
-	CDialog::PostNcDestroy();
-}
-
-BOOL CNumberDlg::DestroyWindow()
-{
-	// TODO: 在此添加专用代码和/或调用基类
-
-	return CDialog::DestroyWindow();
-	delete this;
 }

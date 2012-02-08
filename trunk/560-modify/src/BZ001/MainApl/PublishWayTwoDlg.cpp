@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "PublishWayTwoDlg.h"
 #include "CommDef.h"
+#include "header.h"
 #include "ContentDlg.h"
 
 extern int g_repubOption;
@@ -173,6 +174,7 @@ void CPublishWayTwoDlg::initControlValue()
 	truckTypeValue = "";
 	truckCountValue = "";
 	priceListValue = "";
+	previewAppendValue = "";
 
 	m_strProvinceFrom = userInfo.province.c_str();
 	if( IsSpecialProvince(m_strProvinceFrom) )
@@ -214,95 +216,54 @@ void CPublishWayTwoDlg::OnBnClickedButtonW1FromProvince()
 {
 	// TODO: Add your control notification handler code here
 	UpdateData();
-	vector<CString> vecItems;
-	GetProvincesName(vecItems);
 
-	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_FROM_PROVINCE), &vecItems, &m_strProvinceFrom);
-	if( dlgContent.DoModal() == IDOK && !m_strProvinceFrom.IsEmpty() )
-	{
-		m_strCityFrom = m_strCountyFrom = NO_LIMIT_STRING;
-	}
-
-	UpdateData(FALSE);
+	GetProvincesName(m_vecContent);
+	ShowContentDialog(IDC_EDIT_PW1_FROM_PROVINCE, &m_vecContent, &m_strProvinceFrom);
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonW1FromCity()
 {
 	// TODO: Add your control notification handler code here
 	UpdateData();
-	vector<CString> vecItems;
-	GetCitiesNameByProvince(vecItems, m_strProvinceFrom);
 
-	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_FROM_CITY), &vecItems, &m_strCityFrom);
-	if( dlgContent.DoModal() == IDOK && !m_strCityFrom.IsEmpty())
-	{
-		m_strCountyFrom = NO_LIMIT_STRING;
-	}
-
-	UpdateData(FALSE);
+	GetCitiesNameByProvince(m_vecContent, m_strProvinceFrom);
+	ShowContentDialog(IDC_EDIT_PW1_FROM_CITY, &m_vecContent, &m_strCityFrom);
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonW1FromCounty()
 {
 	// TODO: Add your control notification handler code here
 	UpdateData();
-	vector<CString> vecItems;
-	GetCountiesNameByProvinceAndCity(vecItems, m_strProvinceFrom, m_strCityFrom);
 
-	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_FROM_COUNTY), &vecItems, &m_strCountyFrom);
-	dlgContent.DoModal();
-
-	UpdateData(FALSE);
+	GetCountiesNameByProvinceAndCity(m_vecContent, m_strProvinceFrom, m_strCityFrom);
+	ShowContentDialog(IDC_EDIT_PW1_FROM_COUNTY, &m_vecContent, &m_strCountyFrom);
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonW1ToProvince()
 {
 	// TODO: Add your control notification handler code here
 	UpdateData();
-	vector<CString> vecItems;
-	GetProvincesName(vecItems);
 
-	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_TO_PROVINCE), &vecItems, &m_strProvinceTo);
-	if( dlgContent.DoModal() == IDOK && !m_strProvinceTo.IsEmpty() )
-	{
-		m_strCityTo = m_strCountyTo = NO_LIMIT_STRING;
-	}
-
-	UpdateData(FALSE);
+	GetProvincesName(m_vecContent);
+	ShowContentDialog(IDC_EDIT_PW1_TO_PROVINCE, &m_vecContent, &m_strProvinceTo);
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonW1ToCity()
 {
 	// TODO: Add your control notification handler code here
 	UpdateData();
-	vector<CString> vecItems;
-	GetCitiesNameByProvince(vecItems, m_strProvinceTo);
 
-	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_TO_CITY), &vecItems, &m_strCityTo);
-	if( dlgContent.DoModal() == IDOK && !m_strCityTo.IsEmpty())
-	{
-		m_strCountyTo = NO_LIMIT_STRING;
-	}
-
-	/*if ( m_strCityTo == "²»ÏÞ" )
-	{
-		m_strCountyTo = "";
-	}*/
-
-	UpdateData(FALSE);
+	GetCitiesNameByProvince(m_vecContent, m_strProvinceTo);
+	ShowContentDialog(IDC_EDIT_PW1_TO_CITY, &m_vecContent, &m_strCityTo);
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonW1ToCounty()
 {
 	// TODO: Add your control notification handler code here
 	UpdateData();
-	vector<CString> vecItems;
-	GetCountiesNameByProvinceAndCity(vecItems, m_strProvinceTo, m_strCityTo);
 
-	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_TO_COUNTY), &vecItems, &m_strCountyTo);
-	dlgContent.DoModal();
-
-	UpdateData(FALSE);
+	GetCountiesNameByProvinceAndCity(m_vecContent, m_strProvinceTo, m_strCityTo);
+	ShowContentDialog(IDC_EDIT_PW1_TO_COUNTY, &m_vecContent, &m_strCountyTo);
 }
 
 void CPublishWayTwoDlg::appendToPreview(CString str)
@@ -593,49 +554,25 @@ void CPublishWayTwoDlg::OnBnClickedButtonGood3()
 void CPublishWayTwoDlg::OnBnClickedButtonCarSize()
 {
 	// TODO: Add your control notification handler code here
-	CString  result;
-	CContentDlg dlgContent(this, GetDlgItem(IDC_BUTTON_CAR_SIZE), &g_truckLength, &result);
-	if (dlgContent.DoModal() == IDOK)
-	{
-		appendToPreview(result);
-	}
-	truckLengthValue = result;
+	ShowContentDialog(IDC_BUTTON_CAR_SIZE, &g_truckLength, &truckLengthValue);
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonCarType()
 {
 	// TODO: Add your control notification handler code here
-	CString  result;
-	CContentDlg dlgContent(this, GetDlgItem(IDC_BUTTON_CAR_TYPE), &g_truckType, &result);
-	if (dlgContent.DoModal() == IDOK)
-	{
-		appendToPreview(result);
-	}
-	truckTypeValue = result;
+	ShowContentDialog(IDC_BUTTON_CAR_TYPE, &g_truckType, &truckTypeValue);
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonPrice()
 {
 	// TODO: Add your control notification handler code here
-	CString  result;
-	CContentDlg dlgContent(this, GetDlgItem(IDC_BUTTON_PRICE), &g_priceTypeFor3, &result);
-	if (dlgContent.DoModal() == IDOK)
-	{
-		appendToPreview(result);
-	}
-
-	priceListValue = result;
+	ShowContentDialog(IDC_BUTTON_PRICE, &g_priceTypeFor3, &priceListValue);
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonPhrase()
 {
 	// TODO: Add your control notification handler code here
-	CString  result;
-	CContentDlg dlgContent(this, GetDlgItem(IDC_BUTTON_PHRASE), &g_commonDuanyu, &result);
-	if (dlgContent.DoModal() == IDOK)
-	{
-		appendToPreview(result);
-	}
+	ShowContentDialog(IDC_BUTTON_PHRASE, &g_commonDuanyu, &previewAppendValue);
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonSpecial()
@@ -646,23 +583,13 @@ void CPublishWayTwoDlg::OnBnClickedButtonSpecial()
 void CPublishWayTwoDlg::OnBnClickedButtonCharacter()
 {
 	// TODO: Add your control notification handler code here
-	CString  result;
-	CContentDlg dlgContent(this, GetDlgItem(IDC_BUTTON_CHARACTER), &g_commonZi, &result);
-	if (dlgContent.DoModal() == IDOK)
-	{
-		appendToPreview(result);
-	}
+	ShowContentDialog(IDC_BUTTON_CHARACTER, &g_commonZi, &previewAppendValue);
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonWord()
 {
 	// TODO: Add your control notification handler code here
-	CString  result;
-	CContentDlg dlgContent(this, GetDlgItem(IDC_BUTTON_WORD), &g_commonCi, &result);
-	if (dlgContent.DoModal() == IDOK)
-	{
-		appendToPreview(result);
-	}
+	ShowContentDialog(IDC_BUTTON_WORD, &g_commonCi, &previewAppendValue);
 }
 
 void CPublishWayTwoDlg::OnBnClickedButtonPw2History()
@@ -1179,4 +1106,73 @@ void CPublishWayTwoDlg::FromHistory()
 	SetComboSection(repubSetting, "repubSetting");
 
 	UpdateData();
+}
+
+LRESULT CPublishWayTwoDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+	CDialog *pChildDlg = NULL;
+	CString temp;
+
+	switch (message)
+	{
+	case WM_CLOSE_CONTENT_DLG:
+		if (pChildDlg = (CDialog *)wParam)
+			delete pChildDlg;
+		switch ((int)lParam)
+		{
+		case IDC_EDIT_PW1_FROM_PROVINCE:
+			m_strCityFrom = NO_LIMIT_STRING;
+		case IDC_EDIT_PW1_FROM_CITY:
+			m_strCountyFrom = NO_LIMIT_STRING;
+			break;
+		case IDC_EDIT_PW1_TO_PROVINCE:
+			m_strCityTo = NO_LIMIT_STRING;
+		case IDC_EDIT_PW1_TO_CITY:
+			m_strCountyTo = NO_LIMIT_STRING;
+			break;
+		case IDC_BUTTON_CAR_SIZE:
+			temp = truckLengthValue;
+			appendToPreview(temp);
+			truckLengthValue = temp;
+			break;
+		case IDC_BUTTON_CAR_TYPE:
+			temp = truckTypeValue;
+			appendToPreview(temp);
+			truckTypeValue = temp;
+			break;
+		case IDC_BUTTON_PRICE:
+			temp = priceListValue;
+			appendToPreview(temp);
+			priceListValue = temp;
+			break;
+		case IDC_BUTTON_PHRASE:
+		case IDC_BUTTON_CHARACTER:
+		case IDC_BUTTON_WORD:
+			temp = previewAppendValue;
+			appendToPreview(temp);
+			previewAppendValue = temp;
+			break;
+		default:
+			break;
+		}
+		UpdateData(FALSE);
+		break;
+	default:
+		break;
+	}
+
+	return CDialog::WindowProc(message, wParam, lParam);
+}
+
+void CPublishWayTwoDlg::ShowContentDialog(int nCtrlID, const vector<CString> *pVec, CString *pStrOut)
+{
+	if (pVec && !pVec->empty() && pStrOut)
+	{
+		CContentDlg *pDlgContent = new CContentDlg(this, GetDlgItem(nCtrlID), pVec, pStrOut);
+		if (pDlgContent && pDlgContent->Create(IDD_DIALOG_CONTENT_LIST, this))
+		{
+			pDlgContent->ShowWindow(SW_SHOW);
+			pDlgContent->BringWindowToTop();
+		}
+	}
 }

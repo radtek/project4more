@@ -6,6 +6,7 @@
 #include "CommDef.h"
 #include "ContentDlg.h"
 #include "NumberDlg.h"
+#include "header.h"
 
 int g_repubOption = 0;
 
@@ -239,126 +240,71 @@ void CPublishWayOneDlg::OnBnClickedButtonPw1FromProvince()
 {
 	// TODO: Add your control notification handler code here
 	UpdateData();
-	vector<CString> vecItems;
-	GetProvincesName(vecItems);
 
-	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_FROM_PROVINCE), &vecItems, &m_strProvinceFrom);
-	if( dlgContent.DoModal() == IDOK && !m_strProvinceFrom.IsEmpty() )
-	{
-		m_strCityFrom = NO_LIMIT_STRING;
-		m_strCountyFrom = NO_LIMIT_STRING;
-	}
-
-	UpdateData(FALSE);
+	GetProvincesName(m_vecContent);
+	ShowContentDialog(IDC_EDIT_PW1_FROM_PROVINCE, &m_vecContent, &m_strProvinceFrom);
 }
 
 void CPublishWayOneDlg::OnBnClickedButtonPw1FromCity()
 {
 	// TODO: Add your control notification handler code here
 	UpdateData();
-	vector<CString> vecItems;
-	GetCitiesNameByProvince(vecItems, m_strProvinceFrom);
 
-	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_FROM_CITY), &vecItems, &m_strCityFrom);
-	if( dlgContent.DoModal() == IDOK && !m_strCityFrom.IsEmpty())
-	{
-		m_strCountyFrom = NO_LIMIT_STRING;
-	}
-
-	UpdateData(FALSE);
+	GetCitiesNameByProvince(m_vecContent, m_strProvinceFrom);
+	ShowContentDialog(IDC_EDIT_PW1_FROM_CITY, &m_vecContent, &m_strCityFrom);
 }
 
 void CPublishWayOneDlg::OnBnClickedButtonPw1FromCounty()
 {
 	// TODO: Add your control notification handler code here
 	UpdateData();
-	vector<CString> vecItems;
-	GetCountiesNameByProvinceAndCity(vecItems, m_strProvinceFrom, m_strCityFrom);
 
-	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_FROM_COUNTY), &vecItems, &m_strCountyFrom);
-	dlgContent.DoModal();
-
-	UpdateData(FALSE);
+	GetCountiesNameByProvinceAndCity(m_vecContent, m_strProvinceFrom, m_strCityFrom);
+	ShowContentDialog(IDC_EDIT_PW1_FROM_COUNTY, &m_vecContent, &m_strCountyFrom);
 }
 
 void CPublishWayOneDlg::OnBnClickedButtonW1ToProvince()
 {
 	// TODO: Add your control notification handler code here
 	UpdateData();
-	vector<CString> vecItems;
-	GetProvincesName(vecItems);
 
-	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_TO_PROVINCE), &vecItems, &m_strProvinceTo);
-	if( dlgContent.DoModal() == IDOK && !m_strProvinceTo.IsEmpty() )
-	{
-		m_strCityTo = m_strCountyTo = NO_LIMIT_STRING;
-	}
-
-	UpdateData(FALSE);
+	GetProvincesName(m_vecContent);
+	ShowContentDialog(IDC_EDIT_PW1_TO_PROVINCE, &m_vecContent, &m_strProvinceTo);
 }
 
 void CPublishWayOneDlg::OnBnClickedButtonW1ToCity()
 {
 	// TODO: Add your control notification handler code here
 	UpdateData();
-	vector<CString> vecItems;
-	GetCitiesNameByProvince(vecItems, m_strProvinceTo);
 
-	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_TO_CITY), &vecItems, &m_strCityTo);
-	if( dlgContent.DoModal() == IDOK && !m_strCityTo.IsEmpty() )
-	{
-		m_strCountyTo = NO_LIMIT_STRING;
-	}
-
-	UpdateData(FALSE);
+	GetCitiesNameByProvince(m_vecContent, m_strProvinceTo);
+	ShowContentDialog(IDC_EDIT_PW1_TO_CITY, &m_vecContent, &m_strCityTo);
 }
 
 void CPublishWayOneDlg::OnBnClickedButtonW1ToCounty()
 {
 	// TODO: Add your control notification handler code here
 	UpdateData();
-	vector<CString> vecItems;
-	GetCountiesNameByProvinceAndCity(vecItems, m_strProvinceTo, m_strCityTo);
 
-	CContentDlg dlgContent(this, GetDlgItem(IDC_EDIT_PW1_TO_COUNTY), &vecItems, &m_strCountyTo);
-	dlgContent.DoModal();
-
-	UpdateData(FALSE);
+	GetCountiesNameByProvinceAndCity(m_vecContent, m_strProvinceTo, m_strCityTo);
+	ShowContentDialog(IDC_EDIT_PW1_TO_COUNTY, &m_vecContent, &m_strCountyTo);
 }
 
 void CPublishWayOneDlg::OnBnClickedButtonGoodsNum()
 {
 	// TODO: Add your control notification handler code here
-	CNumberDlg *pDdlgNumber = new CNumberDlg(this, IDC_EDIT_GOODS_NUM);
-	if (pDdlgNumber && pDdlgNumber->Create(IDD_DIALOG_NUMBER, this))
-	{
-		pDdlgNumber->ShowWindow(SW_SHOW);
-		pDdlgNumber->BringWindowToTop();
-	}
+	ShowNumberDialog(IDC_EDIT_GOODS_NUM);
 }
 
 void CPublishWayOneDlg::OnBnClickedButtonCarNum()
 {
 	// TODO: Add your control notification handler code here
-	CNumberDlg *pDdlgNumber = new CNumberDlg(this, IDC_EDIT_CAR_NUM);
-
-	if (pDdlgNumber && pDdlgNumber->Create(IDD_DIALOG_NUMBER, this))
-	{
-		pDdlgNumber->ShowWindow(SW_SHOW);
-		pDdlgNumber->BringWindowToTop();
-	}
+	ShowNumberDialog(IDC_EDIT_CAR_NUM);
 }
-
 
 void CPublishWayOneDlg::OnBnClickedButtonPriaceNum()
 {
-	CNumberDlg *pDdlgNumber = new CNumberDlg(this, IDC_EDIT_PRICE_NUM);
-
-	if (pDdlgNumber && pDdlgNumber->Create(IDD_DIALOG_NUMBER, this))
-	{
-		pDdlgNumber->ShowWindow(SW_SHOW);
-		pDdlgNumber->BringWindowToTop();
-	}
+	ShowNumberDialog(IDC_EDIT_PRICE_NUM);
 }
 
 
@@ -1092,13 +1038,61 @@ BOOL CPublishWayOneDlg::PublishTruckInfo()
 
 LRESULT CPublishWayOneDlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-	switch(message)
+	CDialog *pChildDlg = NULL;
+
+	switch (message)
 	{
-	case WM_NUMBER_DLG_CLOSE:
-		/*CNumberDlg *pNumDlg = (CNumberDlg*)wParam;
-		pNumDlg->SetDeleteFlag(true);
-		delete pNumDlg;*/
+	case WM_CLOSE_CONTENT_DLG:
+		if (pChildDlg = (CDialog *)wParam)
+			delete pChildDlg;
+		switch ((int)lParam)
+		{
+		case IDC_EDIT_PW1_FROM_PROVINCE:
+			m_strCityFrom = NO_LIMIT_STRING;
+		case IDC_EDIT_PW1_FROM_CITY:
+			m_strCountyFrom = NO_LIMIT_STRING;
+			break;
+		case IDC_EDIT_PW1_TO_PROVINCE:
+			m_strCityTo = NO_LIMIT_STRING;
+		case IDC_EDIT_PW1_TO_CITY:
+			m_strCountyTo = NO_LIMIT_STRING;
+			break;
+		default:
+			break;
+		}
+		UpdateData(FALSE);
+		break;
+	case WM_CLOSE_NUMBER_DLG:
+		if (pChildDlg = (CDialog *)wParam)
+			delete pChildDlg;
+		UpdateData();
+		break;
+	default:
 		break;
 	}
+	
 	return CDialog::WindowProc(message, wParam, lParam);
+}
+
+void CPublishWayOneDlg::ShowContentDialog(int nCtrlID, const vector<CString> *pVec, CString *pStrOut)
+{
+	if (pVec && !pVec->empty() && pStrOut)
+	{
+		CContentDlg *pDlgContent = new CContentDlg(this, GetDlgItem(nCtrlID), pVec, pStrOut);
+		if (pDlgContent && pDlgContent->Create(IDD_DIALOG_CONTENT_LIST, this))
+		{
+			pDlgContent->ShowWindow(SW_SHOW);
+			pDlgContent->BringWindowToTop();
+		}
+	}
+}
+
+void CPublishWayOneDlg::ShowNumberDialog(int nCtrlID)
+{
+	CNumberDlg *pDlgNumber = new CNumberDlg(this, GetDlgItem(nCtrlID));
+	if (pDlgNumber && pDlgNumber->Create(IDD_DIALOG_NUMBER, this))
+	{
+		pDlgNumber->ShowWindow(SW_SHOW);
+		pDlgNumber->BringWindowToTop();
+	}
 }
