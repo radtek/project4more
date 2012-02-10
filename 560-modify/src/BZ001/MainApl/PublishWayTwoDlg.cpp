@@ -32,6 +32,8 @@ CPublishWayTwoDlg::CPublishWayTwoDlg(CWnd* pParent /*=NULL*/)
 	, withMobile2(FALSE)
 	, longTimeAvailable(FALSE)
 	, rememberRepubSetting(FALSE)
+	, provSelected("")
+	, citySelected("")
 {
 	publishKind = 0;
 }
@@ -176,6 +178,12 @@ void CPublishWayTwoDlg::initControlValue()
 	priceListValue = "";
 	previewAppendValue = "";
 
+	if ( provSelected != "" && citySelected != "" )
+	{
+		m_strProvinceFrom = provSelected;
+		m_strCityFrom = citySelected;
+		m_strCountyFrom = NO_LIMIT_STRING;
+	}
 	m_strProvinceFrom = userInfo.province.c_str();
 	if( IsSpecialProvince(m_strProvinceFrom) )
 	{

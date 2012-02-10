@@ -459,6 +459,10 @@ BOOL CWLRClientDlg::OnInitDialog()
 		
 	//SetTimer(1,50,NULL);
 	//svrIONew = svrIO;
+
+	provSelected = "";
+	citySelected = "";
+
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -1245,6 +1249,9 @@ void CWLRClientDlg::OnTvnSelchangedTreeMain(NMHDR *pNMHDR, LRESULT *pResult)
         return;
 
 	//MessageBox("您选中的是:" + parStr + " " + strSelect);
+
+	provSelected = parStr;
+	citySelected = strSelect;
     
     if(m_curTabType == GOODS/* || m_curTabType == SEARCH_GOODS || m_curTabType == CLICK_SEARCH_GOODS*/) {
         InClickSearch tmp;
@@ -4260,6 +4267,8 @@ void CWLRClientDlg::OnBnClickedButtonPubWayOne()
 	dlg.myCR = &myCR;
 	dlg.userInfo = svrIOPub.userInf;
 	dlg.publishKind = m_curTabType == GOODS?0:1;
+	dlg.provSelected = provSelected;
+	dlg.citySelected = citySelected;
 	if( dlg.DoModal() == IDOK )
 	{
 		string result;
@@ -4324,6 +4333,8 @@ void CWLRClientDlg::OnBnClickedButtonPubWayTwo()
 	dlg.myCR = &myCR;
 	dlg.userInfo = svrIOPub.userInf;
 	dlg.publishKind = m_curTabType == GOODS?0:1;
+	dlg.provSelected = provSelected;
+	dlg.citySelected = citySelected;
 	if( dlg.DoModal() == IDOK )
 	{
 		string result;

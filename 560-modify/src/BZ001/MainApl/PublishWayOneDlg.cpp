@@ -35,6 +35,8 @@ CPublishWayOneDlg::CPublishWayOneDlg(CWnd* pParent /*=NULL*/)
 	, preview(_T(""))
 	, shipTimeValue(_T(""))
 	, repubSettingValue(_T(""))
+	, provSelected("")
+	, citySelected("")
 {
 	publishKind = 0;
 	pRecord = NULL;
@@ -198,18 +200,27 @@ void CPublishWayOneDlg::initControlValue()
 
 	withMobile2 = mobile2.IsEmpty()?FALSE:TRUE;
 
-	m_strProvinceFrom = userInfo.province.c_str();
-	if( IsSpecialProvince(m_strProvinceFrom) )
+	if ( provSelected != "" && citySelected != "" )
 	{
-		m_strCityFrom = m_strProvinceFrom;
-	}
-	if( userInfo.province != userInfo.city )
-	{
-		m_strCountyFrom = userInfo.city.c_str();
+		m_strProvinceFrom = provSelected;
+		m_strCityFrom = citySelected;
+		m_strCountyFrom = NO_LIMIT_STRING;
 	}
 	else
 	{
-		m_strCountyFrom = NO_LIMIT_STRING;
+		m_strProvinceFrom = userInfo.province.c_str();
+		if( IsSpecialProvince(m_strProvinceFrom) )
+		{
+			m_strCityFrom = m_strProvinceFrom;
+		}
+		if( userInfo.province != userInfo.city )
+		{
+			m_strCountyFrom = userInfo.city.c_str();
+		}
+		else
+		{
+			m_strCountyFrom = NO_LIMIT_STRING;
+		}
 	}
 
 	truckCountValue = "1";
@@ -713,6 +724,24 @@ BOOL CPublishWayOneDlg::CheckGoodsInfo()
 		return FALSE;
 	}
 
+	if ( !CheckNumberString(goodsCountValue) )
+	{
+		MessageBox("货物数量应为数字");//, "发布货源");
+		return FALSE;
+	}
+
+	if ( !CheckNumberString(truckCountValue) )
+	{
+		MessageBox("车辆数量应为数字");//, "发布货源");
+		return FALSE;
+	}
+
+	if ( !CheckNumberString(priceCountValue) )
+	{
+		MessageBox("价格应为数字");//, "发布货源");
+		return FALSE;
+	}
+
 	return TRUE;
 }
 
@@ -805,6 +834,24 @@ BOOL CPublishWayOneDlg::CheckTruckInfo()
 	if ( truckLengthValue == "" )
 	{
 		MessageBox("请选择车辆长度");//, "发布车源");
+		return FALSE;
+	}
+
+	if ( !CheckNumberString(goodsCountValue) )
+	{
+		MessageBox("货物数量应为数字");//, "发布货源");
+		return FALSE;
+	}
+
+	if ( !CheckNumberString(truckCountValue) )
+	{
+		MessageBox("车辆数量应为数字");//, "发布货源");
+		return FALSE;
+	}
+
+	if ( !CheckNumberString(priceCountValue) )
+	{
+		MessageBox("价格应为数字");//, "发布货源");
 		return FALSE;
 	}
 

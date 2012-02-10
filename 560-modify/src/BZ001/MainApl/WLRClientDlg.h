@@ -387,4 +387,7 @@ public:
 private:
 	void  FillGoodsSearchCriteria(const CSearchCriteria*, InSearchGoods& goodsSearch);
 	void  FillCarSearchCriteria(const CSearchCriteria*, InSearchCars& goodsSearch);
+
+	CString	provSelected;
+	CString citySelected;
 };

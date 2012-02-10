@@ -723,6 +723,27 @@ void CPubGoodsDlg::OnBnClickedOk()
 		return;
 	}
 
+	if ( !CheckNumberString(weight) )
+	{
+		MessageBox("重量应为数字");
+		ifOK = false;
+		return;
+	}
+
+	if ( !CheckNumberString(cubage) )
+	{
+		MessageBox("体积应为数字");
+		ifOK = false;
+		return;
+	}
+
+	if ( !CheckNumberString(carNum) )
+	{
+		MessageBox("车辆数应为数字");
+		ifOK = false;
+		return;
+	}
+
 	/*if (price != "")
 	{
 		//if(cprice != "")
