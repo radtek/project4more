@@ -1085,3 +1085,20 @@ void FormatCarsSearchString(const InSearchCars& carsSearch, string& sCarsSearch)
 	//whether match all
 	sCarsSearch += carsSearch.bMatchAll?"|ALL":"|ANY";
 }
+
+BOOL CheckNumberString(CString str, BOOL required/*=FALSE*/)
+{
+	if ( str.GetLength() == 0 )
+	{
+		return !required;
+	}
+	int temp = atoi(str);
+	if ( 0 == temp )
+	{
+		if ( "0" != str )
+		{
+			return FALSE;
+		}
+	}
+	return TRUE;
+}

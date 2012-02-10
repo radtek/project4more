@@ -111,6 +111,9 @@ public:		// value variables
 	CountryRegion *myCR;
 	UserInfo userInfo;
 
+	CString provSelected;
+	CString	citySelected;
+
 private:
 
 	BOOL				bPreview;

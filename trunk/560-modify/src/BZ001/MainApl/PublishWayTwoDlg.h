@@ -130,6 +130,9 @@ public:
 
 	CString previewAppendValue;
 
+	CString provSelected;
+	CString	citySelected;
+
 private:
 	CPublishRecord*		pRecord;
 

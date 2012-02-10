@@ -87,4 +87,6 @@ void FormatCarsSearchString(const InSearchCars& goodsSearch, string& sCarsSearch
 
 void InitCommData();
 
+BOOL CheckNumberString(CString str, BOOL required=FALSE);
+
 #endif
