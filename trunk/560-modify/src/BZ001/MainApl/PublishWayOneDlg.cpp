@@ -200,10 +200,10 @@ void CPublishWayOneDlg::initControlValue()
 
 	withMobile2 = mobile2.IsEmpty()?FALSE:TRUE;
 
-	if ( provSelected != "" && citySelected != "" )
+	if ( provSelected != "" /*&& citySelected != "" */)
 	{
 		m_strProvinceFrom = provSelected;
-		m_strCityFrom = citySelected;
+		m_strCityFrom = citySelected.IsEmpty()?NO_LIMIT_STRING:citySelected;
 		m_strCountyFrom = NO_LIMIT_STRING;
 	}
 	else
@@ -212,15 +212,21 @@ void CPublishWayOneDlg::initControlValue()
 		if( IsSpecialProvince(m_strProvinceFrom) )
 		{
 			m_strCityFrom = m_strProvinceFrom;
-		}
-		if( userInfo.province != userInfo.city )
-		{
-			m_strCountyFrom = userInfo.city.c_str();
+			if( userInfo.province != userInfo.city )
+			{
+				m_strCountyFrom = userInfo.city.c_str();
+			}
+			else
+			{
+				m_strCountyFrom = NO_LIMIT_STRING;
+			}
 		}
 		else
 		{
+			m_strCityFrom = user.city.c_str();
 			m_strCountyFrom = NO_LIMIT_STRING;
 		}
+		
 	}
 
 	truckCountValue = "1";

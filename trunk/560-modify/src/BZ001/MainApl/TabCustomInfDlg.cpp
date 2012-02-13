@@ -880,7 +880,12 @@ HH:     string result;
 				m_NewAddGoods +="->";
 				m_NewAddGoods +=tmp.endProvince.c_str();
 				m_NewAddGoods +=tmp.endCity.c_str();
-                setGoods();
+                //setGoods();
+				//((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->refreshCustomGoods();
+				HANDLE Main_Thread;
+				nCustom = 21;
+				Main_Thread=CreateThread(NULL,0,ThreadFuncMy,this,0,NULL);
+				CloseHandle(Main_Thread);
             } else {
 				m_NewAddCars ="";
 				m_NewAddCars += tmp.startProvince.c_str();
@@ -888,7 +893,12 @@ HH:     string result;
 				m_NewAddCars +="->";
 				m_NewAddCars +=tmp.endProvince.c_str();
 				m_NewAddCars +=tmp.endCity.c_str();
-                setCars();
+                //setCars();
+				//((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->refreshCustomCars();
+				HANDLE Main_Thread;
+				nCustom = 22;
+				Main_Thread=CreateThread(NULL,0,ThreadFuncMy,this,0,NULL);
+				CloseHandle(Main_Thread);
             }            
         } else {
             MessageBox(result.c_str(),"增加定制区域");
@@ -910,9 +920,9 @@ void CTabCustomInfDlg::OnBnClickedTabCustomDelete()
 	try
 	{
 		if (curType == 0) {
-			id = svrIO->hyZoneInf.at(index).id;
+			id = zoneInfHY.at(index).id;
 		} else {
-			id = svrIO->cyZoneInf.at(index).id;
+			id = zoneInfCY.at(index).id;
 		}
 	}
 	catch (...)
@@ -945,9 +955,19 @@ string result;
         curInput.customid = "-1";
 
         if (curType == 0) {
-            setGoods();
+        //    setGoods();
+			HANDLE Main_Thread;
+			nCustom = 21;
+			Main_Thread=CreateThread(NULL,0,ThreadFuncMy,this,0,NULL);
+			CloseHandle(Main_Thread);
+			
         } else {
-            setCars();
+            //setCars();
+			//((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->refreshCustomCars();
+			HANDLE Main_Thread;
+			nCustom = 22;
+			Main_Thread=CreateThread(NULL,0,ThreadFuncMy,this,0,NULL);
+			CloseHandle(Main_Thread);
         }            
     } else {
         MessageBox(result.c_str(),"删除定制区域");
@@ -1057,17 +1077,30 @@ DWORD CTabCustomInfDlg::ThreadFuncMy(LPVOID p)
 			break;
 
 		case 20:
-			string result = dlg->svrIO->sendPhoneMessage(dlg->sphonenum,dlg->sphonetext);
-			// 
-			LeaveCriticalSection(&csPrintMore);
+			{
+				string result = dlg->svrIO->sendPhoneMessage(dlg->sphonenum,dlg->sphonetext);
+				// 
+				LeaveCriticalSection(&csPrintMore);
+				LeaveCriticalSection(&csPrintCustom);
+				CoUninitialize();
 
-			if (result == "TRUE") {
-				AfxMessageBox("短信发送成功！");
-			} else {
-				AfxMessageBox(result.c_str());
+				if (result == "TRUE") {
+					AfxMessageBox("短信发送成功！");
+				} else {
+					AfxMessageBox(result.c_str());
+				}
 			}
 			return 0;
-			break;
+		case 21:
+			((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->refreshCustomGoods();
+			LeaveCriticalSection(&csPrintCustom);
+			CoUninitialize();
+			return 0;
+		case 22:
+			((CWLRClientDlg*)AfxGetApp()->GetMainWnd())->refreshCustomCars();
+			LeaveCriticalSection(&csPrintCustom);
+			CoUninitialize();
+			return 0;
 
 		}
 		if (nstat == 0)

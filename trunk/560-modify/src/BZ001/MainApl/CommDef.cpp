@@ -1086,7 +1086,7 @@ void FormatCarsSearchString(const InSearchCars& carsSearch, string& sCarsSearch)
 	sCarsSearch += carsSearch.bMatchAll?"|ALL":"|ANY";
 }
 
-BOOL CheckNumberString(CString str, BOOL required/*=FALSE*/)
+BOOL CheckNumberString(const CString& str, BOOL required/*=FALSE*/)
 {
 	if ( str.GetLength() == 0 )
 	{

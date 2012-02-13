@@ -238,6 +238,9 @@ int CPubSpecialDlg::initStartPoint()
     if (myCR == NULL) {
         return -1;
     }
+	
+	string sStartProv = provSelected.IsEmpty()?userInfo.province:(LPCTSTR)provSelected;
+	string sStartCity = citySelected.IsEmpty()?userInfo.city:(LPCTSTR)citySelected;
 
     vector<Province>::iterator iter = myCR->govProvince.begin();
 	int i = 0;
@@ -245,12 +248,12 @@ int CPubSpecialDlg::initStartPoint()
 	int defaultShiSel = 0;
     while (iter != myCR->govProvince.end()) {
 		combStProvince.AddString((*iter).name.c_str());
-		if(0 == (*iter).name.compare(userInfo.province)) { // 找到当前用户所在省
+		if(0 == (*iter).name.compare(sStartProv)) { // 找到当前用户所在省
 			int j = 0;
 			vector<City>::iterator iter2 = (*iter).govCity.begin();
 			while (iter2 != (*iter).govCity.end()) {
 				combStCity.AddString((*iter2).name.c_str());
-				if(0 == (*iter2).name.compare(userInfo.city)) { // 找到当前用户所在市
+				if(0 == (*iter2).name.compare(sStartCity)) { // 找到当前用户所在市
 					vector<County>::iterator iter3 = (*iter2).govCounty.begin();
 					while (iter3 != (*iter2).govCounty.end()) {
 						combStCounty.AddString((*iter3).name.c_str());
@@ -298,22 +301,34 @@ void CPubSpecialDlg::OnBnClickedOk()
     bool ifOK = true;
     // 判断必填字段
     if (enProvince == "" || enCity == "" || enCounty == "") {
-        MessageBox("目的地不能为空", "发布专线");
+        MessageBox("目的地不能为空");
         ifOK = false;
         return;
     }
 
     if (weightPrice == "") {
-        MessageBox("重货价格不能为空", "发布专线");
+        MessageBox("重货价格不能为空");
         ifOK = false;
         return;
     }
+	if( !CheckNumberString(weightPrice) )
+	{
+		MessageBox("重货价格应为数字");
+		ifOK = false;
+		return;
+	}
 
     if (lightPrice == "") {
-        MessageBox("泡货价格不能为空", "发布专线");
+        MessageBox("泡货价格不能为空");
         ifOK = false;
         return;
     }
+	if( !CheckNumberString(lightPrice) )
+	{
+		MessageBox("泡货价格应为数字");
+		ifOK = false;
+		return;
+	}
 
     if (information == "") {
         MessageBox("信息发布不能为空", "发布专线");
