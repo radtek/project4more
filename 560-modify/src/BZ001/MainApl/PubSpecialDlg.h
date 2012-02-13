@@ -37,6 +37,8 @@ private:
 	int initEndPoint();
 // } 
 public:
+	CString provSelected;
+	CString	citySelected;
     // 出发地省
     CComboBox combStProvince;
     CString stProvince;

@@ -179,6 +179,9 @@ public:
 	ServerIO svrIOPub;
 	// 刷新当前显示
 	void refreshShow();
+
+	void refreshCustomGoods();
+	void refreshCustomCars();
 private:
 
     // 是否显示电话

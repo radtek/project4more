@@ -292,6 +292,25 @@ void CPubCarsDlg::OnBnClickedPubGoodsPreviewBtn()
 		MessageBox("载重不能为空", "发布车源");
 		return;
 	}
+	if ( !CheckNumberString(weight) )
+	{
+		MessageBox("重量应为数字");
+		
+		return;
+	}
+
+	if ( !CheckNumberString(cubage) )
+	{
+		MessageBox("体积应为数字");
+		return;
+	}
+
+	if ( !CheckNumberString(carNum) )
+	{
+		MessageBox("车辆数应为数字");
+		return;
+	}
+
 	bPreview = TRUE;
 // 
 // 	preview = "【" + stProvince + stCity + stCounty
@@ -573,18 +592,21 @@ int CPubCarsDlg::initStartPoint()
         return -1;
     }
 
+	string sStartProv = provSelected.IsEmpty()?userInfo.province:(LPCTSTR)provSelected;
+	string sStartCity = citySelected.IsEmpty()?userInfo.city:(LPCTSTR)citySelected;
+
     vector<Province>::iterator iter = myCR->govProvince.begin();
 	int i = 0;
 	int defaultShengSel = 0;
 	int defaultShiSel = 0;
     while (iter != myCR->govProvince.end()) {
 		combStProvince.AddString((*iter).name.c_str());
-		if(0 == (*iter).name.compare(userInfo.province)) { // 找到当前用户所在省
+		if(0 == (*iter).name.compare(sStartProv)) { // 找到当前用户所在省
 			int j = 0;
 			vector<City>::iterator iter2 = (*iter).govCity.begin();
 			while (iter2 != (*iter).govCity.end()) {
 				combStCity.AddString((*iter2).name.c_str());
-				if(0 == (*iter2).name.compare(userInfo.city)) { // 找到当前用户所在市
+				if(0 == (*iter2).name.compare(sStartCity)) { // 找到当前用户所在市
 					vector<County>::iterator iter3 = (*iter2).govCounty.begin();
 					while (iter3 != (*iter2).govCounty.end()) {
 						combStCounty.AddString((*iter3).name.c_str());

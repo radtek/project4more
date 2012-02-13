@@ -1246,13 +1246,21 @@ void CWLRClientDlg::OnTvnSelchangedTreeMain(NMHDR *pNMHDR, LRESULT *pResult)
     CString parStr = mTreeMain.GetItemText(parentHtm);
 
     if (parStr==_T("中国")||parStr==_T(""))
-        return;
-
-	//MessageBox("您选中的是:" + parStr + " " + strSelect);
+	{
+		if( strSelect != _T("中国") )
+		{
+			provSelected = strSelect;
+			citySelected = NO_LIMIT_STRING;
+		}
+		return;
+	}
 
 	provSelected = parStr;
 	citySelected = strSelect;
-    
+
+
+	//MessageBox("您选中的是:" + parStr + " " + strSelect);
+
     if(m_curTabType == GOODS/* || m_curTabType == SEARCH_GOODS || m_curTabType == CLICK_SEARCH_GOODS*/) {
         InClickSearch tmp;
         tmp.province = (LPTSTR)(LPCTSTR)parStr;
@@ -2753,6 +2761,8 @@ int CWLRClientDlg::pubGoodsInf()
     CPubGoodsDlg dlg;
     dlg.myCR = &myCR;
     dlg.userInfo = svrIOPub.userInf;
+	dlg.provSelected = provSelected;
+	dlg.citySelected = citySelected;
     if (dlg.DoModal() == IDOK) {
 		string result;
 		try
@@ -2842,6 +2852,8 @@ int CWLRClientDlg::pubCarsInf()
     CPubCarsDlg dlg;
     dlg.myCR = &myCR;
     dlg.userInfo = svrIOPub.userInf;
+	dlg.provSelected = provSelected;
+	dlg.citySelected = citySelected;
     if (dlg.DoModal() == IDOK) {  
 		string result;
 		try
@@ -2887,6 +2899,8 @@ int CWLRClientDlg::pubSpecialLineInf()
     CPubSpecialDlg dlg;
     dlg.myCR = &myCR;
     dlg.userInfo = svrIOPub.userInf;
+	dlg.provSelected = provSelected;
+	dlg.citySelected = citySelected;
     if (dlg.DoModal() == IDOK) {   
 		string result;
 		try
@@ -3003,6 +3017,132 @@ void CWLRClientDlg::refreshShow()
 		//AfxMessageBox("1");
 	}
 
+}
+
+void CWLRClientDlg::refreshCustomGoods()
+{
+	EnterCriticalSection(&csPrint);
+	try 
+	{
+		if (svrIO.getUserCustomInfHY() == "TRUE")
+		{
+			zoneInfHY = svrIO.hyZoneInf;								
+		}
+		else
+		{
+			zoneInfHY.clear();
+		}
+		sort(zoneInfHY.begin(),zoneInfHY.end(),greatermark);
+
+		while(1)
+		{
+start:
+			if (nHysize > zoneInfHY.size())
+			{
+				nHysize = 1;
+				if(showtype == CustomGood)
+					::SendMessage(GetSafeHwnd(),WM_SENDFRESH,0,0);
+				break;
+
+			}
+			//for (int j = 0;j<zoneInfHY.size();j++)
+			{
+				int i = 90;//初始化大小，用于判断是否收取完全或者断线
+				try 
+				{
+					inputParam curInput;
+					curInput.curpage =1;
+					curInput.record = RECORD_NUM;
+					curInput.customid = zoneInfHY.at(nHysize-1).id;
+					//
+					i = svrIO.getCustomGoodsInf(contentDataDZHY[nHysize-1], curInput);
+					while (1)
+					{
+						if (i==0)//数据接收完全
+						{
+							if(showtype == CustomGood)
+								::SendMessage(GetSafeHwnd(),WM_SENDFRESH,0,0);
+							nHysize++;
+							goto start;
+						}
+						Sleep(100);
+					}
+					break;
+				}
+				catch (...)
+				{
+				}
+			}
+			break;
+		}
+		
+	}
+	catch (...)
+	{
+
+	}
+	LeaveCriticalSection(&csPrint);
+
+}
+void CWLRClientDlg::refreshCustomCars()
+{
+
+	EnterCriticalSection(&csPrint);
+	try
+	{
+		if (svrIO.getUserCustomInfCY() == "TRUE")
+		{
+			zoneInfCY = svrIO.cyZoneInf;
+		}
+		else
+		{
+			zoneInfCY.clear();
+		}
+		sort(zoneInfCY.begin(),zoneInfCY.end(),greatermark);
+		while(1)
+		{
+start1:
+			if (nCysize > zoneInfCY.size())
+			{
+				nCysize = 1;
+				if(showtype == CustomCar)
+					::SendMessage(GetSafeHwnd(),WM_SENDFRESH,0,0);
+				break;
+
+			}
+			//for (int j = 0;j<zoneInfHY.size();j++)
+			{
+				int i = 90;//初始化大小，用于判断是否收取完全或者断线
+
+				inputParam curInput;
+				curInput.curpage =1;
+				curInput.record = RECORD_NUM;
+				curInput.customid = zoneInfCY.at(nCysize-1).id;
+				//AfxMessageBox(curInput.customid.c_str());
+				i = svrIO.getCustomCarsInf(contentDataDZCY[nCysize-1], curInput);
+				while (1)
+				{
+					if (i==0)//数据接收完全
+					{
+						if(showtype == CustomCar)
+							::SendMessage(GetSafeHwnd(),WM_SENDFRESH,0,0);
+						nCysize++;
+						goto start1;
+						//continue;
+					}
+					Sleep(100);
+				}
+				break;
+			}
+
+		}
+	}
+	catch(...)
+	{
+
+	}
+
+	LeaveCriticalSection(&csPrint);
 }
     
 // 定时器
@@ -4160,7 +4300,7 @@ void CWLRClientDlg::OpenWebPage(string & url,string &title)
 		dlg->ShowWindow(TRUE);
 		dlg->SetWindowPos(NULL,0,0,nFullWidth,nFullHeight-29,SWP_SHOWWINDOW);
 	}
-	OnClose();
+	//OnClose();
 }
 
 //我的账户
