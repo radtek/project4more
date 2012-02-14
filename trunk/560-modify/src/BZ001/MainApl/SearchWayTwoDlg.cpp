@@ -433,7 +433,7 @@ void CSearchWayTwoDlg::OnBnClickedButtonSw2AddAllCounty()
 	for(int i = 0; i<nCount; ++i)
 	{
 		m_listToCounty.GetText(i, sCounty);
-		AddEndAddr(m_sSelStartProv, sCity, sCounty);
+		AddEndAddr(m_sSelEndProv, sCity, sCounty);
 
 		int nItemIndex = m_listCriteria.FindString(-1, sCounty);
 		if( nItemIndex == LB_ERR || (m_listCriteria.GetItemData(nItemIndex)&0xffff0000) != (nItemData&0xffff0000) )
